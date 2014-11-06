@@ -8,4 +8,8 @@ class StaticPagesController < ApplicationController
 
   def order
   end
+
+  def help
+  end
+  
 end
