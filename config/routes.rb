@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   get 'users/new'
 
-  get 'static_pages/order'
+  get 'order' => 'static_pages#order'
   get 'help' => 'static_pages#help'  
   get 'static_pages/home'
   get 'overview'   => 'static_pages#overview'
