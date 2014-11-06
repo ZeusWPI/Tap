@@ -1,5 +1,6 @@
 <% @users.each do |user| %>
-<tr class="clickableRow" href= "order" >
+
+<tr class="clickableRow" href= <%= "order"%> >
   <td><%= user.id %></td>
   <td><%= user.name %></td>
   <td><% user.marks.times do  %>

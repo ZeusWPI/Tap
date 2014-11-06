@@ -1,20 +1,28 @@
 Rails.application.routes.draw do
   
+  get 'orders/new'
+
   root  'static_pages#home'
 
   get 'sessions/new'
 
   get 'users/new'
 
-  get 'order' => 'static_pages#order'
+ 
   get 'help' => 'static_pages#help'  
   get 'static_pages/home'
   get 'overview'   => 'static_pages#overview'
   get 'static_pages/overview'
 
+  #order stuff
+  get    'order'   => 'orders#new'
+  post   'order'   => 'orders#create'
+  delete 'chaos'  => 'orders#destroy'
 
+
+
+  #account stuff
   get    'signup'  => 'users#new'
-
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
