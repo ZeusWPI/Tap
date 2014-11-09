@@ -42,3 +42,11 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin , :x64_mingw]
 
 #bootstrap
 gem 'bootstrap-sass',       '3.2.0.0'
+
+
+#generate data 
+gem 'faker',                '1.4.2'
+
+#paginate stuff
+gem 'will_paginate',           '3.0.7'
+gem 'bootstrap-will_paginate', '0.0.10'

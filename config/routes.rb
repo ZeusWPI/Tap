@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   
-  get 'orders/new'
+  get 'orders/show'
 
   root  'static_pages#home'
 

@@ -1,1 +1,20 @@
-<%= @user.name %>, <%= @user.marks %>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <h1>
+        
+        <%= @user.name %>
+        <%= @user.marks %>
+      </h1>
+    </section>
+  </aside>
+  <div class="col-md-8">
+    <% if @user.orders.any? %>
+      <h3>Orders (<%= @user.orders.count %>)</h3>
+      <ol class="orders">
+        <%= render @orders %>
+      </ol>
+      <%= will_paginate @orders %>
+    <% end %>
+  </div>
+</div>
