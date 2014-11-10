@@ -11,9 +11,11 @@ class OrdersController < ApplicationController
 
   def show
   	@user = User.find(params[:id])
+    @order = selected_user.orders.build
   end
 
   def create
+
 		@order = current_user.orders.build(order_params)
     if @order.save
       #@flash[:success] = "Micropost created!"
