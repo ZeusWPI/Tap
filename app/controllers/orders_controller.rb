@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-	before_action :logged_in_user, only: [:create, :destroy]
+	before_action :logged_in_user, only: [ :destroy]
 
   def new
     
@@ -11,12 +11,12 @@ class OrdersController < ApplicationController
 
   def show
   	@user = User.find(params[:id])
-    @order = selected_user.orders.build
+    @order = @user.orders.build
   end
 
   def create
-
-		@order = current_user.orders.build(order_params)
+    user = User.find( 3) #MUST BE FIXED
+    @order = user.orders.build(order_params)
     if @order.save
       #@flash[:success] = "Micropost created!"
       redirect_to root_url
