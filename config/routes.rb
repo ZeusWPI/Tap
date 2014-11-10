@@ -39,6 +39,8 @@ Rails.application.routes.draw do
 
   resources :users
   resources :orders
+
+  #product
   resources :products
 
   # The priority is based upon order of creation: first created -> highest priority.

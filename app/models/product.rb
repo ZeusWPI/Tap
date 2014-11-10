@@ -6,6 +6,6 @@ class Product < ActiveRecord::Base
       self.name  ||= "FOOBAR"      
       self.sale_price ||= 0
       self.purchase_price ||= 0
-      self.image_path = "/" #paperclip gem
+      self.image_path ||= "/" #paperclip gem
     end
 end

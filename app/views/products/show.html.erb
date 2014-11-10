@@ -1,5 +1,8 @@
 <h1>Products#show</h1>
 <p>Find me in app/views/products/show.html.erb</p>
 name: <%= @product.name %></br>
-verkoop prijs: <%= @product.sale_price %> EUR</br>
-aankoop prijs: <%= @product.purchase_price %> EUR</br>
+verkoop prijs: <%= @product.sale_price %> EUR cent</br>
+aankoop prijs: <%= @product.purchase_price %> EUR cent</br>
+
+
+<%= link_to "Edit", edit_product_path(@product), class: "btn btn-lg btn-primary" %>
