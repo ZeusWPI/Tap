@@ -1,6 +1,7 @@
 <% @users.each do |user| %>
 
-<tr class="clickableRow" href= <%= "order"%> >
+<% link = 'orders/' + user.id.to_s %> 
+<tr class="clickableRow" href= <%= link %> >
   <td><%= user.id %></td>
   <td><%= user.name %></td>
   <td><% user.marks.times do  %>

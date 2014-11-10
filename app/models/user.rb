@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 	def init
       self.marks  ||= 0         
       self.role ||= "user"
-    end
+  end
 
   def feed
     # This is preliminary. See "Following users" for the full implementation.

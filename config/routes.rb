@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
   
+  get 'products/new'
+
+  get 'products/show'
+
+  get 'products/create'
+
+  get 'products/edit'
+
   get 'orders/show'
 
   root  'static_pages#home'
@@ -30,6 +38,8 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
 
   resources :users
+  resources :orders
+  resources :products
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
