@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   post   'order'   => 'orders#create'
   delete 'chaos'  => 'orders#destroy'
 
+  resources :orders,  only: [:create, :destroy]
+
 
 
   #account stuff

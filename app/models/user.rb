@@ -10,5 +10,9 @@ class User < ActiveRecord::Base
       self.role ||= "user"
     end
 
+  def feed
+    # This is preliminary. See "Following users" for the full implementation.
+    Order.where("user_id = ?", id)
+  end
 
 end
