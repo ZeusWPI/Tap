@@ -1,13 +1,22 @@
 <div class="row">
   <aside class="col-md-4">
     <section class="user_info">
-      <h1>
-        
-        <%= @user.name %>
-        <%= @user.marks %>
-      </h1>
+      <h1>Name: <%= @user.name %></h1>
+      <h1>Last name: <%= @user.last_name %></h1>
+      <h1>Nickname: <%= @user.nickname %></h1>
+      <h1>Balance: <%= @user.balance %></h1>
+      <h1>User id: <%= @user.id %></h1>
+      <% if ordering? %>
+        <h1>Ordering!</h1>
+      <% else  %>
+        <h1>Not ordering!</h1>
+      <% end %>
+      <%= link_to "End order", end_order_path, method: "delete" %>
+
+
     </section>
   </aside>
+
   <div class="col-md-8">
     <% if @user.orders.any? %>
       <h3>Orders (<%= @user.orders.count %>)</h3>

@@ -1,29 +1,37 @@
 class OrdersController < ApplicationController
-	before_action :logged_in_user, only: [ :destroy]
-
   def new
-    
+    @users = User.all
+  end
+
+  def create_session
+    user = User.find(params[:user_id])
+    if user
+      ordering(user)
+      redirect_to order_path
+    else
+      redirect_to overview_path
+    end
+  end
+
+  def order
+    @order = current_ordering_user.orders.build
+  end
+
+
+  def create
+    @order = current_ordering_user.orders.build(order_params)
+    if @order.save
+      flash[:success] = "order created!"
+      end_order
+      redirect_to overview_path
+    else
+      redirect_to overview_path
+    end
   end
 
   def destroy
-  end
-
-
-  def show
-  	@user = User.find(params[:id])
-    @order = @user.orders.build
-  end
-
-  def create
-    user = User.find( 3) #MUST BE FIXED
-    @order = user.orders.build(order_params)
-    if @order.save
-      #@flash[:success] = "Micropost created!"
-      redirect_to root_url
-    else
-      @logs = []
-      render 'static_pages/home'
-    end
+    end_order
+    redirect_to overview_path
   end
 
   private
@@ -31,6 +39,4 @@ class OrdersController < ApplicationController
     def order_params
       params.require(:order).permit(:products)
     end
-  
-
 end

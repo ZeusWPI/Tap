@@ -1,18 +1,13 @@
 class User < ActiveRecord::Base
-	has_many :orders, dependent: :destroy
-	after_initialize :init
+  has_many :orders
+  before_save :init
 
-	validates :name, presence: true, length: { maximum: 50 },
-					 uniqueness: true
 
-	def init
-      self.marks  ||= 0         
-      self.role ||= "user"
+
+  def init
+    self.balance ||= 0
   end
 
-  def feed
-    # This is preliminary. See "Following users" for the full implementation.
-    Order.where("user_id = ?", id)
-  end
 
+  has_secure_password
 end

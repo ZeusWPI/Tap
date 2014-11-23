@@ -11,32 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141110141100) do
+ActiveRecord::Schema.define(version: 20141123151756) do
 
   create_table "orders", force: true do |t|
-    t.text     "products"
     t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "products"
+    t.integer  "cost"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "orders", ["user_id", "created_at"], name: "index_orders_on_user_id_and_created_at"
   add_index "orders", ["user_id"], name: "index_orders_on_user_id"
 
-  create_table "products", force: true do |t|
-    t.string   "name"
-    t.integer  "sale_price"
-    t.integer  "purchase_price"
-    t.string   "image_path"
-    t.string   "type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "users", force: true do |t|
     t.string   "name"
-    t.integer  "marks"
-    t.string   "role"
+    t.string   "last_name"
+    t.integer  "balance"
+    t.string   "nickname"
+    t.string   "password_digest"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

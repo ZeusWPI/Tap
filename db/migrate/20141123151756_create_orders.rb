@@ -1,10 +1,11 @@
 class CreateOrders < ActiveRecord::Migration
   def change
     create_table :orders do |t|
-      t.text :products
       t.references :user, index: true
+      t.string :products
+      t.integer :cost
 
-      t.timestamps
+      t.timestamps null: false
     end
     add_index :orders, [:user_id, :created_at]
   end

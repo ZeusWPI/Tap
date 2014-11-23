@@ -1,5 +1,5 @@
-<%= form_for(@order) do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
+<%= current_ordering_user.name %>
+<%= form_for @order do |f| %>
   <div class="field">
     <%= f.text_area :products, placeholder: "Compose new order..." %>
   </div>

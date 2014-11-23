@@ -1,3 +1,17 @@
-<h1>Orders#new</h1>
-<p>Find me in app/views/orders/new.html.erb</p>
-<p>In opbouw!</p>
+
+<ul class="users">
+  <% @users.each do |user| %>
+    <li>
+
+      <%= form_for overview_path do |f| %>
+        <%= hidden_field_tag 'user_id', user.id  %>
+
+        <%= f.submit user.name , class: "btn btn-primary" %>
+      <% end %>
+
+    </li>
+
+
+
+  <% end %>
+</ul>
