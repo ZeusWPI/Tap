@@ -1,7 +1,89 @@
 <%= current_ordering_user.name %>
+
+<% @products.each do |p| %>
+  <%#= render "orders/order_button" %>
+
+  <!-- dit moet in een andere file -->
+  <button class="btn btn-default product-btn"
+          data-name= '<%= p.name  %>'
+          date-price= '<%= p.sale_price %>'>
+    <%= p.name %>
+  </button>
+  <!-- tot hier -->
+
+<% end %>
+
+
+
+
+
 <%= form_for @order do |f| %>
   <div class="field">
-    <%= f.text_area :products, placeholder: "Compose new order..." %>
+    <%= f.text_area :products , placeholder: "dit zou een hidden field moeten zijn met product JSON..." %>
   </div>
-  <%= f.submit "Order", class: "btn btn-primary" %>
+  <%#= hidden_field_tag "products", "return_products_string"  %>
+  <div class="hidden"></div>
+
+  <%= f.submit "Order", class: "btn btn-primary " %>
 <% end %>
+
+
+<div style="padding-top: 50px;" class="order_list ">
+  <p>
+    Nothing ordered yet!
+  </p>
+</div>
+
+
+
+<script charset="utf-8">
+
+  var products = {};
+  //var product_number = 0;
+
+
+
+  $(document).ready(function() {
+
+    //Making/adding orderlist/JSON
+    $('.product-btn').click(function() {
+      //product_number++;
+      var name = $(this).data('name');
+      var price = $(this).data('price');
+
+      if(products.hasOwnProperty(name)){
+        products[name].number_of++;
+      } else{
+        products[name] = {
+          name : name,
+          price : price,
+          number_of: 1
+        }
+      }
+      update();
+    });
+
+
+
+
+    //updates the orderlist view
+    var update = function(){
+      $('.order_list').empty().append("<p>Ordered: </p>"  );
+      jQuery.each(products, function(i, product) {
+        $(".order_list").append("<p> - "+ i +": "+ product.number_of +"</p>");
+      });
+      //$('.hidden').empty().append("<input id='products' name='products' type='hidden' value='test' />")
+
+    }
+
+
+
+
+  });
+
+
+
+
+
+
+</script>

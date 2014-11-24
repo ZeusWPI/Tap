@@ -1,14 +1,20 @@
 Rails.application.routes.draw do
 
-
   root "users#index"
 
   resources :users
+  resources :products
 
   get    'overview'   => 'orders#new'
   post   'overview'   => 'orders#create_session'
   delete 'end_order'  => 'orders#destroy'
 
+  #products
+  get 'products'  => 'products#new'
+  post 'products' => 'products#create'
+
+
+  #orders
   get 'order' => 'orders#order'
   post 'orders' => 'orders#create'
 

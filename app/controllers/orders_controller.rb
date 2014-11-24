@@ -15,13 +15,14 @@ class OrdersController < ApplicationController
 
   def order
     @order = current_ordering_user.orders.build
+    @products = Product.all
   end
 
 
   def create
     @order = current_ordering_user.orders.build(order_params)
     if @order.save
-      flash[:success] = "order created!"
+      #flash[:success] = "order created!"
       end_order
       redirect_to overview_path
     else
