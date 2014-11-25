@@ -3,11 +3,7 @@ Rails.application.routes.draw do
   root "users#index"
 
   resources :users do
-    member do
-      get 'orders/new'
-      post 'orders' => 'orders#create'
-
-    end
+    resources :orders, only: [:new, :create]
   end
 
   resources :products

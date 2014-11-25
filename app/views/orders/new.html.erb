@@ -12,7 +12,7 @@
   <!-- tot hier -->
 <% end %>
 
-<%= form_for( @order, url: orders_user_path(@user)) do |f| %>
+<%= form_for( @order, url: user_orders_path(@user)) do |f| %>
   <%= f.submit "Order", class: "btn btn-primary " %>
 <% end %>
 
