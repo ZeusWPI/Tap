@@ -1,11 +1,24 @@
-<ul class="users">
-  <% @users.each do |user| %>
-    <li>
-      <%= form_for overview_path do |f| %>
-        <%= hidden_field_tag 'user_id', user.id  %>
+<%= @user.name %>
 
-        <%= f.submit user.name , class: "btn btn-primary" %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
+<% @products.each do |p| %>
+  <%#= render "orders/order_button" %>
+
+  <!-- dit moet in een andere file -->
+  <button class="btn btn-default product-btn"
+          data-name= '<%= p.name  %>'
+          date-price= '<%= p.sale_price %>'>
+    <%= p.name %>
+  </button>
+  <!-- tot hier -->
+<% end %>
+
+<%= form_for( @order, url: orders_user_path(@user)) do |f| %>
+  <%= f.submit "Order", class: "btn btn-primary " %>
+<% end %>
+
+
+<div style="padding-top: 50px;" class="order_list ">
+  <p>
+    Nothing ordered yet!
+  </p>
+</div>

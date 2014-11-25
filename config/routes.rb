@@ -2,21 +2,21 @@ Rails.application.routes.draw do
 
   root "users#index"
 
-  resources :users
-  resources :products
+  resources :users do
+    member do
+      get 'orders/new'
+      post 'orders' => 'orders#create'
 
-  get    'overview'   => 'orders#new'
-  post   'overview'   => 'orders#create_session'
-  delete 'end_order'  => 'orders#destroy'
+    end
+  end
+
+  resources :products
 
   #products
   get 'products'  => 'products#new'
   post 'products' => 'products#create'
 
 
-  #orders
-  get 'order' => 'orders#order'
-  post 'orders' => 'orders#create'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
