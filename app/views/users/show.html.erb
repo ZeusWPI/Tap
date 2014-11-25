@@ -6,13 +6,6 @@
       <h1>Nickname: <%= @user.nickname %></h1>
       <h1>Balance: <%= @user.balance %></h1>
       <h1>User id: <%= @user.id %></h1>
-      <% if ordering? %>
-        <h1>Ordering!</h1>
-      <% else  %>
-        <h1>Not ordering!</h1>
-      <% end %>
-      <%= link_to "End order", end_order_path, method: "delete" %>
-
 
     </section>
   </aside>
