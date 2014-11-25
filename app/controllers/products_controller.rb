@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(params_products)
+    @product = Product.new(product_params)
     if @product.save
       redirect_to @product
     else
@@ -24,12 +24,21 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
   end
 
+  def update
+    @product = Product.find(params[:id])
+    if @product.update_attributes(product_params)
+      redirect_to @product
+    else
+      render 'edit'
+    end
+  end
+
   def delete
   end
 
   private
 
-    def params_products
+    def product_params
       params.require(:product).permit(:name, :purchase_price, :sale_price,
                                       :img_path)
     end
