@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   resources :products
 
+  get    'overview'   => 'orders#overview'
+
   #products
   get 'products'  => 'products#new'
   post 'products' => 'products#create'
