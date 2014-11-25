@@ -1,9 +1,11 @@
 <aside>
 
 
-  <h1>Products#show</h1>
-  <h1>Name: <%= @product.name %></h1>
-  <h1>Purchase price: <%= @product.purchase_price %> </h1>
-  <h1>Sale price:  <%= @product.sale_price  %> </h1>
-  <h1>Img path: <%= @product.img_path %>  </h1>
+  <p>Products#show</p>
+  <p>Name: <%= @product.name %></p>
+  <p>Purchase price: <%= @product.purchase_price %> </p>
+  <p>Sale price:  <%= @product.sale_price  %> </p>
+  <p>Img path: <%= @product.img_path %></p>
+  <%= link_to "edit", edit_product_path(@product) %>
+
 </aside>
