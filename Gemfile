@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-ruby '2.1.5'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -35,6 +34,14 @@ gem 'spring',        group: :development
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+# Deployment
+gem 'capistrano', '~> 3.1'
+gem 'capistrano-rails', '~> 1.1'
+gem 'capistrano-rvm'
+
+group :production do
+  gem 'mysql2' # Database
+end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
