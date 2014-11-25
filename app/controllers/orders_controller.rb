@@ -26,7 +26,7 @@ class OrdersController < ApplicationController
       end_order
       redirect_to overview_path
     else
-      redirect_to overview_path
+      redirect_to root_path
     end
   end
 
@@ -38,6 +38,8 @@ class OrdersController < ApplicationController
   private
 
     def order_params
+      #if params.require(:order).permit(:products)?
       params.require(:order).permit(:products)
+      #{}"products"=>"return_products_string"
     end
 end

@@ -1,5 +1,10 @@
 <%= current_ordering_user.name %>
 
+
+
+
+
+
 <% @products.each do |p| %>
   <%#= render "orders/order_button" %>
 
@@ -17,9 +22,12 @@
 
 
 
+
+
+
 <%= form_for @order do |f| %>
   <div class="field">
-    <%= f.text_area :products , placeholder: "dit zou een hidden field moeten zijn met product JSON..." %>
+    <%#= f.text_area :products , placeholder: "dit zou een hidden field moeten zijn met product JSON..." %>
   </div>
   <%#= hidden_field_tag "products", "return_products_string"  %>
   <div class="hidden"></div>
@@ -66,13 +74,15 @@
 
 
 
+
+
     //updates the orderlist view
     var update = function(){
-      $('.order_list').empty().append("<p>Ordered: </p>"  );
+      $('.order_list').empty().append("<p>Ordered: </p>" + JSON.stringify(products)  );
       jQuery.each(products, function(i, product) {
         $(".order_list").append("<p> - "+ i +": "+ product.number_of +"</p>");
       });
-      //$('.hidden').empty().append("<input id='products' name='products' type='hidden' value='test' />")
+      $('.hidden').empty().append("<input id='order_products' name='order[products]' type='hidden' value="+ JSON.stringify(products) +" />")
 
     }
 
@@ -80,7 +90,6 @@
 
 
   });
-
 
 
 

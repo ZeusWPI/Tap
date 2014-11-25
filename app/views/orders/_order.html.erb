@@ -1,6 +1,17 @@
 <li id="order-<%= order.id %>">
+
+
+
+
   <span class="products"><%= order.products %></span>
   <span class="timestamp">
     Posted <%= time_ago_in_words(order.created_at) %> ago.
   </span>
 </li>
+
+<script charset="utf-8">
+  var products = JSON.stringify(<%=order.products%> );
+  jQuery.each(products, function(i, product) {
+    $(".products").append("<p> - "+ i +": "+ product.number_of +"</p>");
+  });
+</script>
