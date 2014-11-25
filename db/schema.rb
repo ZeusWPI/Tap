@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141124091707) do
+ActiveRecord::Schema.define(version: 20141125102501) do
 
   create_table "orders", force: true do |t|
     t.integer  "user_id"
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20141124091707) do
   create_table "users", force: true do |t|
     t.string   "name"
     t.string   "last_name"
-    t.integer  "balance"
+    t.integer  "balance",         default: 0
     t.string   "nickname"
     t.string   "password_digest"
     t.datetime "created_at"

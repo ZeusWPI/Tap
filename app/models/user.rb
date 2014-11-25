@@ -1,13 +1,13 @@
 class User < ActiveRecord::Base
   has_many :orders
-  before_save :init
 
+  validates :name, presence: true
+  validates :last_name, presence: true
+  validates :nickname, presence: true, uniqueness: true
 
-
-  def init
-    self.balance ||= 0
+  def full_name
+    "#{name} #{last_name}"
   end
-
 
   has_secure_password
 end
