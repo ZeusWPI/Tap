@@ -1,15 +1,7 @@
 <%= @user.name %>
 
 <% @products.each do |p| %>
-  <%#= render "orders/order_button" %>
-
-  <!-- dit moet in een andere file -->
-  <button class="btn btn-default product-btn"
-          data-name= '<%= p.name  %>'
-          date-price= '<%= p.sale_price %>'>
-    <%= p.name %>
-  </button>
-  <!-- tot hier -->
+  <%= render "orders/order_button" , p: p %>
 <% end %>
 
 <%= form_for( @order, url: user_orders_path(@user)) do |f| %>
