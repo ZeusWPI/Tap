@@ -3,7 +3,9 @@
 <ul class="products">
   <% @products.each do |product| %>
     <li>
-      <%= link_to product.name, product %>
+      <%= link_to product.name, product %> |
+      <%= link_to "delete", product, method: :delete,
+                                  data: { confirm: "You sure?" } %>
     </li>
   <% end %>
 </ul>
