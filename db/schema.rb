@@ -11,11 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141125130447) do
+ActiveRecord::Schema.define(version: 20141128123152) do
 
   create_table "order_products", force: true do |t|
     t.integer "order_id"
     t.integer "product_id"
+    t.integer "count",      default: 1
   end
 
   create_table "orders", force: true do |t|
