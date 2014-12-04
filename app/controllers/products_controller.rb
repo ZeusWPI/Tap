@@ -8,7 +8,7 @@ class ProductsController < ApplicationController
     if @product.save
       redirect_to @product
     else
-      render "new"
+      render 'new'
     end
   end
 
@@ -42,7 +42,7 @@ class ProductsController < ApplicationController
 
     def product_params
       params.require(:product).permit(:name, :purchase_price, :sale_price,
-                                      :img_path)
+                                      :avatar)
     end
 
 end

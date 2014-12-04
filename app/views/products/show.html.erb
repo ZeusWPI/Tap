@@ -5,7 +5,7 @@
   <p>Name: <%= @product.name %></p>
   <p>Purchase price: <%= @product.purchase_price %> </p>
   <p>Sale price:  <%= @product.sale_price  %> </p>
-  <p>Img path: <%= @product.img_path %></p>
+  <p><%= image_tag @product.avatar %></p>
   <%= link_to "edit", edit_product_path(@product) %>
 
 </aside>
