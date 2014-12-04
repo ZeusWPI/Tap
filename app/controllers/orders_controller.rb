@@ -8,26 +8,29 @@ class OrdersController < ApplicationController
     @user = User.find(params[:user_id])
     @order = @user.orders.build
     @products = Product.all
+    @order_products = @order.order_products
+
+    @products.each do |p|
+      @order.order_products.build(product: p)
+    end
   end
 
 
   def create
     @user = User.find(params[:user_id])
-    @order = @user.orders.build(order_params)
-    if @order.save
-      #flash[:success] = "order created!"
-      redirect_to overview_path
-    else
-      @products = Product.all
-      render 'new'
+    @order = @user.orders.build
+    @products = Product.all
+    @order_products = @order.order_products
 
+    @products.each do |p|
+      @order.order_products.build(product: p)
     end
+    render 'new'
   end
 
   private
 
     def order_params
-      #params.require(:order).permit(:products)
-      #
+      params.require(:order).permit(:products)
     end
 end

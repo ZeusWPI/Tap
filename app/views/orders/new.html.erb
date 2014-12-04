@@ -1,10 +1,25 @@
 <%= @user.name %>
 
-<% @products.each do |p| %>
-  <%= render "orders/order_button" , p: p %>
-<% end %>
-
 <%= form_for( @order, url: user_orders_path(@user)) do |f| %>
+  <% @order_products.each do |op| %>
+    <%= f.fields_for :products do |products| %>
+      <%= products.fields_for op.product.id.to_s do |product_field| %>
+          <div class="input-group">
+            <span class="input-group-btn">
+            <button class="btn btn-default btn-dec" type="button">
+              <span class="glyphicon glyphicon-minus"></span>
+            </button>
+          </span>
+          <%= product_field.text_field :count, class: 'form-control', value: 0 %>
+          <span class="input-group-btn">
+            <button class="btn btn-default btn-inc" type="button">
+              <span class="glyphicon glyphicon-plus"></span>
+            </button>
+          </span>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
   <%= f.submit "Order", class: "btn btn-primary " %>
 <% end %>
 

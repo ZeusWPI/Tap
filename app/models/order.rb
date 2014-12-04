@@ -11,6 +11,8 @@ class Order < ActiveRecord::Base
     end
   end
 
+  accepts_nested_attributes_for :order_products
+
   default_scope -> { order('created_at DESC') }
 
 end
