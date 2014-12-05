@@ -15,7 +15,7 @@
 #
 
 class Product < ActiveRecord::Base
-  has_one :order_product
+  has_many :order_products
   has_attached_file :avatar, styles: { medium: "100x100>" }, default_style: :medium
 
   validates :name, presence: true

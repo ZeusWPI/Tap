@@ -1,6 +1,8 @@
 <%= @user.name %>
 
 <%= form_for( @order, url: user_orders_path(@user)) do |f| %>
+  <%= render 'application/errors', model: @order %>
+
   <% @order_products.each do |op| %>
     <%= f.fields_for :products do |products| %>
       <%= products.fields_for op.product.id.to_s do |product_field| %>
