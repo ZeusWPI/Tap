@@ -23,8 +23,9 @@ class OrdersController < ApplicationController
     if @order.save
       order_products = order_products_params
       order_products.each do |k, v|
-        @order.order_products.create(product: Product.find(k), count: v[:count]) if v[:count].to_i > 0
+        @order.order_products.build(product: Product.find(k), count: v[:count]) if v[:count].to_i > 0
       end
+      @order.save
       redirect_to root_path
     else
       @order_products = @order.order_products

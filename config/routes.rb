@@ -8,14 +8,7 @@ Rails.application.routes.draw do
 
   resources :products
 
-  get    'overview'   => 'orders#overview'
-
-  #products
-  get 'products'  => 'products#new'
-  post 'products' => 'products#create'
-
-
-
+  get 'overview' => 'orders#overview'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
