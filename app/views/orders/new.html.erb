@@ -3,25 +3,13 @@
 <%= form_for( @order, url: user_orders_path(@user)) do |f| %>
   <%= render 'application/errors', model: @order %>
 
-  <% @order_products.each do |op| %>
-    <%= f.fields_for :products do |products| %>
-      <%= products.fields_for op.product.id.to_s do |product_field| %>
-          <div class="input-group">
-            <span class="input-group-btn">
-            <button class="btn btn-default btn-dec" type="button">
-              <span class="glyphicon glyphicon-minus"></span>
-            </button>
-          </span>
-          <%= product_field.text_field :count, class: 'form-control', value: 0 %>
-          <%= image_tag op.product.avatar %>
-          <span class="input-group-btn">
-            <button class="btn btn-default btn-inc" type="button">
-              <span class="glyphicon glyphicon-plus"></span>
-            </button>
-          </span>
-        </div>
-      <% end %>
-    <% end %>
+  <%= f.fields_for :order_products do |op_field| %>
+    <div class="input-group">
+      <%= render partial: 'btn_dec' %>
+      <%= op_field.text_field :count, class: 'form-control', value: 0 %>
+      <%= render partial: 'btn_inc' %>
+      <%= op_field.hidden_field :product_id %>
+    </div>
   <% end %>
   <%= f.submit "Order", class: "btn btn-primary " %>
 <% end %>
@@ -29,6 +17,6 @@
 
 <div style="padding-top: 50px;" class="order_list ">
   <p>
-    Nothing ordered yet!
+  Nothing ordered yet!
   </p>
 </div>

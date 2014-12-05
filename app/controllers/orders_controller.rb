@@ -20,14 +20,10 @@ class OrdersController < ApplicationController
     @user = User.find(params[:user_id])
     @order = @user.orders.build(order_params)
     @products = Product.all
-    @products.each do |p|
-      @order.order_products.build(product: p, count: order_products_params[p.id.to_s][:count])
-    end
-
+    @order_products = @order.order_products
     if @order.save
       redirect_to root_path
     else
-      @order_products = @order.order_products
       render 'new'
     end
   end
@@ -35,10 +31,6 @@ class OrdersController < ApplicationController
   private
 
     def order_params
-      params.require(:order).permit()
-    end
-
-    def order_products_params
-      params.require(:order).permit({:products => [:product_id, :count]})[:products]
+      params.require(:order).permit(order_products_attributes: [:product_id, :count])
     end
 end

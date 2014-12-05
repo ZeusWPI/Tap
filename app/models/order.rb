@@ -25,6 +25,6 @@ class Order < ActiveRecord::Base
 
   validates :user, presence: true
 
-  accepts_nested_attributes_for :order_products, reject_if: proc { |op| op.count <= 0 }
+  accepts_nested_attributes_for :order_products, reject_if: proc { |op| op[:count].to_i <= 0 }
 
 end
