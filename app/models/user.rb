@@ -13,7 +13,7 @@
 #
 
 class User < ActiveRecord::Base
-  has_many :orders
+  has_many :orders, -> { includes :products }
 
   validates :name, presence: true
   validates :last_name, presence: true
