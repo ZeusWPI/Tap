@@ -28,6 +28,11 @@ class OrdersController < ApplicationController
     end
   end
 
+  def index
+    @user = User.find(params[:user_id])
+    @orders = @user.orders
+  end
+
   private
 
     def order_params
