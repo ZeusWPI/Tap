@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  root "users#index"
+  root "orders#overview"
 
   resources :users do
     resources :orders, only: [:new, :create, :index]

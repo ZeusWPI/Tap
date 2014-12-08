@@ -4,8 +4,7 @@
 #
 #  id                  :integer          not null, primary key
 #  name                :string(255)
-#  purchase_price      :integer
-#  sale_price          :integer
+#  price               :integer
 #  created_at          :datetime
 #  updated_at          :datetime
 #  avatar_file_name    :string(255)

@@ -1,0 +1,7 @@
+<%= image_tag f.object.product.avatar %>
+<div class="input-group">
+  <%= render partial: 'btn_dec' %>
+  <%= f.text_field :count, class: 'form-control', value: 0 %>
+  <%= render partial: 'btn_inc' %>
+  <%= f.hidden_field :product_id %>
+</div>

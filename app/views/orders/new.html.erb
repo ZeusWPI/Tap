@@ -4,12 +4,7 @@
   <%= render 'application/errors', model: @order %>
 
   <%= f.fields_for :order_products do |op_field| %>
-    <div class="input-group">
-      <%= render partial: 'btn_dec' %>
-      <%= op_field.text_field :count, class: 'form-control', value: 0 %>
-      <%= render partial: 'btn_inc' %>
-      <%= op_field.hidden_field :product_id %>
-    </div>
+    <%= render 'order_products/form_row', f: op_field %>
   <% end %>
   <%= f.submit "Order", class: "btn btn-primary " %>
 <% end %>
