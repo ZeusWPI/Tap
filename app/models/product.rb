@@ -22,4 +22,8 @@ class Product < ActiveRecord::Base
   validates :purchase_price, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :sale_price, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates_attachment :avatar, presence: true, content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }
+
+  def count(order)
+    order_products.find_by(order: order).count
+  end
 end

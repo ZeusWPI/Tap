@@ -1,5 +1,5 @@
 <p>
   <% order.products.each do |p| %>
-    <%= p.order_products.find_by(order: order).count.to_s + " " + p.name %>
+    <%= p.count(order).to_s + " " + p.name %>
   <% end %>
 </p>
