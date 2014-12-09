@@ -41,6 +41,8 @@ $gray-medium-light: #eaeaea;
 }
 
 
+
+
 /* forms */
 
 input, textarea, select, .uneditable-input {
@@ -54,6 +56,10 @@ input {
   height: auto !important;
 }
 
+/* boostrap */
+body {
+  padding-top: 80px;
+}
 
 /* footer */
 
@@ -84,4 +90,23 @@ footer ul {
 footer ul li {
   float: left;
   margin-left: 15px;
+}
+
+.overview{
+  width: 49%;
+  height: 49%;
+  border-radius: 0px;
+  margin: -2px;
+  padding: 18px;
+  border-color: #000;
+  border: 0px;
+
+  font-weight: bold;
+  font-size: 24px;
+
+
+}
+
+.center{
+  text-align: center;
 }

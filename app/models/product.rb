@@ -24,4 +24,14 @@ class Product < ActiveRecord::Base
   def count(order)
     order_products.find_by(order: order).count
   end
+
+  def price
+    (read_attribute(:price) || 0) / 100.0
+  end
+
+  def price=(value)
+    if value.is_a? String then value.sub!(',', '.') end
+    write_attribute(:price, (value.to_f * 100).to_int)
+  end
+
 end

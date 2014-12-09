@@ -1,14 +1,2 @@
-<%= form_for @product, html: { multipart: true } do |f| %>
-  <%= render 'application/errors', model: @product %>
-
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-
-  <%= f.label :price %>
-  <%= f.number_field :price %>
-
-  <%= f.label :avatar %>
-  <%= f.file_field :avatar %>
-
-  <%= f.submit "Create product", class: "btn btn-primary" %>
-<% end %>
+<h1>New product</h1>
+<%= render "form" %>

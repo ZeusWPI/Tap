@@ -1,11 +1,8 @@
 <h1>All products</h1>
+<%= render partial: 'flash' %>
 
-<ul class="products">
-  <% @products.each do |product| %>
-    <li>
-      <%= link_to product.name, product %> |
-      <%= link_to "delete", product, method: :delete,
-                                  data: { confirm: "You sure?" } %>
-    </li>
-  <% end %>
-</ul>
+<div class="row">
+  <div class="col-md-12">
+    <%= render @products %>
+  </div>
+</div>

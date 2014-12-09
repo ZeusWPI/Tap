@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   def overview
-    puts current_user
-    @users = User.all
+    @users_by_name = User.all.order(:name)
+    @users_by_order = User.all
   end
 
 
