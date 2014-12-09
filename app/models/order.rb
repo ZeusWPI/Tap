@@ -30,4 +30,12 @@ class Order < ActiveRecord::Base
 
   accepts_nested_attributes_for :order_products, reject_if: proc { |op| op[:count].to_i <= 0 }
 
+  def price
+    price = 0
+    products.each do |p|
+      price += p.price * p.count(self)
+    end
+    price
+  end
+
 end

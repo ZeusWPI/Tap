@@ -22,6 +22,7 @@ class OrdersController < ApplicationController
     @products = Product.all
     @order_products = @order.order_products
     if @order.save
+      @user.pay(@order.price)
       redirect_to root_path
     else
       render 'new'

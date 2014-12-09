@@ -23,5 +23,9 @@ class User < ActiveRecord::Base
     "#{name} #{last_name}"
   end
 
+  def pay(amount)
+    self.increment!(:balance, - amount)
+  end
+
   has_secure_password
 end
