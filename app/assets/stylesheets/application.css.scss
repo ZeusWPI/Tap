@@ -31,30 +31,10 @@ $gray-medium-light: #eaeaea;
 
 
 /* miscellaneous */
-
-.debug_dump {
-  clear: both;
-  float: left;
-  width: 100%;
-  margin-top: 45px;
-  @include box_sizing;
+.nowrap {
+  white-space: nowrap;
 }
 
-
-
-
-/* forms */
-
-input, textarea, select, .uneditable-input {
-  border: 1px solid #bbb;
-  width: 100%;
-  margin-bottom: 15px;
-  @include box_sizing;
-}
-
-input {
-  height: auto !important;
-}
 
 /* boostrap */
 body {
@@ -62,7 +42,6 @@ body {
 }
 
 /* footer */
-
 footer {
   margin-top: 45px;
   padding-top: 5px;
@@ -105,7 +84,6 @@ footer ul li {
 
   font-weight: bold;
   font-size: 24px;
-
 }
 
 .overview{

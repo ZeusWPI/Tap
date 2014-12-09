@@ -11,47 +11,52 @@
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <div class="collapse navbar-collapse">
       <div class="hidden-xs navbar-form navbar-right">
         <div class="form-group">
         <% if user_signed_in? %>
-          <%= button_to "Logout", destroy_user_session_path(current_user), class: "btn btn-default form-control",  method: :delete %>
+          <%= button_to "Logout", destroy_user_session_path, class: "btn btn-default form-control",  method: :delete %>
         <% else %>
-          <%= button_to "Login", new_user_session_path, class: "btn btn-success form-control" %>
+          <%= link_to "Login", new_user_session_path, class: "btn btn-success form-control" %>
+          <%= link_to "Register", new_user_registration_path, class: "btn btn-default form-control" %>
         <% end %>
         </div>
       </div>
 
       <ul class="nav navbar-nav navbar-right">
         <li><%= mail_to "tab@zeus.ugent.be", "Send feedback" %></li>
-        <% if can? :manage, :all %>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Products <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><%= link_to "All products", products_path %></li>
-            <li><%= link_to "New product" , new_product_path %></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Users <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><%= link_to "index" , users_path %></li>
-          </ul>
-        </li>
-        <% end %>
         <% if user_signed_in? %>
-        <li>
-          <a>Logged in as <%= current_user.display_name %></a>
-        </li>
+          <% if can? :manage, :all %>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Products <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><%= link_to "All products", products_path %></li>
+              <li><%= link_to "New product" , new_product_path %></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Users <span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <li><%= link_to "index" , users_path %></li>
+            </ul>
+          </li>
+          <% end %>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Logged in as <%= current_user.nickname %> <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Edit password", edit_user_registration_path %></li>
+            </ul>
+          </li>
         <% end %>
       </ul>
 
       <div class="visible-xs navbar-form">
         <div class="form-group">
         <% if user_signed_in? %>
-          <%= button_to "Logout", destroy_user_session_path(current_user), class: "btn btn-default form-control",  method: :delete %>
+          <%= button_to "Logout", destroy_user_session_path, class: "btn btn-default form-control",  method: :delete %>
         <% else %>
-          <%= button_to "Login", new_user_session_path, class: "btn btn-success form-control" %>
+          <%= link_to "Login", new_user_session_path, class: "btn btn-success form-control" %>
+          <%= link_to "Register", new_user_registration_path, class: "btn btn-default form-control" %>
         <% end %>
         </div>
       </div>
