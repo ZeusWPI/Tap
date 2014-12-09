@@ -6,14 +6,10 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     if @product.save
-      redirect_to @product
+      redirect_to action: :index
     else
-      render 'new'
+      render :new
     end
-  end
-
-  def show
-    @product = Product.find(params[:id])
   end
 
   def index
@@ -27,7 +23,7 @@ class ProductsController < ApplicationController
   def update
     @product = Product.find(params[:id])
     if @product.update_attributes(product_params)
-      redirect_to @product
+      redirect_to action: :index
     else
       render 'edit'
     end
