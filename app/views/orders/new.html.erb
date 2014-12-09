@@ -1,16 +1,21 @@
-<h3><%= @user.name %></h3>
+<h3>Order for <%= @user.nickname %></h3>
 
-<%= form_for( @order, url: user_orders_path(@user)) do |f| %>
+<%= form_for @order, url: user_orders_path(@user) do |f| %>
   <%= render 'application/errors', model: @order %>
 
-  <div class="col-md-2 thumbnail form_products">
-  <%= f.fields_for :order_products do |op_field| %>
-      <%= render 'order_products/form_row', f: op_field %>
-  <% end %>
+  <div class="row">
+    <div class="col-md-12">
+      <%= f.fields_for :order_products do |op_field| %>
+          <%= render 'order_products/form_row', f: op_field %>
+      <% end %>
+    </div>
   </div>
-  <div class="col-md-12 form_total">
-    <%= render 'order_products/total_price', f: f %>
-    <%= f.submit "Order", class: "btn btn-primary " %>
+
+  <div class="row">
+    <div class="col-md-12 form_total">
+      <%= render 'order_products/total_price', f: f %>
+      <%= f.submit "Order", class: "btn btn-primary " %>
+    </div>
   </div>
 
 <% end %>
