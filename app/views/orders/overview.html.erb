@@ -1,7 +1,7 @@
 <ul class="users">
   <% @users.each do |user| %>
     <li>
-      <%= link_to user.name , new_user_order_path(user) %>
+      <%= link_to user.name , new_user_order_path(user), class: "btn btn-primary overview"%>
     </li>
   <% end %>
 </ul>
