@@ -68,3 +68,6 @@ gem 'paperclip'
 
 # Use devise for Admins
 gem 'devise'
+
+# Use cancan for authorization
+gem 'cancan'

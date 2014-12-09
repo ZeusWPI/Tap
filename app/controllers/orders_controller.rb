@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   def overview
+    puts current_user
     @users = User.all
   end
 
