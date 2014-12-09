@@ -89,10 +89,20 @@ footer ul li {
 }
 
 .overview{
-  width: 33%;
-  margin-bottom: 5px;
-  padding-top: 15px;
-  padding-bottom: 15px; 
+  width: 49%;
+  height: 49%;
+  border-radius: 0px;
+  margin: -2px;
+  padding: 18px;
+  border-color: #000;
+  border: 0px;
+
+  font-weight: bold;
+  font-size: 24px;
 
 
+}
+
+.center{
+  text-align: center;
 }
