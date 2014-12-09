@@ -1,0 +1,19 @@
+<h2>Sign up</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+  <%= form_email_field f, :email %>
+  <%= form_text_field f, :nickname %>
+  <%= form_text_field f, :name %>
+  <%= form_text_field f, :last_name %>
+
+  <%= form_password_field f, :password %>
+  <%= form_password_field f, :password_confirmation %>
+
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>
