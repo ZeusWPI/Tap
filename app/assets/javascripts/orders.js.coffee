@@ -3,13 +3,23 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 ready = ->
   $('.btn-inc').on 'click', ->
-    input = $(this).parent().parent().find('input').first()
-    input.val(parseInt(input.val()) + 1)
+    increment(this, 1)
 
   $('.btn-dec').on 'click', ->
-    input = $(this).parent().parent().find('input').first()
-    if input.val() != '0'
-      input.val(parseInt(input.val()) - 1)
+    increment(this, -1)
+
+increment = (button, n) ->
+  counter = $(button).closest('.form_row').find('.row_counter')
+  newCount = parseInt(counter.val()) + n
+  counter.val(Math.max(newCount, 0))
+  calculatePrice()
+
+calculatePrice = ->
+  price = 0
+  $('#form_products').children().each(->
+    price += parseInt($(this).find('.price').html()) * parseInt($(this).find('.row_counter').val())
+  )
+  $('#order_total_price').val(price)
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

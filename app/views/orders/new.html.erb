@@ -3,8 +3,11 @@
 <%= form_for( @order, url: user_orders_path(@user)) do |f| %>
   <%= render 'application/errors', model: @order %>
 
+  <div id="form_products">
   <%= f.fields_for :order_products do |op_field| %>
-    <%= render 'order_products/form_row', f: op_field %>
+      <%= render 'order_products/form_row', f: op_field %>
   <% end %>
+  </div>
+  <%= render 'order_products/total_price', f: f %>
   <%= f.submit "Order", class: "btn btn-primary " %>
 <% end %>

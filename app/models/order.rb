@@ -10,6 +10,7 @@
 #
 
 class Order < ActiveRecord::Base
+  after_initialize { self.total_price = 0 }
   belongs_to :user
 
   has_many :order_products
@@ -22,6 +23,8 @@ class Order < ActiveRecord::Base
       end
     end
   end
+
+  attr_accessor :total_price
 
   validates :user, presence: true
 
