@@ -1,6 +1,6 @@
 <div class="form_row">
   <%= image_tag f.object.product.avatar %>
-  <%= content_tag(:span, f.object.product.price, class: "price") %>
+  <%= content_tag(:span, euro(f.object.product.price), class: "price") %>
   <div class="input-group">
     <%= render 'btn_dec', id: f.object.product_id %>
     <%= f.text_field :count, class: 'form-control row_counter', value: 0 %>
