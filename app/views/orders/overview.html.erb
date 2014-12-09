@@ -2,14 +2,25 @@
   <h3 class="center" >sort by name</h3>
 
   <% @users_by_name.each do |user| %>
+      <div class="thumbnail overview">
+      <%= link_to image_tag("http://placehold.it/100x100", class: "img-circle"),
+        new_user_order_path(user) %>
       <%= link_to user.name , new_user_order_path(user), class: "btn btn-info overview",
         style: get_color_style(user) %>
+    </div>
   <% end %>
+
 </div>
-<div class="col-md-6">
-  <h3 class="center">sort by orders</h3>
+
+
+<div class="col-md-6 ">
+  <h3 class="center" >sort by name</h3>
+
   <% @users_by_order.each do |user| %>
+      <div class="thumbnail overview">
+      <%= link_to image_tag("http://babeholder.pixoil.com/img/100/100", class: "img-circle"),
+        new_user_order_path(user) %>
       <%= link_to user.name , new_user_order_path(user), class: "btn btn-info overview",
         style: get_color_style(user) %>
+    </div>
   <% end %>
-</div>
