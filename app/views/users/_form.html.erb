@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@user) do |f| %>
+      <%= render partial: 'errors', locals: { model: @user } %>
+
+      <%= f.label :nickname %>
+      <%= f.text_field :nickname %>
+
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name %>
+
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+
+      <%= f.label :password_confirmation, "Confirmation" %>
+      <%= f.password_field :password_confirmation %>
+
+      <%= f.submit class: "btn btn-primary" %>
+    <% end %>
+
+  </div>
+</div>
