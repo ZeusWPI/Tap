@@ -1,0 +1,17 @@
+<div class="col-md-6 ">
+  <h3 class="center" >sort by name</h3>
+
+  <% users.each do |user| %>
+      <div class="thumbnail overview">
+        <%= link_to image_tag("http://placekitten.com/g/50/50", class: "img-circle dagschotel"),
+          user %>
+        <%= link_to image_tag("http://babeholder.pixoil.com/img/100/100", class: "img-circle user_img"),
+          new_user_order_path(user) %>
+
+
+      <%= link_to user.nickname , new_user_order_path(user), class: "btn btn-info",
+        style: get_color_style(user) %>
+    </div>
+  <% end %>
+
+</div>
