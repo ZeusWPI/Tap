@@ -1,13 +1,12 @@
 <footer class="footer">
   <small>
     <%= link_to "Tab", root_path %></a>
-    by <a href="#">Zeus WPI</a>
+    by <%= link_to "Zeus WPI", "//zeus.ugent.be" %>
   </small>
   <nav>
     <ul>
-      <li><%= link_to "About",   '#' %></li>
-      <li><%= link_to "Contact", '#' %></li>
-      <li><a href="http://zeus.ugent.be">News</a></li>
+      <li><%= mail_to "bestuur@zeus.ugent.be", "Contact" %></li>
+      <li><%= link_to "Zeus WPI", "//zeus.ugent.be" %></li>
     </ul>
   </nav>
 </footer>
