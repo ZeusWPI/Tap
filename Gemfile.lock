@@ -41,7 +41,7 @@ GEM
       columnize (~> 0.8)
       debugger-linecache (~> 1.2)
       slop (~> 3.6)
-    cancan (1.6.10)
+    cancancan (1.9.2)
     capistrano (3.2.1)
       i18n
       rake (>= 10.0.0)
@@ -175,7 +175,7 @@ DEPENDENCIES
   bootstrap-sass (= 3.2.0.0)
   bootstrap-will_paginate (= 0.0.10)
   byebug
-  cancan
+  cancancan
   capistrano (~> 3.1)
   capistrano-rails (~> 1.1)
   capistrano-rvm
