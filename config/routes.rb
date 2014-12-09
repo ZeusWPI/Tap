@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  devise_for :admins
   root "orders#overview"
 
   resources :users do
