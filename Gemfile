@@ -71,3 +71,6 @@ gem 'devise'
 
 # Use cancan for authorization
 gem 'cancan'
+
+#ik wil test data maken dus dit
+gem 'faker',                '1.4.2'
