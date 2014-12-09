@@ -65,3 +65,6 @@ gem 'bootstrap-will_paginate', '0.0.10'
 
 # paperclip for easy file attachment
 gem 'paperclip'
+
+# Use devise for Admins
+gem 'devise'
