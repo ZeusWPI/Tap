@@ -1,0 +1,15 @@
+<div class="col-md-3">
+  <div class="thumbnail">
+    <%= image_tag user.avatar if user.avatar.exists? %>
+    <div class="caption">
+      <h3><%= user.full_name %></h3>
+      <p><strong>Name:</strong> <%= user.name %></p>
+      <p><strong>Last name:</strong> <%= user.last_name %></p>
+      <p><strong>Nickname:</strong> <%= user.nickname %></p>
+      <p><strong>Balance:</strong> <%= user.balance %></p>
+      <p>
+        <%= link_to "Delete", user_path(user), method: :delete, class: "btn btn-danger", data: {confirm: 'Are you sure?'} %>
+      </p>
+    </div>
+  </div>
+</div>

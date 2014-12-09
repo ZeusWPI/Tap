@@ -23,6 +23,7 @@
 class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :rememberable, :trackable
+  has_attached_file :avatar, styles: { medium: "100x100>" }, default_style: :medium
 
   has_many :orders, -> { includes :products }
   belongs_to :dagschotel, class_name: 'Product'
@@ -31,6 +32,7 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :last_name, presence: true
   validates :password, length: { in: 8..128 }, confirmation: true, on: :create
+  validates_attachment :avatar, presence: true, content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }
 
   def full_name
     "#{name} #{last_name}"

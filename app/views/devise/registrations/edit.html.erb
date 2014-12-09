@@ -12,5 +12,8 @@
 
   <%= form_password_field f, :current_password %>
 
+  <%= f.label :avatar %>
+  <%= f.file_field :avatar %>
+
   <%= f.submit "Update", class: 'btn btn-primary' %>
 <% end %>

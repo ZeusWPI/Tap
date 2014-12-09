@@ -10,9 +10,11 @@
   <%= form_password_field f, :password %>
   <%= form_password_field f, :password_confirmation %>
 
-  <div class="actions">
-    <%= f.submit "Sign up", class: 'btn btn-primary' %>
-  </div>
+  <%= f.label :avatar %>
+  <%= f.file_field :avatar %>
+
+  <br />
+  <%= f.submit "Sign up", class: 'btn btn-primary' %>
 <% end %>
 
 <%= render "devise/shared/links" %>
