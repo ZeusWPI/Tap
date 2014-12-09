@@ -16,6 +16,8 @@
 #  last_sign_in_at     :datetime
 #  current_sign_in_ip  :string(255)
 #  last_sign_in_ip     :string(255)
+#  dagschotel          :reference
+#  dagschotel_id       :integer
 #
 
 class User < ActiveRecord::Base
@@ -23,11 +25,12 @@ class User < ActiveRecord::Base
          :rememberable, :trackable
 
   has_many :orders, -> { includes :products }
+  belongs_to :dagschotel, class_name: 'Product'
 
   validates :nickname, presence: true, uniqueness: true
   validates :name, presence: true
   validates :last_name, presence: true
-  validates :password, length: { in: 8..128 }, confirmation: true
+  validates :password, length: { in: 8..128 }, confirmation: true, on: :create
 
   def full_name
     "#{name} #{last_name}"
