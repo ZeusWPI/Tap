@@ -31,30 +31,10 @@ $gray-medium-light: #eaeaea;
 
 
 /* miscellaneous */
-
-.debug_dump {
-  clear: both;
-  float: left;
-  width: 100%;
-  margin-top: 45px;
-  @include box_sizing;
+.nowrap {
+  white-space: nowrap;
 }
 
-
-
-
-/* forms */
-
-input, textarea, select, .uneditable-input {
-  border: 1px solid #bbb;
-  width: 100%;
-  margin-bottom: 15px;
-  @include box_sizing;
-}
-
-input {
-  height: auto !important;
-}
 
 /* boostrap */
 body {
@@ -62,7 +42,6 @@ body {
 }
 
 /* footer */
-
 footer {
   margin-top: 45px;
   padding-top: 5px;
@@ -92,7 +71,6 @@ footer ul li {
   margin-left: 15px;
 }
 
-
 .overview{
   //margin-left: 2px;
   width: 50%;
@@ -112,7 +90,10 @@ footer ul li {
   .user_img{
   }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f1ec9b473ef6e6148a53c90dd13c3bba64f8f8a5
 }
 
 .center{
