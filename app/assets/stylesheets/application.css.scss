@@ -40,10 +40,7 @@ $gray-medium-light: #eaeaea;
   @include box_sizing;
 }
 
-ul
-{
-    list-style-type: none;
-}
+
 
 
 /* forms */
@@ -92,7 +89,7 @@ footer ul li {
 }
 
 .overview{
-  width: 100%;
+  width: 33%;
   margin-bottom: 5px;
 
 }
