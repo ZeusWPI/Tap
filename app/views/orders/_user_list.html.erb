@@ -9,7 +9,7 @@
           new_user_order_path(user) %>
 
 
-      <%= link_to user.nickname , new_user_order_path(user), class: "btn btn-info",
+      <%= link_to user.name , new_user_order_path(user), class: "btn btn-info",
         style: get_color_style(user) %>
     </div>
   <% end %>
