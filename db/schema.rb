@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20141209192545) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.integer  "dagschotel_id"
+    t.boolean  "admin"
   end
 
 end

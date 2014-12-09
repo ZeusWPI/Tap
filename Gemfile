@@ -69,8 +69,8 @@ gem 'paperclip'
 # Use devise for Admins
 gem 'devise'
 
-# Use cancan for authorization
-gem 'cancan'
+# Use cancancan for authorization
+gem 'cancancan'
 
 #ik wil test data maken dus dit
 gem 'faker',                '1.4.2'
