@@ -2,7 +2,7 @@ require 'digest/md5'
 module ApplicationHelper
 
   def get_color(user)
-    @color = Digest::MD5.hexdigest(user.name)[0..5]
+    @color = Digest::MD5.hexdigest(user.nickname)[0..5]
   end
 
   def get_color_style(user)
