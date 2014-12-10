@@ -14,4 +14,10 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
+  def dagschotel
+    user = User.find(params[:user_id])
+    user.dagschotel = Product.find(params[:product_id])
+    user.save
+    redirect_to edit_user_registration_path(user)
+  end
 end

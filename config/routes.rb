@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :orders, only: [:new, :create, :index] do
     end
     get 'quickpay' => 'orders#quickpay'
+    get 'dagschotel/:product_id' => 'users#dagschotel', as: "dagschotel"
   end
 
   resources :products
