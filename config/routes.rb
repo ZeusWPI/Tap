@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  root "orders#overview"
+  root "orders#index"
 
   devise_for :users
 

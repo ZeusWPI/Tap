@@ -1,9 +1,4 @@
 class OrdersController < ApplicationController
-  def overview
-    @users_by_name = User.all.order(:name)
-    @users_by_order = User.all
-  end
-
 
   def new
     @user = User.find(params[:user_id])
@@ -16,7 +11,6 @@ class OrdersController < ApplicationController
     end
   end
 
-
   def create
     @user = User.find(params[:user_id])
     @order = @user.orders.build(order_params)
@@ -24,6 +18,7 @@ class OrdersController < ApplicationController
     @order_products = @order.order_products
     if @order.save
       @user.pay(@order.price)
+      flash[:success] = "Ordered things! Get your stuff!"
       redirect_to root_path
     else
       render 'new'
@@ -31,8 +26,8 @@ class OrdersController < ApplicationController
   end
 
   def index
-    @user = User.find(params[:user_id])
-    @orders = @user.orders
+    @users_by_name = User.all.order(:name)
+    @users_by_order = User.all
   end
 
   private
