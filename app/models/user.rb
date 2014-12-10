@@ -39,6 +39,16 @@ class User < ActiveRecord::Base
   end
 
   def pay(amount)
-    self.increment!(:balance, - amount)
+    write_attribute(:balance, read_attribute(:balance) - amount)
+    self.save
+  end
+
+  def balance
+    (read_attribute(:balance) || 0) / 100.0
+  end
+
+  def balance=(value)
+    if value.is_a? String then value.sub!(',', '.') end
+    write_attribute(:balance, (value.to_f * 100).to_int)
   end
 end

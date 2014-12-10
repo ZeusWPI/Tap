@@ -33,7 +33,7 @@ class Order < ActiveRecord::Base
   def price
     price = 0
     products.each do |p|
-      price += p.price * p.count(self)
+      price += p.read_attribute(:price) * p.count(self)
     end
     price
   end
