@@ -27,7 +27,7 @@ class OrdersController < ApplicationController
 
   def index
     @users_by_name = User.all.order(:name)
-    @users_by_order = User.all
+    @users_by_order = User.all.order(:orders_count).reverse_order
   end
 
   private

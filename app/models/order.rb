@@ -11,7 +11,7 @@
 
 class Order < ActiveRecord::Base
   after_initialize { self.total_price = 0 }
-  belongs_to :user
+  belongs_to :user, counter_cache: true
 
   has_many :order_products
   has_many :products, { through: :order_products} do
