@@ -2,11 +2,7 @@
   <div class="thumbnail monopoly">
     <h3 class="header" style="background-color: #<%=get_color(user)%>;" ><%= user.full_name %></h3>
     <div class="caption">
-      <% if user.avatar.exists? %>
-        <%= image_tag(user.avatar , class: "img-circle avatar") %>
-      <% else %>
-        <%= image_tag("http://babeholder.pixoil.com/img/70/70", class: "img-circle avatar") %>
-      <% end %>
+      <%= image_tag(user.avatar , class: "img-circle avatar") %>
       <p><strong>Name:</strong> <%= user.name %></p>
       <p><strong>Last name:</strong> <%= user.last_name %></p>
       <p><strong>Nickname:</strong> <%= user.nickname %></p>
