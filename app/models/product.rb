@@ -11,11 +11,14 @@
 #  avatar_content_type :string(255)
 #  avatar_file_size    :integer
 #  avatar_updated_at   :datetime
+#  category            :integer          default(0)
 #
 
 class Product < ActiveRecord::Base
   has_many :order_products
   has_attached_file :avatar, styles: { medium: "100x100>" }, default_style: :medium
+
+  enum category: %w(food beverages other)
 
   validates :name, presence: true
   validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
