@@ -8,6 +8,8 @@ ready = ->
   $('.btn-dec').on 'click', ->
     increment($(this), -1)
 
+  $('.btn-dec').prop("disabled", true)
+
 increment = (button, n) ->
   # Fix the counter
   counter = $(button).closest('.form_row').find('.row_counter')
