@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   end
 
   resources :products
+  get 'admins' => 'admins#schulden', as: "admins_schulden"
 end
