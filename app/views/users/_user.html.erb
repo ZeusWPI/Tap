@@ -1,15 +1,22 @@
 <div class="col-md-3">
-  <div class="thumbnail">
-    <%= image_tag user.avatar if user.avatar.exists? %>
+  <div class="thumbnail monopoly">
+    <h3 class="header" style="background-color: #<%=get_color(user)%>;" ><%= user.full_name %></h3>
     <div class="caption">
-      <h3><%= user.full_name %></h3>
+      <% if user.avatar.exists? %>
+        <%= link_to image_tag(user.avatar , class: "img-circle avatar"), new_user_order_path(user) %>
+      <% else %>
+        <%= link_to image_tag("http://babeholder.pixoil.com/img/70/70", class: "img-circle avatar"), new_user_order_path(user) %>
+      <% end %>
       <p><strong>Name:</strong> <%= user.name %></p>
       <p><strong>Last name:</strong> <%= user.last_name %></p>
       <p><strong>Nickname:</strong> <%= user.nickname %></p>
       <p><strong>Balance:</strong> <%= user.balance %></p>
+    </div>
+    <div class="footer">
       <p>
         <%= link_to "Delete", user_path(user), method: :delete, class: "btn btn-danger", data: {confirm: 'Are you sure?'} %>
       </p>
+
     </div>
   </div>
 </div>

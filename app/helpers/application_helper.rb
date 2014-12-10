@@ -2,11 +2,11 @@ require 'digest/md5'
 module ApplicationHelper
 
   def get_color(user)
-    @color = Digest::MD5.hexdigest(user.nickname)[0..5]
+    Digest::MD5.hexdigest(user.nickname)[0..5]
   end
 
   def get_color_style(user)
-    @style = "background-color: #"+ get_color(user) +";"
+    "background-color: \#"+ get_color(user) +";"
   end
 
   def euro(f)

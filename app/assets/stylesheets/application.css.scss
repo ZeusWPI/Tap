@@ -74,18 +74,23 @@ footer ul li {
   width: 50%;
   float: left;
   border-radius: 0px;
+  margin-bottom: 0px;
+  border: 0px;
 
   .btn{
-    margin-top: -10px;
+    margin-top: -55px;
     width: 100%;
     border-color: #444;
   }
 
   .dagschotel{
     float:left;
+    position: absolute;
   }
 
-  .user_img{
+  .avatar{
+    height: 190px;
+    width: 190px;
   }
 }
 

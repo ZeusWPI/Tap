@@ -9,12 +9,13 @@
 User.create! name:  "Mats",
              nickname: "Basho",
              last_name: "Myncke",
+             admin: true,
              password:              "banaan12",
              password_confirmation: "banaan12"
 
 99.times do |n|
   name  = Faker::Name.first_name
-  nickname = Faker::Name.title
+  nickname = Faker::Name.first_name
   last_name = Faker::Name.last_name
   password = "password"
 

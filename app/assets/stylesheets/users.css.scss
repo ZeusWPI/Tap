@@ -3,6 +3,45 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
+.users .thumbnail {
+  padding: 0px;
+  min-height: 280px;
+  border: 3px solid #333;
+  .header{
+    border-bottom: 3px solid #333;
+    text-align: center;
+    color: #fff;
+    padding-bottom: 10px;
+    padding-top: 15px;
+    margin: 0px;
+
+  }
+  .caption{
+    .avatar{
+      float: right;
+      height: 70px;
+      width: 70px;
+    }
+  }
+  .footer{
+    width:80%;
+    border-top: 1px dashed #333;
+    margin:10%;
+    margin-bottom: 5px;
+    .btn{
+      width:100%;
+      margin-top:10px;
+      margin-bottom:0px;
+    }
+  }
+  background-color:  #f5f5dc;
+}
+
+
+
+
+
+
 /* sidebar */
 
 aside {
@@ -29,8 +68,4 @@ aside {
       margin-top: 0px;
     }
   }
-}
-
-.users .thumbnail {
-  min-height: 330px;
 }
