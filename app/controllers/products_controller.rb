@@ -14,6 +14,7 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.all
+    @categories = Product.categories
   end
 
   def edit
