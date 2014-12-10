@@ -11,8 +11,9 @@
 
 class Order < ActiveRecord::Base
   after_initialize { self.total_price = 0 }
-  belongs_to :user, counter_cache: true
+  after_create :pay_price
 
+  belongs_to :user, counter_cache: true
   has_many :order_products
   has_many :products, { through: :order_products} do
     def << (product)
@@ -27,15 +28,21 @@ class Order < ActiveRecord::Base
   attr_accessor :total_price
 
   validates :user, presence: true
+  validates :order_products, presence: true
 
   accepts_nested_attributes_for :order_products, reject_if: proc { |op| op[:count].to_i <= 0 }
 
   def price
     price = 0
-    products.each do |p|
-      price += p.read_attribute(:price) * p.count(self)
+    order_products.each do |op|
+      price += op.count * op.product.read_attribute(:price)
     end
     price
   end
 
+  private
+
+    def pay_price
+      user.pay(price)
+    end
 end

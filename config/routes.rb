@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :users do
-    resources :orders, only: [:new, :create, :index]
+    resources :orders, only: [:new, :create, :index] do
+    end
+    get 'quickpay' => 'orders#quickpay'
   end
 
   resources :products

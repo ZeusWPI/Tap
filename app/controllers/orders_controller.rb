@@ -17,7 +17,6 @@ class OrdersController < ApplicationController
     @products = Product.all
     @order_products = @order.order_products
     if @order.save
-      @user.pay(@order.price)
       flash[:success] = "Ordered things! Get your stuff!"
       redirect_to root_path
     else
@@ -28,6 +27,18 @@ class OrdersController < ApplicationController
   def index
     @users_by_name = User.all.order(:name)
     @users_by_order = User.all.order(:orders_count).reverse_order
+  end
+
+  def quickpay
+    @user = User.find(params[:user_id])
+    order = @user.orders.build
+    order.products << @user.dagschotel
+    if order.save
+      flash[:success] = "Quick pay succeeded"
+    else
+      flash[:error] = "Quick pay went wrong ... Sorry!"
+    end
+    redirect_to root_path
   end
 
   private

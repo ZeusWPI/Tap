@@ -12,14 +12,11 @@ class ApplicationController < ActionController::Base
     new_user_session_path
   end
 
-  include OrdersHelper
-  include ApplicationHelper
-
   protected
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:nickname, :name, :last_name, :password, :password_confirmation, :current_password, :avatar) }
-    devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:nickname, :name, :last_name, :password, :password_confirmation, :current_password, :avatar) }
+    devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:password, :password_confirmation, :current_password, :avatar) }
   end
 
 end

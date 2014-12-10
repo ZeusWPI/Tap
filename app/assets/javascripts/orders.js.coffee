@@ -8,7 +8,6 @@ ready = ->
   $('.btn-dec').on 'click', ->
     increment($(this), -1)
 
-
 increment = (button, n) ->
   # Fix the counter
   counter = $(button).closest('.form_row').find('.row_counter')
