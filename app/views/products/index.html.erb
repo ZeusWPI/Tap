@@ -7,6 +7,7 @@
     <% @categories.each do |o, i| %>
       <li role="presentation"<% if i.zero? %> class="active"<% end %>><a href="#<%= o %>" aria-controls="<%= o %>" role="tab" data-toggle="tab"><%= o.titleize %></a></li>
     <% end %>
+    <li role="presentation"><a href="#all" role="tab" data-toggle="tab">All</a></li>
   </ul>
 
   <!-- Tab panes -->
@@ -17,6 +18,9 @@
         <%= render @products.where(category: i) %>
       </div>
     <% end %>
+    <div role="tabpanel" class="tab-pane" id="all">
+      <%= render @products %>
+    </div>
   </div>
 
 </div>
