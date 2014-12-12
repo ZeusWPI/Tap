@@ -3,6 +3,16 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
+//signin
+.sign-in{
+  .checkbox label{
+  	padding-left: 0px;
+  }
+  #user_remember_me{
+  	margin-left: 10px;
+  }
+}
+
 .users .thumbnail {
   padding: 0px;
   min-height: 280px;
@@ -36,11 +46,6 @@
   }
   background-color:  #f5f5dc;
 }
-
-
-
-
-
 
 /* sidebar */
 
