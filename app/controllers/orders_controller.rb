@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  include OrdersHelper
 
   def new
     @user = User.find(params[:user_id])
@@ -17,7 +18,7 @@ class OrdersController < ApplicationController
     @products = Product.all
     @order_products = @order.order_products
     if @order.save
-      flash[:success] = "Ordered things! Get your stuff!"
+      flash[:success] = order_to_sentence(@order) + " ordered. Enjoy it!"
       redirect_to root_path
     else
       render 'new'
