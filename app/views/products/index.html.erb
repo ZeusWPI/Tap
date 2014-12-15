@@ -4,23 +4,23 @@
 <div role="tabpanel">
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#all" role="tab" data-toggle="tab">All</a></li>
     <% @categories.each do |o, i| %>
-      <li role="presentation"<% if i.zero? %> class="active"<% end %>><a href="#<%= o %>" aria-controls="<%= o %>" role="tab" data-toggle="tab"><%= o.titleize %></a></li>
+      <li role="presentation"><a href="#<%= o %>" aria-controls="<%= o %>" role="tab" data-toggle="tab"><%= o.titleize %></a></li>
     <% end %>
-    <li role="presentation"><a href="#all" role="tab" data-toggle="tab">All</a></li>
   </ul>
 
   <!-- Tab panes -->
   <div class="tab-content">
     <br />
+    <div role="tabpanel" class="tab-pane active" id="all">
+      <%= render @products %>
+    </div>
     <% @categories.each do |o, i| %>
-      <div role="tabpanel" class="tab-pane<% if i.zero? %> active<% end %>" id="<%= o %>">
+      <div role="tabpanel" class="tab-pane" id="<%= o %>">
         <%= render @products.where(category: i) %>
       </div>
     <% end %>
-    <div role="tabpanel" class="tab-pane" id="all">
-      <%= render @products %>
-    </div>
   </div>
 
 </div>
