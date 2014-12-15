@@ -1,6 +1,8 @@
 require 'csv'
 class AdminsController < ApplicationController
+
   def schulden
+    authorize! :schulden, :admins
     @users = User.all
     respond_to do |format|
       format.csv do
