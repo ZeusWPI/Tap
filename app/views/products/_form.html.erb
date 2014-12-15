@@ -8,6 +8,8 @@
       <%= f.label :price %>
       <%= f.number_field :price, value: number_with_precision(f.object.price, precision: 2), class: 'form-control form-field', placeholder: "0.00", step: :any %>
 
+      <%= form_collection_select f, :category, Product.categories.keys, :to_s, :titlecase %>
+
       <%= f.label :avatar %>
       <%= f.file_field :avatar , class: "form-field" %>
 

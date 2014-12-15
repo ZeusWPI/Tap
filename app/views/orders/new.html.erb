@@ -1,4 +1,4 @@
-<h3>Order for <%= @user.nickname %></h3>
+<h3>Order for <%= @user.nickname %> (<%= euro(@user.balance) %>)</h3>
 
 <div class="row">
   <%= form_for @order, url: user_orders_path(@user) do |f| %>
@@ -7,7 +7,7 @@
     <div class="col-md-12">
       <%= f.fields_for :order_products do |op_field| %>
         <%= render 'order_products/form_row', f: op_field %>
-    <% end %>
+      <% end %>
     </div>
 
     <div class="col-md-3 form_total">
