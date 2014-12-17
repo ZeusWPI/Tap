@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  load_and_authorize_resource only: [:destroy]
+
   def show
     @user = User.find(params[:id])
     @orders = @user.orders.paginate(page: params[:page])
@@ -17,7 +19,11 @@ class UsersController < ApplicationController
   def dagschotel
     user = User.find(params[:user_id])
     user.dagschotel = Product.find(params[:product_id])
-    user.save
+    if user.save
+      flash[:success] = "Succesfully removed user"
+    else
+      flash[:error] = "Error updating dagschotel"
+    end
     redirect_to edit_user_registration_path(user)
   end
 end
