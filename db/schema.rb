@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141210200008) do
+ActiveRecord::Schema.define(version: 20141217063222) do
 
   create_table "order_products", force: true do |t|
     t.integer "order_id"
@@ -48,9 +48,9 @@ ActiveRecord::Schema.define(version: 20141210200008) do
     t.string   "nickname"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "encrypted_password",  default: "", null: false
+    t.string   "encrypted_password",  default: "",    null: false
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",       default: 0,  null: false
+    t.integer  "sign_in_count",       default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 20141210200008) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.integer  "orders_count",        default: 0
+    t.boolean  "koelkast",            default: false
   end
 
 end

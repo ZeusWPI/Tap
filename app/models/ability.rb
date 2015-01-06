@@ -6,6 +6,8 @@ class Ability
     if user.admin?
       can :manage, :all
       can :schulden, :admins
+    elsif user.koelkast?
+      can :manage, Order
     else
       can :read, :all
     end

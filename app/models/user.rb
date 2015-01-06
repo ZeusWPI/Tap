@@ -39,6 +39,8 @@ class User < ActiveRecord::Base
   validates :password, length: { in: 8..128 }, confirmation: true, on: :create
   validates_attachment :avatar, presence: true, content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }
 
+  scope :members, -> { where koelkast: false }
+
   def full_name
     "#{name} #{last_name}"
   end

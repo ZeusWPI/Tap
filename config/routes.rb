@@ -1,8 +1,14 @@
 Rails.application.routes.draw do
-
-  root "orders#index"
-
   devise_for :users
+
+  devise_scope :user do
+    authenticated :user do
+      root to: 'orders#index'
+    end
+    unauthenticated :user do
+      root to: 'devise/sessions#new', as: 'unauth_root'
+    end
+  end
 
   resources :users do
     resources :orders, only: [:new, :create, :index]

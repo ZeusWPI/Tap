@@ -1,6 +1,8 @@
 class OrdersController < ApplicationController
   include OrdersHelper
 
+  load_and_authorize_resource
+
   def new
     @user = User.find(params[:user_id])
     @order = @user.orders.build
@@ -26,8 +28,8 @@ class OrdersController < ApplicationController
   end
 
   def index
-    @users_by_name = User.all.order(:name)
-    @users_by_order = User.all.order(:orders_count).reverse_order
+    @users_by_name = User.members.order(:name)
+    @users_by_order = User.members.order(:orders_count).reverse_order
   end
 
   def quickpay
