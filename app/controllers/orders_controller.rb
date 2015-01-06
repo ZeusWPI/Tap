@@ -27,7 +27,7 @@ class OrdersController < ApplicationController
     end
   end
 
-  def index
+  def overview
     @users_by_name = User.members.order(:name)
     @users_by_order = User.members.order(:orders_count).reverse_order
   end

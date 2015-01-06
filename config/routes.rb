@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     authenticated :user do
-      root to: 'orders#index'
+      root to: 'root#root'
     end
     unauthenticated :user do
       root to: 'devise/sessions#new', as: 'unauth_root'
@@ -18,4 +18,5 @@ Rails.application.routes.draw do
 
   resources :products
   get 'admins' => 'admins#schulden', as: "admins_schulden"
+  get 'overview' => 'orders#overview', as: "orders"
 end
