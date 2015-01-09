@@ -6,9 +6,8 @@ Rails.application.routes.draw do
       root to: 'devise/sessions#new'
     end
     authenticated :user do
-      root to: 'devise/sessions#new', constraints: lambda { |req| req.env['warden'].user.nil? }, as: 'unauth_root'
-      root to: 'orders#overview',     constraints: lambda { |req| req.env['warden'].user.koelkast? }, as: 'koelkast_root'
-      root to: 'users#show',          constraints: lambda { |req| !req.env['warden'].user.koelkast? }, as: 'user_root'
+      root to: 'orders#overview',     constraints: UserHomepageConstraint.new(true), as: 'koelkast_root'
+      root to: 'users#show',          constraints: UserHomepageConstraint.new(false), as: 'user_root'
     end
   end
 
