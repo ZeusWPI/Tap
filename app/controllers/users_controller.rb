@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by_id(params[:id]) || current_user
-    @orders = @user.orders.paginate(page: params[:page])
+    @orders = Order.joins(:products).select(:count, "products.*", "orders.id").where(user: @user).group_by &:id
   end
 
   def index

@@ -22,12 +22,7 @@ class Product < ActiveRecord::Base
 
   validates :name, presence: true
   validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validates_attachment :avatar, presence: true, content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] },
-    default_url: "http://babeholder.pixoil.com/img/190/190"
-
-  def count(order)
-    order_products.find_by(order: order).count
-  end
+  validates_attachment :avatar, presence: true, content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }
 
   def price
     (read_attribute(:price) || 0) / 100.0

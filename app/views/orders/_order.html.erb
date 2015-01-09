@@ -1,5 +1,6 @@
+<%= order.created_at %>
 <p>
-  <% order.products.each do |p| %>
-    <%= p.count(order).to_s + " " + p.name %>
+  <% products.each do |product| %>
+    <%= pluralize(product.count, product.name) %>
   <% end %>
 </p>
