@@ -2,11 +2,13 @@ Rails.application.routes.draw do
   devise_for :users
 
   devise_scope :user do
-    authenticated :user do
-      root to: 'root#root'
-    end
     unauthenticated :user do
-      root to: 'devise/sessions#new', as: 'unauth_root'
+      root to: 'devise/sessions#new'
+    end
+    authenticated :user do
+      root to: 'devise/sessions#new', constraints: lambda { |req| req.env['warden'].user.nil? }, as: 'unauth_root'
+      root to: 'orders#overview',     constraints: lambda { |req| req.env['warden'].user.koelkast? }, as: 'koelkast_root'
+      root to: 'users#show',          constraints: lambda { |req| !req.env['warden'].user.koelkast? }, as: 'user_root'
     end
   end
 

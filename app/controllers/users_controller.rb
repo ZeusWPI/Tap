@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   load_and_authorize_resource only: [:destroy]
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find_by_id(params[:id]) || current_user
     @orders = @user.orders.paginate(page: params[:page])
   end
 
