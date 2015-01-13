@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
   has_attached_file :avatar, styles: { medium: "100x100>" }, default_style: :medium, default_url: "http://babeholder.pixoil.com/img/70/70"
 
   has_many :orders, -> { includes :products }
+  has_many :products, through: :orders
   belongs_to :dagschotel, class_name: 'Product'
 
   validates :nickname, presence: true, uniqueness: true
