@@ -1,6 +1,2 @@
 <%= order.created_at %>
-<p>
-  <% products.each do |product| %>
-    <%= pluralize(product.count, product.name) %>
-  <% end %>
-</p>
+<%= simple_format(products.map { |p| pluralize(p.count, p.name) }.to_sentence) %>

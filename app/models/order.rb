@@ -10,8 +10,10 @@
 #
 
 class Order < ActiveRecord::Base
+  include ActionView::Helpers::TextHelper
+
   after_initialize { self.total_price = 0 }
-  after_create :pay_price
+  after_create { self.user.pay(price) }
 
   belongs_to :user, counter_cache: true
   has_many :order_products
@@ -20,21 +22,17 @@ class Order < ActiveRecord::Base
   attr_accessor :total_price
 
   validates :user, presence: true
-  validates :order_products, presence: true
+  validates :order_products, presence: true, in_stock: true
 
   accepts_nested_attributes_for :order_products, reject_if: proc { |op| op[:count].to_i <= 0 }
 
   def price
-    price = 0
-    order_products.each do |op|
-      price += op.count * op.product.read_attribute(:price)
-    end
-    price
+    self.order_products.map{ |op| op.count * op.product.price }.sum
   end
 
-  private
-
-    def pay_price
-      user.pay(price)
-    end
+  def to_sentence
+    self.order_products.map {
+      |op| pluralize(op.count, op.product.name)
+    }.to_sentence
+  end
 end

@@ -9,6 +9,8 @@
 #
 
 class OrderProduct < ActiveRecord::Base
+  after_create :remove_from_stock
+
   belongs_to :order
   belongs_to :product
 
@@ -16,4 +18,11 @@ class OrderProduct < ActiveRecord::Base
   validates :count, numericality: { greater_than_or_equal_to: 0 }
 
   accepts_nested_attributes_for :product
+
+  private
+
+    def remove_from_stock
+      product.stock -= self.count
+      product.save
+    end
 end

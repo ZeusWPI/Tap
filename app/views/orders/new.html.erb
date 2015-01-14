@@ -6,13 +6,10 @@
 
     <div class="col-md-12">
       <%= f.fields_for :order_products do |op_field| %>
-        <%= render 'order_products/form_row', f: op_field %>
+        <%= render op_field.object, f: op_field, product: op_field.object.product %>
       <% end %>
     </div>
 
-    <div class="col-md-3 form_total">
-      <%= render 'order_products/total_price', f: f %>
-    </div>
-
-<% end %>
+    <%= render 'order_products/total_price', f: f %>
+  <% end %>
 </div>

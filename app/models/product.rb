@@ -12,6 +12,7 @@
 #  avatar_file_size    :integer
 #  avatar_updated_at   :datetime
 #  category            :integer          default(0)
+#  stock               :integer          default(0)
 #
 
 class Product < ActiveRecord::Base
@@ -22,6 +23,7 @@ class Product < ActiveRecord::Base
 
   validates :name, presence: true
   validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :stock, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates_attachment :avatar, presence: true, content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }
 
   def price

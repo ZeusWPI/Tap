@@ -13,11 +13,6 @@ module ApplicationHelper
     "€#{number_with_precision f, precision: 2}"
   end
 
-  #tijdelijk voor layout
-  def koelkast(status)
-    @koelkast ||= status
-  end
-
   # Form helpers
   def form_errors(object)
     render partial: "form_errors", locals: {object: object}

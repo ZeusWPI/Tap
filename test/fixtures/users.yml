@@ -23,6 +23,7 @@
 #  avatar_file_size    :integer
 #  avatar_updated_at   :datetime
 #  orders_count        :integer          default(0)
+#  koelkast            :boolean          default(FALSE)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

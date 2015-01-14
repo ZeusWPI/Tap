@@ -9,14 +9,18 @@ ready = ->
     increment($(this), -1)
 
   $('.btn-dec').prop("disabled", true)
+  $('.btn-inc').each((index, button) ->
+    $(button).prop("disabled", $(button).closest('.form_row').find('.stock').val() == '0')
+  )
 
 increment = (button, n) ->
   # Fix the counter
   counter = $(button).closest('.form_row').find('.row_counter')
   counter.val(parseInt(counter.val()) + n)
 
-  # Enable or disable the dec button
-  counter.parent().find('.btn-dec').prop("disabled", counter.val() == '0');
+  # Enable or disable the buttons
+  counter.parent().find('.btn-dec').prop('disabled', counter.val() == '0');
+  counter.parent().find('.btn-inc').prop('disabled', counter.val() == counter.parent().find('.stock').val());
 
   # Update the price
   oldVal = parseFloat($('#order_total_price').val())

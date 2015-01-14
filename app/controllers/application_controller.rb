@@ -5,8 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   rescue_from CanCan::AccessDenied do |exception|
-    flash[:error] = exception.message
-    redirect_to root_path
+    redirect_to root_path, flash: { error: exception.message }
   end
 
   def after_sign_in_path_for(resource)
@@ -14,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_up_path_for(resource)
-    new_user_session_path
+    root_path
   end
 
   protected
@@ -24,9 +23,9 @@ class ApplicationController < ActionController::Base
       :nickname, :name, :last_name, :password, :password_confirmation,
       :current_password, :avatar
     ) }
+
     devise_parameter_sanitizer.for(:account_update) { |u| u.permit(
       :password, :password_confirmation, :current_password, :avatar
     ) }
   end
-
 end

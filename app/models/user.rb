@@ -23,12 +23,13 @@
 #  avatar_file_size    :integer
 #  avatar_updated_at   :datetime
 #  orders_count        :integer          default(0)
+#  koelkast            :boolean          default(FALSE)
 #
 
 class User < ActiveRecord::Base
-  devise :database_authenticatable, :registerable,
-         :rememberable, :trackable
-  has_attached_file :avatar, styles: { medium: "100x100>" }, default_style: :medium, default_url: "http://babeholder.pixoil.com/img/70/70"
+  devise :database_authenticatable, :registerable, :rememberable, :trackable
+  has_attached_file :avatar, styles: { medium: "100x100>" }, default_style: :medium,
+      default_url: "http://babeholder.pixoil.com/img/70/70"
 
   has_many :orders, -> { includes :products }
   has_many :products, through: :orders

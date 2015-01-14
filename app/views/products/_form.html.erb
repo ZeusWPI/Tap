@@ -10,6 +10,9 @@
 
       <%= form_collection_select f, :category, Product.categories.keys, :to_s, :titlecase %>
 
+      <%= f.label :stock %>
+      <%= f.number_field :stock, class: 'form-control form-field' %>
+
       <%= f.label :avatar %>
       <%= f.file_field :avatar , class: "form-field" %>
 

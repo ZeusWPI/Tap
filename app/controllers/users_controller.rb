@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  load_and_authorize_resource only: [:destroy]
+  load_and_authorize_resource
 
   def show
     @user = User.find_by_id(params[:id]) || current_user
@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = "Succesfully removed user"
-    redirect_to users_path
+    redirect_to action: :index
   end
 
   def dagschotel

@@ -1,0 +1,20 @@
+<div class="col-md-3 form_products">
+  <div class="thumbnail ">
+    <div class="form_row center">
+      <%= image_tag product.avatar %>
+      <div class="caption">
+        <h3><%= product.name %> - <%= content_tag :span, euro(product.price), class: "price" %></h3>
+        <p>
+          <div class="input-group">
+            <%= render 'btn_dec', id: product.id %>
+            <%= f.text_field :count, class: 'form-control row_counter', value: 0 %>
+            <%= f.hidden_field :price, value: product.price, class: :price %>
+            <%= f.hidden_field :stock, value: product.stock, class: :stock %>
+            <%= render 'btn_inc', id: product.id %>
+            <%= f.hidden_field :product_id %>
+          </div>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

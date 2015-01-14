@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141217063222) do
+ActiveRecord::Schema.define(version: 20150113155744) do
 
   create_table "order_products", force: true do |t|
     t.integer "order_id"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20141217063222) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.integer  "category",            default: 0
+    t.integer  "stock",               default: 0
   end
 
   create_table "users", force: true do |t|

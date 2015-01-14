@@ -19,8 +19,9 @@ class OrdersController < ApplicationController
     @order = @user.orders.build(order_params)
     @products = Product.all
     @order_products = @order.order_products
+
     if @order.save
-      flash[:success] = order_to_sentence(@order) + " ordered. Enjoy it!"
+      flash[:success] = "#{@order.to_sentence} ordered. Enjoy it!"
       redirect_to root_path
     else
       render 'new'
@@ -33,13 +34,13 @@ class OrdersController < ApplicationController
   end
 
   def quickpay
-    @user = User.find(params[:user_id])
-    order = @user.orders.build
-    order.products << @user.dagschotel
+    user = User.find(params[:user_id])
+    order = user.orders.build
+    order.products << user.dagschotel
     if order.save
       flash[:success] = "Quick pay succeeded"
     else
-      flash[:error] = "Quick pay went wrong ... Sorry!"
+      flash[:error] = order.errors.full_messages.first
     end
     redirect_to root_path
   end

@@ -12,6 +12,7 @@
 #  avatar_file_size    :integer
 #  avatar_updated_at   :datetime
 #  category            :integer          default(0)
+#  stock               :integer          default(0)
 #
 
 require 'test_helper'

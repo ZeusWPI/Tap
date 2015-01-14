@@ -12,6 +12,7 @@
 #  avatar_file_size    :integer
 #  avatar_updated_at   :datetime
 #  category            :integer          default(0)
+#  stock               :integer          default(0)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

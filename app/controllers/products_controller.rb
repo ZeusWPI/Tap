@@ -36,13 +36,13 @@ class ProductsController < ApplicationController
   def destroy
     Product.find(params[:id]).destroy
     flash[:success] = "Succesfully removed product"
-    redirect_to products_path
+    redirect_to action: :index
   end
 
   private
 
     def product_params
-      params.require(:product).permit(:name, :price, :avatar, :category)
+      params.require(:product).permit(:name, :price, :avatar, :category, :stock)
     end
 
 end
