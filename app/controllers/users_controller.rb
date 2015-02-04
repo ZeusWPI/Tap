@@ -4,8 +4,8 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by_id(params[:id]) || current_user
     @orders = Order.joins(:products).select(:count, "products.*", "orders.id").where(user: @user).group_by &:id
-    @products = @user.products.select("products.*", "count(products.id) as count").group(:product_id)
-    @categories = @user.products.select("products.category", "count(products.category) as count").group(:category)
+    @products = @user.products.select("products.*", "sum(order_products.count) as count").group(:product_id)
+    @categories = @user.products.select("products.category", "sum(order_products.count) as count").group(:category)
   end
 
   def index
