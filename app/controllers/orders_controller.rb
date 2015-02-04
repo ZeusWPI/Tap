@@ -28,6 +28,17 @@ class OrdersController < ApplicationController
     end
   end
 
+  def destroy
+    order = Order.find(params[:id])
+    if order.created_at > 5.minutes.ago
+      order.destroy
+      flash[:success] = "Order has been removed."
+    else
+      flash[:error] = "This order has been placed too long ago, it can't be removed. Please contact a sysadmin."
+    end
+    redirect_to koelkast_root_path
+  end
+
   def overview
     @users_by_name = User.members.order(:name)
     @users_by_order = User.members.order(:orders_count).reverse_order
@@ -38,7 +49,7 @@ class OrdersController < ApplicationController
     order = user.orders.build
     order.products << user.dagschotel
     if order.save
-      flash[:success] = "Quick pay succeeded"
+      flash[:success] = "Quick pay succeeded. #{view_context.link_to("Undo", [user, order], method: :delete)}."
     else
       flash[:error] = order.errors.full_messages.first
     end

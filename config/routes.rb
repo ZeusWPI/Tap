@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   end
 
   resources :users do
-    resources :orders, only: [:new, :create, :index]
+    resources :orders
     get 'quickpay' => 'orders#quickpay'
     get 'dagschotel/:product_id' => 'users#dagschotel', as: "dagschotel"
   end

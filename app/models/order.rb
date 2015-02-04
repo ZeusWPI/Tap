@@ -14,9 +14,10 @@ class Order < ActiveRecord::Base
 
   after_initialize { self.total_price = 0 }
   after_create { self.user.pay(price) }
+  before_destroy { self.user.pay(-price) }
 
   belongs_to :user, counter_cache: true
-  has_many :order_products
+  has_many :order_products, dependent: :destroy
   has_many :products, through: :order_products
 
   attr_accessor :total_price

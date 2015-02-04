@@ -10,6 +10,7 @@
 
 class OrderProduct < ActiveRecord::Base
   after_create :remove_from_stock
+  before_destroy :put_back_in_stock
 
   belongs_to :order
   belongs_to :product
@@ -28,6 +29,11 @@ class OrderProduct < ActiveRecord::Base
 
     def remove_from_stock
       product.stock -= self.count
+      product.save
+    end
+
+    def put_back_in_stock
+      product.stock += self.count
       product.save
     end
 end
