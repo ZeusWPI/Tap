@@ -19,6 +19,11 @@ class OrderProduct < ActiveRecord::Base
 
   accepts_nested_attributes_for :product
 
+  def product_attributes=(attributes)
+    self.product = Product.find(attributes[:id])
+    super
+  end
+
   private
 
     def remove_from_stock
