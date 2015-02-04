@@ -27,7 +27,7 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :order_products, reject_if: proc { |op| op[:count].to_i <= 0 }
 
   def price
-    self.order_products.map{ |op| op.count * op.product.price }.sum
+    self.order_products.map{ |op| op.count * op.product.price_cents }.sum
   end
 
   def to_sentence

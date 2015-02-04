@@ -11,7 +11,7 @@
             <%= render 'btn_inc' %>
 
             <%= f.fields_for :product do |product| %>
-              <%= product.hidden_field :price, class: :price %>
+              <%= product.hidden_field :price_cents, class: :price %>
               <%= product.hidden_field :stock, class: :stock %>
             <% end %>
           </div>

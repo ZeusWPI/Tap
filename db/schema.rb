@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150113155744) do
+ActiveRecord::Schema.define(version: 20150204155216) do
 
   create_table "order_products", force: true do |t|
     t.integer "order_id"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20150113155744) do
 
   create_table "products", force: true do |t|
     t.string   "name"
-    t.integer  "price"
+    t.integer  "price_cents"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "avatar_file_name"
