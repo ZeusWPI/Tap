@@ -17,7 +17,12 @@ Rails.application.routes.draw do
     get 'dagschotel/:product_id' => 'users#dagschotel', as: "dagschotel"
   end
 
-  resources :products
+  resources :products do
+    collection do
+      get  'stock' => 'products#stock', as: 'stock'
+      post 'stock' => 'products#update_stock', as: 'update_stock'
+    end
+  end
   get 'admins' => 'admins#schulden', as: "admins_schulden"
   get 'overview' => 'orders#overview', as: "orders"
 end
