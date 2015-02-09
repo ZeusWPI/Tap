@@ -1,0 +1,15 @@
+<div class="col-md-3 form_products">
+  <div class="thumbnail ">
+    <div class="form_row center">
+      <%= image_tag product.avatar %>
+      <div class="caption">
+        <%= content_tag :h3, "#{product.name} - #{euro(product.price)}" %>
+        <%= f.counter :count, skip_label: true, wrapper_class: "input-group", class: "row_counter" %>
+        <%= f.fields_for :product do |product| %>
+          <%= product.hidden_field :price_cents, class: :price %>
+          <%= product.hidden_field :stock, class: :stock %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

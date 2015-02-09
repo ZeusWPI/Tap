@@ -1,7 +1,7 @@
 class InStockValidator < ActiveModel::Validator
   def validate(record)
-    record.order_products.each do |op|
-      record.errors[op.product.name] = "is not in stock anymore" if op.count > op.product.stock
+    record.order_items.each do |oi|
+      record.errors[oi.product.name] = "is not in stock anymore" if oi.count > oi.product.stock
     end
   end
 end

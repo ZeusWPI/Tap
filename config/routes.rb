@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       post 'stock' => 'products#update_stock', as: 'update_stock'
     end
   end
+
   get 'admins' => 'admins#schulden', as: "admins_schulden"
   get 'overview' => 'orders#overview', as: "orders"
 end

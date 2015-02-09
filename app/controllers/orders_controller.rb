@@ -5,10 +5,10 @@ class OrdersController < ApplicationController
     @user = User.find(params[:user_id])
     @order = @user.orders.build
     @products = Product.all
-    @order_products = @order.order_products
+    @order_items = @order.order_items
 
     @products.each do |p|
-      @order_products.build(product: p)
+      @order_items.build(product: p)
     end
   end
 
@@ -16,7 +16,7 @@ class OrdersController < ApplicationController
     @user = User.find(params[:user_id])
     @order = @user.orders.build(order_params)
     @products = Product.all
-    @order_products = @order.order_products
+    @order_items = @order.order_items
 
     if @order.save
       flash[:success] = "#{@order.to_sentence} ordered. Enjoy it!"
@@ -57,6 +57,6 @@ class OrdersController < ApplicationController
   private
 
     def order_params
-      params.require(:order).permit(order_products_attributes: [:count, product_attributes: [:id, :price, :stock]])
+      params.require(:order).permit(order_items_attributes: [:count, product_attributes: [:id, :price, :stock]])
     end
 end

@@ -3,16 +3,16 @@
 # Table name: products
 #
 #  id                  :integer          not null, primary key
-#  name                :string(255)
-#  price_cents         :integer
-#  created_at          :datetime
-#  updated_at          :datetime
+#  name                :string(255)      not null
+#  price_cents         :integer          default(0), not null
+#  category            :integer          default(0)
+#  stock               :integer          default(0), not null
 #  avatar_file_name    :string(255)
 #  avatar_content_type :string(255)
 #  avatar_file_size    :integer
 #  avatar_updated_at   :datetime
-#  category            :integer          default(0)
-#  stock               :integer          default(0)
+#  created_at          :datetime
+#  updated_at          :datetime
 #
 
 require 'test_helper'

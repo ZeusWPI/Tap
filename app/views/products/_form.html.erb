@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3 sign-in">
-    <%= form_for @product, builder: FormattedFormBuilder, html: { multipart: true } do |f| %>
+    <%= f_form_for @product, html: { multipart: true } do |f| %>
       <%= f.error_messages %>
 
       <%= f.text_field :name %>

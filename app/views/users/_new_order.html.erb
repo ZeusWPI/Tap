@@ -1,7 +1,10 @@
 <div class="thumbnail overview">
-  <%= link_to image_tag(user.dagschotel.avatar, class: "img-circle dagschotel"), user_quickpay_path(user) unless user.dagschotel.nil? %>
-  <%= link_to image_tag(user.avatar , class: "img-circle avatar"), new_user_order_path(user) %>
+  <% unless user.dagschotel.nil? %>
+    <%= link_to user_quickpay_path(user) do %>
+      <%= image_tag user.dagschotel.avatar, class: "img-circle dagschotel" %>
+    <% end %>
+  <% end %>
 
-  <%= link_to user.name , new_user_order_path(user), class: "btn btn-info",
-    style: get_color_style(user) %>
+  <%= link_to image_tag(user.avatar , class: "img-circle avatar"), new_user_order_path(user) %>
+  <%= link_to user.name , new_user_order_path(user), class: "btn btn-info", style: get_color_style(user) %>
 </div>

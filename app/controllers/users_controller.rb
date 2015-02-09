@@ -4,8 +4,8 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by_id(params[:id]) || current_user
     @orders = @user.orders.includes(:products).paginate(page: params[:page])
-    @products = @user.products.select("products.*", "sum(order_products.count) as count").group(:product_id)
-    @categories = @user.products.select("products.category", "sum(order_products.count) as count").group(:category)
+    @products = @user.products.select("products.*", "sum(order_items.count) as count").group(:product_id)
+    @categories = @user.products.select("products.category", "sum(order_items.count) as count").group(:category)
   end
 
   def index
