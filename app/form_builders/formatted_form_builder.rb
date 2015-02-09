@@ -164,7 +164,7 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
 
     def counter_button(button, glyphicon)
       content_tag :span, class: "input-group-btn" do
-        content_tag :button, class: "btn btn-default #{button}" do
+        content_tag :button, class: "btn btn-default #{button}", type: "button" do
           content_tag :span, "", class: "glyphicon #{glyphicon}"
         end
       end

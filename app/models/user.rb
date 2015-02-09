@@ -28,6 +28,7 @@
 
 class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :rememberable, :trackable
+  has_paper_trail only: [:balance, :admin, :orders_count, :koelkast]
   has_attached_file :avatar, styles: { medium: "100x100>" }, default_style: :medium,
       default_url: "http://babeholder.pixoil.com/img/70/70"
 
