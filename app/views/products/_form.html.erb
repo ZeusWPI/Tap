@@ -1,22 +1,15 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3 sign-in">
-    <%= form_for @product, html: { multipart: true } do |f| %>
-      <%= render 'application/errors', model: @product %>
+    <%= form_for @product, builder: FormattedFormBuilder, html: { multipart: true } do |f| %>
+      <%= f.error_messages %>
 
-      <%= form_text_field f, :name %>
+      <%= f.text_field :name %>
+      <%= f.price_field :price %>
+      <%= f.collection_select :category, Product.categories.keys %>
+      <%= f.number_field :stock %>
+      <%= f.file_field :avatar %>
 
-      <%= f.label :price %>
-      <%= f.number_field :price, value: number_with_precision(f.object.price, precision: 2), class: 'form-control form-field', placeholder: "0.00", step: :any %>
-
-      <%= form_collection_select f, :category, Product.categories.keys, :to_s, :titlecase %>
-
-      <%= f.label :stock %>
-      <%= f.number_field :stock, class: 'form-control form-field' %>
-
-      <%= f.label :avatar %>
-      <%= f.file_field :avatar , class: "form-field" %>
-
-      <%= f.submit class: "btn btn-primary" %>
+      <%= f.submit %>
     <% end %>
   </div>
 </div>

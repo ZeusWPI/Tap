@@ -5,16 +5,11 @@
       <div class="caption">
         <h3><%= product.name %> - <%= content_tag :span, euro(product.price) %></h3>
         <p>
-          <div class="input-group">
-            <%= render 'btn_dec' %>
-            <%= f.text_field :count, class: 'form-control row_counter', value: 0 %>
-            <%= render 'btn_inc' %>
-
-            <%= f.fields_for :product do |product| %>
-              <%= product.hidden_field :price_cents, class: :price %>
-              <%= product.hidden_field :stock, class: :stock %>
-            <% end %>
-          </div>
+            <%= f.counter :count, skip_label: true, wrapper_class: "input-group", class: "row_counter" %>
+          <%= f.fields_for :product do |product| %>
+            <%= product.hidden_field :price_cents, class: :price %>
+            <%= product.hidden_field :stock, class: :stock %>
+          <% end %>
         </p>
       </div>
     </div>

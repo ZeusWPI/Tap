@@ -2,16 +2,16 @@
 <%= render partial: 'flash' %>
 
 <div class="sign-in">
-  <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+  <%= f_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 
-    <%= form_text_field f, :nickname %>
-    <%= form_password_field f, :password %>
+    <%= f.text_field :nickname %>
+    <%= f.password_field :password %>
 
     <% if devise_mapping.rememberable? %>
-      <%= form_check_box f, :remember_me %>
+      <%= f.check_box :remember_me %>
     <% end %>
 
-    <%= f.submit "Sign in", class: "btn btn-primary" %>
+    <%= f.submit "Sign in" %>
   <% end %>
 </div>
 

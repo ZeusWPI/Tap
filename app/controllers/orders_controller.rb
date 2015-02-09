@@ -1,6 +1,4 @@
 class OrdersController < ApplicationController
-  include OrdersHelper
-
   load_and_authorize_resource
 
   def new

@@ -1,8 +1,8 @@
 <h3>Order for <%= @user.nickname %> (<%= euro(@user.balance) %>)</h3>
 
 <div class="row">
-  <%= form_for @order, url: user_orders_path(@user) do |f| %>
-    <%= render 'application/errors', model: @order %>
+  <%= form_for @order, builder: FormattedFormBuilder, url: user_orders_path(@user) do |f| %>
+    <%= f.error_messages %>
 
     <div class="col-md-12">
       <%= f.fields_for :order_products do |op_field| %>
