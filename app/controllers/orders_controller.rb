@@ -57,6 +57,6 @@ class OrdersController < ApplicationController
   private
 
     def order_params
-      params.require(:order).permit(order_items_attributes: [:count, product_attributes: [:id, :price, :stock]])
+      params.require(:order).permit(order_items_attributes: [:count, product_attributes: [:id, :price_cents, :stock]])
     end
 end
