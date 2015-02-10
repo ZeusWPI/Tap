@@ -8,8 +8,9 @@ class Ability
       can :schulden, :admins
     elsif user.koelkast?
       can :manage, Order
-    else
+    elsif user[:id]
       can :read, :all
+      can :update, User
     end
   end
 end

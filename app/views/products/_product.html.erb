@@ -3,7 +3,7 @@
     <%= image_tag product.avatar %>
     <div class="caption">
       <h3><%= product.name %> - <%= euro(product.price) %> (<%= product.stock %>)</h3>
-      <% if current_user.admin? %>
+      <% if current_user && current_user.admin? %>
         <p>
           <%= link_to "Edit", edit_product_path(product), class: "btn btn-default" %>
           <%= link_to "Delete", product_path(product), method: :delete, class: "btn btn-danger", data: {confirm: 'Are you sure?'} %>
