@@ -13,22 +13,22 @@ products = [
     name:     'Fanta',
     price:    0.6,
     category: 'beverages',
-    stock:    25,
-    avatar:   File.new('public/seeds/products/fanta.jpg', 'r')
+    stock:    25
+    # avatar:   File.new('public/seeds/products/fanta.jpg', 'r')
   },
   {
     name:     'Club Mate',
     price:    1.2,
     category: 'beverages',
-    stock:    25,
-    avatar:   File.new('public/seeds/products/club_mate.jpg', 'r')
+    stock:    25
+    # avatar:   File.new('public/seeds/products/club_mate.jpg', 'r')
   },
   {
     name:     'Kinder Bueno',
     price:    0.6,
     category: 'food',
-    stock:    15,
-    avatar:   File.new('public/seeds/products/bueno.jpg', 'r')
+    stock:    15
+    # avatar:   File.new('public/seeds/products/bueno.jpg', 'r')
   }
 ]
 
@@ -41,32 +41,32 @@ users = [
     nickname:   'admin',
     name:       'A.',
     last_name:  'Admin',
-    avatar:     File.new('public/seeds/users/admin.jpg', 'r'),
+    # avatar:     File.new('public/seeds/users/admin.jpg', 'r'),
     admin:      true
   },
   {
     nickname:   'koelkast',
-    avatar:     File.new('public/seeds/users/admin.jpg', 'r'),
+    # avatar:     File.new('public/seeds/users/admin.jpg', 'r'),
     koelkast:   true
   },
   {
     nickname:   'benji',
     name:       'Benjamin',
     last_name:  'Cousaert',
-    avatar:     File.new('public/seeds/users/benji.jpg', 'r'),
+    # avatar:     File.new('public/seeds/users/benji.jpg', 'r'),
     dagschotel: Product.first
   },
   {
     nickname:   'don',
     name:       'Lorin',
-    last_name:  'Werthen',
-    avatar:     File.new('public/seeds/users/don.jpg', 'r')
+    last_name:  'Werthen'
+    # avatar:     File.new('public/seeds/users/don.jpg', 'r')
   },
   {
     nickname:   'silox',
     name:       'Tom',
-    last_name:  'Naessens',
-    avatar:     File.new('public/seeds/users/silox.jpg', 'r')
+    last_name:  'Naessens'
+    # avatar:     File.new('public/seeds/users/silox.jpg', 'r')
   }
 ]
 
