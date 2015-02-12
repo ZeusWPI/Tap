@@ -1,2 +1,2 @@
-<%= order.created_at %>
+<%= order.created_at.strftime("%d %b %Y at %H:%M") %>
 <%= simple_format(order.to_sentence) %>
