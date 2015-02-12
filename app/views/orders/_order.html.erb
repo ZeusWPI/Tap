@@ -1,2 +1,2 @@
-<%= order.created_at %>
+<%= time_ago_in_words(order.created_at) + " ago" %>
 <%= simple_format(order.to_sentence) %>
