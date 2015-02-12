@@ -38,6 +38,8 @@ class User < ActiveRecord::Base
   belongs_to :dagschotel, class_name: 'Product'
 
   validates :nickname, presence: true, uniqueness: true
+  validates :name, presence: true
+  validates :last_name, presence: true
   validates_attachment :avatar, content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }
   # validates_attachment :avatar, presence: true
 

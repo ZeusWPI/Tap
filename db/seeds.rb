@@ -46,6 +46,8 @@ users = [
   },
   {
     nickname:   'koelkast',
+    name:       'K.',
+    last_name:  'Koelkast',
     # avatar:     File.new('public/seeds/users/admin.jpg', 'r'),
     koelkast:   true
   },

@@ -10,7 +10,7 @@ module ApplicationHelper
   end
 
   def euro(f)
-    "€#{number_with_precision f, precision: 2}"
+    number_to_currency(f, unit: '€')
   end
 
   def f_form_for(record, options = {}, &block)

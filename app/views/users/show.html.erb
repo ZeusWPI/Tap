@@ -2,7 +2,7 @@
 <div class="row">
   <div class="user_info">
     <h2><%= @user.nickname %> (<%= @user.full_name %>)</h2>
-    <h5><%= link_to "[Edit profile]" , edit_user_registration_path %></h5>
+    <h5><%= link_to "[Edit profile]" , edit_user_registration_path if current_user == @user%></h5>
     <h4>Balance: <%= euro(@user.balance) %></h4>
   </div>
 
