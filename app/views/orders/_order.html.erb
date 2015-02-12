@@ -1,2 +1,2 @@
-<%= time_ago_in_words(order.created_at) + " ago" %>
+<%= order.created_at.strftime("%d %b %Y at %H:%M") %>
 <%= simple_format(order.to_sentence) %>

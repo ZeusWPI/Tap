@@ -65,3 +65,6 @@ gem 'faker',                '1.4.2'
 
 # Safety first
 gem 'paper_trail', '~> 4.0.0.beta'
+
+# Windoos sux
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
