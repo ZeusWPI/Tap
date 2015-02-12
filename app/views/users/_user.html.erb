@@ -1,6 +1,6 @@
 <div class="col-md-3">
   <div class="thumbnail monopoly">
-    <h3 class="header" style="background-color: #<%= get_color(user)%>;" ><%= user.full_name %></h3>
+    <h3 class="header" style="background-color: #<%= get_color(user)%>;" ><%= link_to user.full_name, user %></h3>
     <div class="caption">
       <%= image_tag(user.avatar , class: "img-circle avatar") %>
       <p><strong>Name:</strong> <%= user.name %></p>
@@ -8,11 +8,13 @@
       <p><strong>Nickname:</strong> <%= user.nickname %></p>
       <p><strong>Balance:</strong> <%= euro(user.balance) %></p>
     </div>
-    <div class="footer">
-      <p>
-        <%= link_to "Delete", user_path(user), method: :delete, class: "btn btn-danger", data: {confirm: 'Are you sure?'} %>
-      </p>
+    <% if current_user.admin? %>
+      <div class="footer">
+        <p>
+          <%= link_to "Delete", user_path(user), method: :delete, class: "btn btn-danger", data: {confirm: 'Are you sure?'} %>
+        </p>
 
-    </div>
+      </div>
+    <% end %>
   </div>
 </div>

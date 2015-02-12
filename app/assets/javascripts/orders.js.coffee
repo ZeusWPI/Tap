@@ -10,12 +10,19 @@ ready = ->
 
   $('.form_row').each((index, row) ->
     disIfNec(row)
+    $(row).on('input', recalculate)
   )
+
+  recalculate()
 
 disIfNec = (row) ->
   counter = parseInt($(row).find('.row_counter').val())
   $(row).find('.btn-dec').prop('disabled', counter == 0);
   $(row).find('.btn-inc').prop('disabled', counter == parseInt($(row).find('.stock').val()))
+
+recalculate = () ->
+  value = ($(row).find('.row_counter').val() * $(row).find('.price').val() for row in $('.form_row')).reduce (a, b) -> a+b
+  $('#order_total_price').val((value / 100.0).toFixed(2))
 
 increment = (button, n) ->
   row = $(button).closest('.form_row')
@@ -27,10 +34,7 @@ increment = (button, n) ->
   # Disable buttons if necessary
   disIfNec(row)
 
-  # Update the price
-  oldVal = parseFloat($('#order_total_price').val()) * 100
-  newVal = (oldVal + parseInt($(row).find('.price').val()) * n)/100
-  $('#order_total_price').val(newVal.toFixed(2))
+  recalculate()
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

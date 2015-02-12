@@ -3,7 +3,7 @@
   <div class="user_info">
     <h2>
       <%= @user.full_name %> - <%= @user.nickname %>
-      <%= link_to "edit" , edit_user_registration_path %>
+      <%= link_to "edit", edit_user_registration_path if current_user == @user %>
     </h2>
     <h4>Balance: <%= euro(@user.balance) %></h4>
   </div>
