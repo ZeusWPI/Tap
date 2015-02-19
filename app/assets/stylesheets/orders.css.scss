@@ -2,11 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-//.form-control.input-lg{
-//  height:66px;
-//  text-align: center;
-//}
-
 .big-form-button {
   height: 65px;
   width: 65px;
@@ -15,4 +10,21 @@
 .form-control.big-form-field {
   height: 66px;
   text-align: center;
+}
+
+.form_row_image {
+  height: 100px;
+  width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+.form_row_image img {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  top: 0;
+  margin: auto;
 }
