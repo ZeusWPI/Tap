@@ -1,23 +1,24 @@
 <%= render partial: 'flash' %>
 <div class="row">
   <div class="user_info">
-    <h2><%= @user.nickname %> (<%= @user.full_name %>)</h2>
     <h5><%= link_to "[Edit profile]" , edit_user_registration_path if current_user == @user%></h5>
-    <h4>Balance: <%= euro(@user.balance) %></h4>
+    <h2><%= @user.nickname %> (<%= @user.full_name %>)</h2>
+    <div class="balance">BALANCE: <%= euro(@user.balance) %></div>
   </div>
-
+  
   <% if @user.orders.any? %>
-    <div class="col-md-6">
-      <h3>Orders (<%= @user.orders_count %>)</h3>
+  <div class="stats">
+    <h4>Total products</h4>
+    Total: <br/><ul><li><%=@categories.map{|c| pluralize(c.count, c.category)}.join(", ")%></li></ul>
+    <br/>
+    Specifics:<br/>
+    <%= render partial: "products/product_row", collection: @products, as: :product %>
+    
+      <h4>All orders (<%= @user.orders_count %>)</h4>
       <%= render @orders %>
       <%= will_paginate @orders %>
     </div>
   <% end %>
 
-  <div class="col-md-6">
-    <h3>Products</h3>
-    <%= render partial: "products/product_row", collection: @products, as: :product %>
-    <h4>Categories</h4>
-    <%= render partial: "products/category", collection: @categories %>
-  </div>
+
 </div>
