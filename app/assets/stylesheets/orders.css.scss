@@ -1,14 +1,15 @@
 // Place all the styles related to the Orders controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.form-control.input-lg {
-  height:66px;
-  text-align: center;
-}
 
 .big-form-button {
-  height:65px;
-  width:65px;
+  height: 65px;
+  width: 65px;
+}
+
+.form-control.big-form-field {
+  height: 66px;
+  text-align: center;
 }
 
 .form_row_image {
