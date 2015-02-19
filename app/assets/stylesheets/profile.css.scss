@@ -1,9 +1,46 @@
 /* User profile */
 
+
 .user_info h2 {
-  display: inline;
+  line-height: 45px;
+  text-align: center;
 }
-.user_info h5 {
-  display: inline;
-  padding-left: 10px;
+  
+.user_info h5 {  
+   margin-right: 10px;
+   text-align: right;
+}
+
+.balance {
+  padding: 12px 0;
+  text-align: center;
+  font-family: monospace;
+  font-size: 16px;
+  width: 60%;
+  margin: auto;
+  background-color: #FF7F00;
+  color: white;
+}
+
+.stats{
+  width: 60%;
+  margin: auto;
+}
+
+.stats h4 {
+  text-transform: uppercase;
+  font-family: monospace;
+  background-color: #333;
+  color: white;
+  padding: 5px 10px;
+  margin-top: 15px;
+}
+
+.stats ul {
+  list-style-type: none;
+  padding: 0 0 0 15px;
+  margin: 0px;
+}
+
+.stats li {
 }
