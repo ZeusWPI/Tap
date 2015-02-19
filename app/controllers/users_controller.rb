@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by_id(params[:id]) || current_user
     @orders = @user.orders.includes(:products).order(:created_at).reverse_order.paginate(page: params[:page])
-    @products = @user.products.select("products.*", "sum(order_items.count) as count").group(:product_id)
+    @products = @user.products.select("products.*", "sum(order_items.count) as count").group(:product_id).order("count desc")
     @categories = @user.products.select("products.category", "sum(order_items.count) as count").group(:category)
   end
 
