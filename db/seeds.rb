@@ -75,3 +75,7 @@ users = [
 users.each do |attr|
   User.create nickname: attr[:nickname], name: attr[:name], last_name: attr[:last_name], avatar: attr[:avatar], dagschotel: attr[:dagschotel], password: DEFAULT_PASSWORD, password_confirmation: DEFAULT_PASSWORD, admin: attr[:admin] || false, koelkast: attr[:koelkast] || false
 end
+
+50.times do |i|
+  User.create nickname: "TestUser#{i}", name: "Test", last_name: "User", avatar: users[0][:avatar], password: DEFAULT_PASSWORD, password_confirmation: DEFAULT_PASSWORD
+end
