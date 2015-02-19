@@ -49,7 +49,7 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
   def counter(name, options = {})
     form_group_builder(name, options) do
       counter_button("btn-dec", "glyphicon-minus") +
-      text_field_without_format(name, options.merge({class: 'form-control input-lg row_counter'})) +
+      text_field_without_format(name, options.merge({class: 'form-control row_counter big-form-field'})) +
       counter_button("btn-inc", "glyphicon-plus")
     end
   end
