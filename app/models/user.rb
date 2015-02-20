@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
 
   has_paper_trail only: [:balance, :admin, :orders_count, :koelkast]
 
-  has_attached_file :avatar, styles: { large: "190x190>", medium: "100x100>" }, default_style: :medium, default_url: "http://lorempixel.com/70/70/"
+  has_attached_file :avatar, styles: { large: "150x150>", medium: "100x100>" }, default_style: :medium, default_url: "http://lorempixel.com/70/70/"
 
   has_many :orders, -> { includes :products }
   has_many :products, through: :orders
