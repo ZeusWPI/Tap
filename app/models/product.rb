@@ -17,7 +17,7 @@
 
 class Product < ActiveRecord::Base
   has_many :order_items
-  has_attached_file :avatar, styles: { medium: "100x100>" }, default_style: :medium, default_url: "http://lorempixel.com/70/70/"
+  has_attached_file :avatar, styles: { dagschotel: "80x80>", medium: "100x100>" }, default_style: :medium, default_url: "http://lorempixel.com/70/70/"
 
   enum category: %w(food beverages other)
 

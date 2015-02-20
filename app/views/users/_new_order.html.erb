@@ -1,10 +1,10 @@
-<div class="thumbnail overview">
+<div class="col-md-2 thumbnail overview">
   <% unless user.dagschotel.nil? %>
     <%= link_to user_quickpay_path(user) do %>
-      <%= image_tag user.dagschotel.avatar, class: "img-circle dagschotel" %>
+      <%= image_tag user.dagschotel.avatar(:dagschotel), class: "img-circle dagschotel" %>
     <% end %>
   <% end %>
 
   <%= link_to image_tag(user.avatar(:large) , class: "img-circle avatar"), new_user_order_path(user) %>
-  <%= link_to user.name , new_user_order_path(user), class: "btn btn-info", style: get_color_style(user) %>
+  <%= link_to user.nickname , new_user_order_path(user), class: "btn btn-info", style: get_color_style(user) %>
 </div>

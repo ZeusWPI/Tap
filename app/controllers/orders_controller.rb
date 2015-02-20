@@ -8,6 +8,8 @@ class OrdersController < ApplicationController
     redirect_to root_path, flash: { error: "Koelkast can't order things." } if @user.koelkast?
 
     @order = @user.orders.build
+    # products = @user.products.select("products.*", "sum(order_items.count) as count").group(:product_id).order("count desc")
+    # @order.g_order_items(products)
     @order.g_order_items(Product.all)
   end
 
@@ -39,8 +41,7 @@ class OrdersController < ApplicationController
   end
 
   def overview
-    @users_by_name = User.members.order(:name)
-    @users_by_order = User.members.order(:orders_count).reverse_order
+    @users = User.members.order(:name)
   end
 
   def quickpay
