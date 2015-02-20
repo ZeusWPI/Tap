@@ -7,7 +7,11 @@
     <%= csrf_meta_tags %>
   </head>
 
-  <body>
+  <% if current_user && current_user.koelkast? %>
+    <body oncontextmenu="return false">
+  <% else %>
+    <body>
+  <% end %>
     <%= render "layouts/header" %>
     <div class="container">
       <div class="container" >
