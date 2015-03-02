@@ -3,22 +3,21 @@
   <div class="user_info">
     <h5><%= link_to "[Edit profile]" , edit_user_registration_path if current_user == @user%></h5>
     <h2><%= @user.nickname %> (<%= @user.full_name %>)</h2>
+    <%= button_to "PLACE ORDER!", new_user_order_path(@user), method: :get %>
     <div class="balance">BALANCE: <%= euro(@user.balance) %></div>
   </div>
-  
+
   <% if @user.orders.any? %>
-  <div class="stats">
-    <h4>Total products</h4>
-    Total: <br/><ul><li><%=@categories.map{|c| pluralize(c.count, c.category)}.join(", ")%></li></ul>
-    <br/>
-    Specifics:<br/>
-    <%= render partial: "products/product_row", collection: @products, as: :product %>
-    
+    <div class="stats">
+      <h4>Total products</h4>
+      Total: <br/><ul><li><%=@categories.map{|c| pluralize(c.count, c.category)}.join(", ")%></li></ul>
+      <br/>
+      Specifics:<br/>
+      <%= render partial: "products/product_row", collection: @products, as: :product %>
+
       <h4>All orders (<%= @user.orders_count %>)</h4>
       <%= render @orders %>
       <%= will_paginate @orders %>
     </div>
   <% end %>
-
-
 </div>

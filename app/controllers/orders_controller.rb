@@ -6,6 +6,7 @@ class OrdersController < ApplicationController
   def new
     @user = User.find(params[:user_id])
     redirect_to root_path, flash: { error: "Koelkast can't order things." } if @user.koelkast?
+    redirect_to root_path, flash: { error: "Please don't order stuff for other people" } unless current_user.koelkast? || current_user == @user
 
     @order = @user.orders.build
     # products = @user.products.select("products.*", "sum(order_items.count) as count").group(:product_id).order("count desc")
@@ -16,6 +17,7 @@ class OrdersController < ApplicationController
   def create
     @user = User.find(params[:user_id])
     redirect_to root_path, flash: { error: "Koelkast can't order things." } if @user.koelkast?
+    redirect_to root_path, flash: { error: "Please don't order stuff for other people" } unless current_user.koelkast? || current_user == @user
 
     @order = @user.orders.build(order_params)
 

@@ -11,6 +11,7 @@ class Ability
     elsif user[:id]
       can :read, :all
       can :update, User
+      can :create, Order
     end
   end
 end
