@@ -17,14 +17,22 @@
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  purchase_price: 1
-  sale_price: 1
-  img_path: MyString
+fanta:
+  name: 'Fanta'
+  price_cents: 60
+  stock: 100
 
-two:
-  name: MyString
-  purchase_price: 1
-  sale_price: 1
-  img_path: MyString
+cola:
+  name: 'Cola'
+  price_cents: 60
+  stock: 0
+
+mate:
+  name: 'Club Mate'
+  price_cents: 120
+  stock: 100
+
+bueno:
+  name: 'Kinder Bueno'
+  stock: 50
+  price_cents: 120

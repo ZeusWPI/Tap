@@ -28,16 +28,13 @@
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  last_name: MyString
-  balance: 1
-  nickname: MyString
-  password_digest: MyString
+user:
+  nickname: 'Gebruiker'
 
-two:
-  name: MyString
-  last_name: MyString
-  balance: 1
-  nickname: MyString
-  password_digest: MyString
+admin:
+  nickname: 'admin'
+  admin: 1
+
+koelkast:
+  nickname: koelkast
+  koelkast: 1
