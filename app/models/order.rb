@@ -40,7 +40,6 @@ class Order < ActiveRecord::Base
   def g_order_items(products, params = {})
     products.each do |p|
       if (oi = self.order_items.select { |t| t.product == p }).size > 0
-        puts oi.inspect
         oi.first.count = [oi.first.product.stock, oi.first.count].min
       else
         self.order_items.build(product: p)

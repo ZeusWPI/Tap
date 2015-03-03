@@ -20,3 +20,5 @@ public/system/products
 public/system/users
 
 .project
+
+/coverage
