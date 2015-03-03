@@ -9,10 +9,10 @@ before_script:
 script: bundle exec rspec
 
 notifications:
-  slack: zeuswpi:xpKSw4tg8JIvQb7Z3svBq0tD
+  slack: zeuswpi:1pHNpPMD56jXSGG1w3Ysa9rd
 
   email:
     recipients:
-      - gamification@zeus.ugent.be
+      - tab@zeus.ugent.be
     on_success: never
     on_failure: change
