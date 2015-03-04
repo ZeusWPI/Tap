@@ -70,3 +70,5 @@ gem 'paper_trail', '~> 4.0.0.beta'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
 gem 'coveralls', require: false
+
+gem "codeclimate-test-reporter", group: :test, require: nil

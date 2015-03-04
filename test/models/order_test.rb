@@ -12,10 +12,17 @@
 require 'test_helper'
 
 class OrderTest < ActiveSupport::TestCase
+  def setup
+    @order = Order.new
+    @order.order_items.build(product: products(:fanta), count: 1)
+    @order.order_items.build(product: products(:bueno), count: 2)
+  end
+
   test "order total price is correct" do
-    o = Order.new
-    o.order_items.build(product: products(:fanta), count: 1)
-    o.order_items.build(product: products(:bueno), count: 2)
-    assert_equal o.price, 300
+    assert_equal @order.price, 300
+  end
+
+  test "to_sentence is correct" do
+    assert_equal @order.to_sentence, "1 Fanta and 2 Kinder Buenos"
   end
 end
