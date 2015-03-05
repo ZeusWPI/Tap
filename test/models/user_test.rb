@@ -29,7 +29,30 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  def setup
+    @user = users(:benji)
+  end
+
+  test "full name" do
+    assert_equal @user.full_name, "Benjamin Cousaert"
+  end
+
+  test "balance behaves correctly" do
+    assert_equal @user.balance_cents, 0
+    assert_equal @user.balance, 0
+
+    @user.balance = 1.3
+
+    assert_equal @user.balance, 1.3
+    assert_equal @user.balance_cents, 130
+  end
+
+  test "to_param" do
+    assert_equal @user.to_param, "#{@user.id}-benji"
+  end
+
+  test "devise validatable methods" do
+    assert_not @user.email_required?
+    assert_not @user.email_changed?
+  end
 end

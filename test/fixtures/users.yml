@@ -28,8 +28,10 @@
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-user:
-  nickname: 'Gebruiker'
+benji:
+  nickname: 'benji'
+  name: 'Benjamin'
+  last_name: 'Cousaert'
 
 admin:
   nickname: 'admin'

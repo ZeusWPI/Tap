@@ -5,9 +5,13 @@ Rails.application.routes.draw do
     unauthenticated :user do
       root to: 'devise/sessions#new'
     end
-    authenticated :user do
-      root to: 'orders#overview',     constraints: UserHomepageConstraint.new(true), as: 'koelkast_root'
-      root to: 'users#show',          constraints: UserHomepageConstraint.new(false), as: 'user_root'
+
+    authenticated :user, ->(u) { u.koelkast? } do
+        root to: 'orders#overview', as: :koelkast_root
+    end
+
+    authenticated :user, ->(u) { !u.koelkast? } do
+        root to: 'users#show', as: :user_root
     end
   end
 
