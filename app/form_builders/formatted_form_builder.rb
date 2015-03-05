@@ -76,15 +76,8 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
   def error_messages
     if object.errors.any?
       content_tag :div, class: "panel panel-danger form-errors" do
-        content_tag(:div, class: "panel-heading") do
-          "#{pluralize(object.errors.count, "error")} prohibited this #{object.class.name.downcase} from being saved:"
-        end +
         content_tag(:div, class: "panel-body") do
-          content_tag :ul do
-            object.errors.full_messages.map do |msg|
-              content_tag :li, msg
-            end.join.html_safe
-          end
+          error_header + error_messages
         end
       end
     end
@@ -167,6 +160,20 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
         content_tag :button, class: "btn btn-default btn-lg #{button}", type: "button" do
           content_tag :span, "", class: "glyphicon btn-lg #{glyphicon}"
         end
+      end
+    end
+
+    def error_header
+      content_tag(:div, class: "panel-heading") do
+        "#{pluralize(object.errors.count, "error")} prohibited this #{object.class.name.downcase} from being saved:"
+      end
+    end
+
+    def error_messages
+      content_tag :ul do
+        object.errors.full_messages.map do |msg|
+          content_tag :li, msg
+        end.join.html_safe
       end
     end
 end
