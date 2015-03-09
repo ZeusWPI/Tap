@@ -7,7 +7,7 @@
     <%= csrf_meta_tags %>
   </head>
 
-  <% if current_user && current_user.koelkast? %>
+  <% if current_user && current_user.koelkast? && !Rails.env.development? %>
     <body oncontextmenu="return false">
   <% else %>
     <body>

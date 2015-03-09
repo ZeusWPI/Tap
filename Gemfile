@@ -41,6 +41,11 @@ group :production do
   gem 'mysql2' # Database
 end
 
+group :test do
+  gem 'capybara'
+  gem 'launchy'
+end
+
 #bootstrap
 gem 'bootstrap-sass',       '3.2.0.0'
 

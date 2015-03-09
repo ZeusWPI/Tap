@@ -18,21 +18,25 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 fanta:
-  name: 'Fanta'
+  id:          1
+  name:        'Fanta'
   price_cents: 60
-  stock: 100
+  stock:       100
 
 cola:
-  name: 'Cola'
+  id:          2
+  name:        'Cola'
   price_cents: 60
-  stock: 0
+  stock:       0
 
 mate:
-  name: 'Club Mate'
+  id:          3
+  name:        'Club Mate'
   price_cents: 120
-  stock: 100
+  stock:       100
 
 bueno:
-  name: 'Kinder Bueno'
-  stock: 50
+  id:          4
+  name:        'Kinder Bueno'
+  stock:       50
   price_cents: 120
