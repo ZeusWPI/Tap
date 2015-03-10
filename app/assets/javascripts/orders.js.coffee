@@ -22,7 +22,7 @@ disIfNec = (row) ->
 
 recalculate = () ->
   value = ($(row).find('.row_counter').val() * $(row).find('.price').val() for row in $('.form_row')).reduce (a, b) -> a+b
-  $('#order_total_price').val((value / 100.0).toFixed(2))
+  $('#order_price').val((value / 100.0).toFixed(2))
 
 increment = (button, n) ->
   row = $(button).closest('.form_row')

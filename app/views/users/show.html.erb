@@ -7,10 +7,10 @@
     <div class="balance">BALANCE: <%= euro(@user.balance) %></div>
   </div>
 
-  <% if @user.orders.any? %>
+  <% if @orders.any? %>
     <div class="stats">
       <h4>Total products</h4>
-      Total: <br/><ul><li><%=@categories.map{|c| pluralize(c.count, c.category)}.join(", ")%></li></ul>
+      Total: <br/><ul><li><%= @categories.map{|c| pluralize(c.count, c.category)}.join(", ")%></li></ul>
       <br/>
       Specifics:<br/>
       <%= render partial: "products/product_row", collection: @products, as: :product %>

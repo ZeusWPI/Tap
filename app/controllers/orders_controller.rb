@@ -34,7 +34,7 @@ class OrdersController < ApplicationController
   def destroy
     order = Order.find(params[:id])
     if order.created_at > 5.minutes.ago
-      order.destroy
+      order.cancel
       flash[:success] = "Order has been removed."
     else
       flash[:error] = "This order has been placed too long ago, it can't be removed. Please contact a sysadmin."
@@ -61,6 +61,6 @@ class OrdersController < ApplicationController
   private
 
     def order_params
-      params.require(:order).permit(order_items_attributes: [:count, product_attributes: [:id]])
+      params.require(:order).permit(order_items_attributes: [:count, :price, product_attributes: [:id]])
     end
 end

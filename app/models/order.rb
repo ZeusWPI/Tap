@@ -12,13 +12,14 @@
 class Order < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
 
-  after_initialize { self.total_price = 0 }
-  after_create     { self.user.increment!(:balance_cents, -price) }
-  before_destroy   { self.user.increment!(:balance_cents, price) }
+  after_initialize { self.price = 0 }
+  after_create     { self.user.decrement!(:balance_cents, price) }
 
   belongs_to :user, counter_cache: true
   has_many :order_items, dependent: :destroy
   has_many :products, through: :order_items
+
+  scope :active, -> { where(cancelled: false) }
 
   attr_accessor :total_price
 
@@ -29,6 +30,17 @@ class Order < ActiveRecord::Base
 
   def price
     self.order_items.map{ |oi| oi.count * oi.product.price_cents }.sum
+  end
+
+  def price=(_)
+    write_attribute(:price, price)
+  end
+
+  def cancel
+    return if self.cancelled
+    user.increment!(:balance_cents, price)
+    User.decrement_counter(:orders_count, user.id)
+    update_attribute(:cancelled, true)
   end
 
   def to_sentence
