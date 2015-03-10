@@ -29,14 +29,20 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 benji:
-  nickname: 'benji'
-  name: 'Benjamin'
-  last_name: 'Cousaert'
+  nickname:      benji
+  name:          Benjamin
+  last_name:     Cousaert
+  dagschotel_id: 1
+
+iasoon:
+  nickname:  iasoon
+  name:      Ilion
+  last_name: Beyst
 
 admin:
-  nickname: 'admin'
-  admin: 1
+  nickname:  admin
+  admin:     1
 
 koelkast:
-  nickname: koelkast
-  koelkast: 1
+  nickname:  koelkast
+  koelkast:  1
