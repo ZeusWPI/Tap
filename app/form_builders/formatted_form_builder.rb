@@ -28,7 +28,12 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
 
   def price_field(name, options = {})
     options[:min]   ||= 0
-    options[:value] ||= number_with_precision(object[name], precision: 2)
+    # if object.is_a?(ActiveRecord::Base)
+      # options[:value] ||= object[name]
+    if object.respond_to?(name)
+      options[:value] ||= object.send name
+    end
+    options[:value] = number_with_precision(options[:value], precision: 2)
 
     form_group_builder(name, options) do
       number_field_without_format(name, options)
