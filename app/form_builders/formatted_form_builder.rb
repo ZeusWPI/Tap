@@ -28,6 +28,7 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
 
   def price_field(name, options = {})
     options[:min]   ||= 0
+    options[:step]  ||= 0.01
     # if object.is_a?(ActiveRecord::Base)
       # options[:value] ||= object[name]
     if object.respond_to?(name)
