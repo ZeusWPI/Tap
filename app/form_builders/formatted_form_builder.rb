@@ -83,7 +83,7 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
     if object.errors.any?
       content_tag :div, class: "panel panel-danger form-errors" do
         content_tag(:div, class: "panel-body") do
-          error_header + error_messages
+          error_header + error_body
         end
       end
     end
@@ -95,7 +95,7 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
-  def error_messages
+  def error_body
     content_tag :ul do
       object.errors.full_messages.map do |msg|
         content_tag :li, msg

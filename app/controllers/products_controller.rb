@@ -8,9 +8,9 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     if @product.save
-      redirect_to action: :index
+      redirect_to products_path
     else
-      render :new
+      render 'new'
     end
   end
 
@@ -27,7 +27,7 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
     if @product.update_attributes(product_params)
       flash[:success] = "Succesfully updated product"
-      redirect_to action: :index
+      redirect_to products_path
     else
       render 'edit'
     end
@@ -36,7 +36,7 @@ class ProductsController < ApplicationController
   def destroy
     Product.find(params[:id]).destroy
     flash[:success] = "Succesfully removed product"
-    redirect_to action: :index
+    redirect_to products_path
   end
 
   def stock

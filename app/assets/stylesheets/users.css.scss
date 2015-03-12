@@ -74,3 +74,28 @@ aside {
     }
   }
 }
+
+table {
+  width: 100%;
+}
+
+.orders {
+  margin-top: -10px;
+  line-height: 140%;
+  & tr:nth-child(even){
+    border-bottom: 1px solid #bbb;
+    td {
+      padding-bottom: 15px;
+    }
+  }
+  & tr:last-child {
+    border-bottom: none;
+  }
+  & tr:nth-child(odd) td {
+    padding-top: 10px;
+  }
+  & td.order_date {
+    font-size: 12px;
+    color: #999;
+  }
+}

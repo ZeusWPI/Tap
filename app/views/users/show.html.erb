@@ -16,7 +16,7 @@
       <%= render partial: "products/product_row", collection: @products, as: :product %>
 
       <h4>All orders (<%= @user.orders_count %>)</h4>
-      <%= render @orders %>
+      <table class="orders"><%= render @orders %></table>
       <%= will_paginate @orders %>
     </div>
   <% end %>

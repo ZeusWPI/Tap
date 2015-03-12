@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
 
   has_paper_trail only: [:balance, :admin, :orders_count, :koelkast]
 
-  has_attached_file :avatar, styles: { large: "150x150>", medium: "100x100>" }, default_style: :medium, default_url: "http://lorempixel.com/70/70/"
+  has_attached_file :avatar, styles: { large: "150x150>", medium: "100x100>" }, default_style: :medium
 
   has_many :orders, -> { includes :products }
   has_many :products, through: :orders
@@ -40,8 +40,9 @@ class User < ActiveRecord::Base
   validates :nickname, presence: true, uniqueness: true
   validates :name, presence: true
   validates :last_name, presence: true
-  validates_attachment :avatar, content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }
-  validates_attachment :avatar, presence: true
+  validates_attachment :avatar,
+    presence: true,
+    content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }
 
   scope :members, -> { where koelkast: false }
 

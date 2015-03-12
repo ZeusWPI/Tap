@@ -4,29 +4,23 @@ class OrdersController < ApplicationController
   load_and_authorize_resource
 
   def new
-    @user = User.find(params[:user_id])
-    redirect_to root_path, flash: { error: "Koelkast can't order things." } if @user.koelkast?
-    redirect_to root_path, flash: { error: "Please don't order stuff for other people" } unless current_user.koelkast? || current_user == @user
-
+    init
     @order = @user.orders.build
+
     # products = @user.products.select("products.*", "sum(order_items.count) as count").group(:product_id).order("count desc")
     # @order.g_order_items(products)
-    @order.g_order_items(Product.all)
+    @order.g_order_items Product.all
   end
 
   def create
-    @user = User.find(params[:user_id])
-    redirect_to root_path, flash: { error: "Koelkast can't order things." } if @user.koelkast?
-    redirect_to root_path, flash: { error: "Please don't order stuff for other people" } unless current_user.koelkast? || current_user == @user
-
-    @order = @user.orders.build(order_params)
+    init
+    @order = @user.orders.build order_params
 
     if @order.save
       flash[:success] = "#{@order.to_sentence} ordered. Enjoy it!"
       redirect_to root_path
     else
-      @order.g_order_items(Product.all, order_params)
-      @order.total_price = number_with_precision((@order.price / 100.0), precision: 2)
+      @order.g_order_items Product.all
       render 'new'
     end
   end
@@ -59,6 +53,20 @@ class OrdersController < ApplicationController
   end
 
   private
+
+    def init
+      @user = User.find(params[:user_id])
+
+      if @user.koelkast?
+        flash[:error] = "Koelkast can't order things."
+        redirect_to root_path
+      end
+
+      unless current_user.koelkast? || current_user == @user
+        flash[:error] = "Please don't order stuff for other people"
+        redirect_to root_path
+      end
+    end
 
     def order_params
       params.require(:order).permit(order_items_attributes: [:count, :price, product_attributes: [:id]])

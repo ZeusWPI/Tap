@@ -12,8 +12,7 @@
 class Order < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
 
-  after_initialize { self.price = 0 }
-  after_create     { self.user.decrement!(:balance_cents, price) }
+  after_create     { self.user.decrement!(:balance_cents, price_cents) }
 
   belongs_to :user, counter_cache: true
   has_many :order_items, dependent: :destroy
@@ -21,24 +20,26 @@ class Order < ActiveRecord::Base
 
   scope :active, -> { where(cancelled: false) }
 
-  attr_accessor :total_price
-
   validates :user, presence: true
   validates :order_items, presence: true, in_stock: true
 
   accepts_nested_attributes_for :order_items, reject_if: proc { |oi| oi[:count].to_i <= 0 }
 
-  def price
+  def price_cents
     self.order_items.map{ |oi| oi.count * oi.product.price_cents }.sum
   end
 
+  def price
+    self.price_cents / 100.0
+  end
+
   def price=(_)
-    write_attribute(:price, price)
+    write_attribute(:price_cents, price_cents)
   end
 
   def cancel
     return if self.cancelled
-    user.increment!(:balance_cents, price)
+    user.increment!(:balance_cents, price_cents)
     User.decrement_counter(:orders_count, user.id)
     update_attribute(:cancelled, true)
   end
@@ -49,7 +50,7 @@ class Order < ActiveRecord::Base
     }.to_sentence
   end
 
-  def g_order_items(products, params = {})
+  def g_order_items(products)
     products.each do |p|
       if (oi = self.order_items.select { |t| t.product == p }).size > 0
         oi.first.count = [oi.first.product.stock, oi.first.count].min

@@ -1,2 +1,13 @@
-<%= order.created_at.strftime("%d %b %Y at %H:%M") %>
-<%= simple_format(order.to_sentence) %>
+<tr>
+  <td class="order_date">
+    <%= order.created_at.strftime("%d %b %Y at %H:%M") %>
+  </td>
+</tr>
+<tr>
+  <td>
+    <%= order.to_sentence %>
+  </td>
+  <td>
+    <%= euro(order.price) %>
+  </td>
+</tr>
