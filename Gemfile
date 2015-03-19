@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.7'
+gem 'rails', '4.2'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use SCSS for stylesheets
@@ -29,14 +29,9 @@ gem 'spring',        group: :development
 # add annotations of schema inside models
 gem 'annotate'
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
 # Use unicorn as the app server
 # gem 'unicorn'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 # Deployment
 gem 'capistrano', '~> 3.1'
 gem 'capistrano-rails', '~> 1.1'
@@ -46,18 +41,18 @@ group :production do
   gem 'mysql2' # Database
 end
 
-# Use debugger
-# gem 'debugger', group: [:development, :test]
-
+group :test do
+  gem 'capybara'
+  gem 'launchy'
+  gem "codeclimate-test-reporter", require: nil
+  gem 'faker', '1.4.2'
+end
 
 #bootstrap
 gem 'bootstrap-sass',       '3.2.0.0'
 
 #debug stuff
 gem 'byebug'
-
-#passwords
-gem 'bcrypt',               '3.1.7'
 
 #paginate stuff
 gem 'will_paginate',           '3.0.7'
@@ -72,5 +67,12 @@ gem 'devise'
 # Use cancancan for authorization
 gem 'cancancan'
 
-#ik wil test data maken dus dit
-gem 'faker',                '1.4.2'
+# Safety first
+gem 'paper_trail', '~> 4.0.0.beta'
+
+# Windoos sux
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+
+gem 'coveralls', require: false
+
+gem 'omniauth-oauth2'

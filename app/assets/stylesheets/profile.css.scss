@@ -1,0 +1,73 @@
+/* User profile */
+
+.user_info {
+  text-align: center;
+}
+
+.user_info h2 {
+  line-height: 45px;
+  text-align: center;
+}
+
+.user_info h5 {
+  margin-right: 10px;
+  text-align: right;
+}
+
+.user_info .button_to input[type="submit"] {
+  font-size: 16px;
+  color: #FFF;
+  padding: 12px 50px 12px 50px;
+  border: 1px solid #999;
+  width: 60%;
+  font-family: monospace;
+
+  text-shadow: 0px 1px 1px #666;
+  text-decoration: none;
+
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+
+  background: #64a724;
+  background: -moz-linear-gradient(top, #64a724 0%, #579727 50%, #58982a 51%, #498c25 100%);
+  background: -webkit-gradient(linear, left top, left bottom, from(#64a724), to(#498c25), color-stop(0.4, #579727), color-stop(0.5, #58982a), color-stop(.9, #498c25), color-stop(0.9, #498c25));
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#64a724', endColorstr='#498c25', GradientType=0 );
+
+  cursor: pointer;
+}
+
+.debt {
+  padding: 12px 0;
+  text-align: center;
+  font-family: monospace;
+  font-size: 16px;
+  width: 60%;
+  margin: auto;
+  margin-top: 10px;
+  background-color: #FF7F00;
+  color: white;
+}
+
+.stats{
+  width: 60%;
+  margin: auto;
+}
+
+.stats h4 {
+  text-transform: uppercase;
+  font-family: monospace;
+  background-color: #333;
+  color: white;
+  padding: 5px 10px;
+  margin-top: 15px;
+}
+
+.stats ul {
+  list-style-type: none;
+  padding: 0 0 0 15px;
+  margin: 0px;
+}
+
+.stats li {
+}

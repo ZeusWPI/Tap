@@ -1,25 +1,30 @@
+<%= render partial: 'flash' %>
 <div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
-      <h1>Name: <%= @user.name %></h1>
-      <h1>Last name: <%= @user.last_name %></h1>
-      <h1>Nickname: <%= @user.nickname %></h1>
-      <h1>Balance: <%= @user.balance %></h1>
-      <h1>User id: <%= @user.id %></h1>
-      <p>
-        <%= link_to "edit" , edit_user_registration_path %>
-      </p>
-
-    </section>
-  </aside>
-
-  <div class="col-md-8">
-    <% if @user.orders.any? %>
-      <h3>Orders (<%= @user.orders.count %>)</h3>
-      <ol class="orders">
-        <%= render @orders %>
-      </ol>
-      <%= will_paginate @orders %>
+  <div class="user_info">
+    <% if current_user == @user %>
+      <h5>
+        <%= link_to "[Edit dagschotel]" , user_edit_dagschotel_path(@user) %>
+        <%= link_to "[Edit profile]" , edit_user_registration_path %>
+      </h5>
     <% end %>
+    <h2><%= @user.nickname %></h2>
+    <%= button_to "PLACE ORDER!", new_user_order_path(@user), method: :get if current_user == @user %>
+    <div class="debt">DEBT: <%= euro(@user.debt) %></div>
   </div>
+
+  <% if @orders.any? %>
+    <div class="stats">
+      <h4>Total products</h4>
+      Total: <br/><ul><li><%= @categories.map{|c| pluralize(c.count, c.category)}.join(", ")%></li></ul>
+      <br/>
+      Specifics:<br/>
+      <ul>
+        <%= @products.map{ |p| content_tag(:li, pluralize(p.count, p.name)) }.join("\n").html_safe %>
+      </ul>
+
+      <h4>All orders (<%= @user.orders_count %>)</h4>
+      <table class="orders"><%= render @orders %></table>
+      <%= will_paginate @orders %>
+    </div>
+  <% end %>
 </div>

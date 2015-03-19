@@ -3,6 +3,16 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
+//signin
+.sign-in{
+  .checkbox label{
+  	padding-left: 0px;
+  }
+  #user_remember_me{
+  	margin-left: 10px;
+  }
+}
+
 .users .thumbnail {
   padding: 0px;
   min-height: 280px;
@@ -37,11 +47,6 @@
   background-color:  #f5f5dc;
 }
 
-
-
-
-
-
 /* sidebar */
 
 aside {
@@ -68,4 +73,37 @@ aside {
       margin-top: 0px;
     }
   }
+}
+
+table {
+  width: 100%;
+}
+
+.orders {
+  margin-top: -10px;
+  line-height: 140%;
+  & tr:nth-child(even){
+    border-bottom: 1px solid #bbb;
+    td {
+      padding-bottom: 15px;
+    }
+  }
+  & tr:last-child {
+    border-bottom: none;
+  }
+  & tr:nth-child(odd) td {
+    padding-top: 10px;
+  }
+  & td.order_date {
+    font-size: 12px;
+    color: #999;
+  }
+}
+
+.product_dagschotel {
+  height: 34px;
+}
+
+#users-table td {
+  vertical-align: middle;
 }

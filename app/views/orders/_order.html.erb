@@ -1,5 +1,13 @@
-<p>
-  <% order.products.each do |p| %>
-    <%= p.count(order).to_s + " " + p.name %>
-  <% end %>
-</p>
+<tr>
+  <td class="order_date">
+    <%= order.created_at.strftime("%d %b %Y at %H:%M") %>
+  </td>
+</tr>
+<tr>
+  <td>
+    <%= order.to_sentence %>
+  </td>
+  <td>
+    <%= euro(order.price) %>
+  </td>
+</tr>

@@ -2,21 +2,12 @@
 #
 # Table name: orders
 #
-#  id         :integer          not null, primary key
-#  user_id    :integer
-#  cost       :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id          :integer          not null, primary key
+#  user_id     :integer
+#  price_cents :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  cancelled   :boolean          default("f")
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  user: 
-  products: MyString
-  cost: 
-
-two:
-  user: 
-  products: MyString
-  cost: 

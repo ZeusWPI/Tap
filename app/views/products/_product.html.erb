@@ -1,12 +1,13 @@
 <div class="col-md-3">
-  <div class="thumbnail">
-    <%= image_tag product.avatar %>
+  <div class="thumbnail pic">
+    <div class="form_row_image">
+      <%= image_tag product.avatar %>
+    </div>
     <div class="caption">
-      <h3><%= product.name %> - <%= euro(product.price) %></h3>
-      <p>
-        <%= link_to "Edit", edit_product_path(product), class: "btn btn-default" %>
-        <%= link_to "Delete", product_path(product), method: :delete, class: "btn btn-danger", data: {confirm: 'Are you sure?'} %>
-      </p>
+      <h4><%= product.name %></h4>
+      <h3><%= euro(product.price) %></h3>
+      <h6>(In stock: <%= product.stock %>)</h6>
+      <%= render 'products/links', product: product %>
     </div>
   </div>
 </div>

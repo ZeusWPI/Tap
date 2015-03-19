@@ -2,47 +2,63 @@
 #
 # Table name: orders
 #
-#  id         :integer          not null, primary key
-#  user_id    :integer
-#  cost       :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id          :integer          not null, primary key
+#  user_id     :integer
+#  price_cents :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  cancelled   :boolean          default("f")
 #
 
 class Order < ActiveRecord::Base
-  after_initialize { self.total_price = 0 }
-  after_create :pay_price
+  include ActionView::Helpers::TextHelper
+
+  after_create     { self.user.increment!(:debt_cents, price_cents) }
 
   belongs_to :user, counter_cache: true
-  has_many :order_products
-  has_many :products, { through: :order_products} do
-    def << (product)
-      if proxy_association.owner.products.include?(product)
-        proxy_association.owner.order_products.find_by(product: product).increment!(:count, 1)
+  has_many :order_items, dependent: :destroy
+  has_many :products, through: :order_items
+
+  scope :active, -> { where(cancelled: false) }
+
+  validates :user, presence: true
+  validates :order_items, presence: true, in_stock: true
+
+  accepts_nested_attributes_for :order_items, reject_if: proc { |oi| oi[:count].to_i <= 0 }
+
+  def price_cents
+    self.order_items.map{ |oi| oi.count * oi.product.price_cents }.sum
+  end
+
+  def price
+    self.price_cents / 100.0
+  end
+
+  def price=(_)
+    write_attribute(:price_cents, price_cents)
+  end
+
+  def cancel
+    return if self.cancelled
+    user.decrement!(:debt_cents, price_cents)
+    User.decrement_counter(:orders_count, user.id)
+    update_attribute(:cancelled, true)
+    self.order_items.each(&:cancel)
+  end
+
+  def to_sentence
+    self.order_items.map {
+      |oi| pluralize(oi.count, oi.product.name)
+    }.to_sentence
+  end
+
+  def g_order_items(products)
+    products.each do |p|
+      if (oi = self.order_items.select { |t| t.product == p }).size > 0
+        oi.first.count = [oi.first.product.stock, oi.first.count].min
       else
-        super
+        self.order_items.build(product: p)
       end
     end
   end
-
-  attr_accessor :total_price
-
-  validates :user, presence: true
-  validates :order_products, presence: true
-
-  accepts_nested_attributes_for :order_products, reject_if: proc { |op| op[:count].to_i <= 0 }
-
-  def price
-    price = 0
-    order_products.each do |op|
-      price += op.count * op.product.read_attribute(:price)
-    end
-    price
-  end
-
-  private
-
-    def pay_price
-      user.pay(price)
-    end
 end

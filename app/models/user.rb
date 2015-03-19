@@ -3,52 +3,76 @@
 # Table name: users
 #
 #  id                  :integer          not null, primary key
-#  name                :string(255)
-#  last_name           :string(255)
-#  balance             :integer          default(0)
-#  nickname            :string(255)
+#  debt_cents          :integer          default("0"), not null
+#  nickname            :string
 #  created_at          :datetime
 #  updated_at          :datetime
-#  encrypted_password  :string(255)      default(""), not null
+#  encrypted_password  :string           default(""), not null
 #  remember_created_at :datetime
-#  sign_in_count       :integer          default(0), not null
+#  sign_in_count       :integer          default("0"), not null
 #  current_sign_in_at  :datetime
 #  last_sign_in_at     :datetime
-#  current_sign_in_ip  :string(255)
-#  last_sign_in_ip     :string(255)
-#  dagschotel          :reference
+#  current_sign_in_ip  :string
+#  last_sign_in_ip     :string
+#  admin               :boolean
 #  dagschotel_id       :integer
+#  avatar_file_name    :string
+#  avatar_content_type :string
+#  avatar_file_size    :integer
+#  avatar_updated_at   :datetime
+#  orders_count        :integer          default("0")
+#  koelkast            :boolean          default("f")
+#  provider            :string
+#  uid                 :string
 #
 
 class User < ActiveRecord::Base
-  devise :database_authenticatable, :registerable,
-         :rememberable, :trackable
-  has_attached_file :avatar, styles: { medium: "100x100>" }, default_style: :medium, default_url: "http://babeholder.pixoil.com/img/70/70"
+  devise :database_authenticatable, :registerable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:zeuswpi]
+
+  has_paper_trail only: [:debt_cents, :admin, :orders_count, :koelkast]
+
+  has_attached_file :avatar, styles: { large: "150x150>", medium: "100x100>", small: "40x40>" }, default_style: :medium
 
   has_many :orders, -> { includes :products }
+  has_many :products, through: :orders
   belongs_to :dagschotel, class_name: 'Product'
 
   validates :nickname, presence: true, uniqueness: true
-  validates :name, presence: true
-  validates :last_name, presence: true
-  validates :password, length: { in: 8..128 }, confirmation: true, on: :create
-  validates_attachment :avatar, presence: true, content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }
+  validates_attachment :avatar,
+    presence: true,
+    content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }
 
-  def full_name
-    "#{name} #{last_name}"
+  scope :members, -> { where koelkast: false }
+
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.provider = auth.provider
+      user.uid = auth.uid
+    end
   end
 
-  def pay(amount)
-    write_attribute(:balance, read_attribute(:balance) - amount)
-    self.save
+  def debt
+    self.debt_cents / 100.0
   end
 
-  def balance
-    (read_attribute(:balance) || 0) / 100.0
-  end
-
-  def balance=(value)
+  def debt=(value)
     if value.is_a? String then value.sub!(',', '.') end
-    write_attribute(:balance, (value.to_f * 100).to_int)
+    self.debt_cents = (value.to_f * 100).to_int
+  end
+
+  # Change URL params for User
+
+  def to_param
+    "#{id} #{nickname}".parameterize
+  end
+
+  # This is needed so Devise doesn't try to validate :email
+
+  def email_required?
+    false
+  end
+
+  def email_changed?
+    false
   end
 end

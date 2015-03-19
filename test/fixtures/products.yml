@@ -3,26 +3,40 @@
 # Table name: products
 #
 #  id                  :integer          not null, primary key
-#  name                :string(255)
-#  price               :integer
+#  name                :string           not null
+#  price_cents         :integer          default("0"), not null
 #  created_at          :datetime
 #  updated_at          :datetime
-#  avatar_file_name    :string(255)
-#  avatar_content_type :string(255)
+#  avatar_file_name    :string
+#  avatar_content_type :string
 #  avatar_file_size    :integer
 #  avatar_updated_at   :datetime
+#  category            :integer          default("0")
+#  stock               :integer          default("0"), not null
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  purchase_price: 1
-  sale_price: 1
-  img_path: MyString
+fanta:
+  id:          1
+  name:        'Fanta'
+  price_cents: 60
+  stock:       100
 
-two:
-  name: MyString
-  purchase_price: 1
-  sale_price: 1
-  img_path: MyString
+cola:
+  id:          2
+  name:        'Cola'
+  price_cents: 60
+  stock:       0
+
+mate:
+  id:          3
+  name:        'Club Mate'
+  price_cents: 120
+  stock:       100
+
+bueno:
+  id:          4
+  name:        'Kinder Bueno'
+  stock:       50
+  price_cents: 120

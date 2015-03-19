@@ -29,76 +29,58 @@ $gray-medium-light: #eaeaea;
 }
 
 /* miscellaneous */
+
 .nowrap {
   white-space: nowrap;
-}
-
-
-/* boostrap */
-body {
-  padding-top: 80px;
-}
-
-/* footer */
-footer {
-  margin-top: 45px;
-  padding-top: 5px;
-  border-top: 1px solid #eaeaea;
-  color: #777;
-}
-
-footer a {
-  color: #555;
-}
-
-footer a:hover {
-  color: #222;
-}
-
-footer small {
-  float: left;
-}
-
-footer ul {
-  float: right;
-  list-style: none;
-}
-
-footer ul li {
-  float: left;
-  margin-left: 15px;
-}
-
-.overview{
-  //margin-left: 2px;
-  width: 50%;
-  float: left;
-  border-radius: 0px;
-  margin-bottom: 0px;
-  border: 0px;
-
-  .btn{
-    margin-top: -55px;
-    width: 100%;
-    border-color: #444;
-  }
-
-  .dagschotel{
-    float:left;
-    position: absolute;
-  }
-
-  .avatar{
-    height: 190px;
-    width: 190px;
-  }
 }
 
 .center{
   text-align: center;
 }
 
+.form-field{
+  margin-bottom: 15px;
+  text-align: bottom;
+}
+
+/* bootstrap */
+
+body {
+  padding-top: 80px;
+}
+
+/* footer */
+
+footer {
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 1px solid $gray-medium-light;
+  color: #777;
+  a {
+    color: #555;
+    &:hover {
+      color: #222;
+    }
+  }
+  small {
+    float: left;
+  }
+  ul {
+    float: right;
+    list-style: none;
+    li {
+      float: left;
+      margin-left: 15px;
+    }
+  }
+}
+
 .debug_dump{
   width: 100%;
   margin-top: 30px;
+}
+
+.nav-logo{
+  margin:10px;
+  font-size:30px;
 }

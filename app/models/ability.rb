@@ -5,8 +5,15 @@ class Ability
     user ||= User.new # guest user (not logged in)
     if user.admin?
       can :manage, :all
-    else
+      can :schulden, :admins
+    elsif user.koelkast?
+      can :manage, Order
+    elsif user[:id]
       can :read, :all
+      can :update, User
+      can :edit_dagschotel, User
+      can :update_dagschotel, User
+      can :create, Order
     end
   end
 end

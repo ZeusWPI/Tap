@@ -1,7 +1,8 @@
-<footer class="footer">
+<% unless current_user && current_user.koelkast? %>
+  <footer class="footer">
   <small>
     <%= link_to "Tab", root_path %></a>
-    by <%= link_to "Zeus WPI", "//zeus.ugent.be" %>
+  by <%= link_to "Zeus WPI", "//zeus.ugent.be" %>
   </small>
   <nav>
     <ul>
@@ -10,3 +11,4 @@
     </ul>
   </nav>
 </footer>
+<% end %>
