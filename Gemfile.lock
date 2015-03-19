@@ -37,6 +37,9 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.7)
+    airbrake (4.1.0)
+      builder
+      multi_json
     annotate (2.6.5)
       activerecord (>= 2.3.0)
       rake (>= 0.8.7)
@@ -265,6 +268,7 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
+  airbrake
   annotate
   bootstrap-sass (= 3.2.0.0)
   bootstrap-will_paginate (= 0.0.10)

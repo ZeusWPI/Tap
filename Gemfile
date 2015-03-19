@@ -29,8 +29,7 @@ gem 'spring',        group: :development
 # add annotations of schema inside models
 gem 'annotate'
 
-# Use unicorn as the app server
-# gem 'unicorn'
+gem 'airbrake'
 
 # Deployment
 gem 'capistrano', '~> 3.1'
