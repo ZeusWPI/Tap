@@ -10,7 +10,7 @@ class StockTest < ActiveSupport::TestCase
     end
 
     assert_difference "products(:fanta).stock", +2 do
-      order.destroy
+      order.cancel
     end
   end
 end

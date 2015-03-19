@@ -3,27 +3,29 @@
 # Table name: users
 #
 #  id                  :integer          not null, primary key
-#  name                :string(255)
-#  last_name           :string(255)
-#  balance_cents       :integer          default(0), not null
-#  nickname            :string(255)
-#  admin               :boolean
-#  koelkast            :boolean          default(FALSE)
-#  dagschotel_id       :integer
-#  orders_count        :integer          default(0)
-#  avatar_file_name    :string(255)
-#  avatar_content_type :string(255)
-#  avatar_file_size    :integer
-#  avatar_updated_at   :datetime
+#  name                :string
+#  last_name           :string
+#  debt_cents          :integer          default("0"), not null
+#  nickname            :string
 #  created_at          :datetime
 #  updated_at          :datetime
-#  encrypted_password  :string(255)      default(""), not null
+#  encrypted_password  :string           default(""), not null
 #  remember_created_at :datetime
-#  sign_in_count       :integer          default(0), not null
+#  sign_in_count       :integer          default("0"), not null
 #  current_sign_in_at  :datetime
 #  last_sign_in_at     :datetime
-#  current_sign_in_ip  :string(255)
-#  last_sign_in_ip     :string(255)
+#  current_sign_in_ip  :string
+#  last_sign_in_ip     :string
+#  admin               :boolean
+#  dagschotel_id       :integer
+#  avatar_file_name    :string
+#  avatar_content_type :string
+#  avatar_file_size    :integer
+#  avatar_updated_at   :datetime
+#  orders_count        :integer          default("0")
+#  koelkast            :boolean          default("f")
+#  provider            :string
+#  uid                 :string
 #
 
 require 'test_helper'
@@ -37,14 +39,14 @@ class UserTest < ActiveSupport::TestCase
     assert_equal @user.full_name, "Benjamin Cousaert"
   end
 
-  test "balance behaves correctly" do
-    assert_equal @user.balance_cents, 0
-    assert_equal @user.balance, 0
+  test "debt behaves correctly" do
+    assert_equal @user.debt_cents, 0
+    assert_equal @user.debt, 0
 
-    @user.balance = 1.3
+    @user.debt = 1.3
 
-    assert_equal @user.balance, 1.3
-    assert_equal @user.balance_cents, 130
+    assert_equal @user.debt, 1.3
+    assert_equal @user.debt_cents, 130
   end
 
   test "to_param" do

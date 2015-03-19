@@ -1,11 +1,11 @@
 # == Schema Information
 #
-# Table name: order_products
+# Table name: order_items
 #
 #  id         :integer          not null, primary key
 #  order_id   :integer
-#  product_id :integer
-#  count      :integer          default(1)
+#  product_id :integer          not null
+#  count      :integer          default("0")
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

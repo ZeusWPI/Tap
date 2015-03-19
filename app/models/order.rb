@@ -2,17 +2,18 @@
 #
 # Table name: orders
 #
-#  id         :integer          not null, primary key
-#  user_id    :integer
-#  cost       :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id          :integer          not null, primary key
+#  user_id     :integer
+#  price_cents :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  cancelled   :boolean          default("f")
 #
 
 class Order < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
 
-  after_create     { self.user.decrement!(:balance_cents, price_cents) }
+  after_create     { self.user.increment!(:debt_cents, price_cents) }
 
   belongs_to :user, counter_cache: true
   has_many :order_items, dependent: :destroy
@@ -39,9 +40,10 @@ class Order < ActiveRecord::Base
 
   def cancel
     return if self.cancelled
-    user.increment!(:balance_cents, price_cents)
+    user.decrement!(:debt_cents, price_cents)
     User.decrement_counter(:orders_count, user.id)
     update_attribute(:cancelled, true)
+    self.order_items.each(&:cancel)
   end
 
   def to_sentence

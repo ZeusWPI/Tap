@@ -3,9 +3,9 @@
 # Table name: order_items
 #
 #  id         :integer          not null, primary key
-#  order_id   :integer          not null
+#  order_id   :integer
 #  product_id :integer          not null
-#  count      :integer          default(0)
+#  count      :integer          default("0")
 #
 
 class OrderItem < ActiveRecord::Base
@@ -22,6 +22,10 @@ class OrderItem < ActiveRecord::Base
   def product_attributes=(attributes)
     self.product = Product.find(attributes[:id])
     super
+  end
+
+  def cancel
+    self.product.increment!(:stock, self.count)
   end
 
   private

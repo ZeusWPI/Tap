@@ -1,16 +1,28 @@
 <div class="col-md-3">
   <div class="thumbnail pic">
-    <%= image_tag product.avatar %>
+    <div class="form_row_image">
+      <%= image_tag product.avatar %>
+    </div>
     <div class="caption">
       <h4><%= product.name %></h4>
       <h3><%= euro(product.price) %></h3>
       <h6>(In stock: <%= product.stock %>)</h6>
-      <% if current_user && current_user.admin? %>
+      <%- if controller_name == 'products' && current_user && current_user.admin? %>
         <p>
           <%= link_to "Edit", edit_product_path(product), class: "btn btn-default" %>
           <%= link_to "Delete", product_path(product), method: :delete, class: "btn btn-danger", data: {confirm: 'Are you sure?'} %>
         </p>
-      <% end %>
+      <% end -%>
+
+      <%- if controller_name == 'users' %>
+        <div class="product_dagschotel">
+          <% if current_user.dagschotel != product %>
+            <%= link_to "Make dagschotel", user_dagschotel_path(current_user, product), class: "btn btn-default" %>
+          <% else %>
+            <%= link_to "Huidige dagschotel", user_dagschotel_path(current_user, product), class: "btn btn-success", disabled: true %>
+          <% end %>
+        </div>
+      <% end -%>
     </div>
   </div>
 </div>

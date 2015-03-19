@@ -15,14 +15,14 @@ class OrderIntegrationTest < ActionDispatch::IntegrationTest
 
     assert page.has_content? 'Order for benji'
 
-    assert_difference "User.find(users(:benji).id).balance_cents", -240 do
+    assert_difference "User.find(users(:benji).id).debt_cents", 240 do
       fill_in 'order_order_items_attributes_2_count', with: 2
       click_button "Order!"
     end
   end
 
   test 'quickpay' do
-    assert_difference "User.find(users(:benji).id).balance_cents", -User.find(users(:benji).id).dagschotel.price_cents do
+    assert_difference "User.find(users(:benji).id).debt_cents", User.find(users(:benji).id).dagschotel.price_cents do
       visit user_quickpay_path(users(:benji))
       assert page.has_content? 'Success!'
     end
@@ -31,7 +31,7 @@ class OrderIntegrationTest < ActionDispatch::IntegrationTest
   test 'cancelling quickpay' do
     visit user_quickpay_path(users(:benji))
 
-    assert_difference "User.find(users(:benji).id).balance_cents", User.find(users(:benji).id).dagschotel.price_cents do
+    assert_difference "User.find(users(:benji).id).debt_cents", -User.find(users(:benji).id).dagschotel.price_cents do
       click_link 'Undo'
       assert page.has_content? 'Success!'
     end

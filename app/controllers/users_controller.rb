@@ -34,11 +34,17 @@ class UsersController < ApplicationController
   def edit_dagschotel
     @user = User.find(params[:user_id])
     @dagschotel = @user.dagschotel
+
+    @products = Product.all
+    @categories = Product.categories
   end
 
   def update_dagschotel
     @user = User.find(params[:user_id])
     @user.dagschotel = Product.find(params[:product_id])
+
+    @products = Product.all
+    @categories = Product.categories
 
     if @user.save
       flash[:success] = "Succesfully updated dagschotel"

@@ -1,27 +1,3 @@
 <h1>All products</h1>
 <%= render partial: 'flash' %>
-
-<div role="tabpanel">
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#all" role="tab" data-toggle="tab">All</a></li>
-    <% @categories.each do |o, i| %>
-      <li role="presentation"><a href="#<%= o %>" aria-controls="<%= o %>" role="tab" data-toggle="tab"><%= o.titleize %></a></li>
-    <% end %>
-  </ul>
-
-  <!-- Tab panes -->
-  <div class="tab-content">
-    <br />
-    <div role="tabpanel" class="tab-pane active" id="all">
-      <%= render @products %>
-    </div>
-    <% @categories.each do |o, i| %>
-      <div role="tabpanel" class="tab-pane" id="<%= o %>">
-        <%= render @products.where(category: i) %>
-      </div>
-    <% end %>
-  </div>
-
-</div>
-
+<%= render 'products/index' %>

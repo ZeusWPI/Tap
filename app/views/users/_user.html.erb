@@ -6,7 +6,7 @@
       <p><strong>Name:</strong> <%= user.name %></p>
       <p><strong>Last name:</strong> <%= user.last_name %></p>
       <p><strong>Nickname:</strong> <%= user.nickname %></p>
-      <p><strong>Balance:</strong> <%= euro(user.balance) %></p>
+      <p><strong>Debt:</strong> <%= euro(user.debt) %></p>
     </div>
     <% if current_user.admin? %>
       <div class="footer">

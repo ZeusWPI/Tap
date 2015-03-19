@@ -2,11 +2,12 @@
 #
 # Table name: orders
 #
-#  id         :integer          not null, primary key
-#  user_id    :integer
-#  cost       :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id          :integer          not null, primary key
+#  user_id     :integer
+#  price_cents :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  cancelled   :boolean          default("f")
 #
 
 require 'test_helper'
@@ -19,7 +20,7 @@ class OrderTest < ActiveSupport::TestCase
   end
 
   test "order total price is correct" do
-    assert_equal @order.price, 300
+    assert_equal @order.price, 3.00
   end
 
   test "to_sentence is correct" do
