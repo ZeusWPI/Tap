@@ -37,7 +37,7 @@ class OrdersController < ApplicationController
   end
 
   def overview
-    @users = User.members.order(:name)
+    @users = User.members.order(:nickname)
   end
 
   def quickpay

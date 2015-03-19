@@ -1,8 +1,10 @@
-<h1>All users</h1>
-<%= render partial: 'flash' %>
-
 <div class="row users">
-  <div class="col-md-12">
-    <%= render @users %>
+  <div class="col-md-8 col-md-offset-2">
+    <h1>All users</h1>
+    <%= render partial: 'flash' %>
+
+    <table id="users-table" class="table table-striped">
+      <%= render @users %>
+    </table>
   </div>
 </div>

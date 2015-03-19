@@ -38,43 +38,46 @@ end
 users = [
   {
     nickname:   'admin',
-    name:       'A.',
-    last_name:  'Admin',
     avatar:     File.new('public/seeds/users/admin.jpg', 'r'),
     admin:      true
   },
   {
     nickname:   'koelkast',
-    name:       'K.',
-    last_name:  'Koelkast',
     avatar:     File.new('public/seeds/users/admin.jpg', 'r'),
     koelkast:   true
   },
   {
     nickname:   'benji',
-    name:       'Benjamin',
-    last_name:  'Cousaert',
     avatar:     File.new('public/seeds/users/benji.jpg', 'r'),
     dagschotel: Product.first
   },
   {
     nickname:   'don',
-    name:       'Lorin',
-    last_name:  'Werthen',
     avatar:     File.new('public/seeds/users/don.jpg', 'r')
   },
   {
     nickname:   'silox',
-    name:       'Tom',
-    last_name:  'Naessens',
     avatar:     File.new('public/seeds/users/silox.jpg', 'r')
   }
 ]
 
 users.each do |attr|
-  User.create nickname: attr[:nickname], name: attr[:name], last_name: attr[:last_name], avatar: attr[:avatar], dagschotel: attr[:dagschotel], password: DEFAULT_PASSWORD, password_confirmation: DEFAULT_PASSWORD, admin: attr[:admin] || false, koelkast: attr[:koelkast] || false
+  User.create(
+    nickname: attr[:nickname],
+    avatar: attr[:avatar],
+    dagschotel: attr[:dagschotel],
+    password: DEFAULT_PASSWORD,
+    password_confirmation: DEFAULT_PASSWORD,
+    admin: attr[:admin] || false,
+    koelkast: attr[:koelkast] || false
+  )
 end
 
 50.times do |i|
-  User.create nickname: "TestUser#{i}", name: "Test", last_name: "User", avatar: users[0][:avatar], password: DEFAULT_PASSWORD, password_confirmation: DEFAULT_PASSWORD
+  User.create(
+    nickname: "TestUser#{i}",
+    avatar: users[0][:avatar],
+    password: DEFAULT_PASSWORD,
+    password_confirmation: DEFAULT_PASSWORD
+  )
 end

@@ -1,0 +1,14 @@
+<%- if controller_name == 'products' && current_user && current_user.admin? %>
+  <%= link_to "Edit", edit_product_path(product), class: "btn btn-default" %>
+  <%= link_to "Delete", product_path(product), method: :delete, class: "btn btn-danger", data: {confirm: 'Are you sure?'} %>
+<% end -%>
+
+<%- if controller_name == 'users' %>
+  <div class="product_dagschotel">
+    <% if current_user.dagschotel != product %>
+      <%= link_to "Make dagschotel", user_dagschotel_path(current_user, product), class: "btn btn-default" %>
+    <% else %>
+      <%= link_to "Huidige dagschotel", user_dagschotel_path(current_user, product), class: "btn btn-success", disabled: true %>
+    <% end %>
+  </div>
+<% end -%>

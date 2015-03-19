@@ -3,8 +3,6 @@
 # Table name: users
 #
 #  id                  :integer          not null, primary key
-#  name                :string
-#  last_name           :string
 #  debt_cents          :integer          default("0"), not null
 #  nickname            :string
 #  created_at          :datetime
