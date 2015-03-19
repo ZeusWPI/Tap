@@ -75,7 +75,7 @@ end
 
 50.times do |i|
   User.create(
-    nickname: "TestUser#{i}",
+    nickname: "testUser#{i}",
     avatar: users[0][:avatar],
     password: DEFAULT_PASSWORD,
     password_confirmation: DEFAULT_PASSWORD

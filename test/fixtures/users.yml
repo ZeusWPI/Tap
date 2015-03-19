@@ -30,14 +30,10 @@
 
 benji:
   nickname:      benji
-  name:          Benjamin
-  last_name:     Cousaert
   dagschotel_id: 1
 
 iasoon:
   nickname:  iasoon
-  name:      Ilion
-  last_name: Beyst
 
 admin:
   nickname:  admin

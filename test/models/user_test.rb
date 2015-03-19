@@ -33,10 +33,6 @@ class UserTest < ActiveSupport::TestCase
     @user = users(:benji)
   end
 
-  test "full name" do
-    assert_equal @user.full_name, "Benjamin Cousaert"
-  end
-
   test "debt behaves correctly" do
     assert_equal @user.debt_cents, 0
     assert_equal @user.debt, 0

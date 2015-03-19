@@ -1,16 +1,8 @@
 <tr>
-  <td>
-    <%= user.id %>
-  </td>
-  <td>
-    <%= image_tag user.avatar(:small) %>
-  </td>
-  <td>
-    <%= user.nickname %>
-  </td>
-  <td>
-    <%= euro(user.debt) %>
-  </td>
+  <td><%= user.id %></td>
+  <td><%= image_tag user.avatar(:small) %></td>
+  <td><%= user.nickname %></td>
+  <td><%= euro(user.debt) %></td>
   <% if current_user.admin? %>
     <td>
       <%= link_to "Delete", user_path(user), method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
