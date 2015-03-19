@@ -1,4 +1,4 @@
-<div class="col-md-2 thumbnail overview">
+<div class="col-md-2 overviewthumbnail">
   <% unless user.dagschotel.nil? %>
     <%= link_to user_quickpay_path(user) do %>
       <%= image_tag user.dagschotel.avatar(:dagschotel), class: "img-circle dagschotel" %>

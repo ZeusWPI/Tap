@@ -31,15 +31,30 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
-  def dagschotel
-    user = User.find(params[:user_id])
+  def edit_dagschotel
+    @user = User.find(params[:user_id])
+    @dagschotel = @user.dagschotel
+  end
 
-    if user.update_attributes(dagschotel: Product.find(params[:product_id]))
+  def update_dagschotel
+    @user = User.find(params[:user_id])
+    @user.dagschotel = Product.find(params[:product_id])
+
+    if @user.save
       flash[:success] = "Succesfully updated dagschotel"
+      redirect_to @user
     else
       flash[:error] = "Error updating dagschotel"
+      @dagschotel = @user.reload.dagschotel
+      render 'edit_dagschotel'
     end
 
-    redirect_to edit_user_registration_path(user)
   end
+
+  private
+
+    def init
+      @user = User.find(params[:user_id])
+      redirect_to root_path, error: "You are not authorized to access this page." unless @user == current_user || current_user.admin?
+    end
 end

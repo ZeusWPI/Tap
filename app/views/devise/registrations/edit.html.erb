@@ -13,15 +13,3 @@
 
   <%= f.submit "Update" %>
 <% end %>
-
-<% if current_user.dagschotel.present? %>
-  <h3>Current Dagschotel:</h3>
-  <div>
-    <%= image_tag current_user.dagschotel.avatar %>
-  </div>
-<% end %>
-
-<h4>Choose new Dagschotel:</h4>
-<% Product.all.each do |p| %>
-  <%= link_to image_tag(p.avatar), user_dagschotel_path(current_user, p) %>
-<% end %>

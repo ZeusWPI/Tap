@@ -11,7 +11,8 @@ class Ability
     elsif user[:id]
       can :read, :all
       can :update, User
-      can :dagschotel, User
+      can :edit_dagschotel, User
+      can :update_dagschotel, User
       can :create, Order
     end
   end

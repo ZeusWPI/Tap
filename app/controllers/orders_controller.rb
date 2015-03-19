@@ -62,7 +62,7 @@ class OrdersController < ApplicationController
         redirect_to root_path
       end
 
-      unless current_user.koelkast? || current_user == @user
+      unless current_user.koelkast? || current_user.admin? || current_user == @user
         flash[:error] = "Please don't order stuff for other people"
         redirect_to root_path
       end

@@ -44,6 +44,8 @@ end
 group :test do
   gem 'capybara'
   gem 'launchy'
+  gem "codeclimate-test-reporter", require: nil
+  gem 'faker', '1.4.2'
 end
 
 #bootstrap
@@ -65,9 +67,6 @@ gem 'devise'
 # Use cancancan for authorization
 gem 'cancancan'
 
-#ik wil test data maken dus dit
-gem 'faker',                '1.4.2'
-
 # Safety first
 gem 'paper_trail', '~> 4.0.0.beta'
 
@@ -76,4 +75,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
 gem 'coveralls', require: false
 
-gem "codeclimate-test-reporter", group: :test, require: nil
+gem 'omniauth'
