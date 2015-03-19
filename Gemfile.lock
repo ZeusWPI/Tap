@@ -294,6 +294,7 @@ DEPENDENCIES
   paper_trail (~> 4.0.0.beta)
   paperclip
   rails (= 4.2)
+  responders (~> 2.0)
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   spring
