@@ -27,7 +27,7 @@
 #
 
 class User < ActiveRecord::Base
-  devise :database_authenticatable, :registerable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :registerable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:zeuswpi]
 
   has_paper_trail only: [:debt_cents, :admin, :orders_count, :koelkast]
 
@@ -43,6 +43,13 @@ class User < ActiveRecord::Base
     content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }
 
   scope :members, -> { where koelkast: false }
+
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.provider = auth.provider
+      user.uid = auth.uid
+    end
+  end
 
   def debt
     self.debt_cents / 100.0
