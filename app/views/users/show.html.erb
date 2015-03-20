@@ -4,7 +4,7 @@
     <% if current_user == @user %>
       <h5>
         <%= link_to "[Edit dagschotel]" , user_edit_dagschotel_path(@user) %>
-        <%= link_to "[Edit profile]" , edit_user_registration_path %>
+        <%= link_to "[Edit profile]" , edit_user_path(@user) %>
       </h5>
     <% end %>
     <h2><%= @user.nickname %></h2>
