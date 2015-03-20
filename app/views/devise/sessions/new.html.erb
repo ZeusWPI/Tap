@@ -1,17 +1,8 @@
-<h2>Sign in</h2>
-<%= render partial: 'flash' %>
+<h2>Login</h2>
+<%= render 'flash' %>
+If this is the first time you log in, an account will be created for you.
 
-<div class="sign-in">
-  <%= f_form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-    <%= f.text_field :nickname %>
-    <%= f.password_field :password %>
-
-    <% if devise_mapping.rememberable? %>
-      <%= f.check_box :remember_me %>
-    <% end %>
-
-    <%= f.submit "Sign in" %>
-  <% end %>
+<div>
+  <br />
+  <%= render 'devise/shared/links' %>
 </div>
-
-<%= render "devise/shared/links" %>

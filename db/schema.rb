@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150319154236) do
+ActiveRecord::Schema.define(version: 20150320001338) do
 
   create_table "order_items", force: :cascade do |t|
     t.integer "order_id"
@@ -45,10 +45,8 @@ ActiveRecord::Schema.define(version: 20150319154236) do
 
   create_table "users", force: :cascade do |t|
     t.integer  "debt_cents",          default: 0,     null: false
-    t.string   "nickname"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "encrypted_password",  default: "",    null: false
     t.datetime "remember_created_at"
     t.integer  "sign_in_count",       default: 0,     null: false
     t.datetime "current_sign_in_at"
@@ -65,6 +63,7 @@ ActiveRecord::Schema.define(version: 20150319154236) do
     t.boolean  "koelkast",            default: false
     t.string   "provider"
     t.string   "uid"
+    t.string   "encrypted_password"
   end
 
   add_index "users", ["koelkast"], name: "index_users_on_koelkast"

@@ -4,10 +4,8 @@
 #
 #  id                  :integer          not null, primary key
 #  debt_cents          :integer          default("0"), not null
-#  nickname            :string
 #  created_at          :datetime
 #  updated_at          :datetime
-#  encrypted_password  :string           default(""), not null
 #  remember_created_at :datetime
 #  sign_in_count       :integer          default("0"), not null
 #  current_sign_in_at  :datetime
@@ -24,21 +22,22 @@
 #  koelkast            :boolean          default("f")
 #  provider            :string
 #  uid                 :string
+#  encrypted_password  :string
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 benji:
-  nickname:      benji
+  uid:      benji
   dagschotel_id: 1
 
 iasoon:
-  nickname:  iasoon
+  uid:  iasoon
 
 admin:
-  nickname:  admin
+  uid:  admin
   admin:     1
 
 koelkast:
-  nickname:  koelkast
+  uid:  koelkast
   koelkast:  1

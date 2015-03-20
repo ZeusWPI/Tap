@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { omniauth_callbacks: "callbacks" }
+  devise_for :users, controllers: {
+    omniauth_callbacks: "callbacks",
+    sessions:           "sessions"
+  }
 
   devise_scope :user do
     unauthenticated :user do
-      root to: 'devise/sessions#new'
+      root to: 'sessions#new'
     end
 
     authenticated :user, ->(u) { u.koelkast? } do
@@ -21,6 +24,8 @@ Rails.application.routes.draw do
     get 'dagschotel/edit'        => 'users#edit_dagschotel', as: 'edit_dagschotel'
     get 'dagschotel/:product_id' => 'users#update_dagschotel', as: 'dagschotel'
   end
+
+  resources :user_avatar
 
   resources :products do
     collection do

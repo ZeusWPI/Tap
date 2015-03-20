@@ -20,6 +20,19 @@ class UsersController < ApplicationController
       .group(:category)
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
+      redirect_to @user, success: "Successfully updated!"
+    else
+      render 'edit'
+    end
+  end
+
   def index
     @users = User.members
   end
@@ -62,5 +75,9 @@ class UsersController < ApplicationController
     def init
       @user = User.find(params[:user_id])
       redirect_to root_path, error: "You are not authorized to access this page." unless @user == current_user || current_user.admin?
+    end
+
+    def user_params
+      params.require(:user).permit(:avatar)
     end
 end

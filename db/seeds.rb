@@ -37,37 +37,38 @@ end
 
 users = [
   {
-    nickname:   'admin',
+    uid:   'admin',
     avatar:     File.new('public/seeds/users/admin.jpg', 'r'),
     admin:      true
   },
   {
-    nickname:   'koelkast',
+    uid:   'koelkast',
     avatar:     File.new('public/seeds/users/admin.jpg', 'r'),
     koelkast:   true
   },
   {
-    nickname:   'benji',
+    uid:   'benji',
     avatar:     File.new('public/seeds/users/benji.jpg', 'r'),
-    dagschotel: Product.first
+    dagschotel: Product.first,
+    provider:   'zeuswpi'
   },
   {
-    nickname:   'don',
+    uid:   'don',
     avatar:     File.new('public/seeds/users/don.jpg', 'r')
   },
   {
-    nickname:   'silox',
+    uid:   'silox',
     avatar:     File.new('public/seeds/users/silox.jpg', 'r')
   }
 ]
 
 users.each do |attr|
   User.create(
-    nickname: attr[:nickname],
+    uid: attr[:uid],
+    provider: attr[:provider],
     avatar: attr[:avatar],
     dagschotel: attr[:dagschotel],
     password: DEFAULT_PASSWORD,
-    password_confirmation: DEFAULT_PASSWORD,
     admin: attr[:admin] || false,
     koelkast: attr[:koelkast] || false
   )
@@ -75,9 +76,8 @@ end
 
 50.times do |i|
   User.create(
-    nickname: "testUser#{i}",
+    uid: "testUser#{i}",
     avatar: users[0][:avatar],
     password: DEFAULT_PASSWORD,
-    password_confirmation: DEFAULT_PASSWORD
   )
 end

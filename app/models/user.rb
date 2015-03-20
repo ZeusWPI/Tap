@@ -4,10 +4,8 @@
 #
 #  id                  :integer          not null, primary key
 #  debt_cents          :integer          default("0"), not null
-#  nickname            :string
 #  created_at          :datetime
 #  updated_at          :datetime
-#  encrypted_password  :string           default(""), not null
 #  remember_created_at :datetime
 #  sign_in_count       :integer          default("0"), not null
 #  current_sign_in_at  :datetime
@@ -24,10 +22,11 @@
 #  koelkast            :boolean          default("f")
 #  provider            :string
 #  uid                 :string
+#  encrypted_password  :string
 #
 
 class User < ActiveRecord::Base
-  devise :database_authenticatable, :registerable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:zeuswpi]
+  devise :database_authenticatable, :trackable, :omniauthable, :omniauth_providers => [:zeuswpi]
 
   has_paper_trail only: [:debt_cents, :admin, :orders_count, :koelkast]
 
@@ -37,7 +36,6 @@ class User < ActiveRecord::Base
   has_many :products, through: :orders
   belongs_to :dagschotel, class_name: 'Product'
 
-  validates :nickname, presence: true, uniqueness: true
   validates_attachment :avatar,
     presence: true,
     content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }
@@ -45,10 +43,20 @@ class User < ActiveRecord::Base
   scope :members, -> { where koelkast: false }
 
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+    newuser = where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.provider = auth.provider
       user.uid = auth.uid
     end
+    newuser.password = Devise.friendly_token[0,20]
+    newuser
+  end
+
+  def nickname
+    self.uid
+  end
+
+  def nickname=(name)
+    self.uid = name
   end
 
   def debt
@@ -64,15 +72,5 @@ class User < ActiveRecord::Base
 
   def to_param
     "#{id} #{nickname}".parameterize
-  end
-
-  # This is needed so Devise doesn't try to validate :email
-
-  def email_required?
-    false
-  end
-
-  def email_changed?
-    false
   end
 end
