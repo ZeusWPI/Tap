@@ -17,6 +17,8 @@
           <div class="form-group">
           <% if user_signed_in? %>
             <%= button_to "Logout", destroy_user_session_path, class: "btn btn-default form-control",  method: :delete %>
+          <% elsif session[:id] %>
+            <%= button_to "Logout", user_avatar_path(session[:id]), class: "btn btn-default form-control", method: :delete %>
           <% else %>
             <%= link_to "Login", new_user_session_path, class: "btn btn-success form-control" %>
           <% end %>
