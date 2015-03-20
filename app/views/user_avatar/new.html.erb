@@ -4,6 +4,9 @@
 <%= f_form_for @user, url: '/user_avatar', method: :post do |f| %>
   <%= f.error_messages %>
 
+  <!-- To prevent an empty form submit from crashing -->
+  <%= f.hidden_field :generate_form, value: '1' %>
+
   <%= f.file_field :avatar %>
 
   <%= f.submit "Update" %>
