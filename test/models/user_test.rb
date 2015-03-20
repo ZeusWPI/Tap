@@ -4,10 +4,8 @@
 #
 #  id                  :integer          not null, primary key
 #  debt_cents          :integer          default("0"), not null
-#  nickname            :string
 #  created_at          :datetime
 #  updated_at          :datetime
-#  encrypted_password  :string           default(""), not null
 #  remember_created_at :datetime
 #  sign_in_count       :integer          default("0"), not null
 #  current_sign_in_at  :datetime
@@ -24,6 +22,7 @@
 #  koelkast            :boolean          default("f")
 #  provider            :string
 #  uid                 :string
+#  encrypted_password  :string
 #
 
 require 'test_helper'
@@ -45,10 +44,5 @@ class UserTest < ActiveSupport::TestCase
 
   test "to_param" do
     assert_equal @user.to_param, "#{@user.id}-benji"
-  end
-
-  test "devise validatable methods" do
-    assert_not @user.email_required?
-    assert_not @user.email_changed?
   end
 end
