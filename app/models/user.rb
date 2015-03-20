@@ -36,9 +36,9 @@ class User < ActiveRecord::Base
   has_many :products, through: :orders
   belongs_to :dagschotel, class_name: 'Product'
 
-  # validates_attachment :avatar,
-    # presence: true,
-    # content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }
+  validates_attachment :avatar,
+    presence: true,
+    content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }
 
   scope :members, -> { where koelkast: false }
 

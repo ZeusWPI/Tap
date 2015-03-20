@@ -1,0 +1,10 @@
+<h2>Add avatar to <%= @user.uid %></h2>
+<%= render 'flash' %>
+
+<%= f_form_for @user, url: '/user_avatar', method: :post do |f| %>
+  <%= f.error_messages %>
+
+  <%= f.file_field :avatar %>
+
+  <%= f.submit "Update" %>
+<% end %>
