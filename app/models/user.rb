@@ -26,7 +26,7 @@
 #
 
 class User < ActiveRecord::Base
-  devise :database_authenticatable, :trackable, :omniauthable, :omniauth_providers => [:zeuswpi]
+  devise :trackable, :omniauthable, :omniauth_providers => [:zeuswpi]
 
   has_paper_trail only: [:debt_cents, :admin, :orders_count, :koelkast]
 
@@ -43,12 +43,10 @@ class User < ActiveRecord::Base
   scope :members, -> { where koelkast: false }
 
   def self.from_omniauth(auth)
-    newuser = where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.provider = auth.provider
       user.uid = auth.uid
     end
-    newuser.password = Devise.friendly_token[0,20]
-    newuser
   end
 
   def nickname

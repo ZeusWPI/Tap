@@ -67,16 +67,14 @@ users.each do |attr|
     provider: attr[:provider],
     avatar: attr[:avatar],
     dagschotel: attr[:dagschotel],
-    password: DEFAULT_PASSWORD,
     admin: attr[:admin] || false,
     koelkast: attr[:koelkast] || false
   )
 end
 
-50.times do |i|
-  User.create(
-    uid: "testUser#{i}",
-    avatar: users[0][:avatar],
-    password: DEFAULT_PASSWORD,
-  )
-end
+# 50.times do |i|
+  # User.create(
+    # uid: "testUser#{i}",
+    # avatar: users[0][:avatar],
+  # )
+# end

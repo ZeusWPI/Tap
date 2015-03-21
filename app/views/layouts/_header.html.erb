@@ -16,11 +16,11 @@
         <div class="hidden-xs navbar-form navbar-right">
           <div class="form-group">
           <% if user_signed_in? %>
-            <%= button_to "Logout", destroy_user_session_path, class: "btn btn-default form-control",  method: :delete %>
+            <%= link_to "Logout", destroy_user_session_path, class: "btn btn-default form-control" %>
           <% elsif session[:id] %>
             <%= button_to "Logout", user_avatar_path(session[:id]), class: "btn btn-default form-control", method: :delete %>
           <% else %>
-            <%= link_to "Login", new_user_session_path, class: "btn btn-success form-control" %>
+            <%= link_to "Login", omniauth_authorize_path("user", "zeuswpi"), class: "btn btn-success form-control" %>
           <% end %>
           </div>
         </div>
@@ -62,7 +62,7 @@
           <% if user_signed_in? %>
             <%= button_to "Logout", destroy_user_session_path, class: "btn btn-default form-control",  method: :delete %>
           <% else %>
-            <%= link_to "Login", new_user_session_path, class: "btn btn-success form-control" %>
+            <%= link_to "Login", omniauth_authorize_path("user", "zeuswpi"), class: "btn btn-success form-control" %>
           <% end %>
           </div>
         </div>

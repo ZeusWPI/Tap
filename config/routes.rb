@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     authenticated :user, ->(u) { !u.koelkast? } do
         root to: 'users#show', as: :user_root
     end
+    get 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end
 
   resources :users do

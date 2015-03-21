@@ -23,7 +23,7 @@ class UserAvatarController < ApplicationController
 
   def authenticate_session_user!
     redirect_to root_path unless session[:id]
-    @user = User.find_by session[:id]
+    @user = User.find session[:id]
     unless @user
       reset_session
       redirect_to root_path
