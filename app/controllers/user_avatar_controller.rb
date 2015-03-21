@@ -7,6 +7,7 @@ class UserAvatarController < ApplicationController
   def create
     if @user.update_attributes(user_params)
       flash[:success] = "Your profile is complete. You are now logged in."
+      reset_session
       sign_in_and_redirect @user
     else
       render 'new'

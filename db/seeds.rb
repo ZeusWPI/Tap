@@ -48,9 +48,8 @@ users = [
   },
   {
     uid:   'benji',
-    avatar:     File.new('public/seeds/users/benji.jpg', 'r'),
+    # avatar:     File.new('public/seeds/users/benji.jpg', 'r'),
     dagschotel: Product.first,
-    provider:   'zeuswpi'
   },
   {
     uid:   'don',
