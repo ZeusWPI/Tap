@@ -1,7 +1,7 @@
 <h2>Add avatar to <%= @user.uid %></h2>
 <%= render 'flash' %>
 
-<%= f_form_for @user, url: '/user_avatar', method: :post do |f| %>
+<%= f_form_for @user, url: url_for(controller: 'user_avatar', action: 'create'), method: :post do |f| %>
   <%= f.error_messages %>
 
   <!-- To prevent an empty form submit from crashing -->
