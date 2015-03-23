@@ -5,6 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+require 'faker'
+require 'identicon'
 DEFAULT_PASSWORD = "password"
 
 products = [
@@ -35,46 +37,10 @@ products.each do |attr|
   Product.create name: attr[:name], price: attr[:price], category: attr[:category], stock: attr[:stock], avatar: attr[:avatar]
 end
 
-users = [
-  {
-    uid:   'admin',
-    avatar:     File.new('public/seeds/users/admin.jpg', 'r'),
-    admin:      true
-  },
-  {
-    uid:   'koelkast',
-    avatar:     File.new('public/seeds/users/admin.jpg', 'r'),
-    koelkast:   true
-  },
-  {
-    uid:   'benji',
-    # avatar:     File.new('public/seeds/users/benji.jpg', 'r'),
-    dagschotel: Product.first,
-  },
-  {
-    uid:   'don',
-    avatar:     File.new('public/seeds/users/don.jpg', 'r')
-  },
-  {
-    uid:   'silox',
-    avatar:     File.new('public/seeds/users/silox.jpg', 'r')
-  }
-]
-
-users.each do |attr|
+20.times do |i|
+  name = Faker::Name.name
   User.create(
-    uid: attr[:uid],
-    provider: attr[:provider],
-    avatar: attr[:avatar],
-    dagschotel: attr[:dagschotel],
-    admin: attr[:admin] || false,
-    koelkast: attr[:koelkast] || false
+    uid: name,
+    avatar: Identicon.data_url_for(name)
   )
 end
-
-# 50.times do |i|
-  # User.create(
-    # uid: "testUser#{i}",
-    # avatar: users[0][:avatar],
-  # )
-# end

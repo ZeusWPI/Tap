@@ -25,11 +25,11 @@
 #  encrypted_password  :string
 #
 
+require 'identicon'
 class User < ActiveRecord::Base
   devise :trackable, :omniauthable, :omniauth_providers => [:zeuswpi]
 
-  has_paper_trail only: [:debt_cents, :admin, :orders_count, :koelkast]
-
+  has_paper_trail
   has_attached_file :avatar, styles: { large: "150x150>", medium: "100x100>", small: "40x40>" }, default_style: :medium
 
   has_many :orders, -> { includes :products }
@@ -46,15 +46,12 @@ class User < ActiveRecord::Base
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.provider = auth.provider
       user.uid = auth.uid
+      user.avatar = Identicon.data_url_for auth.uid
     end
   end
 
   def nickname
     self.uid
-  end
-
-  def nickname=(name)
-    self.uid = name
   end
 
   def debt
