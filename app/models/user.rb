@@ -27,7 +27,7 @@
 
 require 'identicon'
 class User < ActiveRecord::Base
-  devise :trackable, :omniauthable, :omniauth_providers => [:zeuswpi]
+  devise :database_authenticatable, :trackable, :omniauthable, :omniauth_providers => [:zeuswpi]
 
   has_paper_trail
   has_attached_file :avatar, styles: { large: "150x150>", medium: "100x100>", small: "40x40>" }, default_style: :medium

@@ -37,6 +37,14 @@ products.each do |attr|
   Product.create name: attr[:name], price: attr[:price], category: attr[:category], stock: attr[:stock], avatar: attr[:avatar]
 end
 
+User.create(
+  uid: "koelkast",
+  password: "password",
+  password_confirmation: "password",
+  avatar: Identicon.data_url_for("koelkast"),
+  koelkast: true
+)
+
 20.times do |i|
   name = Faker::Name.name
   User.create(

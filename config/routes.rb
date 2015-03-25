@@ -1,12 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
-    omniauth_callbacks: "callbacks",
-    sessions:           "sessions"
+    omniauth_callbacks: "callbacks"
   }
 
   devise_scope :user do
     unauthenticated :user do
-      root to: 'sessions#new'
+      root to: 'welcome#index'
     end
 
     authenticated :user, ->(u) { u.koelkast? } do
@@ -16,7 +15,6 @@ Rails.application.routes.draw do
     authenticated :user, ->(u) { !u.koelkast? } do
         root to: 'users#show', as: :user_root
     end
-    get 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end
 
   resources :users do
