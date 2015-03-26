@@ -3,7 +3,7 @@ require 'test_helper'
 class OrderIntegrationTest < ActionDispatch::IntegrationTest
   def setup
     Product.all.each do |product|
-      product.avatar = File.new('public/seeds/products/fanta.jpg', 'r')
+      product.avatar = File.new('public/seeds/products/1.jpg', 'r')
       product.save
     end
 
