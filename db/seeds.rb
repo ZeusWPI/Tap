@@ -11,25 +11,88 @@ DEFAULT_PASSWORD = "password"
 
 products = [
   {
-    name:     'Fanta',
-    price:    0.6,
-    category: 'beverages',
-    stock:    25,
-    avatar:   File.new('public/seeds/products/fanta.jpg', 'r')
+    name: "Twix",
+    price: 0.4,
+    category: "food",
+    stock: 0,
+    avatar: File.new('public/seeds/products/1.jpg', 'r')
   },
   {
-    name:     'Club Mate',
-    price:    1.2,
-    category: 'beverages',
-    stock:    25,
-    avatar:   File.new('public/seeds/products/club_mate.jpg', 'r')
+    name: "M&M Peanuts",
+    price: 0.6,
+    category: "food",
+    stock: 0,
+    avatar: File.new('public/seeds/products/2.jpg', 'r')
   },
   {
-    name:     'Kinder Bueno',
-    price:    0.6,
-    category: 'food',
-    stock:    15,
-    avatar:   File.new('public/seeds/products/bueno.jpg', 'r')
+    name: "Snickers",
+    price: 0.4,
+    category: "food",
+    stock: 0,
+    avatar: File.new('public/seeds/products/3.jpg', 'r')
+  },
+  {
+    name: "Fanta",
+    price: 0.6,
+    category: "beverages",
+    stock: 0,
+    avatar: File.new('public/seeds/products/4.jpg', 'r')
+  },
+  {
+    name: "Ice Tea",
+    price: 0.7,
+    category: "beverages",
+    stock: 0,
+    avatar: File.new('public/seeds/products/5.jpg', 'r')
+  },
+  {
+    name: "Cola",
+    price: 0.6,
+    category: "beverages",
+    stock: 0,
+    avatar: File.new('public/seeds/products/6.jpg', 'r')
+  },
+  {
+    name: "Abrikozencake",
+    price: 0.4,
+    category: "food",
+    stock: 0,
+    avatar: File.new('public/seeds/products/7.jpg', 'r')
+  },
+  {
+    name: "Kinder Delice",
+    price: 0.4,
+    category: "food",
+    stock: 0,
+    avatar: File.new('public/seeds/products/8.jpg', 'r')
+  },
+  {
+    name: "Kinder Bueno",
+    price: 0.6,
+    category: "food",
+    stock: 0,
+    avatar: File.new('public/seeds/products/9.jpg', 'r')
+  },
+  {
+    name: "Arizona Ice Tea",
+    price: 1.0,
+    category: "beverages",
+    stock: 0,
+    avatar: File.new('public/seeds/products/10.png', 'r')
+  },
+  {
+    name: "Dinosauruskoeken",
+    price: 0.5,
+    category: "food",
+    stock: 0,
+    avatar: File.new('public/seeds/products/11.jpg', 'r')
+  },
+  {
+    name: "Chocolade - melk",
+    price: 0.7,
+    category: "food",
+    stock: 0,
+    avatar: File.new('public/seeds/products/12.jpg', 'r')
   }
 ]
 

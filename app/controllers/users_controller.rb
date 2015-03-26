@@ -79,10 +79,6 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      if params[:user]
-        params.require(:user).permit(:avatar)
-      else
-        {}
-      end
+      params.permit(:user).permit(:avatar)
     end
 end
