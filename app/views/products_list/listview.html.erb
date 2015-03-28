@@ -1,0 +1,17 @@
+<div class="row products">
+  <div class="col-md-8 col-md-offset-2">
+    <h1>Products</h1>
+    <%= render partial: 'flash' %>
+
+    <table id="products-table" class="table table-striped">
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th></th>
+      </tr>
+      <%= render partial: 'products_list/product_row', collection: @products, as: :product %>
+    </table>
+  </div>
+</div>

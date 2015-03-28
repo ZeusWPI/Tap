@@ -17,7 +17,7 @@
 
 class Product < ActiveRecord::Base
   has_many :order_items
-  has_attached_file :avatar, styles: { dagschotel: "80x80>", medium: "100x100>" }, default_style: :medium
+  has_attached_file :avatar, styles: { dagschotel: "80x80>", medium: "100x100>", small: "40x40>" }, default_style: :medium
 
   enum category: %w(food beverages other)
 
