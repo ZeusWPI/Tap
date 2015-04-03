@@ -1,6 +1,8 @@
 class ProductsController < ApplicationController
   load_and_authorize_resource
 
+  respond_to :html, :js
+
   def new
     @product = Product.new
   end
@@ -17,20 +19,20 @@ class ProductsController < ApplicationController
   def index
     @products = Product.all
     @categories = Product.categories
+    if current_user.admin?
+      render 'products_list/listview'
+    end
   end
 
   def edit
     @product = Product.find(params[:id])
+    respond_with @product
   end
 
   def update
     @product = Product.find(params[:id])
-    if @product.update_attributes(product_params)
-      flash[:success] = "Succesfully updated product"
-      redirect_to products_path
-    else
-      render 'edit'
-    end
+    @product.update_attributes product_params
+    respond_with @product
   end
 
   def destroy

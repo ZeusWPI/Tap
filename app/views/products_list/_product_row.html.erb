@@ -1,0 +1,7 @@
+<tr id="products_row_<%= dom_id(product) %>">
+  <td><%= image_tag product.avatar(:small) %></td>
+  <td><%= product.name %></td>
+  <td><%= euro(product.price) %></td>
+  <td><%= product.stock %></td>
+  <td><%= button_to "Edit", edit_product_path(product), method: :get, class: "btn btn-default", remote: true %></td>
+</tr>

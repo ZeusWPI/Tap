@@ -22,3 +22,13 @@
   margin-bottom: 20px;
 }
 
+#products-table .form-group {
+  margin-bottom: 0;
+}
+
+#products-table tr {
+  height: 57px;
+  td {
+    vertical-align: middle;
+  }
+}
