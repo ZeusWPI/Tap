@@ -1,9 +1,7 @@
 <tr id="products_row_<%= dom_id(product) %>">
-  <%= f_form_for product, remote: true do |f| %>
-    <td><%= image_tag product.avatar(:small) %></td>
-    <td><%= f.text_field :name, skip_label: true %></td>
-    <td><%= f.price_field :price, skip_label: true %></td>
-    <td><%= f.number_field :stock, skip_label: true %></td>
-    <td><%= f.submit "Save" %></td>
-  <% end %>
+  <td><%= image_tag product.avatar(:small) %></td>
+  <td><%= product.name %></td>
+  <td><%= euro(product.price) %></td>
+  <td><%= product.stock %></td>
+  <td><%= button_to "Edit", edit_product_path(product), method: :get, class: "btn btn-default", remote: true %></td>
 </tr>
