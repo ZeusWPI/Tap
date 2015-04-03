@@ -13,7 +13,7 @@ class Webhook
 
     self.hook = Tarumi::Bot.new(
       "zeuswpi",
-      Rails.application.secrets.zeus_token
+      Rails.application.secrets.zeus_token,
       options
     )
   end
