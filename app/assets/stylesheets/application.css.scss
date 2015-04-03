@@ -81,6 +81,11 @@ footer {
 }
 
 .nav-logo{
-  margin:10px;
   font-size:30px;
+}
+
+@media(max-width:767px) {
+  .nav-logo{
+    margin:10px;
+  }
 }
