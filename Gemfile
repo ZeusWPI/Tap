@@ -90,3 +90,6 @@ gem 'coveralls', require: false
 
 # Default avatar for users
 gem 'identicon'
+
+# Slack
+gem 'tarumi'

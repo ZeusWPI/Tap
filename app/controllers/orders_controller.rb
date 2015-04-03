@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   include ActionView::Helpers::NumberHelper
+  include ApplicationHelper
 
   load_and_authorize_resource
 
@@ -17,7 +18,9 @@ class OrdersController < ApplicationController
     @order = @user.orders.build order_params
 
     if @order.save
-      flash[:success] = "#{@order.to_sentence} ordered. Enjoy it!"
+      message = "#{@order.to_sentence} ordered. Enjoy it!"
+      flash[:success] = message
+      slack_notification(@user, message)
       redirect_to root_path
     else
       @order.g_order_items Product.all
