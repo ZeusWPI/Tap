@@ -2,7 +2,7 @@
   <%= f.label :total_price %>
   <div class="input-group">
     <span class="input-group-addon">&euro;</span>
-    <%= f.number_field :price, skip_label: true, step: :any, class: 'form-control big-form-field' %>
+    <%= f.number_field :price, disabled: true, skip_label: true, step: :any, class: 'form-control big-form-field' %>
     <span class="input-group-btn">
       <%= f.submit "Order!", class: "btn btn-primary big-form-button" %>
     </span>
