@@ -47,8 +47,9 @@ group :test do
   gem 'capybara'
   gem 'launchy'
   gem "codeclimate-test-reporter", require: nil
-  gem 'faker', '1.4.2'
 end
+
+gem 'faker', '1.4.2'
 
 #bootstrap
 gem 'bootstrap-sass',       '3.2.0.0'
