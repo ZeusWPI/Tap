@@ -54,6 +54,9 @@
                 <li><%= link_to "Edit avatar", edit_user_path(current_user) %></li>
               </ul>
             </li>
+            <li>
+            <p class="navbar-text">Debt: <%= euro(current_user.debt) %></p>
+            </li>
           <% end %>
         </ul>
 
