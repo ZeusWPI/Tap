@@ -48,7 +48,7 @@ class Order < ActiveRecord::Base
 
   def to_sentence
     self.order_items.map {
-      |oi| oi.count.to_s + " " + oi.product.name.pluralize(oi.count, :nl)
+      |oi| pluralize(oi.count, oi.product.name)
     }.to_sentence
   end
 

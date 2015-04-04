@@ -13,7 +13,7 @@ class OrderItem < ActiveRecord::Base
   belongs_to :product
 
   validates :product, presence: true
-  validates :count,   numericality: { only_integer: true, greater_than_or_equal_to: 0, smaller_than_or_equal_to: 10000 }
+  validates :count,   numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   after_create   :remove_from_stock
 

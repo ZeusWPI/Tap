@@ -19,7 +19,7 @@
       <br/>
       Specifics:<br/>
       <ul>
-        <%= @products.map{ |p| content_tag(:li, p.count.to_s + " " + p.name.pluralize(p.count, :nl)) }.join("\n").html_safe %>
+        <%= @products.map{ |p| content_tag(:li, pluralize(p.count, p.name)) }.join("\n").html_safe %>
       </ul>
 
       <h4>All orders (<%= @user.orders_count %>)</h4>
