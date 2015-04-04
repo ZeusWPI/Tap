@@ -21,11 +21,14 @@ module ApplicationHelper
   def slack_notification(user, message)
     require 'net/http'
     require 'json'
-    postData = Net::HTTP.post_form(URI.parse('https://slack.com/api/users.list'), {'token'=>'xoxp-2484654576-2817526333-4116062828-04487a'})
-    slackmember = JSON.parse(postData.body)["members"].select{ |m| m["profile"]["email"] == user.uid + "@zeus.ugent.be" }.first
+    postData = Net::HTTP.post_form(URI.parse('https://slack.com/api/users.list'), {'token'=>Rails.application.secrets.access_token})
+    data = JSON.parse(postData.body)
+    if data["ok"]
+      slackmember = data["members"].select{ |m| m["profile"]["email"] == user.uid + "@zeus.ugent.be" }.first
 
-    if slackmember
-      Webhook.new(channel: "@" + slackmember["name"], username: "Tab").ping(message)
+      if slackmember
+        Webhook.new(channel: "@" + slackmember["name"], username: "Tab").ping(message)
+      end
     end
   end
 end
