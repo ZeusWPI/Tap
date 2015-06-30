@@ -5,6 +5,11 @@
   <%= f.error_messages %>
 
   <%= f.file_field :avatar %>
+  <p>
+    If you check this option, nobody will be able to order stuff for you through koelkast.
+    Only on your account things can be ordered.
+  <p>
+  <%= f.check_box :private %>
 
   <%= f.submit "Update" %>
 <% end %>

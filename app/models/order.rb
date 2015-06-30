@@ -13,7 +13,7 @@
 class Order < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
 
-  after_create     { self.user.increment!(:debt_cents, price_cents) }
+  after_create { self.user.increment!(:debt_cents, price_cents) }
 
   belongs_to :user, counter_cache: true
   has_many :order_items, dependent: :destroy
