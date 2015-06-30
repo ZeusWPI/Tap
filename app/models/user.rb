@@ -41,6 +41,7 @@ class User < ActiveRecord::Base
     content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }
 
   scope :members, -> { where koelkast: false }
+  scope :publik, -> { where private: false }
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

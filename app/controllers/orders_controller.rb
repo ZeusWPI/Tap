@@ -40,7 +40,7 @@ class OrdersController < ApplicationController
   end
 
   def overview
-    @users = User.members.order(:uid)
+    @users = User.members.publik.order(:uid)
   end
 
   def quickpay
@@ -62,6 +62,11 @@ class OrdersController < ApplicationController
 
       if @user.koelkast?
         flash[:error] = "Koelkast can't order things."
+        redirect_to root_path
+      end
+
+      if @user.private && current_user != @user
+        flash[:error] = "You can't order stuff for this person."
         redirect_to root_path
       end
 

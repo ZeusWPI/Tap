@@ -13,9 +13,9 @@ class OrderItem < ActiveRecord::Base
   belongs_to :product
 
   validates :product, presence: true
-  validates :count,   numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :count, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
-  after_create   :remove_from_stock
+  after_create :remove_from_stock
 
   accepts_nested_attributes_for :product
 
