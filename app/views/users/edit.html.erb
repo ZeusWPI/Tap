@@ -4,6 +4,7 @@
 <%= f_form_for @user do |f| %>
   <%= f.error_messages %>
 
+  <%= image_tag @user.avatar(:large), class: "img-thumbnail img-responsive" %>
   <%= f.file_field :avatar %>
   <p>
     If you check this option, nobody will be able to order stuff for you through koelkast.
