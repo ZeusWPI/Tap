@@ -8,9 +8,8 @@ class OrdersController < ApplicationController
     init
     @order = @user.orders.build
 
-    # products = @user.products.select("products.*", "sum(order_items.count) as count").group(:product_id).order("count desc")
-    # @order.g_order_items(products)
-    @order.g_order_items Product.all
+    products = (@user.products.select("products.*", "sum(order_items.count) as count").group(:product_id).order("count desc") | Product.all)
+    @order.g_order_items products
   end
 
   def create
