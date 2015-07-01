@@ -5,7 +5,10 @@
         <%= image_tag product.avatar %>
       </div>
       <div class="caption">
-        <%= content_tag :h4, "#{product.name} (#{euro(product.price)})" %>
+        <h4 class="text-nowrap">
+        <%= content_tag :span, product.name %>
+        <%= content_tag :small, euro(product.price) %>
+        </h4>
         <%= f.counter :count, skip_label: true, wrapper_class: "input-group", class: "row_counter" %>
         <%= f.fields_for :product do |product| %>
           <%= product.hidden_field :price_cents, class: :price %>

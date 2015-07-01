@@ -37,3 +37,21 @@
 .form_row .btn-lg {
   padding: 10px 10px;
 }
+
+.form_row .caption {
+  h4 {
+    position: relative;
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+      display: inline-block;
+      padding-right: 50px;
+    }
+    small {
+      margin-left: -45px;
+      position: absolute;
+      top: 5px;
+    }
+  }
+}
