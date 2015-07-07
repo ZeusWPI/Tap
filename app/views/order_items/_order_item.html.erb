@@ -5,6 +5,17 @@
         <%= image_tag product.avatar %>
       </div>
       <div class="caption">
+        <h6>
+          <% if product.calories != nil %>
+            <%= content_tag( :small) do
+              concat( product.calories)
+              concat ' kcal'
+              end
+            %>
+          <% else %>
+              &nbsp;
+          <% end %>
+        </h6>
         <h4 class="text-nowrap">
         <%= content_tag :span, product.name %>
         <%= content_tag :small, euro(product.price) %>

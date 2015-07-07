@@ -4,6 +4,7 @@
     <td><%= f.text_field :name, skip_label: true %></td>
     <td><%= f.price_field :price, skip_label: true %></td>
     <td><%= f.number_field :stock, skip_label: true %></td>
+    <td><%= f.number_field :calories, skip_label: true %></td>
     <td><%= f.button "Update", class: "btn btn-primary" %></td>
     <%= javascript_tag do %>
       var id = "#edit_<%= dom_id(product) %>";

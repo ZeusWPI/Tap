@@ -7,6 +7,7 @@
       <%= f.price_field :price %>
       <%= f.collection_select :category, Product.categories.keys %>
       <%= f.number_field :stock %>
+      <%= f.number_field :calories %>
       <%= f.file_field :avatar %>
 
       <%= f.submit %>
