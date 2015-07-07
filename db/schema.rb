@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150630183223) do
+ActiveRecord::Schema.define(version: 20150707162949) do
 
   create_table "order_items", force: :cascade do |t|
     t.integer "order_id"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20150630183223) do
     t.datetime "avatar_updated_at"
     t.integer  "category",            default: 0
     t.integer  "stock",               default: 0, null: false
+    t.integer  "calories"
   end
 
   create_table "users", force: :cascade do |t|
