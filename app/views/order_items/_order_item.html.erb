@@ -1,5 +1,5 @@
 <div class="col-md-3 form_products">
-  <div class="thumbnail ">
+  <div class="thumbnail<%= product.stock ==0 ? ' out-of-stock' : '' %>">
     <div class="form_row center">
       <div class="form_row_image">
         <%= image_tag product.avatar %>
