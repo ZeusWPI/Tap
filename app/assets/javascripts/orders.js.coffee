@@ -9,16 +9,36 @@ ready = ->
     increment($(this), -1)
 
   $('.form_row').each((index, row) ->
-    disIfNec(row)
-    $(row).on('input', recalculate)
+    updateInput(row, false)
+    $(row).on('input', ->
+      updateInput(row)
+    )
   )
 
   recalculate()
 
+
+
+# Validate input, and then update
+updateInput = (row, useRecalculate = true) ->
+  cell = row.querySelector("input")
+  if ! cell.validity.valid
+    if(parseInt(cell.value) > parseInt(cell.max))
+      cell.value = parseInt(cell.max)
+    else
+      cell.value = 0
+
+  # Disable buttons if necessary
+  disIfNec(row)
+
+  if useRecalculate
+    recalculate();
+
+
 disIfNec = (row) ->
   counter = parseInt($(row).find('.row_counter').val())
   $(row).find('.btn-dec').prop('disabled', counter == 0);
-  $(row).find('.btn-inc').prop('disabled', counter == parseInt($(row).find('.stock').val()))
+  $(row).find('.btn-inc').prop('disabled', counter == parseInt($(row).find('.row_counter').attr('max')))
 
 recalculate = () ->
   value = ($(row).find('.row_counter').val() * $(row).find('.price').val() for row in $('.form_row')).reduce (a, b) -> a+b
@@ -29,12 +49,12 @@ increment = (button, n) ->
 
   # Fix the counter
   counter = $(row).find('.row_counter')
-  counter.val(parseInt(counter.val()) + n)
+  value = parseInt(counter.val())
+  if isNaN(value)
+    value = 0
+  counter.val(value + n)
 
-  # Disable buttons if necessary
-  disIfNec(row)
-
-  recalculate()
+  updateInput(row[0])
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
