@@ -20,7 +20,7 @@ ready = ->
 
 
 # Validate input, and then update
-updateInput = (row, useRecalculate = true)->
+updateInput = (row, useRecalculate = true) ->
   cell = row.querySelector("input")
   if ! cell.validity.valid
     if(parseInt(cell.value) > parseInt(cell.max))
@@ -50,8 +50,8 @@ increment = (button, n) ->
   # Fix the counter
   counter = $(row).find('.row_counter')
   value = parseInt(counter.val())
-  # Apparently CoffeeScript doesn't support ?:
-  value =  if isNaN(value) then 0 else value
+  if isNaN(value)
+    value = 0
   counter.val(value + n)
 
   updateInput(row[0])

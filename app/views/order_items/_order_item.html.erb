@@ -9,7 +9,7 @@
         <%= content_tag :span, product.name %>
         <%= content_tag :small, euro(product.price) %>
         </h4>
-        <%= f.counter :count, max: product.stock, min:0, skip_label: true, wrapper_class: "input-group", class: "row_counter" %>
+        <%= f.counter :count, min: 0, max: product.stock, skip_label: true, wrapper_class: "input-group", class: "row_counter" %>
         <%= f.fields_for :product do |product| %>
           <%= product.hidden_field :price_cents, class: :price %>
           <%= product.hidden_field :stock, class: :stock %>
