@@ -6,15 +6,7 @@
       </div>
       <div class="caption">
         <h6>
-          <% if product.calories %>
-              <%= content_tag :small do
-                concat product.calories
-                concat ' kcal'
-              end
-              %>
-          <% else %>
-              &nbsp;
-          <% end %>
+          <%= kcal_tag product.calories %>
         </h6>
         <h4 class="text-nowrap">
         <%= content_tag :span, product.name %>
