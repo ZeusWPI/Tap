@@ -13,7 +13,7 @@
 #  avatar_updated_at   :datetime
 #  category            :integer          default("0")
 #  stock               :integer          default("0"), not null
-#  calories            :integer          default("0"), not null // expressed in kcal
+#  calories            :integer          default("0") // expressed in kcal
 #
 
 class Product < ActiveRecord::Base
@@ -25,7 +25,7 @@ class Product < ActiveRecord::Base
   validates :name, presence: true
   validates :price_cents, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :stock, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validates :calories, numericality: { only_integer: true, :allow_nil => true, greater_than_or_equal_to: 0 }
+  validates :calories, numericality: { only_integer: true, allow_nil: true, greater_than_or_equal_to: 0 }
   validates_attachment :avatar,
     presence: true,
     content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }

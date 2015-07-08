@@ -6,12 +6,12 @@
       </div>
       <div class="caption">
         <h6>
-          <% if product.calories != nil %>
-            <%= content_tag( :small) do
-              concat( product.calories)
-              concat ' kcal'
+          <% if product.calories %>
+              <%= content_tag :small do
+                concat product.calories
+                concat ' kcal'
               end
-            %>
+              %>
           <% else %>
               &nbsp;
           <% end %>
