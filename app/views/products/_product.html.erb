@@ -4,6 +4,7 @@
       <%= image_tag product.avatar %>
     </div>
     <div class="caption">
+      <%= kcal_tag product.calories %>
       <h4><%= product.name %></h4>
       <h3><%= euro(product.price) %></h3>
       <h6>(In stock: <%= product.stock %>)</h6>

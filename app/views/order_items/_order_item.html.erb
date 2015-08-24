@@ -5,6 +5,9 @@
         <%= image_tag product.avatar %>
       </div>
       <div class="caption">
+        <h6>
+          <%= kcal_tag product.calories %>
+        </h6>
         <h4 class="text-nowrap">
         <%= content_tag :span, product.name %>
         <%= content_tag :small, euro(product.price) %>
