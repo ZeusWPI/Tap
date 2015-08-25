@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20150824142843) do
     t.datetime "avatar_updated_at"
     t.integer  "category",            default: 0
     t.integer  "stock",               default: 0,     null: false
+    t.integer  "calories"
     t.boolean  "deleted",             default: false
   end
 
