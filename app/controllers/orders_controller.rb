@@ -8,7 +8,7 @@ class OrdersController < ApplicationController
     init
     @order = @user.orders.build
 
-    products = (@user.products.select("products.*", "sum(order_items.count) as count").group(:product_id).order("count desc") | Product.all)
+    products = (@user.products.for_sale.select("products.*", "sum(order_items.count) as count").group(:product_id).order("count desc") | Product.for_sale)
     @order.g_order_items products
   end
 
@@ -22,7 +22,7 @@ class OrdersController < ApplicationController
       slack_notification(@user, message)
       redirect_to root_path
     else
-      @order.g_order_items Product.all
+      @order.g_order_items Product.for_sale
       render 'new'
     end
   end

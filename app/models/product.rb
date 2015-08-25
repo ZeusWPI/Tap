@@ -30,6 +30,8 @@ class Product < ActiveRecord::Base
     presence: true,
     content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }
 
+  scope :for_sale, -> { where deleted: false }
+
   def price
     self.price_cents / 100.0
   end
@@ -37,5 +39,9 @@ class Product < ActiveRecord::Base
   def price=(value)
     if value.is_a? String then value.sub!(',', '.') end
     self.price_cents = (value.to_f * 100).to_int
+  end
+
+  def out_of_sale
+    update_attribute :deleted, true
   end
 end
