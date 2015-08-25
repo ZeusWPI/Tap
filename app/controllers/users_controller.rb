@@ -49,7 +49,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:user_id])
     @dagschotel = @user.dagschotel
 
-    @products = Product.all
+    @products = Product.for_sale
     @categories = Product.categories
   end
 
@@ -57,7 +57,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:user_id])
     @user.dagschotel = Product.find(params[:product_id])
 
-    @products = Product.all
+    @products = Product.for_sale
     @categories = Product.categories
 
     if @user.save
