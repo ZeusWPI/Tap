@@ -11,7 +11,9 @@ class Ability
     elsif user[:id]
       can :read, :all
       can :manage, User, id: user.id
-      can :manage, Order, user: user
+      can :manage, Order do |order|
+        order.try(:user) == user
+      end
     end
   end
 end

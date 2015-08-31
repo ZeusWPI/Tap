@@ -3,20 +3,14 @@ class OrdersController < ApplicationController
   include ApplicationHelper
 
   load_and_authorize_resource :user
-  load_and_authorize_resource :order, through: :user
+  load_and_authorize_resource :order, through: :user, shallow: true
 
   def new
-    @user = User.find(params[:user_id])
-    @order = @user.orders.build
-
     products = (@user.products.for_sale.select("products.*", "sum(order_items.count) as count").group(:product_id).order("count desc") | Product.for_sale)
     @order.g_order_items products
   end
 
   def create
-    @user = User.find(params[:user_id])
-    @order = @user.orders.build order_params
-
     if @order.save
       flash[:success] = "#{@order.to_sentence} ordered. Enjoy it!"
       redirect_to root_path
