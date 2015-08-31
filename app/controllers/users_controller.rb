@@ -4,19 +4,16 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by_id(params[:id]) || current_user
     @orders = @user.orders
-      .active
       .order(:created_at)
       .reverse_order
       .paginate(page: params[:page])
     @products = @user.products
       .select("products.*", "sum(order_items.count) as count")
-      .where("orders.cancelled = ?", false)
       .group(:product_id)
       .order("count")
       .reverse_order
     @categories = @user.products
       .select("products.category", "sum(order_items.count) as count")
-      .where("orders.cancelled = ?", false)
       .group(:category)
   end
 
@@ -39,14 +36,15 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
-    @user.destroy
+    user = User.find(params[:id])
+    user.destroy
     flash[:success] = "Succesfully removed user"
     redirect_to users_path
   end
 
   def edit_dagschotel
     @user = User.find(params[:user_id])
+    authorize! :update_dagschotel, @user
     @dagschotel = @user.dagschotel
 
     @products = Product.for_sale
@@ -54,31 +52,19 @@ class UsersController < ApplicationController
   end
 
   def update_dagschotel
-    @user = User.find(params[:user_id])
-    @user.dagschotel = Product.find(params[:product_id])
+    user = User.find(params[:user_id])
+    authorize! :update_dagschotel, user
 
-    @products = Product.for_sale
-    @categories = Product.categories
+    user.dagschotel = Product.find(params[:product_id])
+    user.save
 
-    if @user.save
-      flash[:success] = "Succesfully updated dagschotel"
-      redirect_to @user
-    else
-      flash[:error] = "Error updating dagschotel"
-      @dagschotel = @user.reload.dagschotel
-      render 'edit_dagschotel'
-    end
-
+    flash[:success] = "Succesfully updated dagschotel"
+    redirect_to user
   end
 
   private
 
-    def init
-      @user = User.find(params[:user_id])
-      redirect_to root_path, error: "You are not authorized to access this page." unless @user == current_user || current_user.admin?
-    end
-
     def user_params
-      params.fetch(:user, {}).permit(:avatar, :private)
+      params.require(:user).permit(:avatar, :private)
     end
 end

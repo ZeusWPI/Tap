@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150824142843) do
+ActiveRecord::Schema.define(version: 20150827155036) do
 
   create_table "order_items", force: :cascade do |t|
     t.integer "order_id"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20150824142843) do
     t.boolean  "cancelled",   default: false
   end
 
+  add_index "orders", ["cancelled"], name: "index_orders_on_cancelled"
+  add_index "orders", ["created_at"], name: "index_orders_on_created_at"
   add_index "orders", ["user_id", "created_at"], name: "index_orders_on_user_id_and_created_at"
   add_index "orders", ["user_id"], name: "index_orders_on_user_id"
 
