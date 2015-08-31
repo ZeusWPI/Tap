@@ -2,24 +2,17 @@ class OrdersController < ApplicationController
   include ActionView::Helpers::NumberHelper
   include ApplicationHelper
 
-  load_and_authorize_resource
+  load_resource :user
+  load_and_authorize_resource :order, through: :user, shallow: true
 
   def new
-    init
-    @order = @user.orders.build
-
     products = (@user.products.for_sale.select("products.*", "sum(order_items.count) as count").group(:product_id).order("count desc") | Product.for_sale)
     @order.g_order_items products
   end
 
   def create
-    init
-    @order = @user.orders.build order_params
-
     if @order.save
-      message = "#{@order.to_sentence} ordered. Enjoy it!"
-      flash[:success] = message
-      slack_notification(@user, message)
+      flash[:success] = "#{@order.to_sentence} ordered. Enjoy it!"
       redirect_to root_path
     else
       @order.g_order_items Product.for_sale
@@ -55,25 +48,6 @@ class OrdersController < ApplicationController
   end
 
   private
-
-    def init
-      @user = User.find(params[:user_id])
-
-      if @user.koelkast?
-        flash[:error] = "Koelkast can't order things."
-        redirect_to root_path
-      end
-
-      if @user.private && current_user != @user
-        flash[:error] = "You can't order stuff for this person."
-        redirect_to root_path
-      end
-
-      unless current_user.koelkast? || current_user.admin? || current_user == @user
-        flash[:error] = "Please don't order stuff for other people"
-        redirect_to root_path
-      end
-    end
 
     def order_params
       params.require(:order).permit(order_items_attributes: [:count, :price, product_attributes: [:id]])

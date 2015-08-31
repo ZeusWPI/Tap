@@ -1,26 +1,35 @@
 <%= render partial: 'flash' %>
 <div class="row">
   <div class="user_info">
-    <% if current_user == @user %>
+    <% if can? :edit, @user %>
       <h5>
         <%= link_to "[Edit dagschotel]" , user_edit_dagschotel_path(@user) %>
         <%= link_to "[Edit profile]" , edit_user_path(@user) %>
       </h5>
     <% end %>
     <h2><%= @user.nickname %></h2>
-    <%= button_to "PLACE ORDER!", new_user_order_path(@user), method: :get if current_user == @user %>
-    <div class="debt">DEBT: <%= euro(@user.debt) %></div>
+    <div class="actions">
+      <%= link_to "PLACE ORDER!", new_user_order_path(@user) if current_user == @user %>
+      <span>DEBT: <%= euro(@user.debt) %></span>
+    </div>
   </div>
 
   <% if @orders.any? %>
     <div class="stats">
       <h4>Total products</h4>
-      Total: <br/><ul><li><%= @categories.map{|c| pluralize(c.count, c.category)}.join(", ")%></li></ul>
-      <br/>
-      Specifics:<br/>
+      Total:
       <ul>
-        <%= @products.map{ |p| content_tag(:li, pluralize(p.count, p.name)) }.join("\n").html_safe %>
+        <li>
+          <%= @categories.map{|c| pluralize(c.count, c.category)}.to_sentence %>
+        </li>
       </ul>
+
+      Specifics:
+      <%= content_tag :ul do %>
+        <% @products.each do |p| %>
+          <%= content_tag :li, pluralize(p.count, p.name) %>
+        <% end %>
+      <% end %>
 
       <h4>All orders (<%= @user.orders_count %>)</h4>
       <table class="orders"><%= render @orders %></table>

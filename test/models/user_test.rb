@@ -32,16 +32,6 @@ class UserTest < ActiveSupport::TestCase
     @user = users(:benji)
   end
 
-  test "debt behaves correctly" do
-    assert_equal @user.debt_cents, 0
-    assert_equal @user.debt, 0
-
-    @user.debt = 1.3
-
-    assert_equal @user.debt, 1.3
-    assert_equal @user.debt_cents, 130
-  end
-
   test "to_param" do
     assert_equal @user.to_param, "#{@user.id}-benji"
   end
