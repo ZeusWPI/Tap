@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   include ActionView::Helpers::NumberHelper
   include ApplicationHelper
 
-  load_and_authorize_resource :user
+  load_resource :user
   load_and_authorize_resource :order, through: :user, shallow: true
 
   def new
