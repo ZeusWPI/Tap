@@ -1,39 +1,55 @@
 <%= render partial: 'flash' %>
 <div class="row">
-  <div class="user_info">
+  <div class="col-sm-3">
+    <h2>
+      <%= @user.nickname %>
+      <% if can? :edit, @user %>
+        <%= link_to content_tag(:small, content_tag(:span, "", class: "glyphicon glyphicon-cog")), edit_user_path(@user) %>
+      <% end %>
+    </h2>
+    <ul class="list-group">
+      <li class="list-group-item text-muted">Orders</li>
+      <li class="list-group-item"><strong>Orders placed</strong><span class="badge"><%= @user.orders_count %></span></li>
+      <li class="list-group-item"><strong>Products ordered</strong><span class="badge"><%= 17 %></span></li>
+      <% if can? :create, @user.orders.build %>
+        <li class="list-group-item"><%= link_to "Place new order", new_user_order_path(@user), class: "btn btn-default btn-block" %></li>
+      <% end %>
+    </ul>
     <% if can? :edit, @user %>
-      <h5>
-        <%= link_to "[Edit dagschotel]" , user_edit_dagschotel_path(@user) %>
-        <%= link_to "[Edit profile]" , edit_user_path(@user) %>
-      </h5>
+      <ul class="list-group">
+        <li class="list-group-item text-muted">
+          <% if @user.dagschotel %>
+            Huidige dagschotel
+            <%= image_tag @user.dagschotel.avatar %>
+            <%= link_to "Change dagschotel", user_edit_dagschotel_path(@user), class: "btn btn-default btn-block" %>
+          <% else %>
+            <%= link_to "Set dagschotel", user_edit_dagschotel_path(@user), class: "btn btn-default btn-block" %>
+          <% end %>
+        </li>
+      </ul>
     <% end %>
-    <h2><%= @user.nickname %></h2>
-    <div class="actions">
-      <%= link_to "PLACE ORDER!", new_user_order_path(@user) if current_user == @user %>
-      <span>DEBT: <%= euro(@user.debt) %></span>
-    </div>
   </div>
-
-  <% if @orders.any? %>
-    <div class="stats">
-      <h4>Total products</h4>
+   <div id="user_info" class="col-sm-9">
+    <% if @orders.any? %>
+      <h4>Previously ordered</h4>
       Total:
       <ul>
         <li>
-          <%= @categories.map{|c| pluralize(c.count, c.category)}.to_sentence %>
+        <%= @categories.map{|c| pluralize(c.count, c.category)}.to_sentence %>
         </li>
       </ul>
 
       Specifics:
       <%= content_tag :ul do %>
         <% @products.each do |p| %>
-          <%= content_tag :li, pluralize(p.count, p.name) %>
-        <% end %>
+        <%= content_tag :li, pluralize(p.count, p.name) %>
       <% end %>
+    <% end %>
 
       <h4>All orders (<%= @user.orders_count %>)</h4>
       <table class="orders"><%= render @orders %></table>
       <%= will_paginate @orders %>
     </div>
   <% end %>
+</div>
 </div>

@@ -58,25 +58,19 @@
   }
 }
 
-.stats{
-  width: 60%;
-  margin: auto;
-}
+#user_info {
+  h4 {
+    text-transform: uppercase;
+    font-family: monospace;
+    background-color: #333;
+    color: white;
+    padding: 5px 10px;
+    margin-top: 15px;
+  }
 
-.stats h4 {
-  text-transform: uppercase;
-  font-family: monospace;
-  background-color: #333;
-  color: white;
-  padding: 5px 10px;
-  margin-top: 15px;
-}
-
-.stats ul {
-  list-style-type: none;
-  padding: 0 0 0 15px;
-  margin: 0px;
-}
-
-.stats li {
+  ul {
+    list-style-type: none;
+    padding: 0 0 0 15px;
+    margin: 0px;
+  }
 }
