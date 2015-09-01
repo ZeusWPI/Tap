@@ -32,6 +32,5 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'admins' => 'admins#schulden', as: "admins_schulden"
   get 'overview' => 'orders#overview', as: "orders"
 end
