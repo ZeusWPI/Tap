@@ -1,8 +1,8 @@
 # config valid only for Capistrano 3.1
 # lock '3.1.0'
 
-set :application, 'Tab'
-set :repo_url, 'git@github.com:ZeusWPI/Tab.git'
+set :application, 'Tap'
+set :repo_url, 'git@github.com:ZeusWPI/Tap.git'
 
 set :branch, 'master'
 set :deploy_to, '/home/tab/production'
