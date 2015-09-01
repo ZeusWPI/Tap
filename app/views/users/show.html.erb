@@ -10,7 +10,7 @@
     <ul class="list-group">
       <li class="list-group-item text-muted">Orders</li>
       <li class="list-group-item"><strong>Orders placed</strong><span class="badge"><%= @user.orders_count %></span></li>
-      <li class="list-group-item"><strong>Products ordered</strong><span class="badge"><%= 17 %></span></li>
+      <li class="list-group-item"><strong>Products ordered</strong><span class="badge"><%= @products.map(&:count).sum %></span></li>
       <% if can? :create, @user.orders.build %>
         <li class="list-group-item"><%= link_to "Place new order", new_user_order_path(@user), class: "btn btn-default btn-block" %></li>
       <% end %>
