@@ -10,6 +10,7 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     if @product.save
+      flash[:success] = "Product created!"
       redirect_to products_path
     else
       render 'new'
@@ -19,9 +20,8 @@ class ProductsController < ApplicationController
   def index
     @products = Product.all
     @categories = Product.categories
-    if current_user.admin?
-      render 'products_list/listview'
-    end
+
+    render 'products_list/listview' if current_user.admin?
   end
 
   def edit
@@ -33,12 +33,6 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
     @product.update_attributes product_params
     respond_with @product
-  end
-
-  def destroy
-    Product.find(params[:id]).destroy
-    flash[:success] = "Succesfully removed product"
-    redirect_to products_path
   end
 
   def stock
@@ -57,6 +51,6 @@ class ProductsController < ApplicationController
   private
 
     def product_params
-      params.require(:product).permit(:name, :price, :avatar, :category, :stock)
+      params.require(:product).permit(:name, :price, :avatar, :category, :stock, :calories, :deleted)
     end
 end

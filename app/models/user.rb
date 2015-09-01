@@ -31,7 +31,6 @@ class User < ActiveRecord::Base
 
   has_paper_trail
   has_attached_file :avatar, styles: { large: "150x150>", medium: "100x100>", small: "40x40>" }, default_style: :medium
-
   has_many :orders, -> { includes :products }
   has_many :products, through: :orders
   belongs_to :dagschotel, class_name: 'Product'
@@ -56,12 +55,7 @@ class User < ActiveRecord::Base
   end
 
   def debt
-    self.debt_cents / 100.0
-  end
-
-  def debt=(value)
-    if value.is_a? String then value.sub!(',', '.') end
-    self.debt_cents = (value.to_f * 100).to_int
+    42.15
   end
 
   # Change URL params for User

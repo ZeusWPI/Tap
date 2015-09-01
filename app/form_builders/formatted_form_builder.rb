@@ -48,7 +48,11 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
     label_content = block_given? ? capture(&block) : options[:label]
 
     content_tag :div, class: control_wrapper_class do
-      checkbox + " " + label(name, label_content)
+      if options[:skip_label]
+        checkbox
+      else
+        checkbox + " " + label(name, label_content)
+      end
     end
   end
 

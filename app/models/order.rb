@@ -13,13 +13,11 @@
 class Order < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
 
-  after_create { self.user.increment!(:debt_cents, price_cents) }
-
   belongs_to :user, counter_cache: true
   has_many :order_items, dependent: :destroy
   has_many :products, through: :order_items
 
-  scope :active, -> { where(cancelled: false) }
+  default_scope -> { where(cancelled: false) }
 
   validates :user, presence: true
   validates :order_items, presence: true, in_stock: true
@@ -40,7 +38,6 @@ class Order < ActiveRecord::Base
 
   def cancel
     return if self.cancelled
-    user.decrement!(:debt_cents, price_cents)
     User.decrement_counter(:orders_count, user.id)
     update_attribute(:cancelled, true)
     self.order_items.each(&:cancel)

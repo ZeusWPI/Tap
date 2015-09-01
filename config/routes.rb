@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
-    omniauth_callbacks: "callbacks"
+    omniauth_callbacks: "callbacks",
+    sessions: "sessions"
   }
 
   devise_scope :user do
@@ -23,8 +24,6 @@ Rails.application.routes.draw do
     get 'dagschotel/edit'        => 'users#edit_dagschotel', as: 'edit_dagschotel'
     get 'dagschotel/:product_id' => 'users#update_dagschotel', as: 'dagschotel'
   end
-
-  resources :user_avatar
 
   resources :products do
     collection do

@@ -1,10 +1,13 @@
 <div class="col-md-3 form_products">
-  <div class="thumbnail ">
+  <div class="thumbnail<%= ' out-of-stock' if product.stock.zero? %>">
     <div class="form_row center">
       <div class="form_row_image">
         <%= image_tag product.avatar %>
       </div>
       <div class="caption">
+        <h6>
+          <%= kcal_tag product.calories %>
+        </h6>
         <h4 class="text-nowrap">
         <%= content_tag :span, product.name %>
         <%= content_tag :small, euro(product.price) %>
