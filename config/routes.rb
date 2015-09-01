@@ -25,12 +25,8 @@ Rails.application.routes.draw do
     get 'dagschotel/:product_id' => 'users#update_dagschotel', as: 'dagschotel'
   end
 
-  resources :products do
-    collection do
-      get  'stock' => 'products#stock', as: 'stock'
-      post 'stock' => 'products#update_stock', as: 'update_stock'
-    end
-  end
+  resources :products
+  resources :stocks
 
   get 'overview' => 'orders#overview', as: "orders"
 end

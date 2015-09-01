@@ -35,19 +35,6 @@ class ProductsController < ApplicationController
     respond_with @product
   end
 
-  def stock
-    @products = Product.all
-  end
-
-  def update_stock
-    @products = Product.all
-    @products.each do |product|
-      stock_inc = params[:products][product.id.to_s][:stock_inc].to_i
-      product.increment!(:stock, stock_inc) if stock_inc > 0
-    end
-    redirect_to products_path
-  end
-
   private
 
     def product_params
