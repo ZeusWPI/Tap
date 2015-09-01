@@ -4,9 +4,6 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2'
 
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
-
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 gem 'bootstrap-sass',       '3.2.0.0'
@@ -44,20 +41,24 @@ group :test do
 end
 
 group :development do
-  gem 'annotate'
-end
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3'
 
-# Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-gem 'spring',        group: :development
+  gem 'annotate'
+
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+
+  # Deployment
+  gem 'capistrano', '~> 3.1'
+  gem 'capistrano-rails', '~> 1.1'
+  gem 'capistrano-rvm'
+  gem 'capistrano-rbenv'
+  gem 'capistrano-passenger'
+end
 
 # Airbrake
 gem 'airbrake'
-
-# Deployment
-gem 'capistrano', '~> 3.1'
-gem 'capistrano-rails', '~> 1.1'
-gem 'capistrano-rvm'
-gem 'capistrano-passenger'
 
 # Generate seed data
 gem 'faker', '1.4.2'
