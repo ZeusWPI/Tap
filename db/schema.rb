@@ -48,7 +48,6 @@ ActiveRecord::Schema.define(version: 20150827155036) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.integer  "debt_cents",          default: 0,     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "remember_created_at"
