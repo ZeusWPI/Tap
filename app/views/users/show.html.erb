@@ -1,12 +1,15 @@
 <%= render partial: 'flash' %>
 <div class="row">
   <div class="col-sm-3">
-    <h2>
-      <%= @user.nickname %>
-      <% if can? :edit, @user %>
-        <%= link_to content_tag(:small, content_tag(:span, "", class: "glyphicon glyphicon-cog")), edit_user_path(@user) %>
-      <% end %>
-    </h2>
+      <div>
+        <h2>
+          <%= @user.nickname %>
+          <% if can? :edit, @user %>
+            <%= link_to content_tag(:small, content_tag(:span, "", class: "glyphicon glyphicon-cog")), edit_user_path(@user) %>
+          <% end %>
+        </h2>
+      </div>
+      <%= content_tag :div, image_tag(@user.avatar, class: "img-circle img-thumbnail center"), class: "user_avatar center" %>
     <ul class="list-group">
       <li class="list-group-item text-muted">Orders</li>
       <li class="list-group-item"><strong>Orders placed</strong><span class="badge"><%= @user.orders_count %></span></li>
