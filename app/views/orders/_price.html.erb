@@ -1,8 +1,8 @@
 <div class="col-md-3 form_total">
-  <%= f.label :total_price %>
+  <strong>Total price</strong>
   <div class="input-group">
     <span class="input-group-addon">&euro;</span>
-    <%= f.number_field :price, disabled: true, skip_label: true, step: :any, class: 'form-control big-form-field' %>
+    <%= content_tag :span, "", id: "order_price", class: "input-group-addon" %>
     <span class="input-group-btn">
       <%= f.submit "Order!", class: "btn btn-primary big-form-button", skip_wrapper: true %>
     </span>

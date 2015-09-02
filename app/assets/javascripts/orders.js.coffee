@@ -41,8 +41,8 @@ disIfNec = (row) ->
   $(row).find('.btn-inc').prop('disabled', counter == parseInt($(row).find('.row_counter').attr('max')))
 
 recalculate = () ->
-  value = ($(row).find('.row_counter').val() * $(row).find('.price').val() for row in $('.form_row')).reduce (a, b) -> a+b
-  $('#order_price').val((value / 100.0).toFixed(2))
+  value = ($(row).val() * $(row).data('price') for row in $('.row_counter')).reduce(((a, b) -> a+b), 0)
+  $('#order_price').html((value / 100.0).toFixed(2))
 
 increment = (button, n) ->
   row = $(button).closest('.form_row')
