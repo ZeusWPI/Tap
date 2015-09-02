@@ -12,10 +12,8 @@
         <%= content_tag :span, product.name %>
         <%= content_tag :small, euro(product.price) %>
         </h4>
-        <%= f.counter :count, min: 0, max: product.stock, skip_label: true, wrapper_class: "input-group", class: "row_counter" %>
+        <%= f.counter :count, min: 0, max: product.stock, skip_label: true, wrapper_class: "input-group", class: "row_counter", data: { price: f.object.product.price_cents } %>
         <%= f.fields_for :product do |product| %>
-          <%= product.hidden_field :price_cents, class: :price %>
-          <%= product.hidden_field :stock, class: :stock %>
         <% end %>
       </div>
     </div>
