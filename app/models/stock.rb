@@ -12,23 +12,16 @@ class Stock
     end
   end
 
-  validate :validate_stock_entries
-  def validate_stock_entries
-    stock_entries.each do |se|
-      unless se.valid?
-        se.errors.each do |_, e|
-          errors[se.product.name] = "count " + e
-        end
-      end
-    end
-  end
-
   def update
     return false unless valid?
 
     stock_entries.each do |se|
       se.product.increment!(:stock, se.count.to_i) if se.count.to_i > 0
     end
+  end
+
+  def valid?
+    super && stock_entries.map(&:valid?).all?
   end
 
   class StockEntry
