@@ -76,8 +76,12 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
 
   def submit_with_format(name = nil, options = {})
     options[:class] = submit_class unless options[:class]
-    content_tag :div, class: submit_wrapper_class do
-       submit_without_format(name, options)
+
+    content = submit_without_format(name, options)
+    if options[:skip_wrapper]
+      content
+    else
+      content_tag :div, content, class: submit_wrapper_class
     end
   end
 
