@@ -78,5 +78,12 @@ Rails.application.configure do
 
   Paperclip.options[:command_path] = "/usr/local/bin/"
 
-  config.action_mailer.default_url_options = { host: 'TODO' }
+  # Help the asset pipeline for staging
+  config.x.host = 'zeus.ugent.be'
+  config.relative_url_root = "/tap"
+
+  config.action_mailer.default_url_options = {
+    host: config.x.host,
+    script_name: config.relative_url_root,
+  }
 end
