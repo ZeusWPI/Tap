@@ -13,7 +13,8 @@
 #  avatar_updated_at   :datetime
 #  category            :integer          default("0")
 #  stock               :integer          default("0"), not null
-#  calories            :integer          default("0") // expressed in kcal
+#  calories            :integer
+#  deleted             :boolean          default("f")
 #
 
 class Product < ActiveRecord::Base

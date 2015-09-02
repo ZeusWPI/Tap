@@ -13,30 +13,19 @@
 #  avatar_updated_at   :datetime
 #  category            :integer          default("0")
 #  stock               :integer          default("0"), not null
+#  calories            :integer
+#  deleted             :boolean          default("f")
 #
 
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+require 'faker'
+require 'identicon'
 
-fanta:
-  id:          1
-  name:        'Fanta'
-  price_cents: 60
-  stock:       100
-
-cola:
-  id:          2
-  name:        'Cola'
-  price_cents: 60
-  stock:       0
-
-mate:
-  id:          3
-  name:        'Club Mate'
-  price_cents: 120
-  stock:       100
-
-bueno:
-  id:          4
-  name:        'Kinder Bueno'
-  stock:       50
-  price_cents: 120
+FactoryGirl.define do
+  factory :product do
+    name { Faker::Name.name }
+    price_cents { rand 120 }
+    stock { rand 30 }
+    calories { rand 20 }
+    avatar { Identicon.data_url_for name }
+  end
+end

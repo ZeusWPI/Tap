@@ -10,4 +10,13 @@
 #  cancelled   :boolean          default("f")
 #
 
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+require 'faker'
+
+FactoryGirl.define do
+  factory :order do
+    user
+    before(:create) do |order|
+      order.order_items << build(:order_item, order: order)
+    end
+  end
+end

@@ -22,22 +22,16 @@
 #  koelkast            :boolean          default("f")
 #  provider            :string
 #  uid                 :string
-#  encrypted_password  :string
+#  encrypted_password  :string           default(""), not null
+#  private             :boolean          default("f")
 #
 
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+describe User do
+  before :each do
+    @user = create :user
+  end
 
-benji:
-  uid:      benji
-  dagschotel_id: 1
-
-iasoon:
-  uid:  iasoon
-
-admin:
-  uid:  admin
-  admin:     1
-
-koelkast:
-  uid:  koelkast
-  koelkast:  1
+  it 'has a valid factory' do
+    expect(@user).to be_valid
+  end
+end

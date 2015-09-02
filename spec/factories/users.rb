@@ -22,17 +22,16 @@
 #  koelkast            :boolean          default("f")
 #  provider            :string
 #  uid                 :string
-#  encrypted_password  :string
+#  encrypted_password  :string           default(""), not null
+#  private             :boolean          default("f")
 #
 
-require 'test_helper'
+require 'faker'
+require 'identicon'
 
-class UserTest < ActiveSupport::TestCase
-  def setup
-    @user = users(:benji)
-  end
-
-  test "to_param" do
-    assert_equal @user.to_param, "#{@user.id}-benji"
+FactoryGirl.define do
+  factory :user do
+    uid    { Faker::Name.name }
+    avatar { Identicon.data_url_for uid }
   end
 end

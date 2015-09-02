@@ -8,4 +8,9 @@
 #  count      :integer          default("0")
 #
 
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+FactoryGirl.define do
+  factory :order_item do
+    order
+    product
+  end
+end

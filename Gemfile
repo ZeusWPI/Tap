@@ -37,7 +37,10 @@ end
 group :test do
   gem 'capybara'
   gem 'launchy'
-  gem "codeclimate-test-reporter", require: nil
+  gem 'codeclimate-test-reporter', require: nil
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'faker', '1.4.2'
 end
 
 group :development do
@@ -59,9 +62,6 @@ end
 
 # Airbrake
 gem 'airbrake'
-
-# Generate seed data
-gem 'faker', '1.4.2'
 
 # Debug stuff
 gem 'byebug'

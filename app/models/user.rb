@@ -22,7 +22,8 @@
 #  koelkast            :boolean          default("f")
 #  provider            :string
 #  uid                 :string
-#  encrypted_password  :string
+#  encrypted_password  :string           default(""), not null
+#  private             :boolean          default("f")
 #
 
 require 'identicon'

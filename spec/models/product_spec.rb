@@ -13,20 +13,16 @@
 #  avatar_updated_at   :datetime
 #  category            :integer          default("0")
 #  stock               :integer          default("0"), not null
+#  calories            :integer
+#  deleted             :boolean          default("f")
 #
 
-require 'test_helper'
+describe Product do
+  before :each do
+    @product = create :product
+  end
 
-class ProductTest < ActiveSupport::TestCase
-  test "price behaves correctly" do
-    p = products(:fanta)
-
-    assert_equal p.price_cents, 60
-    assert_equal p.price, 0.6
-
-    p.price = 1.3
-
-    assert_equal p.price, 1.3
-    assert_equal p.price_cents, 130
+  it 'has a valid factory' do
+    expect(@product).to be_valid
   end
 end
