@@ -37,10 +37,12 @@ class Order < ActiveRecord::Base
   end
 
   def cancel
-    return if self.cancelled
+    return false if cancelled || created_at < 5.minutes.ago
+
     User.decrement_counter(:orders_count, user.id)
     update_attribute(:cancelled, true)
     self.order_items.each(&:cancel)
+    true
   end
 
   def to_sentence
