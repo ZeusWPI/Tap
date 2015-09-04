@@ -11,6 +11,7 @@
 FactoryGirl.define do
   factory :order_item do
     order
-    product
+    association :product, factory: :product
+    count { 1 + rand(5) }
   end
 end

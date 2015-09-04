@@ -24,6 +24,11 @@ describe OrderItem do
         @order_item.count = -5
         expect(@order_item).to_not be_valid
       end
+
+      it 'should not be 0' do
+        @order_item.count = 0
+        expect(@order_item).to_not be_valid
+      end
     end
   end
 

@@ -37,9 +37,19 @@ describe Order do
     end
 
     it 'should change the orders_count' do
-      expect(@user.reload.orders_count).to eq(1)
-      @order.cancel
-      expect(@user.reload.orders_count).to eq(0)
+      expect{@order.cancel}.to change{@user.reload.orders_count}.by(-1)
+    end
+  end
+
+  describe 'price' do
+    it 'should be calculated from order_items' do
+      @order = build :order, products_count: 0
+      sum = (create_list :product, 1 + rand(10)).map do |p|
+        create(:order_item, order: @order, product: p, count: 1 + rand(5)) do |oi|
+          @order.order_items << oi
+        end
+      end.map{ |oi| oi.count * oi.product.price_cents }.sum
+      expect(@order.price_cents).to eq(sum)
     end
   end
 end
