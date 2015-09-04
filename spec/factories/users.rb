@@ -33,5 +33,13 @@ FactoryGirl.define do
   factory :user do
     uid    { Faker::Name.name }
     avatar { Identicon.data_url_for uid }
+
+    factory :admin do
+      admin true
+    end
+
+    factory :koelkast do
+      koelkast true
+    end
   end
 end
