@@ -41,7 +41,7 @@ describe Order do
     end
 
     it 'should cancel the orderitems' do
-      expect(@order.order_items.frst).to receive(:cancel)
+      expect(@order.order_items.first).to receive(:cancel)
       @order.cancel
     end
   end
