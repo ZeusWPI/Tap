@@ -39,6 +39,11 @@ describe Order do
     it 'should change the orders_count' do
       expect{@order.cancel}.to change{@user.reload.orders_count}.by(-1)
     end
+
+    it 'should cancel the orderitems' do
+      expect(@order.order_items.frst).to receive(:cancel)
+      @order.cancel
+    end
   end
 
   describe 'price' do
