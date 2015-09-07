@@ -33,7 +33,7 @@ class UsersController < ApplicationController
   end
 
   def edit_dagschotel
-    @user = User.find(params[:user_id])
+    @user = User.find(params[:id])
     authorize! :update_dagschotel, @user
     @dagschotel = @user.dagschotel
 
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
   end
 
   def update_dagschotel
-    user = User.find(params[:user_id])
+    user = User.find(params[:id])
     authorize! :update_dagschotel, user
 
     user.dagschotel = Product.find(params[:product_id])
