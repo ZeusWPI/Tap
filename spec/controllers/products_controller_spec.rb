@@ -88,7 +88,7 @@ describe ProductsController, type: :controller do
 
     context 'failed' do
       it 'should not update attributes' do
-        old_attributes = @product.attributes
+        old_attributes = @product.reload.attributes
         put :update, id: @product, product: attributes_for(:invalid_product)
         expect(@product.reload.attributes).to eq(old_attributes)
       end
