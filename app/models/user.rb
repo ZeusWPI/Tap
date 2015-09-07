@@ -3,7 +3,6 @@
 # Table name: users
 #
 #  id                  :integer          not null, primary key
-#  debt_cents          :integer          default("0"), not null
 #  created_at          :datetime
 #  updated_at          :datetime
 #  remember_created_at :datetime

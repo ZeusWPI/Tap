@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: order_items
+#
+#  id         :integer          not null, primary key
+#  order_id   :integer
+#  product_id :integer          not null
+#  count      :integer          default("0")
+#
+
 describe OrderItem do
   it 'has a valid factory' do
     order_item = create :order_item

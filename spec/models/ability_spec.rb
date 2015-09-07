@@ -1,11 +1,11 @@
-require "cancan/matchers"
+require 'cancan/matchers'
 
 describe User do
-  describe "abilities" do
+  describe 'abilities' do
     subject(:ability){ Ability.new(user) }
     let(:user) { nil}
 
-    describe "as admin" do
+    describe 'as admin' do
       let(:user) { create :admin }
 
       it{ should be_able_to(:manage, Product.new) }
@@ -14,7 +14,7 @@ describe User do
       it{ should be_able_to(:manage, User.new) }
     end
 
-    describe "as normal user" do
+    describe 'as normal user' do
       let(:user) { create :user }
 
       it{ should be_able_to(:read, Product.new) }
@@ -29,7 +29,7 @@ describe User do
       it{ should_not be_able_to(:manage, User.new) }
     end
 
-    describe "as koelkast" do
+    describe 'as koelkast' do
       let(:user) { create :koelkast }
 
       it{ should_not be_able_to(:manage, Product.new) }
