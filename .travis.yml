@@ -1,6 +1,4 @@
 language: ruby
-rvm:
-  - 2.1.0
 
 before_script:
   - "RAILS_ENV=test bundle exec rake db:create"
@@ -13,6 +11,6 @@ notifications:
 
   email:
     recipients:
-      - tab@zeus.ugent.be
+      - tap@zeus.ugent.be
     on_success: never
     on_failure: change
