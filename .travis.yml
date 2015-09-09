@@ -1,4 +1,5 @@
 language: ruby
+sudo: false
 
 before_script:
   - "RAILS_ENV=test bundle exec rake db:create"
