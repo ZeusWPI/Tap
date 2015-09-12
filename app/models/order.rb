@@ -39,20 +39,6 @@ class Order < ActiveRecord::Base
     write_attribute(:price_cents, price_cents)
   end
 
-  def tab_api_created
-    body = { transaction: { debtor: user.uid, cents: price_cents, message: to_sentence } }
-    headers = { "Authorization" => "Token token=LNJxGqkM39O21gcJJq6BLQ==" }
-    HTTParty.post("https://zeus.ugent.be/tab/transactions", body: body, headers: headers )
-  end
-  handle_asynchronously :tab_api_created
-
-  def tab_api_cancelled
-    body = { transaction: { creditor: user.uid, cents: price_cents, message: "Order cancelled" } }
-    headers = { "Authorization" => "Token token=LNJxGqkM39O21gcJJq6BLQ==" }
-    HTTParty.post("https://zeus.ugent.be/tab/transactions", body: body, headers: headers )
-  end
-  handle_asynchronously :tab_api_cancelled
-
   def cancel
     return false if cancelled || created_at < 5.minutes.ago
 
@@ -77,5 +63,24 @@ class Order < ActiveRecord::Base
         self.order_items.build(product: p)
       end
     end
+  end
+
+  private
+
+  def tab_api_created
+    body = { transaction: { debtor: user.uid, cents: price_cents, message: to_sentence } }
+    tab_api body
+  end
+  handle_asynchronously :tab_api_created
+
+  def tab_api_cancelled
+    body = { transaction: { creditor: user.uid, cents: price_cents, message: "Order cancelled" } }
+    tab_api body
+  end
+  handle_asynchronously :tab_api_cancelled
+
+  def tab_api body
+    headers = { "Authorization" => "Token token=#{Rails.application.secrets.tab_api_key}" }
+    HTTParty.post("https://zeus.ugent.be/tab/transactions", body: body, headers: headers )
   end
 end
