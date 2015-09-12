@@ -49,41 +49,41 @@ ActiveRecord::Schema.define(version: 20150911195029) do
   add_index "orders", ["user_id"], name: "index_orders_on_user_id"
 
   create_table "products", force: :cascade do |t|
-    t.string   "name",                                null: false
-    t.integer  "price_cents",         default: 0,     null: false
+    t.string   "name",                limit: 255,                 null: false
+    t.integer  "price_cents",                     default: 0,     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
+    t.string   "avatar_file_name",    limit: 255
+    t.string   "avatar_content_type", limit: 255
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.integer  "category",            default: 0
-    t.integer  "stock",               default: 0,     null: false
+    t.integer  "category",                        default: 0
+    t.integer  "stock",                           default: 0,     null: false
     t.integer  "calories"
-    t.boolean  "deleted",             default: false
+    t.boolean  "deleted",                         default: false
   end
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",       default: 0,     null: false
+    t.integer  "sign_in_count",                   default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",  limit: 255
+    t.string   "last_sign_in_ip",     limit: 255
     t.boolean  "admin"
     t.integer  "dagschotel_id"
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
+    t.string   "avatar_file_name",    limit: 255
+    t.string   "avatar_content_type", limit: 255
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.integer  "orders_count",        default: 0
-    t.boolean  "koelkast",            default: false
+    t.integer  "orders_count",                    default: 0
+    t.boolean  "koelkast",                        default: false
     t.string   "provider"
     t.string   "uid"
-    t.string   "encrypted_password",  default: "",    null: false
-    t.boolean  "private",             default: false
+    t.string   "encrypted_password",              default: "",    null: false
+    t.boolean  "private",                         default: false
   end
 
   add_index "users", ["koelkast"], name: "index_users_on_koelkast"

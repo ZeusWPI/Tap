@@ -60,6 +60,11 @@ group :development do
   gem 'capistrano-passenger'
 end
 
+group :development, :test do
+  gem 'pry-rails'
+  gem 'pry-byebug'
+end
+
 # Airbrake
 gem 'airbrake'
 
