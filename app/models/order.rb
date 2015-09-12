@@ -47,7 +47,9 @@ class Order < ActiveRecord::Base
   handle_asynchronously :tab_api_created
 
   def tab_api_cancelled
-    puts "api cancelled"
+    body = { transaction: { creditor: user.uid, cents: price_cents, message: "Order cancelled" } }
+    headers = { "Authorization" => "Token token=LNJxGqkM39O21gcJJq6BLQ==" }
+    HTTParty.post("https://zeus.ugent.be/tab/transactions", body: body, headers: headers )
   end
   handle_asynchronously :tab_api_cancelled
 
