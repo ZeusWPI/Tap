@@ -3,7 +3,6 @@
 # Table name: users
 #
 #  id                  :integer          not null, primary key
-#  debt_cents          :integer          default("0"), not null
 #  created_at          :datetime
 #  updated_at          :datetime
 #  remember_created_at :datetime
@@ -22,22 +21,24 @@
 #  koelkast            :boolean          default("f")
 #  provider            :string
 #  uid                 :string
-#  encrypted_password  :string
+#  encrypted_password  :string           default(""), not null
+#  private             :boolean          default("f")
 #
 
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+require 'faker'
+require 'identicon'
 
-benji:
-  uid:      benji
-  dagschotel_id: 1
+FactoryGirl.define do
+  factory :user do
+    uid    { Faker::Name.name }
+    avatar { Identicon.data_url_for uid }
 
-iasoon:
-  uid:  iasoon
+    factory :admin do
+      admin true
+    end
 
-admin:
-  uid:  admin
-  admin:     1
-
-koelkast:
-  uid:  koelkast
-  koelkast:  1
+    factory :koelkast do
+      koelkast true
+    end
+  end
+end

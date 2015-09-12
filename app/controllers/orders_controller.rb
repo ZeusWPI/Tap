@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   include ApplicationHelper
 
   load_resource :user
-  load_and_authorize_resource :order, through: :user, shallow: true
+  load_and_authorize_resource :order, through: :user, shallow: true, except: :destroy
 
   def new
     products = (@user.products.for_sale.select("products.*", "sum(order_items.count) as count").group(:product_id).order("count desc") | Product.for_sale)
@@ -21,12 +21,12 @@ class OrdersController < ApplicationController
   end
 
   def destroy
-    order = Order.find(params[:id])
-    if order.created_at > 5.minutes.ago
-      order.cancel
+    order = Order.unscoped.find(params[:id])
+    authorize! :destroy, order
+    if order.cancel
       flash[:success] = "Order has been removed."
     else
-      flash[:error] = "This order has been placed too long ago, it can't be removed. Please contact a sysadmin."
+      flash[:error] = "Something went wrong. Perhaps this order was already cancelled, or it has been place too long ago."
     end
     redirect_to root_path
   end

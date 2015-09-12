@@ -13,20 +13,23 @@
 #  avatar_updated_at   :datetime
 #  category            :integer          default("0")
 #  stock               :integer          default("0"), not null
+#  calories            :integer
+#  deleted             :boolean          default("f")
 #
 
-require 'test_helper'
+require 'faker'
+require 'identicon'
 
-class ProductTest < ActiveSupport::TestCase
-  test "price behaves correctly" do
-    p = products(:fanta)
+FactoryGirl.define do
+  factory :product do
+    name { Faker::Name.name }
+    price_cents { rand 120 }
+    stock { 30 + rand(30) }
+    calories { rand 20 }
+    avatar { Identicon.data_url_for name }
 
-    assert_equal p.price_cents, 60
-    assert_equal p.price, 0.6
-
-    p.price = 1.3
-
-    assert_equal p.price, 1.3
-    assert_equal p.price_cents, 130
+    factory :invalid_product do
+      name nil
+    end
   end
 end

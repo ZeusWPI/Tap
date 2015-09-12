@@ -3,7 +3,6 @@
 # Table name: users
 #
 #  id                  :integer          not null, primary key
-#  debt_cents          :integer          default("0"), not null
 #  created_at          :datetime
 #  updated_at          :datetime
 #  remember_created_at :datetime
@@ -22,17 +21,16 @@
 #  koelkast            :boolean          default("f")
 #  provider            :string
 #  uid                 :string
-#  encrypted_password  :string
+#  encrypted_password  :string           default(""), not null
+#  private             :boolean          default("f")
 #
 
-require 'test_helper'
-
-class UserTest < ActiveSupport::TestCase
-  def setup
-    @user = users(:benji)
+describe User do
+  before :each do
+    @user = create :user
   end
 
-  test "to_param" do
-    assert_equal @user.to_param, "#{@user.id}-benji"
+  it 'has a valid factory' do
+    expect(@user).to be_valid
   end
 end

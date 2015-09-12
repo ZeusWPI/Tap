@@ -22,9 +22,9 @@
         <% if @user.dagschotel %>
           Huidige dagschotel
           <%= image_tag @user.dagschotel.avatar %>
-          <%= link_to "Change dagschotel", user_edit_dagschotel_path(@user), class: "btn btn-default btn-block" %>
+          <%= link_to "Change dagschotel", dit_dagschotel_user_path(@user), class: "btn btn-default btn-block" %>
         <% else %>
-          <%= link_to "Set dagschotel", user_edit_dagschotel_path(@user), class: "btn btn-default btn-block" %>
+          <%= link_to "Set dagschotel", edit_dagschotel_user_path(@user), class: "btn btn-default btn-block" %>
         <% end %>
       </li>
     </ul>

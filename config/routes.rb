@@ -20,9 +20,11 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :orders
-    get 'quickpay'               => 'orders#quickpay'
-    get 'dagschotel/edit'        => 'users#edit_dagschotel', as: 'edit_dagschotel'
-    get 'dagschotel/:product_id' => 'users#update_dagschotel', as: 'dagschotel'
+    member do
+      get 'quickpay'               => 'orders#quickpay'
+      get 'dagschotel/edit'        => 'users#edit_dagschotel', as: 'edit_dagschotel'
+      get 'dagschotel/:product_id' => 'users#update_dagschotel', as: 'dagschotel'
+    end
   end
 
   resources :products
