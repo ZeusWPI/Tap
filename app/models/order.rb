@@ -20,26 +20,16 @@ class Order < ActiveRecord::Base
   has_many :products, through: :order_items
 
   before_validation :calculate_price
-  after_create :tab_api_created
+  before_save { |o| o.order_items = o.order_items.reject{ |oi| oi.count == 0 } }
+  after_create { Delayed::Job.enqueue TabApiJob.new(id) }
 
   default_scope -> { where(cancelled: false) }
 
   validates :user, presence: true
   validates :order_items, presence: true, in_stock: true
+  validates :price_cents, presence: true
 
-  accepts_nested_attributes_for :order_items, reject_if: proc { |oi| oi[:count].to_i <= 0 }
-
-  def price_cents
-    self.order_items.map{ |oi| oi.count * oi.product.price_cents }.sum
-  end
-
-  def price
-    self.price_cents / 100.0
-  end
-
-  def price=(_)
-    write_attribute(:price_cents, price_cents)
-  end
+  accepts_nested_attributes_for :order_items
 
   def cancel
     return false if cancelled || created_at < 5.minutes.ago
@@ -59,35 +49,13 @@ class Order < ActiveRecord::Base
 
   def g_order_items(products)
     products.each do |p|
-      if (oi = self.order_items.select { |t| t.product == p }).size > 0
-        oi.first.count = [oi.first.product.stock, oi.first.count].min
-      else
-        self.order_items.build(product: p)
-      end
+      self.order_items.build(product: p)
     end
   end
 
   private
 
   def calculate_price
-    self.price_cents = price_cents
-  end
-
-  def tab_api_created
-    body = { transaction: { debtor: user.uid, cents: price_cents, message: to_sentence } }
-    tab_api body
-  end
-  handle_asynchronously :tab_api_created
-
-  def tab_api_cancelled
-    body = { transaction: { creditor: user.uid, cents: price_cents, message: "Order cancelled" } }
-    tab_api body
-  end
-  handle_asynchronously :tab_api_cancelled
-
-  def tab_api body
-    headers = { "Authorization" => "Token token=#{Rails.application.secrets.tab_api_key}" }
-    result = HTTParty.post("https://zeus.ugent.be/tab/transactions", body: body, headers: headers )
-    update_attribute(:transaction_id, JSON.parse(result.body)["id"])
+    self.price_cents = self.order_items.map{ |oi| oi.count * oi.product.price_cents }.sum
   end
 end

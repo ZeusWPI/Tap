@@ -9,6 +9,10 @@ module ApplicationHelper
     "background-color: \#"+ get_color(user) +";"
   end
 
+  def euro_from_cents(f)
+    euro(f / 100.0)
+  end
+
   def euro(f)
     number_to_currency(f, unit: '€')
   end

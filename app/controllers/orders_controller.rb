@@ -15,7 +15,6 @@ class OrdersController < ApplicationController
       flash[:success] = "#{@order.to_sentence} ordered. Enjoy it!"
       redirect_to root_path
     else
-      @order.g_order_items Product.for_sale
       render 'new'
     end
   end
