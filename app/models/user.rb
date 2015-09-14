@@ -27,6 +27,8 @@
 
 require 'identicon'
 class User < ActiveRecord::Base
+  include Statistics
+
   devise :database_authenticatable, :trackable, :omniauthable, :omniauth_providers => [:zeuswpi]
 
   has_paper_trail

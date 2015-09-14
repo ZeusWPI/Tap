@@ -1,11 +1,8 @@
 class UsersController < ApplicationController
   load_and_authorize_resource
-  before_action :init, only: [:show, :edit, :update]
+  before_action :init, only: :show
 
   def show
-    @categories = @user.products
-      .select("products.category", "sum(order_items.count) as count")
-      .group(:category)
   end
 
   def edit
@@ -26,15 +23,12 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    user = User.find(params[:id])
-    user.destroy
+    @user.destroy
     flash[:success] = "Succesfully removed user"
     redirect_to users_path
   end
 
   def edit_dagschotel
-    @user = User.find(params[:id])
-    authorize! :update_dagschotel, @user
     @dagschotel = @user.dagschotel
 
     @products = Product.for_sale
@@ -42,14 +36,22 @@ class UsersController < ApplicationController
   end
 
   def update_dagschotel
-    user = User.find(params[:id])
-    authorize! :update_dagschotel, user
-
-    user.dagschotel = Product.find(params[:product_id])
-    user.save
+    @user.dagschotel = Product.find(params[:product_id])
+    @user.save
 
     flash[:success] = "Succesfully updated dagschotel"
-    redirect_to user
+    redirect_to @user
+  end
+
+  def quickpay
+    order = @user.orders.build
+    order.order_items.build(count: 1, product: user.dagschotel)
+    if order.save
+      flash[:success] = "Quick pay succeeded. #{view_context.link_to("Undo", [user, order], method: :delete)}."
+    else
+      flash[:error] = order.errors.full_messages.first
+    end
+    redirect_to root_path
   end
 
   private
@@ -60,14 +62,5 @@ class UsersController < ApplicationController
 
     def init
       @user = User.find_by_id(params[:id]) || current_user
-      @orders = @user.orders
-        .order(:created_at)
-        .reverse_order
-        .paginate(page: params[:page])
-      @products = @user.products
-        .select("products.*", "sum(order_items.count) as count")
-        .group(:product_id)
-        .order("count")
-        .reverse_order
     end
 end

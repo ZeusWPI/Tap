@@ -4,11 +4,9 @@ class ProductsController < ApplicationController
   respond_to :html, :js
 
   def new
-    @product = Product.new
   end
 
   def create
-    @product = Product.new(product_params)
     if @product.save
       flash[:success] = "Product created!"
       redirect_to products_path
@@ -25,12 +23,10 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    @product = Product.find(params[:id])
     respond_with @product
   end
 
   def update
-    @product = Product.find(params[:id])
     @product.update_attributes product_params
     respond_with @product
   end

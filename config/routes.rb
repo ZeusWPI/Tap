@@ -18,17 +18,17 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users do
-    resources :orders
+  resources :users, only: [:show, :edit, :update, :destroy] do
+    resources :orders, only: [:new, :create, :destroy]
     member do
-      get 'quickpay'               => 'orders#quickpay'
+      get 'quickpay'               => 'users#quickpay'
       get 'dagschotel/edit'        => 'users#edit_dagschotel', as: 'edit_dagschotel'
       get 'dagschotel/:product_id' => 'users#update_dagschotel', as: 'dagschotel'
     end
   end
 
-  resources :products
-  resources :stocks
+  resources :products, only: [:new, :create, :index, :edit, :update]
+  resources :stocks, only: [:new, :create]
 
   get 'overview' => 'orders#overview', as: "orders"
 end

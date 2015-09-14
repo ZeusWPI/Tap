@@ -10,7 +10,6 @@
 #  transaction_id :integer
 #
 
-require 'httparty'
 class Order < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
 
@@ -20,11 +19,12 @@ class Order < ActiveRecord::Base
 
   before_validation :calculate_price
   before_save { |o| o.order_items = o.order_items.reject{ |oi| oi.count == 0 } }
-  after_create { Delayed::Job.enqueue TabApiJob.new(id) }
+  after_create :create_api_job
 
   validates :user, presence: true
-  validates :order_items, presence: true, in_stock: true
+  validates :order_items, presence: true
   validates :price_cents, presence: true
+  validates_associated :order_items
 
   accepts_nested_attributes_for :order_items
 
@@ -34,15 +34,17 @@ class Order < ActiveRecord::Base
     }.to_sentence
   end
 
-  def g_order_items(products)
-    products.each do |p|
-      self.order_items.build(product: p)
-    end
-  end
-
   private
 
-  def calculate_price
-    self.price_cents = self.order_items.map{ |oi| oi.count * oi.product.price_cents }.sum
-  end
+    def calculate_price
+      self.price_cents = self.order_items.map{ |oi| oi.count * oi.product.price_cents }.sum
+    end
+
+    def create_api_job
+      priority = 0
+      run_at   = Rails.application.config.call_api_after.from_now
+      job      = TabApiJob.new(id)
+
+      Delayed::Job.enqueue job, priority, run_at
+    end
 end

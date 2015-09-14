@@ -42,7 +42,7 @@ class Product < ActiveRecord::Base
     self.price_cents = (value.to_f * 100).to_int
   end
 
-  def out_of_sale
+  def take_out_of_sale!
     update_attribute :deleted, true
   end
 end

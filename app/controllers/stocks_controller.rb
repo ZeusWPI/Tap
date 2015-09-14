@@ -2,7 +2,6 @@ class StocksController < ApplicationController
   load_and_authorize_resource
 
   def new
-    @stock = Stock.new
     Product.all.each do |p|
       @stock.stock_entries << Stock::StockEntry.new(product: p)
     end
