@@ -1,7 +1,7 @@
 <div class="col-sm-3">
     <div>
       <h2>
-        <%= @user.nickname %>
+        <%= @user.name %>
         <% if can? :edit, @user %>
           <%= link_to content_tag(:small, content_tag(:span, "", class: "glyphicon glyphicon-cog")), edit_user_path(@user) %>
         <% end %>

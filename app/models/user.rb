@@ -20,7 +20,7 @@
 #  orders_count        :integer          default("0")
 #  koelkast            :boolean          default("f")
 #  provider            :string
-#  uid                 :string
+#  name                :string
 #  encrypted_password  :string           default(""), not null
 #  private             :boolean          default("f")
 #
@@ -43,15 +43,11 @@ class User < ActiveRecord::Base
   scope :publik, -> { where private: false }
 
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+    where(provider: auth.provider, name: auth.uid).first_or_create do |user|
       user.provider = auth.provider
-      user.uid = auth.uid
+      user.name = auth.uid
       user.avatar = Identicon.data_url_for auth.uid
     end
-  end
-
-  def nickname
-    self.uid
   end
 
   def debt
@@ -61,6 +57,6 @@ class User < ActiveRecord::Base
   # Change URL params for User
 
   def to_param
-    "#{id} #{nickname}".parameterize
+    "#{id} #{name}".parameterize
   end
 end

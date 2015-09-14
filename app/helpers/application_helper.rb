@@ -2,7 +2,7 @@ require 'digest/md5'
 module ApplicationHelper
 
   def get_color(user)
-    Digest::MD5.hexdigest(user.nickname)[0..5]
+    Digest::MD5.hexdigest(user.name)[0..5]
   end
 
   def get_color_style(user)
@@ -28,7 +28,7 @@ module ApplicationHelper
     postData = Net::HTTP.post_form(URI.parse('https://slack.com/api/users.list'), {'token'=>Rails.application.secrets.access_token})
     data = JSON.parse(postData.body)
     if data["ok"]
-      slackmember = data["members"].select{ |m| m["profile"]["email"] == user.uid + "@zeus.ugent.be" }.first
+      slackmember = data["members"].select{ |m| m["profile"]["email"] == user.name + "@zeus.ugent.be" }.first
 
       if slackmember
         Webhook.new(channel: "@" + slackmember["name"], username: "Tab").ping(message)

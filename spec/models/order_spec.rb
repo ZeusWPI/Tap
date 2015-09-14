@@ -7,7 +7,6 @@
 #  price_cents    :integer
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
-#  cancelled      :boolean          default("f")
 #  transaction_id :integer
 #
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150914081940) do
+ActiveRecord::Schema.define(version: 20150914153143) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -38,13 +38,11 @@ ActiveRecord::Schema.define(version: 20150914081940) do
   create_table "orders", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "price_cents"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.boolean  "cancelled",      default: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "transaction_id"
   end
 
-  add_index "orders", ["cancelled"], name: "index_orders_on_cancelled"
   add_index "orders", ["created_at"], name: "index_orders_on_created_at"
   add_index "orders", ["user_id", "created_at"], name: "index_orders_on_user_id_and_created_at"
   add_index "orders", ["user_id"], name: "index_orders_on_user_id"
@@ -82,7 +80,7 @@ ActiveRecord::Schema.define(version: 20150914081940) do
     t.integer  "orders_count",        default: 0
     t.boolean  "koelkast",            default: false
     t.string   "provider"
-    t.string   "uid"
+    t.string   "name"
     t.string   "encrypted_password",  default: "",    null: false
     t.boolean  "private",             default: false
   end

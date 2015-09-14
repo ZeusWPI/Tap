@@ -6,9 +6,9 @@
 <%- if controller_name == 'users' %>
   <div class="product_dagschotel">
     <% if current_user.dagschotel != product %>
-      <%= link_to "Make dagschotel", user_dagschotel_path(current_user, product), class: "btn btn-default" %>
+      <%= link_to "Make dagschotel", dagschotel_user_path(current_user, product), class: "btn btn-default" %>
     <% else %>
-      <%= link_to "Huidige dagschotel", user_dagschotel_path(current_user, product), class: "btn btn-success", disabled: true %>
+      <%= link_to "Huidige dagschotel", dagschotel_user_path(current_user, product), class: "btn btn-success", disabled: true %>
     <% end %>
   </div>
 <% end -%>

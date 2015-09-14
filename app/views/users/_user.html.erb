@@ -1,7 +1,7 @@
 <tr>
   <td><%= user.id %></td>
   <td><%= image_tag user.avatar(:small) %></td>
-  <td><%= user.nickname %></td>
+  <td><%= user.name %></td>
   <td><%= euro(user.debt) %></td>
   <% if current_user.admin? %>
     <td>

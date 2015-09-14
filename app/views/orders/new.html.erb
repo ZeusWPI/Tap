@@ -1,4 +1,4 @@
-<h3>Order for <%= @user.nickname %> (Huidige schuld: <%= euro(@user.debt) %>)</h3>
+<h3>Order for <%= @user.name %> (Huidige schuld: <%= euro(@user.debt) %>)</h3>
 
 <div class="row">
   <%= f_form_for [@user, @order] do |f| %>

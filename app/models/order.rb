@@ -7,7 +7,6 @@
 #  price_cents    :integer
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
-#  cancelled      :boolean          default("f")
 #  transaction_id :integer
 #
 
@@ -23,23 +22,11 @@ class Order < ActiveRecord::Base
   before_save { |o| o.order_items = o.order_items.reject{ |oi| oi.count == 0 } }
   after_create { Delayed::Job.enqueue TabApiJob.new(id) }
 
-  default_scope -> { where(cancelled: false) }
-
   validates :user, presence: true
   validates :order_items, presence: true, in_stock: true
   validates :price_cents, presence: true
 
   accepts_nested_attributes_for :order_items
-
-  def cancel
-    return false if cancelled || created_at < 5.minutes.ago
-
-    User.decrement_counter(:orders_count, user.id)
-    update_attribute(:cancelled, true)
-    self.order_items.each(&:cancel)
-    tab_api_cancelled
-    true
-  end
 
   def to_sentence
     self.order_items.map {

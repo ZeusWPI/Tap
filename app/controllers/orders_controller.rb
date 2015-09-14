@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   include ApplicationHelper
 
   load_resource :user
-  load_and_authorize_resource :order, through: :user, shallow: true, except: :destroy
+  load_and_authorize_resource :order, through: :user, shallow: true
 
   def new
     products = (@user.products.for_sale.select("products.*", "sum(order_items.count) as count").group(:product_id).order("count desc") | Product.for_sale)
@@ -20,22 +20,17 @@ class OrdersController < ApplicationController
   end
 
   def destroy
-    order = Order.unscoped.find(params[:id])
-    authorize! :destroy, order
-    if order.cancel
-      flash[:success] = "Order has been removed."
-    else
-      flash[:error] = "Something went wrong. Perhaps this order was already cancelled, or it has been place too long ago."
-    end
+    @order.destroy
+    flash[:success] = "Order has been removed."
     redirect_to root_path
   end
 
   def overview
-    @users = User.members.publik.order(:uid)
+    @users = User.members.publik.order(:name)
   end
 
   def quickpay
-    user = User.find(params[:user_id])
+    user = User.find(params[:id])
     order = user.orders.build
     order.order_items << OrderItem.new(count: 1, product: user.dagschotel, order: order)
     if order.save
