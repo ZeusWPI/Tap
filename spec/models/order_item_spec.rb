@@ -34,11 +34,6 @@ describe OrderItem do
         @order_item.count = -5
         expect(@order_item).to_not be_valid
       end
-
-      it 'should not be 0' do
-        @order_item.count = 0
-        expect(@order_item).to_not be_valid
-      end
     end
   end
 
@@ -50,12 +45,12 @@ describe OrderItem do
     end
 
     it 'should decrement on create' do
-      expect{@order_item.save}.to change{@product.stock}.by(-@count)
+      expect{ @order_item.save }.to change{ @product.stock }.by(-@count)
     end
 
     it 'should increment on cancel' do
       @order_item.save
-      expect{@order_item.cancel}.to change{@product.stock}.by(@count)
+      expect{ @order_item.destroy }.to change{ @product.stock }.by(@count)
     end
   end
 end

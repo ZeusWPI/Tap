@@ -20,7 +20,9 @@ describe User do
       it{ should be_able_to(:read, Product.new) }
       it{ should_not be_able_to(:manage, Product.new) }
 
-      it{ should be_able_to(:manage, Order.new(user: user)) }
+      it{ should be_able_to(:create, Order.new(user: user)) }
+      it{ should be_able_to(:delete, Order.new(user: user, created_at: 2.minutes.ago)) }
+      it{ should_not be_able_to(:delete, Order.new(user: user, created_at: 10.minutes.ago)) }
       it{ should_not be_able_to(:manage, Order.new) }
 
       it{ should_not be_able_to(:manage, Stock.new) }

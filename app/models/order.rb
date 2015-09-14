@@ -41,10 +41,12 @@ class Order < ActiveRecord::Base
     end
 
     def create_api_job
+      return if Rails.env.test?
+
       priority = 0
       run_at   = Rails.application.config.call_api_after.from_now
       job      = TabApiJob.new(id)
 
-      Delayed::Job.enqueue job, priority, run_at
+      Delayed::Job.enqueue job, priority: priority, run_at: run_at
     end
 end
