@@ -2,12 +2,13 @@
 #
 # Table name: orders
 #
-#  id          :integer          not null, primary key
-#  user_id     :integer
-#  price_cents :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  cancelled   :boolean          default("f")
+#  id             :integer          not null, primary key
+#  user_id        :integer
+#  price_cents    :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  cancelled      :boolean          default("f")
+#  transaction_id :integer
 #
 
 require 'httparty'
@@ -18,6 +19,7 @@ class Order < ActiveRecord::Base
   has_many :order_items, dependent: :destroy
   has_many :products, through: :order_items
 
+  before_validation :calculate_price
   after_create :tab_api_created
 
   default_scope -> { where(cancelled: false) }
@@ -67,6 +69,10 @@ class Order < ActiveRecord::Base
 
   private
 
+  def calculate_price
+    self.price_cents = price_cents
+  end
+
   def tab_api_created
     body = { transaction: { debtor: user.uid, cents: price_cents, message: to_sentence } }
     tab_api body
@@ -81,6 +87,7 @@ class Order < ActiveRecord::Base
 
   def tab_api body
     headers = { "Authorization" => "Token token=#{Rails.application.secrets.tab_api_key}" }
-    HTTParty.post("https://zeus.ugent.be/tab/transactions", body: body, headers: headers )
+    result = HTTParty.post("https://zeus.ugent.be/tab/transactions", body: body, headers: headers )
+    update_attribute(:transaction_id, JSON.parse(result.body)["id"])
   end
 end
