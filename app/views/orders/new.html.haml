@@ -1,0 +1,9 @@
+%h3
+  Order for #{@user.name} (Huidige schuld: #{euro(@user.debt)})
+.row
+  = f_form_for [@user, @order] do |f|
+    = f.error_messages
+    .col-md-12
+      = f.fields_for :order_items do |op_field|
+        = render op_field.object, f: op_field, product: op_field.object.product
+    = render 'orders/price', f: f

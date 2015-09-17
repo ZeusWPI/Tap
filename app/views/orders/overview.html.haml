@@ -1,0 +1,4 @@
+= render partial: 'flash'
+.row
+  - @users.each do |user|
+    = render 'users/new_order', user: user

@@ -1,0 +1,21 @@
+%tr{:id => "products_row_#{dom_id(product)}"}
+  = f_form_for product, remote: true do |f|
+    %td= image_tag product.avatar(:small)
+    %td= f.text_field :name, skip_label: true
+    %td= f.price_field :price, skip_label: true
+    %td= f.number_field :stock, skip_label: true
+    %td= f.check_box :deleted, skip_label: true
+    %td= f.number_field :calories, skip_label: true
+    %td= f.button "Update", class: "btn btn-primary"
+    = javascript_tag do
+      var id = "#edit_#{dom_id(product)}";
+      var inputs = $(id).parent().find('input');
+
+      $(id).parent().find('button').on('click', function(e) {
+      e.preventDefault();
+      $(id).append(inputs.clone());
+      $(id).append('
+      %input{:name => "_method", :type => "hidden", :value => "patch"}>/
+      ');
+      $(id).submit();
+      });

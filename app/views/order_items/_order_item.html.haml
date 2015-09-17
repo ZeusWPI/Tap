@@ -1,0 +1,14 @@
+.col-md-3.form_products
+  %div{class: "thumbnail#{' out-of-stock' if product.stock.zero?}"}
+    .form_row.center
+      .form_row_image
+        = image_tag product.avatar
+      .caption
+        %h6
+          = kcal_tag product.calories
+        %h4.text-nowrap
+          = content_tag :span, product.name
+          = content_tag :small, euro(product.price)
+        = f.counter :count, min: 0, max: product.stock, skip_label: true, wrapper_class: "input-group", class: "row_counter", data: { price: f.object.product.price_cents }
+        = f.fields_for :product do |product|
+          / This is needed for haml

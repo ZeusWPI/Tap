@@ -1,0 +1,8 @@
+%tr
+  %td= user.id
+  %td= image_tag user.avatar(:small)
+  %td= user.name
+  %td= euro(user.debt)
+  - if current_user.admin?
+    %td
+      = link_to "Delete", user_path(user), method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" }

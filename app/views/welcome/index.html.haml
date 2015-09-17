@@ -1,0 +1,7 @@
+%h2 Login
+= render 'flash'
+If this is the first time you log in, an account will be created for you.
+%div
+  %br/
+  = link_to "Sign in with Zeus WPI account.", omniauth_authorize_path("user", "zeuswpi"), class: "btn btn-large btn-primary"
+  %br/

@@ -22,11 +22,11 @@ require 'identicon'
 
 FactoryGirl.define do
   factory :product do
-    name { Faker::Name.name }
+    name        { Faker::Name.name }
     price_cents { rand 120 }
-    stock { 30 + rand(30) }
-    calories { rand 20 }
-    avatar { Identicon.data_url_for name }
+    stock       { 30 + rand(30) }
+    calories    { rand 20 }
+    avatar      { Identicon.data_url_for name }
 
     factory :invalid_product do
       name nil

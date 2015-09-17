@@ -1,0 +1,9 @@
+- unless current_user && current_user.koelkast?
+  %footer.footer
+    %small
+      = link_to "Tab", root_path
+      by #{link_to "Zeus WPI", "//zeus.ugent.be"}
+    %nav
+      %ul
+        %li= mail_to "bestuur@zeus.ugent.be", "Contact"
+        %li= link_to "Zeus WPI", "//zeus.ugent.be"

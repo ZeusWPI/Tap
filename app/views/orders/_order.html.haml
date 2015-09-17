@@ -1,0 +1,8 @@
+%tr
+  %td.order_date
+    = order.created_at.strftime("%d %b %Y at %H:%M")
+%tr
+  %td
+    = order.to_sentence
+  %td
+    = euro_from_cents(order.price_cents)

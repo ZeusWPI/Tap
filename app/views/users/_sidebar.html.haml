@@ -1,0 +1,26 @@
+.col-sm-3
+  %div
+    %h2
+      = @user.name
+      - if can? :edit, @user
+        = link_to content_tag(:small, content_tag(:span, "", class: "glyphicon glyphicon-cog")), edit_user_path(@user)
+  = content_tag :div, image_tag(@user.avatar, class: "img-circle img-thumbnail center"), class: "user_avatar center"
+  %ul.list-group
+    %li.list-group-item.text-muted Orders
+    %li.list-group-item
+      %strong Orders placed
+      %span.badge= @user.orders_count
+    %li.list-group-item
+      %strong Products ordered
+      %span.badge= @user.products_group_by_id.map(&:count).sum
+    - if can? :create, @user.orders.build
+      %li.list-group-item= link_to "Place new order", new_user_order_path(@user), class: "btn btn-default btn-block"
+  - if can? :edit, @user
+    %ul.list-group
+      %li.list-group-item.text-muted
+        - if @user.dagschotel
+          Huidige dagschotel
+          \#{image_tag @user.dagschotel.avatar}
+          \#{link_to "Change dagschotel", edit_dagschotel_user_path(@user), class: "btn btn-default btn-block"}
+        - else
+          = link_to "Set dagschotel", edit_dagschotel_user_path(@user), class: "btn btn-default btn-block"

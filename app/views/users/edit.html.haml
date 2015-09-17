@@ -1,0 +1,14 @@
+= render 'flash'
+.row
+  = render 'sidebar'
+  .col-sm-9
+    %h2 Edit your settings
+    = f_form_for @user do |f|
+      = f.error_messages
+      = f.file_field :avatar
+      %p
+        If you check this option, nobody will be able to order stuff for you through koelkast.
+        Only on your account things can be ordered.
+      %p
+        = f.check_box :private
+        = f.submit "Update"

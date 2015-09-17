@@ -1,0 +1,8 @@
+- unless @stock.valid?
+  .panel.panel-danger.form-errors
+    .panel-heading
+      = "#{pluralize(@stock.errors.count + @stock.stock_entries.map(&:errors).map(&:count).sum, "error")} prohibited this stock from being saved:"
+    .panel-body
+      %ul
+        = @stock.errors.full_messages.map{ |m| content_tag(:li, m) }.join.html_safe
+        = @stock.stock_entries.map{ |se| se.errors.full_messages.map{ |e| "#{se.product.name}: #{e}" } }.flatten.map{ |m| content_tag(:li, m) }.join.html_safe

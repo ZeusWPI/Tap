@@ -39,6 +39,7 @@ FactoryGirl.define do
 
     factory :koelkast do
       koelkast true
+      name "koelkast"
     end
   end
 end

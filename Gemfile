@@ -4,21 +4,17 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2'
 
-# Use SCSS for stylesheets
+# Assets
 gem 'sass-rails', '~> 4.0.3'
 gem 'bootstrap-sass',       '3.2.0.0'
-
-# Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-
-# Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
+gem 'jquery-rails'
+# Haml for templating!
+gem "haml-rails", "~> 0.9"
 
 # Responders
 gem 'responders', '~> 2.0'
-
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
@@ -35,12 +31,9 @@ group :production do
 end
 
 group :test do
-  gem 'capybara'
-  gem 'launchy'
   gem 'codeclimate-test-reporter', require: nil
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
-  gem 'faker', '1.4.2'
+  gem 'coveralls', require: false
 end
 
 group :development do
@@ -61,6 +54,8 @@ group :development do
 end
 
 group :development, :test do
+  gem 'factory_girl_rails'
+  gem 'faker', '1.4.2'
   gem 'pry-rails'
   gem 'pry-byebug'
 end
@@ -88,17 +83,8 @@ gem 'cancancan'
 # Safety first
 gem 'paper_trail', '~> 4.0.0.beta'
 
-# Windoos sux
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
-
-# Coveralls
-gem 'coveralls', require: false
-
 # Default avatar for users
 gem 'identicon'
-
-# Slack
-gem 'tarumi'
 
 # Run stuff in the background
 gem 'daemons'

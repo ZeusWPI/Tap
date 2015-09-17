@@ -1,0 +1,18 @@
+= render partial: 'flash'
+.row
+  = render 'sidebar'
+  #user_info.col-sm-9
+    - if (all_orders = @user.all_orders(params[:page])).any?
+      %h4 Previously ordered
+      Total:
+      %ul
+        %li
+          = @user.products_group_by_category.map{|c| pluralize(c.count, c.category)}.to_sentence
+      Specifics:
+      = content_tag :ul do
+        - @user.products_group_by_id.each do |p|
+          = content_tag :li, pluralize(p.count, p.name)
+      %h4
+        All orders (#{@user.orders_count})
+      %table.orders= render all_orders
+      = will_paginate all_orders

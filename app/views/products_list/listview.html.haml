@@ -1,0 +1,16 @@
+#products-errors
+.row.products
+  .col-md-8.col-md-offset-2
+    %h1 Products
+    = render partial: 'flash'
+    = link_to "Add Stock", new_stock_path, class: "btn btn-default"
+    %table#products-table.table.table-striped
+      %tr
+        %th
+        %th Name
+        %th Price
+        %th Stock
+        %th Deleted
+        %th Kilocalorieën
+        %th
+      = render partial: 'products_list/product_row', collection: @products, as: :product

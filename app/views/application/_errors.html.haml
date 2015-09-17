@@ -1,0 +1,9 @@
+- if object.errors.any?
+  .panel.panel-danger.form-errors
+    .panel-heading
+      = pluralize(object.errors.count, "error")
+      prohibited this #{object.class.name.downcase} from being saved:
+    .panel-body
+      %ul
+        - object.errors.full_messages.each do |msg|
+          %li= msg

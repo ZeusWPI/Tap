@@ -22,9 +22,9 @@ class Order < ActiveRecord::Base
   after_create :create_api_job
 
   validates :user, presence: true
-  validates :order_items, presence: true
   validates :price_cents, presence: true
   validates_associated :order_items
+  validate :product_presence
 
   accepts_nested_attributes_for :order_items
 
@@ -48,5 +48,9 @@ class Order < ActiveRecord::Base
       job      = TabApiJob.new(id)
 
       Delayed::Job.enqueue job, priority: priority, run_at: run_at
+    end
+
+    def product_presence
+      errors.add(:base, "You have to order at least one product.") if order_items.map(&:count).sum.zero?
     end
 end
