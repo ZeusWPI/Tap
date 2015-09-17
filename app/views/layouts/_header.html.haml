@@ -20,8 +20,6 @@
           %li= mail_to "tab@zeus.ugent.be", "Send feedback"
           - if user_signed_in?
             - if can? :manage, :all
-              %li
-                = link_to "Place order", orders_path
               %li.dropdown
                 %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", href: "#", role: "button"}
                   Products

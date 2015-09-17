@@ -14,8 +14,5 @@
       $(id).parent().find('button').on('click', function(e) {
       e.preventDefault();
       $(id).append(inputs.clone());
-      $(id).append('
-      %input{:name => "_method", :type => "hidden", :value => "patch"}>/
-      ');
       $(id).submit();
       });
