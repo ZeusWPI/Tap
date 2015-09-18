@@ -8,6 +8,7 @@ class Ability
       can :manage, :all
     elsif user.koelkast?
       can :manage, Order
+      can :quickpay, User
     else
       can :read, :all
       can :manage, User, id: user.id
