@@ -4,7 +4,7 @@ TabApiJob = Struct.new(:order_id) do
     if order && !order.transaction_id
       body = {
         transaction: {
-          debtor: order.user.uid,
+          debtor: order.user.name,
           cents: order.price_cents,
           message: order.to_sentence,
           id_at_client: order.id
@@ -14,7 +14,7 @@ TabApiJob = Struct.new(:order_id) do
         "Authorization" => "Token token=#{Rails.application.secrets.tab_api_key}"
       }
 
-      result = HTTParty.post("https://zeus.ugent.be/tab/transactions", body: body, headers: headers )
+      result = HTTParty.post(File.join(Rails.application.config.api_url, "transactions"), body: body, headers: headers )
       order.update_attribute(:transaction_id, JSON.parse(result.body)["id"].to_i)
     end
   end

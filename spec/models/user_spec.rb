@@ -19,7 +19,6 @@
 #  avatar_updated_at   :datetime
 #  orders_count        :integer          default("0")
 #  koelkast            :boolean          default("f")
-#  provider            :string
 #  name                :string
 #  encrypted_password  :string           default(""), not null
 #  private             :boolean          default("f")

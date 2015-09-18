@@ -22,7 +22,6 @@ class Order < ActiveRecord::Base
   after_create :create_api_job
 
   validates :user, presence: true
-  validates :price_cents, presence: true
   validates_associated :order_items
   validate :product_presence
 

@@ -86,4 +86,7 @@ Rails.application.configure do
     host: config.x.host,
     script_name: config.relative_url_root,
   }
+
+  config.api_url = "http://zeus.ugent.be/tab"
+
 end

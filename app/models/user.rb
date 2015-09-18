@@ -19,34 +19,26 @@
 #  avatar_updated_at   :datetime
 #  orders_count        :integer          default("0")
 #  koelkast            :boolean          default("f")
-#  provider            :string
 #  name                :string
 #  encrypted_password  :string           default(""), not null
 #  private             :boolean          default("f")
 #
 
-require 'identicon'
 class User < ActiveRecord::Base
-  include Statistics
+  include Statistics, Avatarable, FriendlyId
+  friendly_id :name, use: :finders
 
-  devise :database_authenticatable, :trackable, :omniauthable, :omniauth_providers => [:zeuswpi]
+  devise :database_authenticatable, :omniauthable, :omniauth_providers => [:zeuswpi]
 
-  has_paper_trail
-  has_attached_file :avatar, styles: { large: "150x150>", medium: "100x100>", small: "40x40>" }, default_style: :medium
   has_many :orders, -> { includes :products }
   has_many :products, through: :orders
   belongs_to :dagschotel, class_name: 'Product'
 
-  validates_attachment :avatar,
-    presence: true,
-    content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }
-
   scope :members, -> { where koelkast: false }
-  scope :publik, -> { where private: false }
+  scope :publik,  -> { where private: false }
 
   def self.from_omniauth(auth)
-    where(provider: auth.provider, name: auth.uid).first_or_create do |user|
-      user.provider = auth.provider
+    where(name: auth.uid).first_or_create do |user|
       user.name = auth.uid
       user.avatar = Identicon.data_url_for auth.uid
     end
@@ -54,11 +46,5 @@ class User < ActiveRecord::Base
 
   def debt
     42.15
-  end
-
-  # Change URL params for User
-
-  def to_param
-    "#{id} #{name}".parameterize
   end
 end
