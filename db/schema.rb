@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150917165758) do
+ActiveRecord::Schema.define(version: 20150918190548) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -66,11 +66,6 @@ ActiveRecord::Schema.define(version: 20150917165758) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",       default: 0,     null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
     t.boolean  "admin"
     t.integer  "dagschotel_id"
     t.string   "avatar_file_name"
