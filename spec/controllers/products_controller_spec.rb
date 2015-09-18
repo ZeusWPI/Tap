@@ -17,7 +17,7 @@ describe ProductsController, type: :controller do
       it 'should create a product' do
         expect{
           post :create, product: attributes_for(:product)
-        }.to change{Product.count}.by(1)
+        }.to change{ Product.count }.by(1)
       end
 
       it 'should redirect to index page' do
@@ -73,17 +73,6 @@ describe ProductsController, type: :controller do
     it 'loads right product' do
       put :edit, id: @product, product: attributes_for(:product)
       expect(assigns :product).to eq(@product)
-    end
-
-    context 'successful' do
-      it 'should update attributes' do
-        attributes = attributes_for(:product)
-        attributes.merge(price: (attributes[:price_cents] / 100))
-        attributes.delete(:price_cents)
-        put :update, id: @product, product: attributes
-        new_attributes = @product.reload.attributes.symbolize_keys.slice(*attributes.keys)
-        expect(new_attributes).to eq(attributes.except(:avatar))
-      end
     end
 
     context 'failed' do

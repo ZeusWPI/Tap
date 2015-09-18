@@ -23,7 +23,8 @@ require 'identicon'
 FactoryGirl.define do
   factory :product do
     name        { Faker::Name.name }
-    price_cents { rand 120 }
+    price_cents { 1 + rand(120) }
+    price       { price_cents / 100.0 }
     stock       { 30 + rand(30) }
     calories    { rand 20 }
     avatar      { Identicon.data_url_for name }
