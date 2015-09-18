@@ -51,21 +51,6 @@ describe UsersController, type: :controller do
     end
   end
 
-  describe 'GET index' do
-    before :each do
-      get :index
-    end
-
-    it 'should load an array of all users' do
-      expect(assigns(:users)).to eq([@user])
-    end
-
-    it 'should render the correct template' do
-      expect(response).to render_template(:index)
-      expect(response).to have_http_status(200)
-    end
-  end
-
   describe 'GET edit_dagschotel' do
     it 'should render the page' do
       get :edit_dagschotel, id: @user

@@ -18,16 +18,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def index
-    @users = User.members
-  end
-
-  def destroy
-    @user.destroy
-    flash[:success] = "Succesfully removed user"
-    redirect_to users_path
-  end
-
   def edit_dagschotel
     @dagschotel = @user.dagschotel
 
