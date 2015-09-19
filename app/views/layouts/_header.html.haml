@@ -2,7 +2,7 @@
   .container-fluid
     / Brand and toggle get grouped for better mobile display
     .navbar-header
-      %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", type: "button"}
+      %button.navbar-toggle{data: { target: ".navbar-collapse", toggle: "collapse" } }
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
@@ -11,11 +11,7 @@
     - unless current_user && current_user.koelkast?
       .collapse.navbar-collapse
         .hidden-xs.navbar-form.navbar-right
-          .form-group
-            - if user_signed_in?
-              = link_to "Logout", destroy_user_session_path, class: "btn btn-default form-control"
-            - else
-              = link_to "Login", omniauth_authorize_path("user", "zeuswpi"), class: "btn btn-success form-control"
+          = render 'layouts/session_button'
         %ul.nav.navbar-nav.navbar-right
           %li= mail_to "tab@zeus.ugent.be", "Send feedback"
           - if user_signed_in?
@@ -33,13 +29,9 @@
                 Logged in as #{current_user.name}
                 %b.caret
               %ul.dropdown-menu
-                %li= link_to "Edit avatar", edit_user_path(current_user)
+                %li= link_to "Edit profile", edit_user_path(current_user)
             %li
               %p.navbar-text
-                Debt: #{euro(current_user.debt)}
+                Balance: #{euro_from_cents(current_user.debt)}
         .visible-xs.navbar-form
-          .form-group
-            - if user_signed_in?
-              = button_to "Logout", destroy_user_session_path, class: "btn btn-default form-control",  method: :delete
-            - else
-              = link_to "Login", omniauth_authorize_path("user", "zeuswpi"), class: "btn btn-success form-control"
+          = render 'layouts/session_button'

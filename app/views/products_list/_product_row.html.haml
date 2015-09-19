@@ -1,9 +1,9 @@
-%tr{:id => "products_row_#{dom_id(product)}"}
-  %td= image_tag product.avatar(:small)
+%tr{id: "products_row_#{dom_id(product)}"}
+  %td= link_to image_tag(product.avatar(:small)), edit_product_path(product)
   %td= product.name
   %td= euro(product.price)
   %td= product.stock
   %td
-    %span{:class => "glyphicon #{product.deleted ? "glyphicon-check" : "glyphicon-unchecked"}"}
+    %span{class: "glyphicon #{product.deleted ? "glyphicon-check" : "glyphicon-unchecked"}"}
   %td= product.calories
-  %td= button_to "Edit", edit_product_path(product), method: :get, class: "btn btn-default", remote: true
+  %td= link_to "Edit", edit_product_path(product), class: "btn btn-default", remote: true

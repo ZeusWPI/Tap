@@ -2,6 +2,6 @@
   %strong Total price
   .input-group
     %span.input-group-addon €
-    = content_tag :span, "", id: "order_price", class: "input-group-addon"
+    %span#order_price.input-group-addon
     %span.input-group-btn
       = f.submit "Order!", class: "btn btn-primary big-form-button", skip_wrapper: true

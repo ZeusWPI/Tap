@@ -1,5 +1,5 @@
 .col-md-3.form_products
-  %div{class: "thumbnail#{' out-of-stock' if product.stock.zero?}"}
+  %div.thumbnail{ class: ('out-of-stock' if product.stock.zero?) }
     .form_row.center
       .form_row_image
         = image_tag product.avatar
