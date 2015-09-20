@@ -1,9 +1,43 @@
-%h3
-  Order for #{@user.name}
-.row
-  = f_form_for [@user, @order] do |f|
-    = f.error_messages
-    .col-md-12
-      = f.fields_for :order_items do |op_field|
-        = render op_field.object, f: op_field, product: op_field.object.product
-    = render 'orders/price', f: f
+.center
+  .row
+    .col-md-6.col-md-offset-1.barcode-wrapper
+      %h1 Order for #{@user.name}
+      = form_tag from_barcode_products_path, id: "from_barcode_form", remote: true do
+        %input.center-block{ type: :number, name: :barcode, autofocus: true }
+      = "- OR -"
+      %button.btn.btn-default.center-block{ data: { toggle: :modal, target: "#products_modal" } }
+        Select Product Without Barcode
+    .col-md-4.col-md-offset-1
+      -# Huidige schuld: #{euro_from_cents @user.balance}
+      #current_order
+        .div.center
+          = image_tag "logo.png"
+        = form_for [@user, @order] do |f|
+          %table
+            %tr.margin
+            = f.fields_for :order_items do |ff|
+              %tr.order_item_wrapper{ data: { product: ff.object.product.id, price: ff.object.product.price_cents } }
+                %td
+                  = ff.number_field :count
+                  = ff.fields_for :product do |fff|
+                    / Needed for haml
+                %td
+                  x
+                %td
+                  %span= ff.object.product.name
+                %td.euro
+                  = euro_from_cents(ff.object.product.price_cents * ff.object.count)
+            %tr#empty
+              %td
+                %td
+                  %em Empty Order.
+            %tr.margin
+            %tr
+              %td
+              %td
+              %td.text-right
+                Total:
+              %td.total_price.euro
+          = f.submit "Order!", class: "btn btn-primary form-control"
+= render 'products_modal'
+- p @order.errors

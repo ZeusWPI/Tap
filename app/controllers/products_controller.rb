@@ -31,9 +31,13 @@ class ProductsController < ApplicationController
     respond_with @product
   end
 
+  def from_barcode
+    render json: Product.find_by_barcode(params.require(:barcode))
+  end
+
   private
 
     def product_params
-      params.require(:product).permit(:name, :price, :avatar, :category, :stock, :calories, :deleted)
+      params.require(:product).permit(:name, :price, :avatar, :category, :stock, :calories, :deleted, :barcode)
     end
 end

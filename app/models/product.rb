@@ -28,6 +28,7 @@ class Product < ActiveRecord::Base
   validates :price_cents, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :stock,       presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :calories,    numericality: { only_integer: true, allow_nil: true, greater_than_or_equal_to: 0 }
+  validates :barcode,     presence: true, uniqueness: true
 
   scope :for_sale, -> { where deleted: false }
 

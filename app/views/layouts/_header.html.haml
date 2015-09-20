@@ -32,6 +32,6 @@
                 %li= link_to "Edit profile", edit_user_path(current_user)
             %li
               %p.navbar-text
-                Balance: #{euro_from_cents(current_user.debt)}
+                Balance: #{euro_from_cents(current_user.balance)}
         .visible-xs.navbar-form
           = render 'layouts/session_button'

@@ -27,7 +27,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :products, only: [:new, :create, :index, :edit, :update]
+  resources :products, only: [:new, :create, :index, :edit, :update] do
+    collection do
+      post 'barcode' => 'products#from_barcode', as: :from_barcode
+    end
+  end
   resources :stocks, only: [:new, :create]
 
   get 'overview' => 'orders#overview', as: "orders"

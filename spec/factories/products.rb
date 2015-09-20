@@ -28,6 +28,7 @@ FactoryGirl.define do
     stock       { 30 + rand(30) }
     calories    { rand 20 }
     avatar      { Identicon.data_url_for name }
+    sequence :barcode
 
     factory :invalid_product do
       name nil
