@@ -13,15 +13,20 @@ describe OrderItem do
     order_item = create :order_item
     expect(order_item).to be_valid
   end
+  ############
+  #  FIELDS  #
+  ############
 
-  describe 'validations' do
+  describe 'fields' do
     before :each do
       @order_item = create :order_item
     end
 
-    it 'product should be present' do
-      @order_item.product = nil
-      expect(@order_item).to_not be_valid
+    describe 'product' do
+      it 'should be present' do
+        @order_item.product = nil
+        expect(@order_item).to_not be_valid
+      end
     end
 
     describe 'count' do
@@ -34,10 +39,21 @@ describe OrderItem do
         @order_item.count = -5
         expect(@order_item).to_not be_valid
       end
+
+      it 'should be less or equal to product stock' do
+        @order_item.count = @order_item.product.stock + 1
+        expect(@order_item).to_not be_valid
+        @order_item.count = @order_item.product.stock
+        expect(@order_item).to be_valid
+      end
     end
   end
 
-  describe 'product stock' do
+  ###############
+  #  CALLBACKS  #
+  ###############
+
+  describe 'stock change' do
     before :each do
       @product = create :product
       @count = rand 10
@@ -48,7 +64,7 @@ describe OrderItem do
       expect{ @order_item.save }.to change{ @product.stock }.by(-@count)
     end
 
-    it 'should increment on cancel' do
+    it 'should increment on destroy' do
       @order_item.save
       expect{ @order_item.destroy }.to change{ @product.stock }.by(@count)
     end
