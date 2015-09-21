@@ -13,6 +13,7 @@ describe OrderItem do
     order_item = create :order_item
     expect(order_item).to be_valid
   end
+
   ############
   #  FIELDS  #
   ############
