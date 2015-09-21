@@ -42,7 +42,7 @@
                 %li= link_to "Edit avatar", edit_user_path(current_user)
             %li
               %p.navbar-text
-                Debt: #{euro(current_user.debt)}
+                Balance: #{euro_from_cents(current_user.balance)}
         .visible-xs.navbar-form
           .form-group
             - if user_signed_in?

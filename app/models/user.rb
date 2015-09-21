@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def debt
+  def balance
     @balance || begin
       headers = {
         "Authorization" => "Token token=#{Rails.application.secrets.tab_api_key}",
