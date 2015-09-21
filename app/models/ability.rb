@@ -9,7 +9,9 @@ class Ability
     if user.admin?
       can :manage, :all
     elsif user.koelkast?
-      can :manage, Order
+      can :manage, Order do |order|
+        !order.try(:user).try(:private)
+      end
       can :quickpay, User
     else
       can :read, :all
