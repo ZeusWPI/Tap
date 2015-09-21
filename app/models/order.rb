@@ -36,7 +36,7 @@ class Order < ActiveRecord::Base
   private
 
     def calculate_price
-      self.price_cents = self.order_items.map{ |oi| oi.count * oi.product.price_cents }.sum
+      self.price_cents = self.order_items.map{ |oi| oi.count * (oi.product.try(:price_cents) || 0) }.sum
     end
 
     def create_api_job

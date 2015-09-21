@@ -48,7 +48,7 @@ describe Order do
 
     describe 'order_items' do
       it 'should be validated' do
-        @order.order_items << OrderItem.new(count: -5)
+        @order.order_items.build(count: -5)
         expect(@order).to_not be_valid
       end
     end
