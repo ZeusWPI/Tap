@@ -6,11 +6,6 @@
 #  created_at          :datetime
 #  updated_at          :datetime
 #  remember_created_at :datetime
-#  sign_in_count       :integer          default("0"), not null
-#  current_sign_in_at  :datetime
-#  last_sign_in_at     :datetime
-#  current_sign_in_ip  :string
-#  last_sign_in_ip     :string
 #  admin               :boolean
 #  dagschotel_id       :integer
 #  avatar_file_name    :string
