@@ -1,5 +1,5 @@
 %h3
-  Order for #{@user.name} (Huidige schuld: #{euro(@user.debt)})
+  Order for #{@user.name} (Huidige schuld: #{euro_from_cents(@user.balance)})
 .row
   = f_form_for [@user, @order] do |f|
     = f.error_messages
