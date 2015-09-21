@@ -45,6 +45,18 @@ class User < ActiveRecord::Base
   end
 
   def debt
-    42.15
+    @balance || begin
+      headers = {
+        "Authorization" => "Token token=#{Rails.application.secrets.tab_api_key}",
+        "Content-type" => "application/json"
+      }
+      result = HTTParty.get(File.join(Rails.application.config.api_url, "users", "#{name}.json"), headers: headers)
+
+      if result.code == 200
+        JSON.parse(result.body)["balance"]
+      else
+        0
+      end
+    end
   end
 end
