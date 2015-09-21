@@ -27,4 +27,23 @@ describe User do
   it 'has a valid factory' do
     expect(@user).to be_valid
   end
+
+  ############
+  #  FIELDS  #
+  ############
+
+  describe 'fields' do
+    describe 'avatar' do
+      it 'should be present' do
+        @user.avatar = nil
+        expect(@user).to_not be_valid
+      end
+    end
+
+    describe 'orders_count' do
+      it 'should automatically cache the number of orders' do
+        expect{ create :order, user: @user }.to change{ @user.reload.orders_count }.by(1)
+      end
+    end
+  end
 end
