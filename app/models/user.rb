@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   include Statistics, Avatarable, FriendlyId
   friendly_id :name, use: :finders
 
-  devise :database_authenticatable, :omniauthable, :omniauth_providers => [:zeuswpi]
+  devise :omniauthable, :omniauth_providers => [:zeuswpi]
 
   has_many :orders, -> { includes :products }
   has_many :products, through: :orders

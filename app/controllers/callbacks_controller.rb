@@ -1,6 +1,4 @@
 class CallbacksController < Devise::OmniauthCallbacksController
-  skip_authorization_check
-
   def zeuswpi
     @user = User.from_omniauth(request.env["omniauth.auth"])
     sign_in_and_redirect @user
