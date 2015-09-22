@@ -25,14 +25,6 @@ class UsersController < ApplicationController
     @categories = Product.categories
   end
 
-  def update_dagschotel
-    @user.dagschotel = Product.find(params[:product_id])
-    @user.save
-
-    flash[:success] = "Succesfully updated dagschotel"
-    redirect_to @user
-  end
-
   def quickpay
     order = @user.orders.build
     order.order_items.build(count: 1, product: @user.dagschotel)
@@ -47,7 +39,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:avatar, :private)
+      params.require(:user).permit(:avatar, :private, :dagschotel_id)
     end
 
     def init
