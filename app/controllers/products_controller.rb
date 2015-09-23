@@ -32,7 +32,7 @@ class ProductsController < ApplicationController
   end
 
   def from_barcode
-    render json: Product.find_by_barcode(params.require(:barcode))
+    render json: Barcode.find_by_code(params.require(:barcode)).try(:product)
   end
 
   private

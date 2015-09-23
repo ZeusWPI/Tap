@@ -13,6 +13,15 @@
 
 ActiveRecord::Schema.define(version: 20150919091214) do
 
+  create_table "barcodes", force: :cascade do |t|
+    t.integer  "product_id"
+    t.string   "code",       default: "", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "barcodes", ["code"], name: "index_barcodes_on_code"
+
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
     t.integer  "attempts",   default: 0, null: false
@@ -60,7 +69,6 @@ ActiveRecord::Schema.define(version: 20150919091214) do
     t.integer  "stock",               default: 0,     null: false
     t.integer  "calories"
     t.boolean  "deleted",             default: false
-    t.string   "barcode",             default: "",    null: false
   end
 
   create_table "users", force: :cascade do |t|

@@ -1,5 +1,10 @@
 class AddBarcodeToProducts < ActiveRecord::Migration
   def change
-    add_column :products, :barcode, :string, null: false, default: ""
+    create_table :barcodes do |t|
+      t.references :product
+      t.string :code, index: true, null: false, default: ""
+
+      t.timestamps
+    end
   end
 end

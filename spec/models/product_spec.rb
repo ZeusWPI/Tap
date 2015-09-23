@@ -15,7 +15,6 @@
 #  stock               :integer          default("0"), not null
 #  calories            :integer
 #  deleted             :boolean          default("f")
-#  barcode             :string           default(""), not null
 #
 
 describe Product do

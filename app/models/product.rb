@@ -15,13 +15,13 @@
 #  stock               :integer          default("0"), not null
 #  calories            :integer
 #  deleted             :boolean          default("f")
-#  barcode             :string           default(""), not null
 #
 
 class Product < ActiveRecord::Base
   include Avatarable
 
   has_many :order_items
+  has_many :barcodes
 
   enum category: %w(food beverages other)
 
@@ -29,7 +29,6 @@ class Product < ActiveRecord::Base
   validates :price_cents, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :stock,       presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :calories,    numericality: { only_integer: true, allow_nil: true, greater_than_or_equal_to: 0 }
-  validates :barcode,     presence: true, uniqueness: true
 
   scope :for_sale, -> { where deleted: false }
 
