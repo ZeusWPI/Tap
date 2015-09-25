@@ -16,7 +16,7 @@ ready = function() {
 
   increment_product = function(product_id) {
     input = $("#current_order").find(".order_item_wrapper[data-product=" + product_id + "]").find("input[type=number]");
-    $(input).val(parseInt($(input).val()) + 1).change();
+    $(input).val(parseIntNaN($(input).val()) + 1).change();
   }
 
   $("#products_modal button").click(function() {
@@ -38,20 +38,20 @@ ready = function() {
 
   $('tr.order_item_wrapper').hide();
   $('tr.order_item_wrapper').filter(function() {
-    return parseInt($(this).find('[type=number]').val()) > 0;
+    return parseIntNaN($(this).find('[type=number]').val()) > 0;
   }).show();
 
   $('tr.order_item_wrapper input[type=number]').change(function() {
     tr = $(this).closest('tr.order_item_wrapper')
-    $(tr).toggle(parseInt($(this).val()) > 0);
-    $(tr).find("td").last().html(((parseInt($(tr).data("price")) * parseInt($(this).val())) / 100.0).toFixed(2))
+    $(tr).toggle(parseIntNaN($(this).val()) > 0);
+    $(tr).find("td").last().html(((parseIntNaN($(tr).data("price")) * parseIntNaN($(this).val())) / 100.0).toFixed(2))
     recalculate();
   })
 
   recalculate = function() {
     /* Total Price */
     array = $('tr.order_item_wrapper').map(function() {
-      return parseInt($(this).data("price")) * parseInt($(this).find("input[type=number]").val());
+      return parseIntNaN($(this).data("price")) * parseIntNaN($(this).find("input[type=number]").val());
     })
     sum = 0;
     array.each(function(i, el) { sum += el; });
@@ -59,7 +59,7 @@ ready = function() {
 
     /* Message when no product has been choosen */
     $("#current_order #empty").toggle(!($('tr.order_item_wrapper input[type=number]').filter(function() {
-      return parseInt($(this).val()) > 0;
+      return parseIntNaN($(this).val()) > 0;
     }).length));
   }
 
