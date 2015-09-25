@@ -1,0 +1,12 @@
+.row
+  .col-md-7
+    %h4.pull-right Select a product to link the barcode to an existing product ...
+    #product_buttons.row
+      - Product.all.each do |product|
+        .col-md-3
+          = button_to product_barcodes_path(product), class: "btn btn-default product", data: { product: product.id, dismiss: :modal }, params: { "barcode[code]" => params[:barcode] } do
+            %p= product.name
+            = image_tag product.avatar(:dagschotel), class: "center"
+  .col-md-5
+    %h4 or create a new one
+    = render 'products/form'

@@ -3,15 +3,26 @@ class ProductsController < ApplicationController
 
   respond_to :html, :js
 
-  def new
-  end
-
   def create
     if @product.save
       flash[:success] = "Product created!"
-      redirect_to products_path
+      redirect_to barcode_products_path
     else
-      render 'new'
+      render 'link'
+    end
+  end
+
+  def barcode
+  end
+
+  def load_barcode
+    @product = Barcode.find_by(code: params[:barcode]).try(:product)
+    if @product
+      render 'products/stock_entry'
+    else
+      @product = Product.new
+      @product.barcodes.build(code: params[:barcode])
+      render 'products/link'
     end
   end
 
@@ -28,7 +39,10 @@ class ProductsController < ApplicationController
 
   def update
     @product.update_attributes product_params
-    respond_with @product
+    respond_to do |format|
+      format.js   { respond_with @product }
+      format.html { redirect_to barcode_products_path }
+    end
   end
 
   def from_barcode
@@ -38,6 +52,6 @@ class ProductsController < ApplicationController
   private
 
     def product_params
-      params.require(:product).permit(:name, :price, :avatar, :category, :stock, :calories, :deleted, :barcode)
+      params.require(:product).permit(:name, :price, :avatar, :category, :stock, :calories, :deleted, :barcode, barcodes_attributes: [:code])
     end
 end

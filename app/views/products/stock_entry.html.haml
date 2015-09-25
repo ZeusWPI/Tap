@@ -1,0 +1,16 @@
+.row
+  .col-md-6.col-md-offset-3
+    = form_for @product do |f|
+      %table
+        %tr
+          %td Current stock
+          %td= @product.stock
+        %tr
+          %td Purchase
+          %td
+            %input.form-control.new_stock{ type: :number, data: { increment: true, target: "#product_stock" }}
+        %tr
+          %td New stock
+          %td= f.number_field :stock, data:{ default: f.object.stock }, class: "form-control"
+        %tr
+          %td= f.submit "Update stock"

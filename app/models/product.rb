@@ -22,6 +22,7 @@ class Product < ActiveRecord::Base
 
   has_many :order_items
   has_many :barcodes
+  accepts_nested_attributes_for :barcodes
 
   enum category: %w(food beverages other)
 

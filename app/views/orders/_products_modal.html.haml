@@ -8,7 +8,7 @@
         .col-xs-3.pull-right
           %input#product_search.form-control{ placeholder: "Search" }
       .modal-body
-        .container-fluid
+        #product_buttons.container-fluid
           - @products.each do |product|
             .col-md-2{ data: { name: product.name } }
               %button.btn.btn-default.product{ data: { product: product.id, dismiss: :modal } }
