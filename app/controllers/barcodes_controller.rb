@@ -4,7 +4,7 @@ class BarcodesController < ApplicationController
 
   def create
     @barcode.save
-    redirect_to barcode_products_path
+    redirect_to barcode_products_path, notice: "Barcode successfully linked!"
   end
 
   private

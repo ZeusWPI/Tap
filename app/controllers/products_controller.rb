@@ -41,7 +41,7 @@ class ProductsController < ApplicationController
     @product.update_attributes product_params
     respond_to do |format|
       format.js   { respond_with @product }
-      format.html { redirect_to barcode_products_path }
+      format.html { redirect_to barcode_products_path, notice: "Stock has been updated!" }
     end
   end
 
