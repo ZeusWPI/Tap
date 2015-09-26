@@ -1,5 +1,5 @@
 .row
-  .col-md-6.col-md-offset-3
+  #stock_entry.col-md-6.col-md-offset-3
     = form_for @product do |f|
       %table
         %tr
@@ -8,9 +8,8 @@
         %tr
           %td Purchase
           %td
-            %input.form-control.new_stock{ type: :number, data: { increment: true, target: "#product_stock" }}
+            %input.form-control.new_stock{ type: :number, autofocus: true, data: { increment: true, target: "#product_stock" }}
         %tr
           %td New stock
           %td= f.number_field :stock, data:{ default: f.object.stock }, class: "form-control"
-        %tr
-          %td= f.submit "Update stock"
+      = f.submit "Update stock", class: "btn btn-primary form-control"

@@ -4,12 +4,12 @@
 
 
 //signin
-.sign-in{
-  .checkbox label{
-  	padding-left: 0px;
+.sign-in {
+  .checkbox label {
+    padding-left: 0px;
   }
-  #user_remember_me{
-  	margin-left: 10px;
+  #user_remember_me {
+    margin-left: 10px;
   }
 }
 
@@ -17,7 +17,7 @@
   padding: 0px;
   min-height: 280px;
   border: 3px solid #333;
-  .header{
+  .header {
     border-bottom: 3px solid #333;
     text-align: center;
     color: #fff;
@@ -26,19 +26,19 @@
     margin: 0px;
 
   }
-  .caption{
-    .avatar{
+  .caption {
+    .avatar {
       float: right;
       height: 70px;
       width: 70px;
     }
   }
-  .footer{
+  .footer {
     width:80%;
     border-top: 1px dashed #333;
     margin:10%;
     margin-bottom: 5px;
-    .btn{
+    .btn {
       width:100%;
       margin-top:10px;
       margin-bottom:0px;
