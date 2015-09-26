@@ -45,7 +45,7 @@ describe ProductsController, type: :controller do
 
       it 'should redirect to index page' do
         post :create, product: attributes_for(:product)
-        expect(response).to redirect_to action: :index
+        expect(response).to redirect_to action: :barcode
       end
     end
 
@@ -58,7 +58,7 @@ describe ProductsController, type: :controller do
 
       it 'should render form' do
         post :create, product: attributes_for(:invalid_product)
-        expect(response).to render_template(:new)
+        expect(response).to render_template(:link)
       end
     end
   end
@@ -133,7 +133,8 @@ describe ProductsController, type: :controller do
   describe 'POST from_barcode' do
     it 'should return a product when barcode in database' do
       product = create :product
-      post :from_barcode, barcode: product.barcode
+      bar = create :barcode, product: product
+      post :from_barcode, barcode: bar.code
       expect(JSON.parse(response.body)["id"]).to eq(product.id)
     end
   end

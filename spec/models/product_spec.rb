@@ -87,17 +87,6 @@ describe Product do
       end
     end
 
-    describe 'barcode' do
-      it 'should be present' do
-        @product.barcode = nil
-        expect(@product).to_not be_valid
-      end
-
-      it 'should be unique' do
-        expect(build :product, barcode: @product.barcode).to_not be_valid
-      end
-    end
-
     describe 'avatar' do
       it 'should be present' do
         @product.avatar = nil
