@@ -10,6 +10,9 @@
 #
 
 class Barcode < ActiveRecord::Base
+  include FriendlyId
+  friendly_id :code, use: :finders
+
   belongs_to :product
 
   # validates :product, presence: true

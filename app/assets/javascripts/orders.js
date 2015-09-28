@@ -2,51 +2,17 @@
 // All this logic will automatically be available in application.js.
 // You can use CoffeeScript in this file: http://coffeescript.org/
 ready = function() {
-  products_ordered = $('#product_search').keyup(function () {
-              var rex = new RegExp($(this).val(), 'i');
-              $('[data-name]').hide();
-              $('[data-name]').filter(function () {
-                              return rex.test($(this).data("name"));
-                          }).show();
-  })
-
-  $('#products_modal').on('hidden.bs.modal', function () {
-    $('#product_search').val('');
-  });
-
-  increment_product = function(product_id) {
-    input = $("#current_order").find(".order_item_wrapper[data-product=" + product_id + "]").find("input[type=number]");
-    $(input).val(parseIntNaN($(input).val()) + 1).change();
-  }
-
-  $("#products_modal button").click(function() {
-    increment_product($(this).data("product"))
-  })
-
-  $("#from_barcode_form").on("ajax:before", function(xhr, settings) {
-    // Stuff you wanna do after sending form
-  }).on("ajax:success", function(data, status, xhr) {
-    if (status != null) {
-      increment_product(status["id"])
-    }
-  }).on("ajax:error", function(xhr, status, error) {
-    // Display an error or something, whatever
-  }).on("ajax:complete", function(xhr, status) {
-    $("#from_barcode_form")[0].reset();
-    // Do more stuff
-  })
-
+  /* INITIALIZE */
   $('tr.order_item_wrapper').hide();
   $('tr.order_item_wrapper').filter(function() {
     return parseIntNaN($(this).find('[type=number]').val()) > 0;
   }).show();
 
-  $('tr.order_item_wrapper input[type=number]').change(function() {
-    tr = $(this).closest('tr.order_item_wrapper')
-    $(tr).toggle(parseIntNaN($(this).val()) > 0);
-    $(tr).find("td").last().html(((parseIntNaN($(tr).data("price")) * parseIntNaN($(this).val())) / 100.0).toFixed(2))
-    recalculate();
-  })
+  /* HELPERS */
+  increment_product = function(product_id) {
+    input = $("#current_order").find(".order_item_wrapper[data-product=" + product_id + "]").find("input[type=number]");
+    $(input).val(parseIntNaN($(input).val()) + 1).change();
+  }
 
   recalculate = function() {
     /* Total Price */
@@ -62,6 +28,47 @@ ready = function() {
       return parseIntNaN($(this).val()) > 0;
     }).length));
   }
+
+  /* PRODUCT MODAL */
+  products_ordered = $('#product_search').keyup(function () {
+              var rex = new RegExp($(this).val(), 'i');
+              $('[data-name]').hide();
+              $('[data-name]').filter(function () {
+                              return rex.test($(this).data("name"));
+                          }).show();
+  })
+
+  $('#products_modal').on('hidden.bs.modal', function () {
+    $('#product_search').val('');
+  });
+
+  $("#products_modal button").click(function() {
+    increment_product($(this).data("product"))
+  })
+
+  /* BARCODE SCAN */
+  $("#from_barcode_form").submit(function(event) {
+    event.preventDefault();
+    barcode = $(this).find("input[type=number]").val();
+    $.ajax({
+      url: "/barcodes/" + barcode,
+      success: function(data) {
+        increment_product(data["id"]);
+        $("#from_barcode_form")[0].reset();
+      },
+      dataMethod: "json"
+    }).fail(function() {
+      alert("Barcode '" + barcode + "' was not found in the database system.");
+    });
+  });
+
+  /* CURRENT ORDER CHANGE */
+  $('tr.order_item_wrapper input[type=number]').change(function() {
+    tr = $(this).closest('tr.order_item_wrapper')
+    $(tr).toggle(parseIntNaN($(this).val()) > 0);
+    $(tr).find("td").last().html(((parseIntNaN($(tr).data("price")) * parseIntNaN($(this).val())) / 100.0).toFixed(2))
+    recalculate();
+  })
 
   recalculate();
 }
