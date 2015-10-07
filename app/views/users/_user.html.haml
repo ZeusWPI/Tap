@@ -1,8 +1,6 @@
-%tr
-  %td= user.id
-  %td= image_tag user.avatar(:small)
-  %td= user.name
-  %td= euro(user.debt)
-  - if current_user.admin?
-    %td
-      = link_to "Delete", user_path(user), method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure?" }
+.col-md-2.overviewthumbnail
+  - unless user.dagschotel.nil?
+    = link_to quickpay_user_path(user) do
+      = image_tag user.dagschotel.avatar(:dagschotel), class: "img-circle dagschotel"
+  = link_to image_tag(user.avatar(:large) , class: "img-circle avatar"), new_user_order_path(user)
+  = link_to user.name , new_user_order_path(user), class: "btn btn-info", style: get_color_style(user)

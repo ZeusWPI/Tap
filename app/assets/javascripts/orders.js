@@ -2,64 +2,75 @@
 // All this logic will automatically be available in application.js.
 // You can use CoffeeScript in this file: http://coffeescript.org/
 ready = function() {
-  $('.btn-inc').on('click', function() {
-    increment($(this), 1);
+  /* INITIALIZE */
+  $('tr.order_item_wrapper').hide();
+  $('tr.order_item_wrapper').filter(function() {
+    return parseIntNaN($(this).find('[type=number]').val()) > 0;
+  }).show();
+
+  /* HELPERS */
+  increment_product = function(product_id) {
+    input = $("#current_order").find(".order_item_wrapper[data-product=" + product_id + "]").find("input[type=number]");
+    $(input).val(parseIntNaN($(input).val()) + 1).change();
+  }
+
+  recalculate = function() {
+    /* Total Price */
+    array = $('tr.order_item_wrapper').map(function() {
+      return parseIntNaN($(this).data("price")) * parseIntNaN($(this).find("input[type=number]").val());
+    })
+    sum = 0;
+    array.each(function(i, el) { sum += el; });
+    $("#current_order .total_price").html((sum / 100.0).toFixed(2));
+
+    /* Message when no product has been choosen */
+    $("#current_order #empty").toggle(!($('tr.order_item_wrapper input[type=number]').filter(function() {
+      return parseIntNaN($(this).val()) > 0;
+    }).length));
+  }
+
+  /* PRODUCT MODAL */
+  products_ordered = $('#product_search').keyup(function () {
+              var rex = new RegExp($(this).val(), 'i');
+              $('[data-name]').hide();
+              $('[data-name]').filter(function () {
+                              return rex.test($(this).data("name"));
+                          }).show();
+  })
+
+  $('#products_modal').on('hidden.bs.modal', function () {
+    $('#product_search').val('');
   });
-  $('.btn-dec').on('click', function() {
-    increment($(this), -1);
-  });
-  $('.form_row').each(function(index, row) {
-    updateInput(row, false);
-    $(row).on('input', function() {
-      updateInput(row);
+
+  $("#products_modal button").click(function() {
+    increment_product($(this).data("product"))
+  })
+
+  /* BARCODE SCAN */
+  $("#from_barcode_form").submit(function(event) {
+    event.preventDefault();
+    barcode = $(this).find("input[type=number]").val();
+    $.ajax({
+      url: "/barcodes/" + barcode,
+      success: function(data) {
+        increment_product(data["id"]);
+        $("#from_barcode_form")[0].reset();
+      },
+      dataMethod: "json"
+    }).fail(function() {
+      alert("Barcode '" + barcode + "' was not found in the database system.");
     });
   });
+
+  /* CURRENT ORDER CHANGE */
+  $('tr.order_item_wrapper input[type=number]').change(function() {
+    tr = $(this).closest('tr.order_item_wrapper')
+    $(tr).toggle(parseIntNaN($(this).val()) > 0);
+    $(tr).find("td").last().html(((parseIntNaN($(tr).data("price")) * parseIntNaN($(this).val())) / 100.0).toFixed(2))
+    recalculate();
+  })
+
   recalculate();
-};
-
-// Validate input, and then update
-updateInput = function(row, useRecalculate) {
-  if (useRecalculate == null) {
-    useRecalculate = true;
-  }
-  cell = row.querySelector("input");
-  if (!cell.validity.valid) {
-    if (parseInt(cell.value) > parseInt(cell.max)) {
-      cell.value = parseInt(cell.max);
-    } else {
-      cell.value = 0;
-    }
-  }
-  disIfNec(row)
-  if (useRecalculate) {
-    recalculate()
-  }
-};
-
-disIfNec = function(row) {
-  counter = parseInt($(row).find('.row_counter').val())
-  $(row).find('.btn-dec').prop('disabled', counter === 0)
-  $(row).find('.btn-inc').prop('disabled', counter === parseInt($(row).find('.row_counter').attr('max')))
-};
-
-recalculate = function() {
-  sum = 0
-  $('.row_counter').each(function(i, value) { sum += parseInt($(value).val()) * parseInt($(value).data('price')) })
-  return $('#order_price').html((sum / 100.0).toFixed(2))
-};
-
-increment = function(button, n) {
-  row = $(button).closest('.form_row')
-
-  // Fix the counter
-  counter = $(row).find('.row_counter')
-  value = parseInt(counter.val())
-  if (isNaN(value)) {
-    value = 0
-  }
-  counter.val(value + n)
-
-  updateInput(row[0])
 }
 
 $(document).ready(ready);

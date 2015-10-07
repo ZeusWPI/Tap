@@ -3,10 +3,8 @@ class OrdersController < ApplicationController
   load_and_authorize_resource :order, through: :user, shallow: true
 
   def new
-    products = (@user.products.for_sale.select("products.*", "sum(order_items.count) as count").group(:product_id).order("count desc") | Product.for_sale)
-    products.each do |p|
-      @order.order_items.build(product: p)
-    end
+    @products = Product.all.for_sale.order(:name)
+    @order.products << @products
   end
 
   def create
@@ -14,6 +12,7 @@ class OrdersController < ApplicationController
       flash[:success] = "#{@order.to_sentence} ordered. Enjoy it!"
       redirect_to root_path
     else
+      @products = Product.all.for_sale.order(:name)
       render 'new'
     end
   end

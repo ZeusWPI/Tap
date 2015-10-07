@@ -1,6 +1,4 @@
-= render partial: 'flash'
 .warning.center
   %h1 TESTFASE | GELIEVE STREEPJES TE BLIJVEN ZETTEN | TESTFASE
 .row
-  - @users.each do |user|
-    = render 'users/new_order', user: user
+  = render @users

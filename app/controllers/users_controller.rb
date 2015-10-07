@@ -18,29 +18,11 @@ class UsersController < ApplicationController
     end
   end
 
-  def index
-    @users = User.members
-  end
-
-  def destroy
-    @user.destroy
-    flash[:success] = "Succesfully removed user"
-    redirect_to users_path
-  end
-
   def edit_dagschotel
     @dagschotel = @user.dagschotel
 
     @products = Product.for_sale
     @categories = Product.categories
-  end
-
-  def update_dagschotel
-    @user.dagschotel = Product.find(params[:product_id])
-    @user.save
-
-    flash[:success] = "Succesfully updated dagschotel"
-    redirect_to @user
   end
 
   def quickpay
@@ -57,7 +39,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:avatar, :private)
+      params.require(:user).permit(:avatar, :private, :dagschotel_id)
     end
 
     def init

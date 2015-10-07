@@ -2,60 +2,81 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.big-form-button {
-  height: 65px;
-  width: 65px;
-}
-
-.form-control.big-form-field {
-  height: 65px;
-  text-align: center;
-}
-
-.form_row_image {
-  height: 100px;
-  width: 100px;
-  margin-left: auto;
-  margin-right: auto;
-  position: relative;
-  img {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    top: 0;
-    margin: auto;
+.barcode-wrapper {
+  font-size: 300%;
+  input {
+    width: 100%;
   }
 }
 
-.form_row input::-webkit-outer-spin-button,
-.form_row input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+#products_modal {
+  .modal-header {
+    h4 {
+      display: inline-block;
+    }
+    input {
+      margin-right: 20px;
+    }
+  }
 }
 
-.form_row .btn-lg {
-  padding: 10px 10px;
-}
-
-.form_row .caption {
-  h4 {
-    position: relative;
-    span {
+#product_buttons {
+  .col-md-2, .col-md-3 {
+    margin-bottom: 20px;
+  }
+  button.product {
+    width: 100%;
+    p {
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 100%;
-      display: inline-block;
-      padding-right: 50px;
     }
-    small {
-      margin-left: -45px;
-      position: absolute;
-      top: 5px;
+    img {
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
     }
   }
 }
 
-#order_price {
-  width: 50px;
+
+#current_order {
+  text-align: left;
+  border: 1px solid;
+  padding: 10px;
+  div.center {
+    margin-bottom: 20px;
+  }
+  .order_item_wrapper {
+    input {
+      border: none;
+      width: auto;
+    }
+  }
+  table {
+    border-top: 1px dashed;
+    border-collapse: separate;
+    margin-bottom: 15px;
+    td:first-child {
+      width: 40px;
+      input {
+        text-align: right;
+        width: 40px;
+      }
+    }
+    tr:last-child td {
+      border-top: 1px dashed;
+      padding-top: 10px;
+      margin-top: 10px;
+    }
+    tr.margin {
+      height: 10px;
+    }
+    td.euro {
+      text-align: right;
+      &::before {
+        content: "€";
+      }
+    }
+  }
 }

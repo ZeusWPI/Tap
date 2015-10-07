@@ -4,10 +4,14 @@ class Ability
   def initialize(user)
     return unless user
 
+    can :from_barcode, Product
+
     if user.admin?
       can :manage, :all
     elsif user.koelkast?
-      can :manage, Order
+      can :manage, Order do |order|
+        !order.try(:user).try(:private)
+      end
       can :quickpay, User
     else
       can :read, :all

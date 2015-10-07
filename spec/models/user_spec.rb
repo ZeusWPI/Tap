@@ -6,11 +6,6 @@
 #  created_at          :datetime
 #  updated_at          :datetime
 #  remember_created_at :datetime
-#  sign_in_count       :integer          default("0"), not null
-#  current_sign_in_at  :datetime
-#  last_sign_in_at     :datetime
-#  current_sign_in_ip  :string
-#  last_sign_in_ip     :string
 #  admin               :boolean
 #  dagschotel_id       :integer
 #  avatar_file_name    :string
@@ -31,5 +26,24 @@ describe User do
 
   it 'has a valid factory' do
     expect(@user).to be_valid
+  end
+
+  ############
+  #  FIELDS  #
+  ############
+
+  describe 'fields' do
+    describe 'avatar' do
+      it 'should be present' do
+        @user.avatar = nil
+        expect(@user).to_not be_valid
+      end
+    end
+
+    describe 'orders_count' do
+      it 'should automatically cache the number of orders' do
+        expect{ create :order, user: @user }.to change{ @user.reload.orders_count }.by(1)
+      end
+    end
   end
 end

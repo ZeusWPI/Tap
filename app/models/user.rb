@@ -6,11 +6,6 @@
 #  created_at          :datetime
 #  updated_at          :datetime
 #  remember_created_at :datetime
-#  sign_in_count       :integer          default("0"), not null
-#  current_sign_in_at  :datetime
-#  last_sign_in_at     :datetime
-#  current_sign_in_ip  :string
-#  last_sign_in_ip     :string
 #  admin               :boolean
 #  dagschotel_id       :integer
 #  avatar_file_name    :string
@@ -28,11 +23,13 @@ class User < ActiveRecord::Base
   include Statistics, Avatarable, FriendlyId
   friendly_id :name, use: :finders
 
-  devise :database_authenticatable, :omniauthable, :omniauth_providers => [:zeuswpi]
+  devise :omniauthable, :omniauth_providers => [:zeuswpi]
 
   has_many :orders, -> { includes :products }
   has_many :products, through: :orders
   belongs_to :dagschotel, class_name: 'Product'
+
+  validates :dagschotel, presence: true, if: -> { dagschotel_id }
 
   scope :members, -> { where koelkast: false }
   scope :publik,  -> { where private: false }

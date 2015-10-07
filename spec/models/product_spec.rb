@@ -26,23 +26,38 @@ describe Product do
     expect(@product).to be_valid
   end
 
-  describe 'validations' do
-    it 'name should be present' do
-      @product.name = ''
-      expect(@product).to_not be_valid
-    end
+  ############
+  #  FIELDS  #
+  ############
 
-    describe 'price' do
-      it 'should be positive' do
-        @product.price = -5
+  describe 'fields' do
+    describe 'name' do
+      it 'should be present' do
+        @product.name = nil
         expect(@product).to_not be_valid
       end
 
-      it 'should be saved correctly' do
-        @product.price = 1.20
-        @product.save
-        expect(@product.reload.price).to eq(1.20)
-        expect(@product.reload.price_cents).to eq(120)
+      it 'shold be unique' do
+        expect(build :product, name: @product.name).to_not be_valid
+      end
+    end
+
+    describe 'price_cents' do
+      it 'should be present' do
+        @product.price_cents = nil
+        expect(@product).to_not be_valid
+      end
+
+      it 'should be a number' do
+        @product.price_cents = "123abc"
+        expect(@product).to_not be_valid
+      end
+
+      it 'should be strict positive' do
+        @product.price = -5
+        expect(@product).to_not be_valid
+        @product.price = 0
+        expect(@product).to_not be_valid
       end
     end
 
@@ -55,11 +70,13 @@ describe Product do
       it 'should be positive' do
         @product.stock = -5
         expect(@product).to_not be_valid
+        @product.stock = 0
+        expect(@product).to be_valid
       end
     end
 
     describe 'calories' do
-      it 'should not be present' do
+      it 'does not have to be present' do
         @product.calories = nil
         expect(@product).to be_valid
       end
@@ -70,9 +87,28 @@ describe Product do
       end
     end
 
-    it 'avatar should be present' do
-      @product.avatar = nil
-      expect(@product).to_not be_valid
+    describe 'avatar' do
+      it 'should be present' do
+        @product.avatar = nil
+        expect(@product).to_not be_valid
+      end
     end
   end
+
+  #############
+  #  METHODS  #
+  #############
+
+  describe 'price' do
+    it 'should read the correct value' do
+      expect(@product.price).to eq(@product.price_cents / 100.0)
+    end
+
+    it 'should write the correct value' do
+      @product.price = 1.5
+      @product.save
+      expect(@product.reload.price_cents).to eq(150)
+    end
+  end
+
 end

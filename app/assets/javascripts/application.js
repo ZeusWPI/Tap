@@ -15,3 +15,12 @@
 //= require bootstrap
 //= require turbolinks
 //= require_tree .
+
+parseIntNaN = function(value) {
+  parsed_value = parseInt(value, 10);
+  if (isNaN(parsed_value)) {
+    return 0;
+  } else {
+    return parsed_value;
+  }
+}

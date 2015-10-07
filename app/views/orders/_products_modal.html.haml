@@ -1,0 +1,19 @@
+#products_modal.modal{ tabindex: -1 }
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %button.close{ data: { dismiss: :modal } }
+          %span &times;
+        %h4.modal-title Kies een product
+        .col-xs-3.pull-right
+          %input#product_search.form-control{ placeholder: "Search" }
+      .modal-body
+        #product_buttons.container-fluid
+          - @products.each do |product|
+            .col-md-2{ data: { name: product.name } }
+              %button.btn.btn-default.product{ data: { product: product.id, dismiss: :modal } }
+                %p= product.name
+                = image_tag product.avatar(:dagschotel), class: "center"
+      .modal-footer
+        %button.btn.btn-default{ data: { dismiss: :modal } }
+          Close

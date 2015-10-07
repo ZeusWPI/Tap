@@ -21,10 +21,12 @@ class Product < ActiveRecord::Base
   include Avatarable
 
   has_many :order_items
+  has_many :barcodes
+  accepts_nested_attributes_for :barcodes
 
   enum category: %w(food beverages other)
 
-  validates :name,        presence: true
+  validates :name,        presence: true, uniqueness: true
   validates :price_cents, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :stock,       presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :calories,    numericality: { only_integer: true, allow_nil: true, greater_than_or_equal_to: 0 }
@@ -38,9 +40,5 @@ class Product < ActiveRecord::Base
   def price=(value)
     if value.is_a? String then value.sub!(',', '.') end
     self.price_cents = (value.to_f * 100).to_int
-  end
-
-  def take_out_of_sale!
-    update_attribute :deleted, true
   end
 end
