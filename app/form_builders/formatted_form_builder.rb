@@ -37,7 +37,12 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
     options[:value] = number_with_precision(options[:value], precision: 2)
 
     form_group_builder(name, options) do
-      number_field_without_format(name, options)
+      content_tag :div, class: "input-group" do
+        content_tag(:span, class: "input-group-addon") do
+          content_tag :span, nil, class: "glyphicon glyphicon-euro"
+        end +
+        number_field_without_format(name, options)
+      end
     end
   end
 

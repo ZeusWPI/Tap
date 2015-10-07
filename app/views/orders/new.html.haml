@@ -1,17 +1,18 @@
-.center
-  .row
-    .col-md-6.col-md-offset-1.barcode-wrapper
+.row
+  .col-md-6.col-md-offset-1.barcode-wrapper
+    .center
       %h1 Order for #{@user.name}
       = form_tag nil, id: "from_barcode_form" do
         %input.center-block{ type: :number, name: :id, autofocus: true }
       = "- OR -"
       %button.btn.btn-default.center-block{ data: { toggle: :modal, target: "#products_modal" } }
         Select Product Without Barcode
-    .col-md-4.col-md-offset-1
+  .col-md-4.col-md-offset-1
+    = form_for [@user, @order] do |f|
+      = render 'errors', object: @order
       #current_order
         .div.center
           = image_tag "logo.png"
-        = form_for [@user, @order] do |f|
           %table
             %tr.margin
             = f.fields_for :order_items do |ff|
