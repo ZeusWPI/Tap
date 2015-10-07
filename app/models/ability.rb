@@ -4,7 +4,7 @@ class Ability
   def initialize(user)
     return unless user
 
-    can :from_barcode, Product
+    can :read, Barcode
 
     if user.admin?
       can :manage, :all
