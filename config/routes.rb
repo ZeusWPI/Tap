@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     get 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
-    post 'sign_in', to: 'welcome#token_sign_in'
+    get 'sign_in', to: 'welcome#token_sign_in'
     unauthenticated :user do
       root to: 'welcome#index'
     end
