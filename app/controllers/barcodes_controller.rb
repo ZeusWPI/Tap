@@ -8,6 +8,7 @@ class BarcodesController < ApplicationController
   end
 
   def show
+    @barcode = Barcode.find_by(code: params[:id])
     render json: @barcode.product
   end
 
