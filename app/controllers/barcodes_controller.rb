@@ -9,7 +9,7 @@ class BarcodesController < ApplicationController
 
   def show
     @barcode = Barcode.find_by(code: params[:id])
-    render json: @barcode.product
+    render json: @barcode.try(:product)
   end
 
   private
