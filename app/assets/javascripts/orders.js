@@ -51,7 +51,7 @@ ready = function() {
     event.preventDefault();
     barcode = $(this).find("input[type=number]").val();
     $.ajax({
-      url: "/barcodes/" + barcode,
+      url: "/tap/barcodes/" + barcode,
       success: function(data) {
         increment_product(data["id"]);
         $("#from_barcode_form")[0].reset();
