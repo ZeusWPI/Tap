@@ -1,5 +1,6 @@
 class BarcodesController < ApplicationController
-  load_and_authorize_resource :barcode, shallow: true
+  load_and_authorize_resource :product
+  load_and_authorize_resource :barcode, through: :product
 
   def create
     @barcode.save
