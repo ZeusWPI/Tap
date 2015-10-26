@@ -33,6 +33,14 @@ class Order < ActiveRecord::Base
     }.to_sentence
   end
 
+  def deletable
+    self.created_at > Rails.application.config.call_api_after.ago
+  end
+
+  def sec_until_remove
+    self.created_at.to_i - (Time.now - Rails.application.config.call_api_after).to_i
+  end
+
   private
 
     def calculate_price

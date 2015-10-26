@@ -19,8 +19,8 @@ class Ability
       can :create, Order do |order|
         order.try(:user) == user
       end
-      can :delete, Order do |order|
-        order.try(:user) == user && order.created_at > Rails.application.config.call_api_after.ago
+      can :destroy, Order do |order|
+        order.try(:user) == user && order.deletable
       end
     end
   end

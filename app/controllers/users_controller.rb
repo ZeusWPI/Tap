@@ -29,7 +29,7 @@ class UsersController < ApplicationController
     order = @user.orders.build
     order.order_items.build(count: 1, product: @user.dagschotel)
     if order.save
-      flash[:success] = "Quick pay succeeded. #{view_context.link_to("Undo", [@user, order], method: :delete)}."
+      flash[:success] = "Quick pay succeeded."
     else
       flash[:error] = order.errors.full_messages.first
     end

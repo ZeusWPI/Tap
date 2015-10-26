@@ -8,7 +8,7 @@
     .alert.alert-success.alert-dismissable
       %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", type: "button"} ×
       %strong Success!
-      = raw flash[:success]
+      = flash[:success]
   - if flash[:notice]
     .alert.alert-info.alert-dismissable
       %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", type: "button"} ×

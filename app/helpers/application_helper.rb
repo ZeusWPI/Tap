@@ -10,7 +10,11 @@ module ApplicationHelper
   end
 
   def euro_from_cents(f)
-    euro(f / 100.0)
+    if f
+      euro(f / 100.0)
+    else
+      "undefined"
+    end
   end
 
   def euro(f)
