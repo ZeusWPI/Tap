@@ -51,9 +51,8 @@ class User < ActiveRecord::Base
 
       if result.code == 200
         JSON.parse(result.body)["balance"]
-      else
-        0
       end
+    rescue
     end
   end
 end
