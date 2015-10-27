@@ -26,12 +26,14 @@ Rails.application.routes.draw do
   end
 
   resources :products, only: [:create, :index, :edit, :update] do
-    resources :barcodes, only: [:create, :show], shallow: true
+    resources :barcodes, only: :create
     collection do
       get 'barcode' => 'products#barcode', as: :barcode
       post 'barcode' => 'products#load_barcode', as: :load_barcode
     end
   end
+
+  resources :barcodes, only: [:show, :index, :destroy]
 
   get 'overview' => 'orders#overview', as: "orders"
 end
