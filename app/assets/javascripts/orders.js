@@ -50,11 +50,16 @@ ready = function() {
   $("#from_barcode_form").submit(function(event) {
     event.preventDefault();
     barcode = $(this).find("input[type=number]").val();
+    $("#from_barcode_form")[0].reset();
     $.ajax({
-      url: "/tap/barcodes/" + barcode,
+      url: "/barcodes/" + barcode,
       success: function(data) {
-        increment_product(data["id"]);
-        $("#from_barcode_form")[0].reset();
+        if (data != null) {
+          increment_product(data["id"]);
+          $("#from_barcode_form")[0].reset();
+        } else {
+          alert("Barcode '" + barcode + "' was not found in the database system.");
+        }
       },
       dataMethod: "json"
     }).fail(function() {
