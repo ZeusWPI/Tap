@@ -2,7 +2,7 @@
   .col-md-6.col-md-offset-1.barcode-wrapper
     .center
       %h1 Order for #{@user.name}
-      = form_tag nil, id: "from_barcode_form" do
+      = form_tag nil, id: "from_barcode_form", data: { url: URI.join(root_url, "barcodes").to_s } do
         %input.center-block{ type: :number, name: :id, autofocus: true }
       = "- OR -"
       %button.btn.btn-default.center-block{ data: { toggle: :modal, target: "#products_modal" } }
