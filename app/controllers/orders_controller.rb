@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   load_resource :user
-  load_and_authorize_resource :order, through: :user
+  load_and_authorize_resource :order, through: :user, shallow: true
 
   def new
     @products = Product.all.for_sale.order(:name)
