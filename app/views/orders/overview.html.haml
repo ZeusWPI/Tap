@@ -1,4 +1,11 @@
 .warning.center
   %h1 TESTFASE | GELIEVE STREEPJES TE BLIJVEN ZETTEN | TESTFASE
 .row
-  = render @users
+  .col-md-1
+    %h5 Recent
+    #last
+      - @last.each do |user|
+        = image_tag user.avatar(:small), class: "img-responsive img-circle img-thumbnail"
+  .col-md-11
+    .row
+    = render @users

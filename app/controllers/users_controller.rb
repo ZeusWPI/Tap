@@ -29,11 +29,22 @@ class UsersController < ApplicationController
     order = @user.orders.build
     order.order_items.build(count: 1, product: @user.dagschotel)
     if order.save
-      flash[:success] = "Quick pay succeeded."
+      respond_to do |format|
+        format.js { head :ok }
+        format.html {
+          flash[:success] = "Quick pay succeeded."
+          redirect_to root_path
+        }
+      end
     else
-      flash[:error] = order.errors.full_messages.first
+      respond_to do |format|
+        format.js { head :unprocessable_entity }
+        format.html {
+          flash[:error] = order.errors.full_messages.first
+          redirect_to root_path
+        }
+      end
     end
-    redirect_to root_path
   end
 
   private

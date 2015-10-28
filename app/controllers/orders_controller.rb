@@ -25,6 +25,7 @@ class OrdersController < ApplicationController
 
   def overview
     @users = User.members.publik.order(:name)
+    @last = Order.order(:created_at).reverse_order.includes(:user).limit(10).map(&:user)
   end
 
   private
