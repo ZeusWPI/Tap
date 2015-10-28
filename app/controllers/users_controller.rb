@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     order.order_items.build(count: 1, product: @user.dagschotel)
     if order.save
       respond_to do |format|
-        format.js { head :ok }
+        format.js { render json: { message: "Quick pay succeeded for #{@user.name}." }, status: :ok }
         format.html {
           flash[:success] = "Quick pay succeeded."
           redirect_to root_path
