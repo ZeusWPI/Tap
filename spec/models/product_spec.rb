@@ -67,6 +67,11 @@ describe Product do
         expect(@product).to_not be_valid
       end
 
+      it 'should be a number' do
+        @product.stock = "123abc"
+        expect(@product).to_not be_valid
+      end
+
       it 'should be positive' do
         @product.stock = -5
         expect(@product).to_not be_valid
@@ -81,6 +86,11 @@ describe Product do
         expect(@product).to be_valid
       end
 
+      it 'should be a number' do
+        @product.calories = "123abc"
+        expect(@product).to_not be_valid
+      end
+
       it 'should be positive' do
         @product.calories = -5
         expect(@product).to_not be_valid
@@ -91,6 +101,12 @@ describe Product do
       it 'should be present' do
         @product.avatar = nil
         expect(@product).to_not be_valid
+      end
+    end
+
+    describe 'deleted' do
+      it 'should default false' do
+        expect(@product.deleted).to be false
       end
     end
   end
@@ -111,4 +127,15 @@ describe Product do
     end
   end
 
+  ###########
+  #  SCOPE  #
+  ###########
+
+  describe 'for sale' do
+    it 'should return non-deleted products' do
+      product = create :product
+      product.update_attribute(:deleted, true)
+      expect(Product.for_sale).to eq([@product])
+    end
+  end
 end
