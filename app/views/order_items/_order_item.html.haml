@@ -10,6 +10,5 @@
           = content_tag :span, product.name
           = content_tag :small, euro(product.price)
         = f.counter :count, min: 0, max: product.stock, skip_label: true, wrapper_class: "input-group", class: "row_counter", data: { price: f.object.product.price_cents }
-        = f.input :product_id
-        -# = f.fields_for :product do |product|
-          -# / This is needed for haml
+        = f.fields_for :product do |product|
+          / This is needed for haml

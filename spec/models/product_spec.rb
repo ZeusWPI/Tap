@@ -127,9 +127,9 @@ describe Product do
     end
   end
 
-  ###########
-  #  SCOPE  #
-  ###########
+  ############
+  #  SCOPES  #
+  ############
 
   describe 'for sale' do
     it 'should return non-deleted products' do
