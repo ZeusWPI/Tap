@@ -19,8 +19,7 @@
               %tr.order_item_wrapper{ data: { product: ff.object.product.id, price: ff.object.product.price_cents } }
                 %td
                   = ff.number_field :count
-                  = ff.fields_for :product do |fff|
-                    / Needed for haml
+                  = ff.hidden_field :product_id
                 %td
                   x
                 %td

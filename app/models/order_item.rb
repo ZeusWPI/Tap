@@ -20,17 +20,6 @@ class OrderItem < ActiveRecord::Base
   before_destroy :put_back_in_stock!
   after_create :remove_from_stock!
 
-  accepts_nested_attributes_for :product
-
-  def product_attributes=(attributes)
-    self.product = OrderItem.products.select{ |p| p.id == attributes[:id].to_i }.first
-    super
-  end
-
-  def self.products
-    @products || Product.all
-  end
-
   private
 
     def remove_from_stock!

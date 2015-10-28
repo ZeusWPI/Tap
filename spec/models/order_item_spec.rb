@@ -44,7 +44,7 @@ describe OrderItem do
       it 'should be less or equal to product stock' do
         @order_item.count = @order_item.product.stock + 1
         expect(@order_item).to_not be_valid
-        @order_item.count = @order_item.product.stock
+        @order_item.count = [@order_item.product.stock, 100].min
         expect(@order_item).to be_valid
       end
     end
