@@ -6,7 +6,7 @@ class Ability
 
     initialize_admin if user.admin?
     initialize_koelkast if user.koelkast?
-    initialize_user
+    initialize_user(user)
 
     can :read, Barcode
   end
@@ -22,7 +22,7 @@ class Ability
     can :quickpay, User
   end
 
-  def initialize_user
+  def initialize_user(user)
     can :read, :all
     can :manage, User, id: user.id
     can :create, Order do |order|
