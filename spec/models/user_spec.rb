@@ -45,5 +45,35 @@ describe User do
         expect{ create :order, user: @user }.to change{ @user.reload.orders_count }.by(1)
       end
     end
+
+    describe 'admin' do
+      it 'should be false by default' do
+        expect(@user.reload.admin).to be false
+      end
+    end
+
+    describe 'koelkast' do
+      it 'should be false by default' do
+        expect(@user.reload.koelkast).to be false
+      end
+    end
+  end
+
+  ############
+  #  SCOPES  #
+  ############
+
+  describe 'scopes' do
+    it 'members should return members' do
+      create :koelkast
+      user = create :user
+      expect(User.members).to eq([@user, user])
+    end
+
+    it 'publik should return publik members' do
+      user = create :user
+      create :user, private: true
+      expect(User.publik).to eq([@user, user])
+    end
   end
 end

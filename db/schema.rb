@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150919091214) do
+ActiveRecord::Schema.define(version: 20151028223229) do
 
   create_table "barcodes", force: :cascade do |t|
     t.integer  "product_id"
@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 20150919091214) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "remember_created_at"
-    t.boolean  "admin"
+    t.boolean  "admin",               default: false
     t.integer  "dagschotel_id"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
