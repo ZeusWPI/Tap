@@ -25,9 +25,7 @@ class Ability
   def initialize_user(user)
     can :read, :all
     can :manage, User, id: user.id
-    can :create, Order do |order|
-      order.try(:user) == user
-    end
+    can :create, Order, user: user
     can :destroy, Order do |order|
       order.try(:user) == user && order.deletable
     end
