@@ -144,8 +144,8 @@ describe UsersController, type: :controller do
       end
 
       it 'should fail' do
-          get :quickpay, id: @user
-        expect(response).to have_http_status(302)
+        xhr :get, :quickpay, id: @user
+        expect(response).to have_http_status(422)
       end
 
       it 'should not make an order' do
