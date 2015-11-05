@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: barcodes
+#
+#  id         :integer          not null, primary key
+#  product_id :integer
+#  code       :string           default(""), not null
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 describe Barcode do
   before :each do
     @barcode = create :barcode
@@ -21,6 +32,13 @@ describe Barcode do
       it 'should be unique' do
         barcode = build :barcode, code: @barcode.code
         expect(barcode).to_not be_valid
+      end
+    end
+
+    describe 'product' do
+      it 'should be present' do
+        @barcode.product = nil
+        expect(@barcode).to_not be_valid
       end
     end
   end

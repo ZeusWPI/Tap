@@ -24,8 +24,9 @@ require 'identicon'
 
 FactoryGirl.define do
   factory :user do
-    name   { Faker::Name.name }
-    avatar { Identicon.data_url_for name }
+    name    { Faker::Name.name }
+    avatar  { Identicon.data_url_for name }
+    private { false }
 
     factory :admin do
       admin true

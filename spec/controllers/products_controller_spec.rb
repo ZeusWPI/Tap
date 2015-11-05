@@ -1,34 +1,16 @@
-# from_barcode_products POST     /products/barcode(.:format)                 products#from_barcode
-#              products GET      /products(.:format)                         products#index
-#                       POST     /products(.:format)                         products#create
-#           new_product GET      /products/new(.:format)                     products#new
-#          edit_product GET      /products/:id/edit(.:format)                products#edit
-#               product PATCH    /products/:id(.:format)                     products#update
-#                       PUT      /products/:id(.:format)                     products#update
+#      barcode_products GET      /products/barcode(.:format)              products#barcode
+# load_barcode_products POST     /products/barcode(.:format)              products#load_barcode
+#              products GET      /products(.:format)                      products#index
+#                       POST     /products(.:format)                      products#create
+#          edit_product GET      /products/:id/edit(.:format)             products#edit
+#               product PATCH    /products/:id(.:format)                  products#update
+#                       PUT      /products/:id(.:format)                  products#update
 #
 
 describe ProductsController, type: :controller do
   before :each do
     @admin = create :admin
     sign_in @admin
-  end
-
-  #########
-  #  NEW  #
-  #########
-
-  describe 'GET new' do
-    it 'should render the form' do
-      get :new
-      expect(response).to render_template(:new)
-      expect(response).to have_http_status(200)
-    end
-
-    it 'should initialize a new product' do
-      get :new
-      expect(assigns(:product).class).to eq(Product)
-      expect(assigns(:product)).to_not be_persisted
-    end
   end
 
   ##########
@@ -43,7 +25,7 @@ describe ProductsController, type: :controller do
         }.to change{ Product.count }.by(1)
       end
 
-      it 'should redirect to index page' do
+      it 'should redirect to barcode page' do
         post :create, product: attributes_for(:product)
         expect(response).to redirect_to action: :barcode
       end
@@ -82,16 +64,18 @@ describe ProductsController, type: :controller do
   describe 'GET edit' do
     before :each do
       @product = create :product
+      get :edit, id: @product
     end
 
-    it 'should render the correct form' do
-      get :edit, id: @product
-      expect(response).to render_template(:edit)
+    it 'should be successful' do
       expect(response).to have_http_status(200)
     end
 
+    it 'should render the correct form' do
+      expect(response).to render_template(:edit)
+    end
+
     it 'should load the correct product' do
-      get :edit, id: @product
       expect(assigns :product).to eq(@product)
     end
   end
@@ -106,7 +90,7 @@ describe ProductsController, type: :controller do
     end
 
     it 'loads right product' do
-      put :edit, id: @product, product: attributes_for(:product)
+      put :update, id: @product, product: attributes_for(:product)
       expect(assigns :product).to eq(@product)
     end
 
@@ -119,23 +103,69 @@ describe ProductsController, type: :controller do
 
     context 'failed' do
       it 'should not update attributes' do
-        old_attributes = @product.attributes
+        old_price = @product.price
         put :update, id: @product, product: attributes_for(:invalid_product)
-        expect(@product.reload.attributes).to eq(old_attributes)
+        expect(@product.reload.price).to eq(old_price)
       end
     end
   end
 
+  #############
+  #  BARCODE  #
+  #############
+
+  describe 'GET barcode' do
+    it 'should be successful' do
+      expect(response).to have_http_status(200)
+    end
+  end
+
   ##################
-  #  FROM_BARCODE  #
+  #  LOAD_BARCODE  #
   ##################
 
-  describe 'POST from_barcode' do
-    it 'should return a product when barcode in database' do
-      product = create :product
-      bar = create :barcode, product: product
-      post :from_barcode, barcode: bar.code
-      expect(JSON.parse(response.body)["id"]).to eq(product.id)
+  describe 'POST load_barcode' do
+    describe 'new barcode' do
+      before :each do
+        @code = attributes_for(:barcode)[:code].to_s
+        post :load_barcode, barcode: @code
+      end
+
+      it 'should be successful' do
+        expect(response).to have_http_status(200)
+      end
+
+      it 'should be render the link partial' do
+        expect(response).to render_template(:link)
+      end
+
+      it 'should allow building a new product' do
+        expect(assigns(:product).id).to be nil
+      end
+
+      it 'should have a barcode built for the new product' do
+        barcode = assigns(:product).barcodes.first
+        expect(barcode.code).to eq @code
+      end
+    end
+
+    describe 'existing barcode' do
+      before :each do
+        @barcode = create :barcode
+        post :load_barcode, barcode: @barcode.code
+      end
+
+      it 'should be successful' do
+        expect(response).to have_http_status(200)
+      end
+
+      it 'should be render the stock_entry partial' do
+        expect(response).to render_template(:stock_entry)
+      end
+
+      it 'should have the correct product loaded' do
+        expect(assigns :product).to eq @barcode.product
+      end
     end
   end
 end

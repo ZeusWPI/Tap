@@ -26,7 +26,10 @@ describe Order do
 
   describe 'fields' do
     describe 'user' do
-      it { Order.reflect_on_association(:user).macro.should eq(:belongs_to) }
+      it 'should be an association' do
+        expect(Order.reflect_on_association(:user).macro).to eq(:belongs_to)
+      end
+
       it 'should be present' do
         @order.user = nil
         expect(@order).to_not be_valid
@@ -74,4 +77,24 @@ describe Order do
     end
   end
 
+  #############
+  #  HELPERS  #
+  #############
+
+  describe 'deletable' do
+    it 'should be true' do
+      @order.created_at = Rails.application.config.call_api_after.ago + 2.minutes
+      expect(@order.deletable).to be true
+    end
+
+    it 'should be false' do
+      @order.created_at = Rails.application.config.call_api_after.ago - 2.minutes
+      expect(@order.deletable).to be false
+    end
+  end
+
+  it 'sec_until_remove should return a number of seconds' do
+    @order.created_at = Rails.application.config.call_api_after.ago + 2.minutes
+    expect((@order.sec_until_remove - 120).abs).to be < 10
+  end
 end
