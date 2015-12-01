@@ -9,7 +9,7 @@ class OrdersController < ApplicationController
 
   def create
     if @order.save
-      flash[:success] = "#{@order.to_sentence} ordered. Enjoy it!"
+      flash[:success] = @order.flash_success
       redirect_to root_path
     else
       @products = Product.all.for_sale.order(:name)

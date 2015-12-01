@@ -13,5 +13,9 @@ FactoryGirl.define do
   factory :barcode do
     product
     sequence :code
+
+    factory :invalid_barcode do
+      code nil
+    end
   end
 end

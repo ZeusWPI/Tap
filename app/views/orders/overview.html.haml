@@ -7,5 +7,7 @@
       - @last.each do |user|
         = image_tag user.avatar(:small), class: "img-responsive img-circle img-thumbnail"
   .col-md-11
+    .row.text-center
+      =link_to "Not a Zeus Account? Order as a guest.", new_guest_order_path, class: "btn btn-primary btn-lg"
     .row
     = render @users

@@ -36,4 +36,8 @@ Rails.application.routes.draw do
   resources :barcodes, only: [:show, :index, :destroy]
 
   get 'overview' => 'orders#overview', as: "orders"
+
+  namespace :guest do
+    resources :orders, only: [:new, :create]
+  end
 end
