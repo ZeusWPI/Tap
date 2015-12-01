@@ -24,6 +24,7 @@ describe User do
       it{ should be_able_to(:destroy, Order.new(user: user, created_at: (Rails.application.config.call_api_after - 1.minutes).ago)) }
       it{ should_not be_able_to(:destroy, Order.new(user: user, created_at: 10.minutes.ago)) }
       it{ should_not be_able_to(:create, Order.new) }
+      it{ should_not be_able_to(:create, Order.new(user: create(:user))) }
       it{ should_not be_able_to(:update, Order.new) }
 
       it{ should be_able_to(:read, Product.new) }
