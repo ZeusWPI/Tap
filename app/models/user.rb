@@ -55,4 +55,10 @@ class User < ActiveRecord::Base
     rescue
     end
   end
+
+  def self.guest
+    @guest || find_or_create_by(name: "Guest") do |user|
+      user.avatar = File.new(File.join("app", "assets", "images", "guest.png"))
+    end
+  end
 end

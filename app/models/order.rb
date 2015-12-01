@@ -11,7 +11,7 @@
 #
 
 class Order < ActiveRecord::Base
-  include ActionView::Helpers::TextHelper
+  include ActionView::Helpers::TextHelper, ApplicationHelper
 
   belongs_to :user, counter_cache: true
   has_many :order_items, dependent: :destroy
@@ -19,7 +19,7 @@ class Order < ActiveRecord::Base
 
   before_validation :calculate_price
   before_save { |o| o.order_items = o.order_items.reject{ |oi| oi.count == 0 } }
-  after_create :create_api_job
+  after_create :create_api_job, unless: -> { user.name == "Guest" }
 
   validates :user, presence: true
   validates_associated :order_items
@@ -31,6 +31,12 @@ class Order < ActiveRecord::Base
     self.order_items.map {
       |oi| pluralize(oi.count, oi.product.name)
     }.to_sentence
+  end
+
+  def flash_success
+    f = "#{to_sentence} ordered."
+    f << " Please put #{euro_from_cents(price_cents)} in our pot!" if user.name == "Guest"
+    f << " Enjoy it!"
   end
 
   def deletable
