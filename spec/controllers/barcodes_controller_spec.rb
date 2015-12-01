@@ -6,6 +6,7 @@
 
 describe BarcodesController, type: :controller do
   before :each do
+    @product = create :product
     @admin = create :admin
     sign_in @admin
   end
@@ -13,9 +14,23 @@ describe BarcodesController, type: :controller do
   ##########
   #  POST  #
   ##########
-  #
-  describe 'POST create' do
 
+  describe 'POST create' do
+    context 'successful' do
+      it 'should create a barcode' do
+        expect{
+          post :create, product_id: @product, barcode: attributes_for(:barcode)
+        }.to change{ Barcode.count }.by(1)
+      end
+    end
+
+    context 'failed' do
+      it 'should not create a barcode' do
+        expect{
+          post :create, product_id: @product, barcode: attributes_for(:invalid_barcode)
+        }.to_not change{ Barcode.count }
+      end
+    end
   end
 
   ###########
@@ -23,7 +38,11 @@ describe BarcodesController, type: :controller do
   ###########
 
   describe 'GET index' do
-
+    it 'should load all the barcodes' do
+      barcode = create :barcode
+      get :index
+      expect(assigns(:barcodes)).to eq([barcode])
+    end
   end
 
   ##########
@@ -31,6 +50,23 @@ describe BarcodesController, type: :controller do
   ##########
 
   describe 'GET show' do
+    before :each do
+      @barcode = create :barcode
+    end
 
+    it 'should load the correct barcode' do
+      get :show, id: @barcode
+      expect(assigns(:barcode)).to eq(@barcode)
+    end
+
+    it 'should allow friendly id' do
+      get :show, id: @barcode.code
+      expect(assigns(:barcode)).to eq(@barcode)
+    end
+
+    it 'should respond with this barcode' do
+      get :show, id: @barcode
+      expect(response.body).to eq @barcode.product.to_json
+    end
   end
 end

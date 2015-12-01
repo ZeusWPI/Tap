@@ -13,12 +13,12 @@ describe ProductsController, type: :controller do
     sign_in @admin
   end
 
-  ##########
-  #  POST  #
-  ##########
+  ############
+  #  CREATE  #
+  ############
 
   describe 'POST create' do
-    context 'successfull' do
+    context 'successful' do
       it 'should create a product' do
         expect{
           post :create, product: attributes_for(:product)
@@ -35,7 +35,7 @@ describe ProductsController, type: :controller do
       it 'should not create a product' do
         expect{
           post :create, product: attributes_for(:invalid_product)
-        }.to_not change{Product.count}
+        }.to_not change{ Product.count}
       end
 
       it 'should render form' do
