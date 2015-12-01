@@ -61,4 +61,8 @@ class User < ActiveRecord::Base
       user.avatar = File.new(File.join("app", "assets", "images", "guest.png"))
     end
   end
+
+  def guest?
+    self == User.guest
+  end
 end
