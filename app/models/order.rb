@@ -19,7 +19,7 @@ class Order < ActiveRecord::Base
 
   before_validation :calculate_price
   before_save { |o| o.order_items = o.order_items.reject{ |oi| oi.count == 0 } }
-  after_create :create_api_job, unless: -> { user.name == "Guest" }
+  after_create :create_api_job, unless: -> { user.guest? }
 
   validates :user, presence: true
   validates_associated :order_items
@@ -35,7 +35,7 @@ class Order < ActiveRecord::Base
 
   def flash_success
     f = "#{to_sentence} ordered."
-    f << " Please put #{euro_from_cents(price_cents)} in our pot!" if user.name == "Guest"
+    f << " Please put #{euro_from_cents(price_cents)} in our pot!" if user.guest?
     f << " Enjoy it!"
   end
 
