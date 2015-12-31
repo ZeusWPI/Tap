@@ -55,7 +55,7 @@ group :development, :test do
 end
 
 # Airbrake
-gem 'airbrake'
+gem 'airbrake', '~> 4'
 
 # Paginate stuff
 gem 'will_paginate',           '3.0.7'
@@ -66,7 +66,7 @@ gem 'paperclip'
 
 # Use devise for users and admins
 gem 'devise'
-gem 'omniauth-oauth2'
+gem 'omniauth-oauth2', '1.3.1'
 
 # Use cancancan for authorization
 gem 'cancancan'
