@@ -21,7 +21,7 @@ class Product < ActiveRecord::Base
   include Avatarable
 
   has_many :order_items
-  has_many :barcodes
+  has_many :barcodes, dependent: :destroy
   accepts_nested_attributes_for :barcodes
 
   enum category: %w(food beverages other)
