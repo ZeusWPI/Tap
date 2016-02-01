@@ -56,6 +56,8 @@ class User < ActiveRecord::Base
     end
   end
 
+  # Static Users
+
   def self.guest
     @guest || find_or_create_by(name: "Guest") do |user|
       user.avatar = File.new(File.join("app", "assets", "images", "guest.png"))
@@ -64,5 +66,12 @@ class User < ActiveRecord::Base
 
   def guest?
     self == User.guest
+  end
+
+  def self.koelkast
+    @koelkast || find_or_create_by(name: "Koelkast") do |user|
+      user.avatar   = File.new(File.join("app", "assets", "images", "logo.png"))
+      user.koelkast = true
+    end
   end
 end

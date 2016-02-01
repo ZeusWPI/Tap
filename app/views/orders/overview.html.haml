@@ -1,13 +1,12 @@
-.warning.center
-  %h1 TESTFASE | GELIEVE STREEPJES TE BLIJVEN ZETTEN | TESTFASE
 .row
   .col-md-1
-    %h5 Recent
-    #last
-      - @last.each do |user|
-        = image_tag user.avatar(:small), class: "img-responsive img-circle img-thumbnail"
+    - unless @last.empty?
+      %h5 Recent
+      #last
+        - @last.each do |user|
+          = image_tag user.avatar(:small), class: "img-responsive img-circle img-thumbnail"
   .col-md-11
-    .row.text-center
-      =link_to "Not a Zeus Account? Order as a guest.", new_guest_order_path, class: "btn btn-primary btn-lg"
+    .row.text-center.guest
+      =link_to "Not a Zeus Account? Order as a guest.", new_guest_order_path, class: "btn btn-default btn-lg"
     .row
     = render @users

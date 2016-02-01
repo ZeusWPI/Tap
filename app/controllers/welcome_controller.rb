@@ -8,9 +8,9 @@ class WelcomeController < ApplicationController
     if user_signed_in? || params[:token] != Rails.application.secrets.koelkast_token
       redirect_to root_path
       return
-    else
-      koelkast = User.find_by(name: "koelkast")
-      sign_in_and_redirect koelkast
     end
+
+    koelkast = User.koelkast
+    sign_in_and_redirect koelkast
   end
 end
