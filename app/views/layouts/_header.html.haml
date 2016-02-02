@@ -32,6 +32,7 @@
                 %li= link_to "Edit profile", edit_user_path(current_user)
             %li
               %p.navbar-text
-                Balance: #{euro_from_cents(current_user.balance)}
+                Balance: 
+                = link_to euro_from_cents(current_user.balance), "https://zeus.ugent.be/tab/users/#{current_user.name}"
         .visible-xs.navbar-form
           = render 'layouts/session_button'
