@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   load_resource :user
-  load_and_authorize_resource :order, through: :user, shallow: true
+  load_and_authorize_resource :order, through: :user, shallow: true, only: [:overview, :destroy]
+  load_and_authorize_resource :order, through: :user, only: [:new, :create]
 
   def new
     @products = Product.all.for_sale.order(:name)
@@ -8,6 +9,7 @@ class OrdersController < ApplicationController
   end
 
   def create
+    @order.user = @user
     if @order.save
       flash[:success] = @order.flash_success
       redirect_to root_path

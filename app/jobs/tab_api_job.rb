@@ -19,6 +19,12 @@ TabApiJob = Struct.new(:order_id) do
     end
   end
 
+  def headers
+    {
+        "Authorization" => "Token token=#{Rails.application.secrets.tab_api_key}"
+    }
+  end
+
   def error(job, exception)
     Airbrake.notify(exception)
   end

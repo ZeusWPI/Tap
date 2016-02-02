@@ -21,6 +21,6 @@ module Tab002
     # config.i18n.default_locale = :de
     config.active_record.raise_in_transactional_callbacks = true
     config.active_job.queue_adapter = :delayed_job
-    config.call_api_after = 5.minutes
+    config.call_api_after = 5.seconds
   end
 end

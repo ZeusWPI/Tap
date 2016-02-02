@@ -15,6 +15,5 @@ class Barcode < ActiveRecord::Base
 
   belongs_to :product
 
-  validates :product, presence: true
   validates :code,    presence: true, uniqueness: true
 end
