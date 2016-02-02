@@ -55,13 +55,6 @@ describe Order do
         expect(@order).to_not be_valid
       end
     end
-
-    describe 'products' do
-      it 'should be present' do
-        @order.products.clear
-        expect(@order).to_not be_valid
-      end
-    end
   end
 
   ###############
