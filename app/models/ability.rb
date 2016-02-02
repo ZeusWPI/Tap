@@ -4,7 +4,7 @@ class Ability
   def initialize(user)
     return unless user
 
-    initialize_admin if user.admin?
+    initialize_admin    if user.admin?
     initialize_koelkast if user.koelkast?
     initialize_user(user)
 
