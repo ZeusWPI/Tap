@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151028223229) do
+ActiveRecord::Schema.define(version: 20160202133903) do
 
   create_table "barcodes", force: :cascade do |t|
     t.integer  "product_id"
@@ -84,7 +84,6 @@ ActiveRecord::Schema.define(version: 20151028223229) do
     t.integer  "orders_count",        default: 0
     t.boolean  "koelkast",            default: false
     t.string   "name"
-    t.string   "encrypted_password",  default: "",    null: false
     t.boolean  "private",             default: false
   end
 
