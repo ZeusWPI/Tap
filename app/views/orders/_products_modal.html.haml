@@ -11,9 +11,9 @@
         #product_buttons.container-fluid
           - @products.each do |product|
             .col-md-2{ data: { name: product.name } }
-              %button.btn.btn-default.product{ data: { product: product.id, dismiss: :modal } }
+              %button.btn.btn-default.product{ data: { product: product.id, dismiss: :modal }, style: "height: 125px" }
                 %p= product.name
-                = image_tag product.avatar(:dagschotel), class: "center"
+                = image_tag product.avatar(:dagschotel), class: "center img-responsive", style: "max-height: 100px"
       .modal-footer
         %button.btn.btn-default{ data: { dismiss: :modal } }
           Close
