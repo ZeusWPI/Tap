@@ -42,6 +42,6 @@ class UsersController < ApplicationController
     end
 
     def init
-      @user = User.find_by_id(params[:id]) || current_user
+      @user ||= current_user
     end
 end
