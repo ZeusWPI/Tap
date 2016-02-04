@@ -34,12 +34,5 @@ describe Barcode do
         expect(barcode).to_not be_valid
       end
     end
-
-    describe 'product' do
-      it 'should be present' do
-        @barcode.product = nil
-        expect(@barcode).to_not be_valid
-      end
-    end
   end
 end
