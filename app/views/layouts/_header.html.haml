@@ -13,7 +13,6 @@
         .hidden-xs.navbar-form.navbar-right
           = render 'layouts/session_button'
         %ul.nav.navbar-nav.navbar-right
-          %li= mail_to "tab@zeus.ugent.be", "Send feedback"
           - if user_signed_in?
             - if can? :manage, :all
               %li.dropdown
