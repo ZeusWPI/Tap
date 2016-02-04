@@ -5,17 +5,15 @@ class UsersController < ApplicationController
   def show
   end
 
-  def edit
-  end
-
   def update
     if @user.update_attributes(user_params)
       flash[:success] = "Successfully updated!"
-      redirect_to @user
     else
+      flash[:error] = "Update failed!"
+      # TODO form errors?
       @user.reload
-      render 'edit'
     end
+    redirect_to @user
   end
 
   def edit_dagschotel
@@ -38,7 +36,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:avatar, :private, :dagschotel_id)
+      params.fetch(:user, {}).permit(:avatar, :private, :dagschotel_id)
     end
 
     def init
