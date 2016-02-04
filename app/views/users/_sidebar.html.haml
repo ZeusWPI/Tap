@@ -1,10 +1,9 @@
 .col-sm-3
   %div
-    %h2
+    %h2.float-right
+    = content_tag :div, image_tag(@user.avatar, class: "img-circle img-thumbnail center"), class: "user_avatar center"
+    %h2.center
       = @user.name
-      - if can? :edit, @user
-        = link_to content_tag(:small, content_tag(:span, "", class: "glyphicon glyphicon-cog")), edit_user_path(@user)
-  = content_tag :div, image_tag(@user.avatar, class: "img-circle img-thumbnail center"), class: "user_avatar center"
   %ul.list-group
     %li.list-group-item.text-muted Orders
     %li.list-group-item
@@ -19,8 +18,21 @@
     %ul.list-group
       %li.list-group-item.text-muted
         - if @user.dagschotel
-          Huidige dagschotel
-          \#{image_tag @user.dagschotel.avatar}
+          .center
+            %p= image_tag @user.dagschotel.avatar, title: "Huidige dagschotel"
           \#{link_to "Change dagschotel", edit_dagschotel_user_path(@user), class: "btn btn-default btn-block"}
         - else
           = link_to "Set dagschotel", edit_dagschotel_user_path(@user), class: "btn btn-default btn-block"
+      %li.list-group-item.text-muted
+        %p Orders can be placed on koelkast for every public account. Private accounts can only order products by logging in here.
+        // = link_to "Go #{if @user.private then "public" else "private" end}", toggle_privacy_user_path(@user), class: "btn btn-default btn-block"
+        = f_form_for @user do |f|
+          = f.error_messages
+          .hidden
+            = f.check_box :private, checked: !@user.private
+          = f.submit "Go #{@user.private ? "public" : "private"}", class: "btn btn-default btn-block"
+      %li.list-group-item.text-muted
+        = f_form_for @user do |f|
+          = f.error_messages
+          = f.file_field :avatar
+          = f.submit "Change avatar", class: "btn btn-default btn-block"
