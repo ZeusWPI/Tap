@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users, only: [:show, :edit, :update] do
+  resources :users, only: [:show] do
     resources :orders, only: [:new, :create, :destroy]
     member do
       get 'quickpay'               => 'users#quickpay'
