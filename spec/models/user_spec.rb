@@ -19,6 +19,8 @@
 #  private             :boolean          default("f")
 #
 
+require 'webmock/rspec'
+
 describe User do
   before :each do
     @user = create :user
@@ -52,9 +54,64 @@ describe User do
       end
     end
 
+    describe 'balance' do
+      before :all do
+        @api_url = "www.example.com/api.json"
+      end
+
+      it 'should be nil if offline' do
+        stub_request(:get, /.*/).to_return(status: 404)
+        expect(@user.balance).to be nil
+      end
+
+      it 'should be updated when online' do
+        balance = 5
+        stub_request(:get, /.*/).to_return(status: 200, body: JSON.dump({ balance: balance }))
+        expect(@user.balance).to eq balance
+      end
+    end
+  end
+
+  describe 'omniauth' do
+    it 'should be a new user' do
+      name = "yet-another-test-user"
+      omniauth = double(uid: name)
+      expect(User.from_omniauth(omniauth).name).to eq name
+    end
+
+    it 'should be the logged in user' do
+      second_user = create :user
+      omniauth = double(uid: second_user.name)
+      expect(User.from_omniauth(omniauth)).to eq second_user
+    end
+  end
+
+  describe 'static users' do
     describe 'koelkast' do
       it 'should be false by default' do
         expect(@user.reload.koelkast).to be false
+      end
+
+      it 'should be true for koelkast' do
+        expect(User.koelkast.koelkast).to be true
+      end
+
+      it 'should not be an admin' do
+        expect(User.koelkast.admin).to be false
+      end
+    end
+
+    describe 'guest' do
+      it 'should not be an admin' do
+        expect(User.guest.admin).to be false
+      end
+
+      it 'should be public' do
+        expect(User.guest.private).to be false
+      end
+
+      it 'should be a guest' do
+        expect(User.guest.guest?).to be true
       end
     end
   end

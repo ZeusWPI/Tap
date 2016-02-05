@@ -29,6 +29,7 @@ group :test do
   gem 'codeclimate-test-reporter', require: nil
   gem 'rspec-rails'
   gem 'coveralls', require: false
+  gem 'webmock'
 end
 
 group :development do
