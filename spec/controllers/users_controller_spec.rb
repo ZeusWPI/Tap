@@ -34,28 +34,6 @@ describe UsersController, type: :controller do
     end
   end
 
-  ##########
-  #  EDIT  #
-  ##########
-
-  describe 'GET edit' do
-    before :each do
-      get :edit, id: @user
-    end
-
-    it 'should be successful' do
-      expect(response).to have_http_status(200)
-    end
-
-    it 'should render the form' do
-      expect(response).to render_template(:edit)
-    end
-
-    it 'should load the correct user' do
-      expect(assigns(:user)).to eq(@user)
-    end
-  end
-
   ############
   #  UPDATE  #
   ############
