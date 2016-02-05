@@ -6,14 +6,17 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update_attributes(user_params)
+    if user_params.empty?
+      flash[:notice] = "Nothing happened."
+      redirect_to @user
+    elsif @user.update_attributes(user_params)
       flash[:success] = "Successfully updated!"
+      redirect_to @user
     else
       flash[:error] = "Update failed!"
-      # TODO form errors?
       @user.reload
+      render 'show'
     end
-    redirect_to @user
   end
 
   def edit_dagschotel

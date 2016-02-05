@@ -14,6 +14,7 @@
       %span.badge= @user.products_group_by_id.map(&:count).sum
     - if can? :create, @user.orders.build
       %li.list-group-item= link_to "Place new order", new_user_order_path(@user), class: "btn btn-default btn-block"
+  = render 'errors', object: @user
   - if can? :edit, @user
     %ul.list-group
       %li.list-group-item.text-muted
@@ -27,12 +28,10 @@
         %p Orders can be placed on koelkast for every public account. Private accounts can only order products by logging in here.
         // = link_to "Go #{if @user.private then "public" else "private" end}", toggle_privacy_user_path(@user), class: "btn btn-default btn-block"
         = f_form_for @user do |f|
-          = f.error_messages
           .hidden
             = f.check_box :private, checked: !@user.private
           = f.submit "Go #{@user.private ? "public" : "private"}", class: "btn btn-default btn-block"
       %li.list-group-item.text-muted
         = f_form_for @user do |f|
-          = f.error_messages
           = f.file_field :avatar
           = f.submit "Change avatar", class: "btn btn-default btn-block"
