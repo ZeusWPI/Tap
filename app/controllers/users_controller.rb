@@ -5,16 +5,17 @@ class UsersController < ApplicationController
   def show
   end
 
-  def edit
-  end
-
   def update
-    if @user.update_attributes(user_params)
+    if user_params.empty?
+      flash[:notice] = "Nothing happened."
+      redirect_to @user
+    elsif @user.update_attributes(user_params)
       flash[:success] = "Successfully updated!"
       redirect_to @user
     else
+      flash[:error] = "Update failed!"
       @user.reload
-      render 'edit'
+      render 'show'
     end
   end
 
@@ -38,7 +39,7 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:avatar, :private, :dagschotel_id)
+      params.fetch(:user, {}).permit(:avatar, :private, :dagschotel_id)
     end
 
     def init
