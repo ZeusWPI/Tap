@@ -33,5 +33,5 @@
           = f.submit "Go #{@user.private ? "public" : "private"}", class: "btn btn-default btn-block"
       %li.list-group-item.text-muted
         = f_form_for @user do |f|
-          = f.file_field :avatar
+          = f.file_field :avatar, skip_label: true
           = f.submit "Change avatar", class: "btn btn-default btn-block"
