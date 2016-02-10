@@ -9,13 +9,25 @@ class UsersController < ApplicationController
     if user_params.empty?
       flash[:notice] = "Nothing happened."
       redirect_to @user
-    elsif @user.update_attributes(user_params)
-      flash[:success] = "Successfully updated!"
-      redirect_to @user
     else
-      flash[:error] = "Update failed!"
-      @user.reload
-      render 'show'
+      if @user.update_attributes(user_params)
+        respond_to do |format|
+          format.html do
+            flash[:success] = "Successfully updated!"
+            redirect_to @user
+          end
+          format.js { head :ok  }
+        end
+      else
+        respond_to do |format|
+          format.html do
+            flash[:error] = "Update failed!"
+            @user.reload
+            render 'show'
+          end
+          format.js { head :bad_request }
+        end
+      end
     end
   end
 
