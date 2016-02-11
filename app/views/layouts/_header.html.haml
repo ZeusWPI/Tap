@@ -13,7 +13,6 @@
         .hidden-xs.navbar-form.navbar-right
           = render 'layouts/session_button'
         %ul.nav.navbar-nav.navbar-right
-          %li= mail_to "tab@zeus.ugent.be", "Send feedback"
           - if user_signed_in?
             - if can? :manage, :all
               %li.dropdown
@@ -24,12 +23,8 @@
                   %li= link_to "List", products_path
                   %li= link_to "Add product" , barcode_products_path
                   %li= link_to "Barcodes", barcodes_path
-            %li.dropdown
-              %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
-                Logged in as #{current_user.name}
-                %b.caret
-              %ul.dropdown-menu
-                %li= link_to "Edit profile", edit_user_path(current_user)
+            %li
+              %p.navbar-text Logged in as #{current_user.name}
             %li
               %p.navbar-text
                 Balance: 

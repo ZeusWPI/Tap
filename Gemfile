@@ -6,6 +6,7 @@ gem 'rails', '4.2.4'
 # Assets
 gem 'sass-rails', '~> 4.0.3'
 gem 'bootstrap-sass',       '3.2.0.0'
+gem 'bootstrap-switch-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 # Haml for templating!
@@ -22,13 +23,14 @@ group :doc do
 end
 
 group :production do
-  gem 'mysql2' # Database
+  gem 'mysql2', '~> 0.3.18' # Database
 end
 
 group :test do
   gem 'codeclimate-test-reporter', require: nil
   gem 'rspec-rails'
   gem 'coveralls', require: false
+  gem 'webmock'
 end
 
 group :development do

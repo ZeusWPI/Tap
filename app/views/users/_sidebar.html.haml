@@ -1,10 +1,9 @@
 .col-sm-3
   %div
-    %h2
+    %h2.float-right
+    = content_tag :div, image_tag(@user.avatar, class: "img-circle img-thumbnail center"), class: "user_avatar center"
+    %h2.center
       = @user.name
-      - if can? :edit, @user
-        = link_to content_tag(:small, content_tag(:span, "", class: "glyphicon glyphicon-cog")), edit_user_path(@user)
-  = content_tag :div, image_tag(@user.avatar, class: "img-circle img-thumbnail center"), class: "user_avatar center"
   %ul.list-group
     %li.list-group-item.text-muted Orders
     %li.list-group-item
@@ -15,12 +14,22 @@
       %span.badge= @user.products_group_by_id.map(&:count).sum
     - if can? :create, @user.orders.build
       %li.list-group-item= link_to "Place new order", new_user_order_path(@user), class: "btn btn-default btn-block"
+  = render 'errors', object: @user
   - if can? :edit, @user
     %ul.list-group
       %li.list-group-item.text-muted
         - if @user.dagschotel
-          Huidige dagschotel
-          \#{image_tag @user.dagschotel.avatar}
+          .center
+            %p= image_tag @user.dagschotel.avatar, title: "Huidige dagschotel"
           \#{link_to "Change dagschotel", edit_dagschotel_user_path(@user), class: "btn btn-default btn-block"}
         - else
           = link_to "Set dagschotel", edit_dagschotel_user_path(@user), class: "btn btn-default btn-block"
+      %li.list-group-item.text-muted
+        %p Orders can be placed on koelkast for every public account. Private accounts can only order products by logging in here.
+        = f_form_for @user, remote: true do |f|
+          .center
+            = f.check_box :private, skip_label: true, data: { switch: true }
+      %li.list-group-item.text-muted
+        = f_form_for @user do |f|
+          = f.file_field :avatar, skip_label: true
+          = f.submit "Change avatar", class: "btn btn-default btn-block"

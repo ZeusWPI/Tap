@@ -34,28 +34,6 @@ describe UsersController, type: :controller do
     end
   end
 
-  ##########
-  #  EDIT  #
-  ##########
-
-  describe 'GET edit' do
-    before :each do
-      get :edit, id: @user
-    end
-
-    it 'should be successful' do
-      expect(response).to have_http_status(200)
-    end
-
-    it 'should render the form' do
-      expect(response).to render_template(:edit)
-    end
-
-    it 'should load the correct user' do
-      expect(assigns(:user)).to eq(@user)
-    end
-  end
-
   ############
   #  UPDATE  #
   ############
@@ -67,16 +45,36 @@ describe UsersController, type: :controller do
     end
 
     context 'successful' do
-      it 'should update attributes' do
+      it 'should update privacy' do
         new_private = !(@user.private)
         put :update, id: @user, user: { private: new_private }
         expect(@user.reload.private).to be new_private
+        expect(flash[:success]).to be_present
       end
 
       it 'should update dagschotel' do
         product = create :product
         put :update, id: @user, user: { dagschotel_id:  product.id }
         expect(@user.reload.dagschotel).to eq(product)
+      end
+
+      it 'should accept real images' do
+        file = fixture_file_upload('files/real-image.png', 'image/png')
+        put :update, id: @user, user: { avatar: file }
+        expect(flash[:success]).to be_present
+      end
+    end
+
+    context 'danger zone' do
+      it 'should warn for NOPs' do
+        put :update, id: @user, user: {}
+        expect(flash[:notice]).to be_present
+      end
+
+      it 'should not accept unreal images' do
+        file = fixture_file_upload('files/unreal-image.svg', 'image/svg+xml')
+        put :update, id: @user, user: { avatar: file }
+        expect(flash[:error]).to be_present
       end
     end
   end

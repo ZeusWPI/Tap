@@ -16,7 +16,9 @@
 
 
 @import "bootstrap-sprockets";
+@import "bootstrap3-switch";
 @import "bootstrap";
+
 
 /* mixins, variables, etc. */
 
@@ -36,6 +38,10 @@ $gray-medium-light: #eaeaea;
 
 .center{
   text-align: center;
+}
+
+.float-right{
+    float: right;
 }
 
 .form-field{

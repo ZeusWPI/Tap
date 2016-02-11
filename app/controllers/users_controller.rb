@@ -5,16 +5,29 @@ class UsersController < ApplicationController
   def show
   end
 
-  def edit
-  end
-
   def update
-    if @user.update_attributes(user_params)
-      flash[:success] = "Successfully updated!"
+    if user_params.empty?
+      flash[:notice] = "Nothing happened."
       redirect_to @user
     else
-      @user.reload
-      render 'edit'
+      if @user.update_attributes(user_params)
+        respond_to do |format|
+          format.html do
+            flash[:success] = "Successfully updated!"
+            redirect_to @user
+          end
+          format.js { head :ok  }
+        end
+      else
+        respond_to do |format|
+          format.html do
+            flash[:error] = "Update failed!"
+            @user.reload
+            render 'show'
+          end
+          format.js { head :bad_request }
+        end
+      end
     end
   end
 
@@ -38,10 +51,10 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:avatar, :private, :dagschotel_id)
+      params.fetch(:user, {}).permit(:avatar, :private, :dagschotel_id)
     end
 
     def init
-      @user = User.find_by_id(params[:id]) || current_user
+      @user ||= current_user
     end
 end
