@@ -13,7 +13,7 @@
             .col-md-2{ data: { name: product.name } }
               %button.btn.btn-default.product{ data: { product: product.id, dismiss: :modal } }
                 %p= product.name
-                = image_tag product.avatar(:dagschotel), class: "center"
+                = image_tag product.avatar(:dagschotel), class: "center img-responsive"
       .modal-footer
         %button.btn.btn-default{ data: { dismiss: :modal } }
           Close
