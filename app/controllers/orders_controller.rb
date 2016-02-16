@@ -26,7 +26,7 @@ class OrdersController < ApplicationController
   end
 
   def overview
-    @users = User.members.publik.order(:frecency, :desc)
+    @users = User.members.publik.order(frecency: :desc)
     @last = Order.order(:created_at).reverse_order.includes(:user).limit(10).map(&:user)
   end
 
