@@ -21,6 +21,9 @@ class Order < ActiveRecord::Base
   before_save { |o| o.order_items = o.order_items.reject{ |oi| oi.count == 0 } }
   after_create :create_api_job, unless: -> { user.guest? }
 
+  after_create :update_user_frecency
+  after_destroy :update_user_frecency
+
   validates :user, presence: true
   validates_associated :order_items
   validate :product_presence
@@ -65,5 +68,9 @@ class Order < ActiveRecord::Base
 
     def product_presence
       errors.add(:base, "You have to order at least one product.") if order_items.map(&:count).sum.zero?
+    end
+
+    def update_user_frecency
+      self.user.calculate_frecency
     end
 end

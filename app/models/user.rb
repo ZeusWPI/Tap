@@ -41,6 +41,15 @@ class User < ActiveRecord::Base
     end
   end
 
+  def calculate_frecency
+    num_orders = Rails.application.config.frecency_num_orders
+    last_datetimes = self.orders.order(created_at: :desc)
+                                .limit(num_orders)
+                                .pluck(:created_at)
+    self.frecency = last_datetimes.map(&:to_time).map(&:to_i).sum / num_orders
+    self.save
+  end
+
   def balance
     @balance || begin
       headers = {

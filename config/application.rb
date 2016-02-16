@@ -22,5 +22,6 @@ module Tab002
     config.active_record.raise_in_transactional_callbacks = true
     config.active_job.queue_adapter = :delayed_job
     config.call_api_after = 5.minutes
+    config.frecency_num_orders = 10
   end
 end
