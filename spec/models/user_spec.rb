@@ -133,4 +133,23 @@ describe User do
       expect(User.publik).to eq([@user, user])
     end
   end
+
+  describe 'frecency' do
+    it 'should be recalculated on creating an order' do
+      expect(@user.frecency).to eq 0
+      create :order, user: @user
+      expect(@user.frecency).to_not eq 0
+    end
+
+    it 'should be valid' do
+      dates = [Date.today.to_time, Date.yesterday.to_time]
+      dates.each do |date|
+        create :order, user: @user, created_at: date
+      end
+      @user.reload
+      num_orders = Rails.application.config.frecency_num_orders
+      frecency = dates.last(num_orders).map(&:to_i).sum/num_orders
+      expect(@user.frecency).to eq(frecency)
+    end
+  end
 end

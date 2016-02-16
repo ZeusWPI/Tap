@@ -5,9 +5,9 @@
       = form_tag nil, id: "from_barcode_form", data: { url: URI.join(root_url, "barcodes").to_s } do
         %input.center-block{ type: :number, name: :id, autofocus: true }
       = "- OR -"
-      %button.btn.btn-default.center-block{ data: { toggle: :modal, target: "#products_modal" } }
-        Select Product Without Barcode
-      %br
+      %p
+        %button.btn.btn-default.center-block{ data: { toggle: :modal, target: "#products_modal" } }
+          Select Product Without Barcode
   .col-md-4.col-md-offset-1
     = form_for [@user, @order] do |f|
       = render 'errors', object: @order
