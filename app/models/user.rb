@@ -47,6 +47,7 @@ class User < ActiveRecord::Base
                                  .limit(num_orders)
                                  .pluck(:created_at)
     self.frecency = last_timestamps.map(&:to_i).sum / num_orders
+    self.save
   end
 
   def balance
