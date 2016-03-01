@@ -29,8 +29,6 @@ class User < ActiveRecord::Base
   has_many :products, through: :orders
   belongs_to :dagschotel, class_name: 'Product'
 
-  validates :dagschotel, presence: true, if: -> { dagschotel_id }
-
   scope :members, -> { where koelkast: false }
   scope :publik,  -> { where private: false }
 
