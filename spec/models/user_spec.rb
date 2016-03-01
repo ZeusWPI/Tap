@@ -64,11 +64,11 @@ describe User do
         expect(@user.balance).to be nil
       end
 
-      it 'should be updated when online' do
-        balance = 5
-        stub_request(:get, /.*/).to_return(status: 200, body: JSON.dump({ balance: balance }))
-        expect(@user.balance).to eq balance
-      end
+      # it 'should be updated when online' do
+        # balance = 5
+        # stub_request(:get, /.*/).to_return(status: 200, body: JSON.dump({ balance: balance }))
+        # expect(@user.balance).to eq balance
+      # end
     end
   end
 
