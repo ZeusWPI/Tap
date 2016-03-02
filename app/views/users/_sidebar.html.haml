@@ -15,9 +15,9 @@
     -# - if can? :create, @user.orders.build
     %li.list-group-item
       = link_to "Place new order", new_user_order_path(@user), class: "btn btn-default btn-block"
-      %p.center
-        %b or
       - if @user.dagschotel
+        %p.center
+          %b or
         = link_to quickpay_user_path(@user), remote: true, data: { quickpay: true, type: "json" }, class: "btn btn-default btn-block"  do
           %p.center Order dagschotel
           = image_tag @user.dagschotel.avatar, title: "Huidige dagschotel"
