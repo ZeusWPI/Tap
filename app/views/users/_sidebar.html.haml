@@ -18,7 +18,8 @@
       - if @user.dagschotel
         %p.center
           %b or
-        = link_to quickpay_user_path(@user), remote: true, data: { quickpay: true, type: "json" }, class: "btn btn-default btn-block"  do
+        -#%button.btn.btn-default.product{ data: { product: @user.dagschotel} }
+        = link_to quickpay_user_path(@user), remote: true, data: { quickpay: true, type: "json" }, id: "dagschotel_quickpay", class: "btn btn-default btn-block"  do
           %p.center Order dagschotel
           = image_tag @user.dagschotel.avatar, title: "Huidige dagschotel"
   = render 'errors', object: @user
