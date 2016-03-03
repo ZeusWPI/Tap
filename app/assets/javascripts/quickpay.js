@@ -1,8 +1,6 @@
 ready = function() {
     $('[data-quickpay]').on("ajax:success", function(e, data, status, xhr) {
-        if (this.id === "dagschotel_quickpay") {
-            location.reload(false);
-        } else {
+        if (this.id !== "dagschotel_quickpay") {
             // Last Image
             var img = $("<img>", {
                 src: $(this).closest(".overviewthumbnail").find(".avatar").attr("src").replace("large", "small"),
