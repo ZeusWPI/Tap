@@ -42,7 +42,10 @@ class UsersController < ApplicationController
     order = @user.orders.build
     order.order_items.build(count: 1, product: @user.dagschotel)
     if order.save
-      render json: { message: "Quick pay succeeded for #{@user.name}." }, status: :ok
+      respond_to do |format|
+        format.html { redirect_to(@user) }
+        format.json { render json: { message: "Quick pay succeeded for #{@user.name}." }, status: :ok }
+      end
     else
       head :unprocessable_entity
     end
@@ -50,11 +53,11 @@ class UsersController < ApplicationController
 
   private
 
-    def user_params
-      params.fetch(:user, {}).permit(:avatar, :private, :dagschotel_id)
-    end
+  def user_params
+    params.fetch(:user, {}).permit(:avatar, :private, :dagschotel_id)
+  end
 
-    def init
-      @user ||= current_user
-    end
+  def init
+    @user ||= current_user
+  end
 end
