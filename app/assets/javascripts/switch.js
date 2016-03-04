@@ -1,5 +1,6 @@
 ready = function() {
-  $('[data-switch]').bootstrapSwitch({ onText: "private", offText: "public" });
+  $("[id='user_private']").bootstrapSwitch({ onText: "private", offText: "public"});
+  $("[id='user_quickpay_hidden']").bootstrapSwitch({ onText: "hide", offText: "show" });
   $('[data-switch]').on('switchChange.bootstrapSwitch', function(event, state) {
     $(this).closest('form').submit();
   });

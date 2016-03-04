@@ -55,7 +55,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.fetch(:user, {}).permit(:avatar, :private, :dagschotel_id)
+    params.fetch(:user, {}).permit(:avatar, :private, :dagschotel_id, :quickpay_hidden)
   end
 
   def init
