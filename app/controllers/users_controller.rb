@@ -39,6 +39,7 @@ class UsersController < ApplicationController
   end
 
   def quickpay
+    authorize! :create, @user.orders.build
     order = @user.orders.build
     order.order_items.build(count: 1, product: @user.dagschotel)
     if order.save
