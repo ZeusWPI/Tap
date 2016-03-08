@@ -1,7 +1,6 @@
 .col-md-3
-  .thumbnail.pic
-    .center
-      = image_tag product.avatar
+  .thumbnail.pic.dagschotel-edit
+    = image_tag product.avatar, class: "dagschotel-edit-image img-responsive"
     .caption
       = kcal_tag product.calories
       %h4= product.name

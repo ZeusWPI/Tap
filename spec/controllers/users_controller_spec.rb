@@ -1,3 +1,25 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                  :integer          not null, primary key
+#  created_at          :datetime
+#  updated_at          :datetime
+#  remember_created_at :datetime
+#  admin               :boolean          default(FALSE)
+#  dagschotel_id       :integer
+#  avatar_file_name    :string
+#  avatar_content_type :string
+#  avatar_file_size    :integer
+#  avatar_updated_at   :datetime
+#  orders_count        :integer          default(0)
+#  koelkast            :boolean          default(FALSE)
+#  name                :string
+#  private             :boolean          default(FALSE)
+#  frecency            :integer          default(0), not null
+#  quickpay_hidden     :boolean
+#
+
 #         quickpay_user GET      /users/:id/quickpay(.:format)            users#quickpay
 #  edit_dagschotel_user GET      /users/:id/dagschotel/edit(.:format)     users#edit_dagschotel
 #             edit_user GET      /users/:id/edit(.:format)                users#edit

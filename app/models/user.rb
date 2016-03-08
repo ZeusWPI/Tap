@@ -6,17 +6,18 @@
 #  created_at          :datetime
 #  updated_at          :datetime
 #  remember_created_at :datetime
-#  admin               :boolean
+#  admin               :boolean          default(FALSE)
 #  dagschotel_id       :integer
 #  avatar_file_name    :string
 #  avatar_content_type :string
 #  avatar_file_size    :integer
 #  avatar_updated_at   :datetime
-#  orders_count        :integer          default("0")
-#  koelkast            :boolean          default("f")
+#  orders_count        :integer          default(0)
+#  koelkast            :boolean          default(FALSE)
 #  name                :string
-#  encrypted_password  :string           default(""), not null
-#  private             :boolean          default("f")
+#  private             :boolean          default(FALSE)
+#  frecency            :integer          default(0), not null
+#  quickpay_hidden     :boolean
 #
 
 class User < ActiveRecord::Base
@@ -28,8 +29,6 @@ class User < ActiveRecord::Base
   has_many :orders, -> { includes :products }
   has_many :products, through: :orders
   belongs_to :dagschotel, class_name: 'Product'
-
-  validates :dagschotel, presence: true, if: -> { dagschotel_id }
 
   scope :members, -> { where koelkast: false }
   scope :publik,  -> { where private: false }

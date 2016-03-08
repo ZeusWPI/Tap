@@ -6,4 +6,6 @@
     - if current_user.dagschotel != product
       = button_to "Make dagschotel", { controller: 'users', action: 'update', "user[dagschotel_id]" => product.id }, method: :put, class: "btn btn-default"
     - else
-      %span.btn.btn-success= "Current dagschotel"
+      #remove_dagschotel
+        = button_to "Current dagschotel", { controller: 'users', action: 'update', "user[dagschotel_id]" => "nil"  }, method: :put, class: "btn btn-success"
+

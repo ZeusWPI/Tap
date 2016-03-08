@@ -5,7 +5,7 @@
 #  id         :integer          not null, primary key
 #  order_id   :integer
 #  product_id :integer          not null
-#  count      :integer          default("0")
+#  count      :integer          default(0)
 #
 
 FactoryGirl.define do

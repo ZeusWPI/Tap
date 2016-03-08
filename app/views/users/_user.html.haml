@@ -1,5 +1,5 @@
 .col-md-2.overviewthumbnail
-  - unless user.dagschotel.nil?
+  - if user.dagschotel && !user.quickpay_hidden
     = link_to quickpay_user_path(user), remote: true, data: { quickpay: true, type: "json" } do
       = image_tag user.dagschotel.avatar(:dagschotel), class: "img-circle dagschotel"
   = link_to image_tag(user.avatar(:large) , class: "img-circle avatar"), new_user_order_path(user)

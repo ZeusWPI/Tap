@@ -1,5 +1,7 @@
 ready = function() {
-  $('[data-switch]').bootstrapSwitch({ onText: "private", offText: "public" });
+  $.each($('[data-switch]'), function(key, value){
+    $(this).bootstrapSwitch({ offText: value.getAttribute('data-offText'),  onText: value.getAttribute('data-onText')});
+  });
   $('[data-switch]').on('switchChange.bootstrapSwitch', function(event, state) {
     $(this).closest('form').submit();
   });

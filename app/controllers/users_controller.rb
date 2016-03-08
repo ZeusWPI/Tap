@@ -1,3 +1,25 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                  :integer          not null, primary key
+#  created_at          :datetime
+#  updated_at          :datetime
+#  remember_created_at :datetime
+#  admin               :boolean          default(FALSE)
+#  dagschotel_id       :integer
+#  avatar_file_name    :string
+#  avatar_content_type :string
+#  avatar_file_size    :integer
+#  avatar_updated_at   :datetime
+#  orders_count        :integer          default(0)
+#  koelkast            :boolean          default(FALSE)
+#  name                :string
+#  private             :boolean          default(FALSE)
+#  frecency            :integer          default(0), not null
+#  quickpay_hidden     :boolean
+#
+
 class UsersController < ApplicationController
   load_and_authorize_resource
   before_action :init, only: :show
@@ -39,10 +61,14 @@ class UsersController < ApplicationController
   end
 
   def quickpay
+    authorize! :create, @user.orders.build
     order = @user.orders.build
     order.order_items.build(count: 1, product: @user.dagschotel)
     if order.save
-      render json: { message: "Quick pay succeeded for #{@user.name}." }, status: :ok
+      respond_to do |format|
+        format.html { redirect_to(@user) }
+        format.json { render json: { message: "Quick pay succeeded for #{@user.name}." }, status: :ok }
+      end
     else
       head :unprocessable_entity
     end
@@ -50,11 +76,11 @@ class UsersController < ApplicationController
 
   private
 
-    def user_params
-      params.fetch(:user, {}).permit(:avatar, :private, :dagschotel_id)
-    end
+  def user_params
+    params.fetch(:user, {}).permit(:avatar, :private, :dagschotel_id, :quickpay_hidden)
+  end
 
-    def init
-      @user ||= current_user
-    end
+  def init
+    @user ||= current_user
+  end
 end

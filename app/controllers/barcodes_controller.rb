@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: barcodes
+#
+#  id         :integer          not null, primary key
+#  product_id :integer
+#  code       :string           default(""), not null
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class BarcodesController < ApplicationController
   load_and_authorize_resource :product, only: :create
   load_and_authorize_resource :barcode, through: :product, shallow: true
