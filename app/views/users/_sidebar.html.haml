@@ -34,12 +34,12 @@
         %p Orders can be placed on koelkast for every public account. Private accounts can only order products by logging in here.
         = f_form_for @user, remote: true do |f|
           .center
-            = f.check_box :private, skip_label: true, data: { switch: true }
+            = f.check_box :private, skip_label: true, data: { switch: true, offText: "public", onText: "private" }
       %li.list-group-item.text-muted
         = f_form_for @user, remote: true do |f|
           .center
             = f.label "Show dagschotel on koelkast"
-            = f.check_box :quickpay_hidden, skip_label: true, data: { switch: true }
+            = f.check_box :quickpay_hidden, skip_label: true, data: { switch: true, offText: "show", onText: "hide" }
       %li.list-group-item.text-muted
         = f_form_for @user do |f|
           = f.file_field :avatar, skip_label: true
