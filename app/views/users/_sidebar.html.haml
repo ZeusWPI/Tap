@@ -35,6 +35,8 @@
         = f_form_for @user, remote: true do |f|
           .center
             = f.check_box :private, skip_label: true, data: { switch: true }
+      %li.list-group-item.text-muted
+        = f_form_for @user, remote: true do |f|
           .center
             = f.label "Show dagschotel on koelkast"
             = f.check_box :quickpay_hidden, skip_label: true, data: { switch: true }
