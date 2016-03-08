@@ -1,6 +1,5 @@
 ready = function() {
   $.each($('[data-switch]'), function(key, value){
-    console.log(value.getAttribute('data-offText'));
     $(this).bootstrapSwitch({ offText: value.getAttribute('data-offText'),  onText: value.getAttribute('data-onText')});
   });
   $('[data-switch]').on('switchChange.bootstrapSwitch', function(event, state) {
