@@ -4,10 +4,10 @@
 #
 #  id             :integer          not null, primary key
 #  user_id        :integer
-#  price_cents    :integer
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  transaction_id :integer
+#  product_id     :integer
 #
 
 require 'faker'

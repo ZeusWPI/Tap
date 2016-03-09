@@ -6,30 +6,29 @@
 #  created_at          :datetime
 #  updated_at          :datetime
 #  remember_created_at :datetime
-#  admin               :boolean
+#  admin               :boolean          default(FALSE)
 #  dagschotel_id       :integer
 #  avatar_file_name    :string
 #  avatar_content_type :string
 #  avatar_file_size    :integer
 #  avatar_updated_at   :datetime
-#  orders_count        :integer          default("0")
-#  koelkast            :boolean          default("f")
+#  orders_count        :integer          default(0)
+#  koelkast            :boolean          default(FALSE)
 #  name                :string
-#  encrypted_password  :string           default(""), not null
-#  private             :boolean          default("f")
+#  private             :boolean          default(FALSE)
+#  frecency            :integer          default(0), not null
 #
 
 class User < ActiveRecord::Base
   include Statistics, Avatarable, FriendlyId
-  friendly_id :name, use: :finders
 
-  devise :omniauthable, :omniauth_providers => [:zeuswpi]
+  friendly_id :name
 
-  has_many :orders, -> { includes :products }
+  devise :omniauthable, omniauth_providers: [:zeuswpi]
+
+  has_many :orders, -> { includes :product }
   has_many :products, through: :orders
   belongs_to :dagschotel, class_name: 'Product'
-
-  validates :dagschotel, presence: true, if: -> { dagschotel_id }
 
   scope :members, -> { where koelkast: false }
   scope :publik,  -> { where private: false }
@@ -41,7 +40,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def calculate_frecency
+  def calculate_frecency!
     num_orders = Rails.application.config.frecency_num_orders
     last_datetimes = self.orders.order(created_at: :desc)
                                 .limit(num_orders)
@@ -52,18 +51,18 @@ class User < ActiveRecord::Base
 
   def balance
     @balance || begin
-      if Rails.env.test?
-        nil
-      else
-        headers = {
-          "Authorization" => "Token token=#{Rails.application.secrets.tab_api_key}",
-          "Content-type" => "application/json"
-        }
-        result = HTTParty.get(File.join(Rails.application.config.api_url, "users", "#{name}.json"), headers: headers)
+      return nil if Rails.env.test?
 
-        if result.code == 200
-          JSON.parse(result.body)["balance"]
-        end
+      headers = {
+        "Authorization" => "Token token=#{Rails.application.secrets.tab_api_key}",
+        "Content-type" => "application/json"
+      }
+      result = HTTParty.get(
+        File.join(Rails.application.config.api_url, "users", "#{name}.json"),
+        headers: headers)
+
+      if result.code == 200
+        JSON.parse(result.body)["balance"]
       end
     rescue
     end
