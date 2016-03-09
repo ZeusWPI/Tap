@@ -81,9 +81,9 @@ describe Order do
     end
   end
 
-  # #############
-  # #  HELPERS  #
-  # #############
+  #############
+  #  HELPERS  #
+  #############
 
   describe 'deletable' do
     it 'should be true' do
