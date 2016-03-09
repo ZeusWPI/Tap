@@ -11,20 +11,20 @@
 #
 
 class Order < ActiveRecord::Base
-  include ActionView::Helpers::TextHelper, ApplicationHelper
+  include ApplicationHelper
 
   belongs_to :user, counter_cache: true
   belongs_to :product
 
   after_create  :create_api_job, unless: -> { user.guest? }
-  after_create  :update_user_frecency
-  after_destroy :update_user_frecency
+  after_create  :update_user_frecency!
+  after_destroy :update_user_frecency!
 
   validates :user,    presence: true
   validates :product, presence: true
 
   def flash_success
-    f = "#{to_sentence} ordered."
+    f = "#{product.capitalize} ordered."
     f << " Please put #{euro_from_cents(price_cents)} in our pot!" if user.guest?
     f << " Enjoy it!"
   end
@@ -34,10 +34,6 @@ class Order < ActiveRecord::Base
   end
 
   private
-
-    def calculate_price
-      self.price_cents = self.order_items.map{ |oi| oi.count * (oi.product.try(:price_cents) || 0) }.sum
-    end
 
     def create_api_job
       return if Rails.env.test?
@@ -49,7 +45,7 @@ class Order < ActiveRecord::Base
       Delayed::Job.enqueue job, priority: priority, run_at: run_at
     end
 
-    def update_user_frecency
-      self.user.calculate_frecency
+    def update_user_frecency!
+      user.calculate_frecency!
     end
 end
