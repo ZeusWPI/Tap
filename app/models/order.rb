@@ -16,6 +16,7 @@ class Order < ActiveRecord::Base
   belongs_to :user, counter_cache: true
   has_many :order_items, dependent: :destroy
   has_many :products, through: :order_items
+  belongs_to :product
 
   before_validation :calculate_price
   before_save { |o| o.order_items = o.order_items.reject{ |oi| oi.count == 0 } }
@@ -25,8 +26,8 @@ class Order < ActiveRecord::Base
   after_destroy :update_user_frecency
 
   validates :user, presence: true
-  validates_associated :order_items
-  validate :product_presence
+  # validates_associated :order_items
+  # validate :product_presence
 
   accepts_nested_attributes_for :order_items
 
