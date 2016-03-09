@@ -14,22 +14,15 @@ class Order < ActiveRecord::Base
   include ActionView::Helpers::TextHelper, ApplicationHelper
 
   belongs_to :user, counter_cache: true
-  has_many :order_items, dependent: :destroy
-  has_many :products, through: :order_items
   belongs_to :product
 
-  before_validation :calculate_price
-  before_save { |o| o.order_items = o.order_items.reject{ |oi| oi.count == 0 } }
   after_create :create_api_job, unless: -> { user.guest? }
 
   after_create :update_user_frecency
   after_destroy :update_user_frecency
 
   validates :user, presence: true
-  # validates_associated :order_items
-  # validate :product_presence
-
-  accepts_nested_attributes_for :order_items
+  validates :product, presence: true
 
   def to_sentence
     self.order_items.map {
@@ -65,10 +58,6 @@ class Order < ActiveRecord::Base
       job      = TabApiJob.new(id)
 
       Delayed::Job.enqueue job, priority: priority, run_at: run_at
-    end
-
-    def product_presence
-      errors.add(:base, "You have to order at least one product.") if order_items.map(&:count).sum.zero?
     end
 
     def update_user_frecency
