@@ -16,19 +16,12 @@ class Order < ActiveRecord::Base
   belongs_to :user, counter_cache: true
   belongs_to :product
 
-  after_create :create_api_job, unless: -> { user.guest? }
-
-  after_create :update_user_frecency
+  after_create  :create_api_job, unless: -> { user.guest? }
+  after_create  :update_user_frecency
   after_destroy :update_user_frecency
 
-  validates :user, presence: true
+  validates :user,    presence: true
   validates :product, presence: true
-
-  def to_sentence
-    self.order_items.map {
-      |oi| pluralize(oi.count, oi.product.name)
-    }.to_sentence
-  end
 
   def flash_success
     f = "#{to_sentence} ordered."
@@ -38,10 +31,6 @@ class Order < ActiveRecord::Base
 
   def deletable
     self.created_at > Rails.application.config.call_api_after.ago
-  end
-
-  def sec_until_remove
-    self.created_at.to_i - (Time.now - Rails.application.config.call_api_after).to_i
   end
 
   private
