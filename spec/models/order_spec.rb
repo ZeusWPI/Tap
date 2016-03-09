@@ -67,6 +67,20 @@ describe Order do
     end
   end
 
+  describe 'product stock' do
+    it 'should decrease on create' do
+      product = create :product
+      expect{ create :order, product: product }.to change{ product.stock }.by(-1)
+    end
+
+    it 'should increase on destroy' do
+      product = create :product
+      order = create :order, product: product
+      expect{ order.destroy }.to change{ product.stock }.by(1)
+
+    end
+  end
+
   # #############
   # #  HELPERS  #
   # #############

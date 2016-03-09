@@ -19,6 +19,8 @@ class Order < ActiveRecord::Base
   after_create  :create_api_job, unless: -> { user.guest? }
   after_create  :update_user_frecency!
   after_destroy :update_user_frecency!
+  after_create :remove_from_stock!
+  before_destroy :put_back_in_stock!
 
   validates :user,    presence: true
   validates :product, presence: true
@@ -47,5 +49,13 @@ class Order < ActiveRecord::Base
 
     def update_user_frecency!
       user.calculate_frecency!
+    end
+
+    def remove_from_stock!
+      product.decrement!(:stock)
+    end
+
+    def put_back_in_stock!
+      product.increment!(:stock)
     end
 end
