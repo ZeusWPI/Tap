@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160309185017) do
+ActiveRecord::Schema.define(version: 20160309195941) do
 
   create_table "barcodes", force: :cascade do |t|
     t.integer  "product_id"
@@ -38,15 +38,8 @@ ActiveRecord::Schema.define(version: 20160309185017) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
-  create_table "order_items", force: :cascade do |t|
-    t.integer "order_id"
-    t.integer "product_id",             null: false
-    t.integer "count",      default: 0
-  end
-
   create_table "orders", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "price_cents"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.integer  "transaction_id"
