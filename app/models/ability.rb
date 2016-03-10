@@ -2,13 +2,15 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    can :read, Barcode
+    can :read, Product
+
     return unless user
 
     initialize_admin    if user.admin?
     initialize_koelkast if user.koelkast?
     initialize_user(user)
 
-    can :read, Barcode
   end
 
   def initialize_admin
@@ -16,20 +18,22 @@ class Ability
   end
 
   def initialize_koelkast
-    can :manage, Order do |order|
-      !order.try(:user).try(:private) && order.try(:user).try(:balance).try(:>, -500)
+    can :create, Order
+    cannot :create, Order, user: { private: true }
+    cannot :create, Order do |order|
+      order.try(:user).try(:balance).try(:<, -500)
     end
+
     can :quickpay, User
   end
 
   def initialize_user(user)
-    can :read, :all
-    can :manage, User, id: user.id
-    can :create, Order do |order|
-      order.user == user && user.try(:balance).try(:>, -500)
-    end
-    can :destroy, Order do |order|
-      order.try(:user) == user && order.deletable
+    can :manage, user
+
+    can :create, Order, user: user unless user.balance.try(:<, Rails.application.config.x.balance_cap)
+    can :destroy, Order, user: user
+    cannot :destroy, Order do |order|
+      !order.deletable
     end
   end
 end

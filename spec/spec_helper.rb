@@ -26,6 +26,12 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include Devise::TestHelpers, type: :controller
 
+  # Let's give everyone a balance of 5 euros
+  config.before(:each) do
+    stub_request(:get, /.*/)
+      .to_return(body: { balance: 500 }.to_json)
+  end
+
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.

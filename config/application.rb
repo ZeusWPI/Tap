@@ -23,5 +23,6 @@ module Tab002
     config.active_job.queue_adapter = :delayed_job
     config.call_api_after = 5.minutes
     config.frecency_num_orders = 100
+    config.x.balance_cap = -500
   end
 end

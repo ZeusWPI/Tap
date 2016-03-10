@@ -10,9 +10,11 @@
 #
 
 FactoryGirl.define do
+  sequence :code, Barcode.try(:last).try(:code).try(:to_i).try(:+, 1)
+
   factory :barcode do
     product
-    sequence :code
+    code
 
     factory :invalid_barcode do
       code nil

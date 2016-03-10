@@ -51,8 +51,6 @@ class User < ActiveRecord::Base
 
   def balance
     @balance || begin
-      return nil if Rails.env.test?
-
       headers = {
         "Authorization" => "Token token=#{Rails.application.secrets.tab_api_key}",
         "Content-type" => "application/json"
@@ -62,9 +60,10 @@ class User < ActiveRecord::Base
         headers: headers)
 
       if result.code == 200
-        JSON.parse(result.body)["balance"]
+        JSON.parse(result.body)["balance"].to_i
       end
     rescue
+      0
     end
   end
 

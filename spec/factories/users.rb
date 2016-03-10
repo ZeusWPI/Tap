@@ -31,5 +31,9 @@ FactoryGirl.define do
     factory :admin do
       admin true
     end
+
+    trait :private do
+      private { true }
+    end
   end
 end
