@@ -11,7 +11,7 @@
 
 describe Barcode do
   before :all do
-    @barcode = create :barcode
+    @barcode = Barcode.first || create(:barcode)
   end
 
   before :each do
