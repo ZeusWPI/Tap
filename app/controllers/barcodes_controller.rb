@@ -32,6 +32,17 @@ class BarcodesController < ApplicationController
     redirect_to barcodes_path
   end
 
+  def load_barcode
+    @product = Barcode.find_by(code: params[:barcode]).try(:product)
+    if @product
+      render 'products/stock_entry'
+    else
+      @product = Product.new
+      @product.barcodes.build(code: params[:barcode])
+      render 'products/link'
+    end
+  end
+
   private
 
   def barcode_params

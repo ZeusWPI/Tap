@@ -25,12 +25,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :products, only: [:create, :index, :edit, :update] do
+  resources :products, only: [:new, :create, :index, :edit, :update] do
     resources :barcodes, only: :create
-    collection do
-      get 'barcode' => 'products#barcode', as: :barcode
-      post 'barcode' => 'products#load_barcode', as: :load_barcode
-    end
+  end
+
+  resources :barcodes, only: [] do
+    post 'barcode' => 'products#load_barcode', as: :load_barcode, on: :collection
   end
 
   resources :barcodes, only: [:show, :index, :destroy]

@@ -19,37 +19,21 @@
 
 class ProductsController < ApplicationController
   load_and_authorize_resource
+  respond_to :html, :js, :json
 
-  respond_to :html, :js
+  def new
+    respond_with @product
+  end
 
   def create
-    if @product.save
-      flash[:success] = "Product created!"
-      redirect_to barcode_products_path
-    else
-      render 'link'
-    end
-  end
-
-  def barcode
-  end
-
-  def load_barcode
-    @product = Barcode.find_by(code: params[:barcode]).try(:product)
-    if @product
-      render 'products/stock_entry'
-    else
-      @product = Product.new
-      @product.barcodes.build(code: params[:barcode])
-      render 'products/link'
-    end
+    @product.save
+    respond_with @product
   end
 
   def index
-    @products = Product.all
+    @products   = Product.all
     @categories = Product.categories
-
-    render 'products_list/listview' if current_user.admin?
+    respond_with @products
   end
 
   def edit
@@ -57,16 +41,15 @@ class ProductsController < ApplicationController
   end
 
   def update
-    @product.update_attributes product_params
-    respond_to do |format|
-      format.js   { respond_with @product }
-      format.html { redirect_to barcode_products_path, notice: "Stock has been updated!" }
-    end
+    @product.update product_params
+    respond_with @product
   end
 
   private
 
     def product_params
-      params.require(:product).permit(:name, :price, :avatar, :category, :stock, :calories, :deleted, :barcode, barcodes_attributes: [:code])
+      params.require(:product).permit(:name, :price, :avatar, :category,
+                                      :stock, :calories, :deleted,
+                                      barcodes_attributes: [:code])
     end
 end
