@@ -1,6 +1,7 @@
 require 'cancan/matchers'
+require 'webmock/rspec'
 
-describe User do
+describe Ability, type: :model do
   describe 'abilities' do
     subject(:ability){ Ability.new(user) }
     let(:user) { nil}
@@ -30,6 +31,7 @@ describe User do
       describe 'balance' do
         describe 'offline' do
           before :each do
+            allow_any_instance_of(User).to receive(:balance).and_call_original
             stub_request(:get, /.*/)
               .to_return(status: 404)
           end
@@ -38,17 +40,12 @@ describe User do
 
         describe 'online' do
           describe 'greater than minimum' do
-            before :each do
-              stub_request(:get, /.*/)
-                .to_return(body: { balance: 200 }.to_json)
-            end
             it{ should be_able_to(:create, Order.new(user: user)) }
           end
 
           describe 'less than minimum' do
             before :each do
-              stub_request(:get, /.*/)
-                .to_return(body: { balance: -600 }.to_json)
+              allow_any_instance_of(User).to receive(:balance).and_return(-1000)
             end
             it{ should_not be_able_to(:create, Order.new(user: user)) }
           end
@@ -123,8 +120,7 @@ describe User do
 
           describe 'less than minimum' do
             before :each do
-              stub_request(:get, /.*/)
-                .to_return(body: { balance: -600 }.to_json)
+              allow_any_instance_of(User).to receive(:balance).and_return(-1000)
             end
             it{ should_not be_able_to(:create, Order.new(user: user)) }
           end

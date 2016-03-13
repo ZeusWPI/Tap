@@ -28,8 +28,7 @@ RSpec.configure do |config|
 
   # Let's give everyone a balance of 5 euros
   config.before(:each) do
-    stub_request(:get, /.*/)
-      .to_return(body: { balance: 500 }.to_json)
+    allow_any_instance_of(User).to receive(:balance).and_return(500)
   end
 
   config.before :each do
