@@ -19,86 +19,88 @@
 #  frecency            :integer          default(0), not null
 #
 
-#         quickpay_user GET      /users/:id/quickpay(.:format)            users#quickpay
-#  edit_dagschotel_user GET      /users/:id/dagschotel/edit(.:format)     users#edit_dagschotel
-#             edit_user GET      /users/:id/edit(.:format)                users#edit
-#                  user GET      /users/:id(.:format)                     users#show
-#                       PATCH    /users/:id(.:format)                     users#update
-#                       PUT      /users/:id(.:format)                     users#update
-#
-
 describe UsersController, type: :controller do
-  # before :each do
-    # @user = create :user
-    # sign_in @user
-  # end
+  before :each do
+    @user = create :admin
+    sign_in @user
+  end
 
-  # ##########
-  # #  SHOW  #
-  # ##########
+  ##########
+  #  SHOW  #
+  ##########
 
-  # describe 'GET show' do
-    # before :each do
-      # get :show, id: @user
-    # end
+  describe 'GET show' do
+    context 'with id' do
+      it 'should be successful' do
+        get :show, id: @user
+        expect(response).to have_http_status(200)
+      end
 
-    # it 'should be successful' do
-      # expect(response).to have_http_status(200)
-    # end
+      it 'should load the correct user' do
+        user = create :user
+        get :show, id: user
+        expect(assigns(:user)).to eq(user)
+      end
+    end
 
-    # it 'should render the user' do
-      # expect(response).to render_template(:show)
-    # end
+    context 'without id' do
+      it 'should return the signed in user' do
+        get :show
+        expect(assigns(:user)).to eq(@user)
+      end
+    end
+  end
 
-    # it 'should load the correct user' do
-      # expect(assigns(:user)).to eq(@user)
-    # end
-  # end
+  ############
+  #  UPDATE  #
+  ############
 
-  # ############
-  # #  UPDATE  #
-  # ############
+  describe 'PUT update' do
+    it 'should load the correct user' do
+      put :update, id: @user, user: attributes_for(:user)
+      expect(assigns(:user)).to eq(@user)
+    end
 
-  # describe 'PUT update' do
-    # it 'should load the correct user' do
-      # put :update, id: @user, user: attributes_for(:user)
-      # expect(assigns(:user)).to eq(@user)
-    # end
+    context 'successful' do
+      it 'should update privacy' do
+        new_private = !(@user.private)
+        put :update, id: @user, user: { private: new_private }
+        expect(@user.reload.private).to be new_private
+      end
 
-    # context 'successful' do
-      # it 'should update privacy' do
-        # new_private = !(@user.private)
-        # put :update, id: @user, user: { private: new_private }
-        # expect(@user.reload.private).to be new_private
-        # expect(flash[:success]).to be_present
-      # end
+      it 'should accept real images' do
+        file = fixture_file_upload('files/real-image.png', 'image/png')
+        put :update, id: @user, user: { avatar: file }
+        expect(response).to have_http_status(204)
+      end
+    end
 
-      # it 'should update dagschotel' do
-        # product = create :product
-        # put :update, id: @user, user: { dagschotel_id:  product.id }
-        # expect(@user.reload.dagschotel).to eq(product)
-      # end
+    context 'danger zone' do
+      it 'should not accept unreal images' do
+        file = fixture_file_upload('files/unreal-image.svg', 'image/svg+xml')
+        expect{
+          put :update, id: @user, user: { avatar: file }
+        }.to_not change{ @user.avatar }
+      end
+    end
+  end
 
-      # it 'should accept real images' do
-        # file = fixture_file_upload('files/real-image.png', 'image/png')
-        # put :update, id: @user, user: { avatar: file }
-        # expect(flash[:success]).to be_present
-      # end
-    # end
+  #########
+  # INDEX #
+  #########
 
-    # context 'danger zone' do
-      # it 'should warn for NOPs' do
-        # put :update, id: @user, user: {}
-        # expect(flash[:notice]).to be_present
-      # end
+  describe 'GET index' do
+    it 'should be successful' do
+      get :index
+      expect(response).to have_http_status(200)
+    end
 
-      # it 'should not accept unreal images' do
-        # file = fixture_file_upload('files/unreal-image.svg', 'image/svg+xml')
-        # put :update, id: @user, user: { avatar: file }
-        # expect(flash[:error]).to be_present
-      # end
-    # end
-  # end
+    it 'should return an collection of users' do
+      user = create :user
+      get :index
+      expect(assigns(:users)).to include user
+    end
+  end
 
   # #####################
   # #  EDIT_DAGSCHOTEL  #

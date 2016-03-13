@@ -20,11 +20,12 @@
 #
 
 class UsersController < ApplicationController
-  load_and_authorize_resource
   before_action :init, only: :show
+  load_and_authorize_resource find_by: :name
   respond_to :json
 
   def show
+    respond_with @user
   end
 
   def update
@@ -44,6 +45,6 @@ class UsersController < ApplicationController
     end
 
     def init
-      @user ||= current_user
+      @user = current_user unless params[:id]
     end
 end
