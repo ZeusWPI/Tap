@@ -9,12 +9,6 @@
 #  updated_at :datetime
 #
 
-#      product_barcodes POST     /products/:product_id/barcodes(.:format) barcodes#create
-#              barcodes GET      /barcodes(.:format)                      barcodes#index
-#               barcode GET      /barcodes/:id(.:format)                  barcodes#show
-#                       DELETE   /barcodes/:id(.:format)                  barcodes#destroy
-#
-
 describe BarcodesController, type: :controller do
   # before :each do
     # @product = create :product

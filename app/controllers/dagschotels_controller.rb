@@ -1,5 +1,5 @@
 class DagschotelsController < ApplicationController
-  load_and_authorize_resource :user
+  load_and_authorize_resource :user, find_by: :name
   respond_to :json
 
   def edit
@@ -12,7 +12,7 @@ class DagschotelsController < ApplicationController
   end
 
   def destroy
-    @user.update_attribute :dagschotel, nil
+    @user.update dagschotel: nil
     respond_with @user
   end
 

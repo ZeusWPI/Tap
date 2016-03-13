@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show, :update, :index] do
     resources :orders,      only: [:new, :create, :destroy]
-    resources :dagschotels, only: [:edit, :update, :destroy]
+    resource :dagschotel, only: [:edit, :update, :destroy]
   end
 
   resources :products, only: [:new, :create, :index, :edit, :update] do
