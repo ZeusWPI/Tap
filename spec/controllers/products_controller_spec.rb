@@ -29,6 +29,7 @@ describe ProductsController, type: :controller do
 
   describe 'GET new' do
     it 'should be successful' do
+      get :new
       expect(response).to have_http_status(200)
     end
   end

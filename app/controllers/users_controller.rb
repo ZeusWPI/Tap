@@ -22,57 +22,25 @@
 class UsersController < ApplicationController
   load_and_authorize_resource
   before_action :init, only: :show
+  respond_to :json
 
   def show
   end
 
   def update
-    if user_params.empty?
-      flash[:notice] = "Nothing happened."
-      redirect_to @user
-    else
-      if @user.update_attributes(user_params)
-        respond_to do |format|
-          format.html do
-            flash[:success] = "Successfully updated!"
-            redirect_to @user
-          end
-          format.js { head :ok  }
-        end
-      else
-        respond_to do |format|
-          format.html do
-            flash[:error] = "Update failed!"
-            @user.reload
-            render 'show'
-          end
-          format.js { head :bad_request }
-        end
-      end
-    end
+    @user.update user_params
+    respond_with @user
   end
 
-  def edit_dagschotel
-    @dagschotel = @user.dagschotel
-
-    @products = Product.for_sale
-    @categories = Product.categories
-  end
-
-  def quickpay
-    order = @user.orders.build
-    order.order_items.build(count: 1, product: @user.dagschotel)
-    if order.save
-      render json: { message: "Quick pay succeeded for #{@user.name}." }, status: :ok
-    else
-      head :unprocessable_entity
-    end
+  def index
+    @users = @users.members.publik.order(frecency: :desc)
+    respond_with @users
   end
 
   private
 
     def user_params
-      params.fetch(:user, {}).permit(:avatar, :private, :dagschotel_id)
+      params.fetch(:user, {}).permit(:avatar, :private)
     end
 
     def init

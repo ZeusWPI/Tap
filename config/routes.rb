@@ -17,27 +17,16 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users, only: [:show, :update] do
-    resources :orders, only: [:new, :create, :destroy]
-    member do
-      get 'quickpay'               => 'users#quickpay'
-      get 'dagschotel/edit'        => 'users#edit_dagschotel', as: 'edit_dagschotel'
-    end
+  resources :users, only: [:show, :update, :index] do
+    resources :orders,      only: [:new, :create, :destroy]
+    resources :dagschotels, only: [:edit, :update, :destroy]
   end
 
   resources :products, only: [:new, :create, :index, :edit, :update] do
     resources :barcodes, only: :create
   end
 
-  resources :barcodes, only: [] do
+  resources :barcodes, only: [:show, :index, :destroy] do
     post 'barcode' => 'products#load_barcode', as: :load_barcode, on: :collection
-  end
-
-  resources :barcodes, only: [:show, :index, :destroy]
-
-  get 'overview' => 'orders#overview', as: "orders"
-
-  namespace :guest do
-    resources :orders, only: [:new, :create]
   end
 end

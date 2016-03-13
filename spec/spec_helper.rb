@@ -32,6 +32,10 @@ RSpec.configure do |config|
       .to_return(body: { balance: 500 }.to_json)
   end
 
+  config.before :each do
+    request.env["HTTP_ACCEPT"] = 'application/json' if defined? request
+  end
+
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
