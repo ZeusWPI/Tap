@@ -32,13 +32,13 @@ describe UsersController, type: :controller do
   describe 'GET show' do
     context 'with id' do
       it 'should be successful' do
-        get :show, id: @user
+        get :show, id: @user.name
         expect(response).to have_http_status(200)
       end
 
       it 'should load the correct user' do
         user = create :user
-        get :show, id: user
+        get :show, id: user.name
         expect(assigns(:user)).to eq(user)
       end
     end
