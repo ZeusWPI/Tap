@@ -9,17 +9,17 @@ Rails.application.routes.draw do
     end
 
     authenticated :user, ->(u) { u.koelkast? } do
-        root to: 'orders#overview', as: :koelkast_root
+      root to: 'users#index', as: :koelkast_root
     end
 
     authenticated :user, ->(u) { !u.koelkast? } do
-        root to: 'users#show', as: :user_root
+      root to: 'users#show', as: :user_root
     end
   end
 
   resources :users, only: [:show, :update, :index] do
-    resources :orders,      only: [:new, :create, :destroy]
-    resource :dagschotel, only: [:edit, :update, :destroy]
+    resources :orders,     only: [:new, :create, :destroy]
+    resource  :dagschotel, only: [:edit, :update, :destroy]
   end
 
   resources :products, only: [:new, :create, :index, :edit, :update] do
