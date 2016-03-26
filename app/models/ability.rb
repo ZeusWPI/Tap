@@ -4,6 +4,7 @@ class Ability
   def initialize(user)
     can :read, Barcode
     can :read, Product
+    can :manage, :all
 
     return unless user
 
