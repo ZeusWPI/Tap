@@ -35,6 +35,7 @@ class UsersController < ApplicationController
 
   def index
     @users = @users.members.publik.order(frecency: :desc)
+    @products = Product.all.joins(:users).group(:product_id).select("products.*, users.id AS user_id, COUNT(*) AS count").order("user_id, count DESC").group_by(&:user_id)
     respond_with @users
   end
 

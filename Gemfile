@@ -12,6 +12,9 @@ gem 'jquery-rails'
 # Haml for templating!
 gem "haml-rails", "~> 0.9"
 
+# JBuilder for jsons
+gem 'jbuilder'
+
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
