@@ -1,16 +1,16 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.4'
+gem 'rails', github: 'rails/rails'
 
 # Assets
-gem 'sass-rails', '~> 4.0.3'
-gem 'bootstrap-sass',       '3.2.0.0'
+gem 'sass-rails', github: 'rails/sass-rails'
+gem 'bootstrap-sass'
 gem 'bootstrap-switch-rails'
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier'
 gem 'jquery-rails'
 # Haml for templating!
-gem "haml-rails", "~> 0.9"
+gem "haml-rails"
 
 # JBuilder for jsons
 gem 'jbuilder'
@@ -19,19 +19,25 @@ gem 'jbuilder'
 gem 'turbolinks'
 
 # Friendly ids!
-gem 'friendly_id', '~> 5.1.0'
+gem 'friendly_id'
 
 group :doc do
-  gem 'sdoc', '~> 0.4.0'
+  gem 'sdoc'
 end
 
 group :production do
-  gem 'mysql2', '~> 0.3.18' # Database
+  gem 'mysql2'
 end
 
 group :test do
   gem 'codeclimate-test-reporter', require: nil
-  gem 'rspec-rails'
+  gem 'rspec', github: 'rspec/rspec'
+  gem 'rspec-mocks', github: 'rspec/rspec-mocks'
+  gem 'rspec-expectations', github: 'rspec/rspec-expectations'
+  gem 'rspec-support', github: 'rspec/rspec-support'
+  gem 'rspec-core', github: 'rspec/rspec-core'
+  gem 'rspec-rails', github: 'rspec/rspec-rails'
+  gem 'rails-controller-testing'
   gem 'coveralls', require: false
   gem 'webmock'
 end
@@ -46,8 +52,8 @@ group :development do
   gem 'spring'
 
   # Deployment
-  gem 'capistrano', '~> 3.1'
-  gem 'capistrano-rails', '~> 1.1'
+  gem 'capistrano'
+  gem 'capistrano-rails'
   gem 'capistrano-rvm'
   gem 'capistrano-rbenv'
   gem 'capistrano-passenger'
@@ -55,22 +61,22 @@ end
 
 group :development, :test do
   gem 'factory_girl_rails'
-  gem 'faker', '1.4.2'
+  gem 'faker'
 end
 
 # Airbrake
-gem 'airbrake', '~> 4'
+gem 'airbrake'
 
 # Paginate stuff
-gem 'will_paginate',           '3.0.7'
-gem 'bootstrap-will_paginate', '0.0.10'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 
 # Paperclip for easy file attachment
 gem 'paperclip'
 
 # Use devise for users and admins
 gem 'devise'
-gem 'omniauth-oauth2', '1.3.1'
+gem 'omniauth-oauth2'
 
 # Use cancancan for authorization
 gem 'cancancan'
@@ -80,7 +86,7 @@ gem 'identicon'
 
 # Run stuff in the background
 gem 'daemons'
-gem 'delayed_job', '~> 4.0'
+gem 'delayed_job'
 gem 'delayed_job_active_record'
 
 gem 'httparty'
