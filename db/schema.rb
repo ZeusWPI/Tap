@@ -18,9 +18,8 @@ ActiveRecord::Schema.define(version: 20160309195941) do
     t.string   "code",       default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["code"], name: "index_barcodes_on_code"
   end
-
-  add_index "barcodes", ["code"], name: "index_barcodes_on_code"
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -34,9 +33,8 @@ ActiveRecord::Schema.define(version: 20160309195941) do
     t.string   "queue"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
-
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
   create_table "orders", force: :cascade do |t|
     t.integer  "user_id"
@@ -44,11 +42,10 @@ ActiveRecord::Schema.define(version: 20160309195941) do
     t.datetime "updated_at",     null: false
     t.integer  "transaction_id"
     t.integer  "product_id"
+    t.index ["created_at"], name: "index_orders_on_created_at"
+    t.index ["user_id", "created_at"], name: "index_orders_on_user_id_and_created_at"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
-
-  add_index "orders", ["created_at"], name: "index_orders_on_created_at"
-  add_index "orders", ["user_id", "created_at"], name: "index_orders_on_user_id_and_created_at"
-  add_index "orders", ["user_id"], name: "index_orders_on_user_id"
 
   create_table "products", force: :cascade do |t|
     t.string   "name",                                null: false
@@ -80,9 +77,8 @@ ActiveRecord::Schema.define(version: 20160309195941) do
     t.string   "name"
     t.boolean  "private",             default: false
     t.integer  "frecency",            default: 0,     null: false
+    t.index ["koelkast"], name: "index_users_on_koelkast"
+    t.index ["orders_count"], name: "index_users_on_orders_count"
   end
-
-  add_index "users", ["koelkast"], name: "index_users_on_koelkast"
-  add_index "users", ["orders_count"], name: "index_users_on_orders_count"
 
 end
