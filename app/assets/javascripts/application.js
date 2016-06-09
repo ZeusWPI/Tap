@@ -14,7 +14,6 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require bootstrap-switch
-//= require turbolinks
 //= require_tree .
 
 parseIntNaN = function(value) {
