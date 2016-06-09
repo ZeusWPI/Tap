@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  after_filter :set_origin
+  after_action :set_origin
 
   rescue_from CanCan::AccessDenied do |exception|
     render json: { error: message_for(exception) }, status: :forbidden

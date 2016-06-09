@@ -22,6 +22,7 @@ class Product < ActiveRecord::Base
 
   has_many :barcodes, dependent: :destroy
   has_many :orders
+  has_many :users, through: :orders
   accepts_nested_attributes_for :barcodes
 
   enum category: %w(food beverages other)

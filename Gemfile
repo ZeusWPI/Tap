@@ -15,9 +15,6 @@ gem "haml-rails"
 # JBuilder for jsons
 gem 'jbuilder'
 
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
-
 # Friendly ids!
 gem 'friendly_id'
 
@@ -65,7 +62,7 @@ group :development, :test do
 end
 
 # Airbrake
-gem 'airbrake'
+# gem 'airbrake', '~> 4'
 
 # Paginate stuff
 gem 'will_paginate'

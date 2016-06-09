@@ -11,32 +11,32 @@
 #
 
 describe OrdersController, type: :controller do
-  before :each do
-    @user = create :user
-    sign_in @user
-  end
+  # before :each do
+    # @user = create :user
+    # sign_in @user
+  # end
 
-  #######
-  # NEW #
-  #######
+  # #######
+  # # NEW #
+  # #######
 
-  describe 'GET new' do
+  # describe 'GET new' do
 
-  end
+  # end
 
-  ##########
-  # CREATE #
-  ##########
+  # ##########
+  # # CREATE #
+  # ##########
 
-  describe 'POST create' do
+  # describe 'POST create' do
 
-  end
+  # end
 
-  ###########
-  # DESTROY #
-  ###########
+  # ###########
+  # # DESTROY #
+  # ###########
 
-  describe 'DELETE destroy' do
+  # describe 'DELETE destroy' do
 
-  end
+  # end
 end

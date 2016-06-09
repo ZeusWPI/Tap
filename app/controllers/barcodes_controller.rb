@@ -12,6 +12,7 @@
 class BarcodesController < ApplicationController
   load_and_authorize_resource :product, only: :create
   load_and_authorize_resource :barcode, through: :product, shallow: true
+  respond_to :json
 
   def create
     @barcode.save
@@ -20,6 +21,7 @@ class BarcodesController < ApplicationController
 
   def index
     @barcodes = Barcode.all.order(:code)
+    respond_with @barcodes
   end
 
   def show

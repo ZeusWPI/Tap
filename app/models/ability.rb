@@ -22,7 +22,7 @@ class Ability
     can :create, Order
     cannot :create, Order, user: { private: true }
     cannot :create, Order do |order|
-      order.try(:user).try(:balance).try(:<, -500)
+      order.try(:user).try(:balance).try(:<, Rails.application.config.x.balance_cap)
     end
 
     can :quickpay, User
