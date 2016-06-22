@@ -4,7 +4,7 @@ class AddManyToOneRelationToOrders < ActiveRecord::Migration
 
     orders = Order.all
     orders.each do |order|
-      OrderItem.where(order: order).each do |oi|
+      OrderItem.where(order_id: order.id).each do |oi|
         product = Product.where(id: oi.id).first
         oi.count.times do
           Order.create user_id: order.user_id,
