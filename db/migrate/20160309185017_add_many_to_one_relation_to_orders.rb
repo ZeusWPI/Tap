@@ -2,7 +2,7 @@ class AddManyToOneRelationToOrders < ActiveRecord::Migration
   def up
     add_column :orders, :product_id, :integer
 
-    Order.skip_callback :create_api_job
+    Order.skip_callback :create
 
     orders = Order.all
     orders.each do |order|
@@ -19,7 +19,7 @@ class AddManyToOneRelationToOrders < ActiveRecord::Migration
       end
     end
 
-    Order.reset_callbacks
+    Order.reset_callbacks :create
   end
 
   def down
