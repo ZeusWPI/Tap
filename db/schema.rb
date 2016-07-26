@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160713093049) do
+ActiveRecord::Schema.define(version: 20160726143917) do
 
   create_table "barcodes", force: :cascade do |t|
     t.integer  "product_id"
@@ -19,6 +19,15 @@ ActiveRecord::Schema.define(version: 20160713093049) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["code"], name: "index_barcodes_on_code"
+  end
+
+  create_table "dagschotels", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_dagschotels_on_product_id"
+    t.index ["user_id"], name: "index_dagschotels_on_user_id"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -68,17 +77,14 @@ ActiveRecord::Schema.define(version: 20160713093049) do
     t.datetime "updated_at"
     t.datetime "remember_created_at"
     t.boolean  "admin",               default: false
-    t.integer  "dagschotel_id"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.integer  "orders_count",        default: 0
-    t.boolean  "koelkast",            default: false
     t.string   "name"
     t.boolean  "private",             default: false
     t.integer  "frecency",            default: 0,     null: false
-    t.index ["koelkast"], name: "index_users_on_koelkast"
     t.index ["orders_count"], name: "index_users_on_orders_count"
   end
 
