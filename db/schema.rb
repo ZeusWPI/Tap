@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160309195941) do
+ActiveRecord::Schema.define(version: 20160713093049) do
 
   create_table "barcodes", force: :cascade do |t|
     t.integer  "product_id"
@@ -38,10 +38,11 @@ ActiveRecord::Schema.define(version: 20160309195941) do
 
   create_table "orders", force: :cascade do |t|
     t.integer  "user_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "transaction_id"
     t.integer  "product_id"
+    t.string   "method",         default: "tab"
     t.index ["created_at"], name: "index_orders_on_created_at"
     t.index ["user_id", "created_at"], name: "index_orders_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_orders_on_user_id"

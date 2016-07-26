@@ -3,30 +3,29 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     get 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
-    get 'sign_in', to: 'welcome#token_sign_in'
     unauthenticated :user do
       root to: 'welcome#index'
     end
 
-    authenticated :user, ->(u) { u.koelkast? } do
-      root to: 'users#index', as: :koelkast_root
-    end
+    root to: 'users#show', as: :user_root
+  end
 
-    authenticated :user, ->(u) { !u.koelkast? } do
-      root to: 'users#show', as: :user_root
+  namespace :api do
+    namespace :v1 do
+      resources :barcodes, only: :index
+      resources :orders,   only: :create
+      resources :products, only: :index
+      resources :users,    only: :index
     end
   end
 
-  resources :users, only: [:show, :update, :index] do
-    resources :orders,     only: [:new, :create, :destroy]
-    resource  :dagschotel, only: [:edit, :update, :destroy]
+  resources :users, only: [:show, :update] do
+    resources :orders, only: [:new, :create, :destroy]
   end
 
   resources :products, only: [:new, :create, :index, :edit, :update] do
     resources :barcodes, only: :create
   end
 
-  resources :barcodes, only: [:show, :index, :destroy] do
-    post 'barcode' => 'products#load_barcode', as: :load_barcode, on: :collection
-  end
+  resources :barcodes, only: [:show, :index, :destroy]
 end

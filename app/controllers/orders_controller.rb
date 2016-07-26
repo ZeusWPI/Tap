@@ -14,13 +14,20 @@ class OrdersController < ApplicationController
   load_and_authorize_resource :user
   load_and_authorize_resource :order, through: :user, shallow: true
 
+  respond_to :json
+
   def new
     respond_with @order
   end
 
   def create
-    @order.save
-    respond_with @order
+    respond_with @order do |format|
+      if @order.save
+        format.json { head :ok }
+      else
+        format.json { render json: @order.errors.full_messages, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
@@ -31,6 +38,6 @@ class OrdersController < ApplicationController
   private
 
     def order_params
-      params.require(:order).permit(:product_id)
+      params.require(:order).permit(:product_id, :user_id, :method)
     end
 end

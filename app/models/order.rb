@@ -24,6 +24,7 @@ class Order < ActiveRecord::Base
 
   validates :user,    presence: true
   validates :product, presence: true
+  validates :method,  presence: true
 
   def flash_success
     f = "#{product.capitalize} ordered."
@@ -38,7 +39,7 @@ class Order < ActiveRecord::Base
   private
 
     def create_api_job
-      return if Rails.env.test?
+      return if Rails.env.test? || method == 'cash'
 
       priority = 0
       run_at   = Rails.application.config.call_api_after.from_now
