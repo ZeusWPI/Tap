@@ -12,8 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap
-//= require bootstrap-switch
+//= require react
+//= require react_ujs
+//= require components
 //= require_tree .
 
 parseIntNaN = function(value) {

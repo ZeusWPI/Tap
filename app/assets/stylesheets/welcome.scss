@@ -1,0 +1,52 @@
+@import 'sass';
+
+body {
+  background: $body-background-color;
+}
+
+.wrapper {
+  max-width: 500px;
+  width: 100%;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  border: 1px solid rgba(54, 64, 74, 0.1);
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1), 0 -1px 4px 0 rgba(0, 0, 0, 0.08);
+  background-color: #ffffff;
+  background-clip: padding-box;
+
+  margin-top: 100px;
+  padding: 20px;
+
+  @include box_sizing;
+
+  .title {
+    font-size: 62px;
+    font-weight: bolder;
+    letter-spacing: -6px;
+    display: block;
+    text-align: center;
+  }
+
+  a.pure-button {
+    font-weight: bold;
+    margin-top: 20px;
+    font-size: 150%;
+    width: 100%;
+    background-color: #FF7F00;
+
+    img {
+      margin-right: 10px;
+      max-height: 50px;
+      max-width: 50px;
+      vertical-align: middle;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .wrapper {
+    margin-top: 20px;
+  }
+}

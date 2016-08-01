@@ -8,7 +8,7 @@
         %span.icon-bar
       = link_to "Tap", root_path, class: "navbar-brand nav-logo"
     / Collect the nav links, forms, and other content for toggling
-    - unless current_user && current_user.koelkast?
+    - unless current_user
       .collapse.navbar-collapse
         .hidden-xs.navbar-form.navbar-right
           = render 'layouts/session_button'

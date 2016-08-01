@@ -1,5 +1,5 @@
-= content_for :title, "Login"
-%p
-  If this is the first time you log in, an account will be created for you.
-%div
-  = link_to "Sign in with Zeus WPI account.", omniauth_authorize_path("user", "zeuswpi"), class: "btn btn-large btn-primary"
+%span.title
+  Tap
+= link_to omniauth_authorize_path('user', 'zeuswpi'), class: 'pure-button' do
+  Sign in with
+  = image_tag 'logo'

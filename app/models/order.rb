@@ -26,14 +26,14 @@ class Order < ActiveRecord::Base
   validates :product, presence: true
   validates :method,  presence: true
 
-  def flash_success
-    f = "#{product.capitalize} ordered."
-    f << " Please put #{euro_from_cents(price_cents)} in our pot!" if user.guest?
-    f << " Enjoy it!"
-  end
+  scope :after, ->(date) { where 'created_at > ?', date }
 
   def deletable
     self.created_at > Rails.application.config.call_api_after.ago
+  end
+
+  def day
+    self.created_at.to_date
   end
 
   private

@@ -1,0 +1,24 @@
+@mixin box_sizing {
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+          border-radius: $radius;
+}
+
+@mixin animate($time) {
+    -webkit-transition: all $time ease-in-out;
+       -moz-transition: all $time ease-in-out;
+         -o-transition: all $time ease-in-out;
+            transition: all $time ease-in-out;
+}
+
+$body-background-color: #f3f3f3;
+$body-text-color: #797979;
+
+$card-border-color: rgba(0, 0, 0, 0.1);
+$card-border-radius: 5px;

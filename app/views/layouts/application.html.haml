@@ -1,17 +1,14 @@
 !!!
 %html
   %head
-    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"}
-    %title Tap - Zeus WPIs drink ordering system
+    %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' }
+    %title Tap - Zeus WPI
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
-    = render 'layouts/header'
-    .container
-      %h2= yield :title
-      #flash
-        = flash_messages
+    .pure-g
+      .pure-u-1
+        #flash
+          = flash_messages
       = yield
-      = render 'layouts/footer'
-      = debug(params) if Rails.env.development?

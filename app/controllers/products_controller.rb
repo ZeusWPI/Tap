@@ -19,7 +19,7 @@
 
 class ProductsController < ApplicationController
   load_and_authorize_resource
-  respond_to :json
+  respond_to :json, :html
 
   def new
     respond_with @product

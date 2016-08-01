@@ -22,9 +22,10 @@
 class UsersController < ApplicationController
   before_action :init, only: :show
   load_and_authorize_resource find_by: :name
-  respond_to :json
+  respond_to :json, :html
 
   def show
+    @orders = @user.orders.includes(:product).after(Date.today - 6.days).group_by(&:day)
     respond_with @user
   end
 

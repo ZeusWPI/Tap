@@ -9,23 +9,12 @@ class Ability
     return unless user
 
     initialize_admin    if user.admin?
-    initialize_koelkast if user.koelkast?
     initialize_user(user)
 
   end
 
   def initialize_admin
     can :manage, :all
-  end
-
-  def initialize_koelkast
-    can :create, Order
-    cannot :create, Order, user: { private: true }
-    cannot :create, Order do |order|
-      order.try(:user).try(:balance).try(:<, Rails.application.config.x.balance_cap)
-    end
-
-    can :quickpay, User
   end
 
   def initialize_user(user)

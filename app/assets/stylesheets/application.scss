@@ -10,88 +10,9 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= stub welcome
  *= require_tree .
  *= require_self
  */
 
-
-@import "bootstrap-sprockets";
-@import "bootstrap3-switch";
-@import "bootstrap";
-
-
-/* mixins, variables, etc. */
-
-$gray-medium-light: #eaeaea;
-
-@mixin box_sizing {
-  -moz-box-sizing:    border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing:         border-box;
-}
-
-/* miscellaneous */
-
-.nowrap {
-  white-space: nowrap;
-}
-
-.center{
-  text-align: center;
-}
-
-.float-right{
-    float: right;
-}
-
-.form-field{
-  margin-bottom: 15px;
-  text-align: bottom;
-}
-
-/* bootstrap */
-
-body {
-  padding-top: 80px;
-}
-
-/* footer */
-
-footer {
-  margin-top: 45px;
-  padding-top: 5px;
-  border-top: 1px solid $gray-medium-light;
-  color: #777;
-  a {
-    color: #555;
-    &:hover {
-      color: #222;
-    }
-  }
-  small {
-    float: left;
-  }
-  ul {
-    float: right;
-    list-style: none;
-    li {
-      float: left;
-      margin-left: 15px;
-    }
-  }
-}
-
-.debug_dump{
-  width: 100%;
-  margin-top: 30px;
-}
-
-.nav-logo{
-  font-size:30px;
-}
-
-@media(max-width:767px) {
-  .nav-logo{
-    margin:10px;
-  }
-}
+@import "font-awesome";

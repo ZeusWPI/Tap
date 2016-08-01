@@ -14,7 +14,7 @@ class OrdersController < ApplicationController
   load_and_authorize_resource :user
   load_and_authorize_resource :order, through: :user, shallow: true
 
-  respond_to :json
+  respond_to :json, :html
 
   def new
     respond_with @order

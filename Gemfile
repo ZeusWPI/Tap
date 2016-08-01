@@ -5,10 +5,12 @@ gem 'rails', github: 'rails/rails'
 
 # Assets
 gem 'sass-rails', github: 'rails/sass-rails'
-gem 'bootstrap-sass'
-gem 'bootstrap-switch-rails'
 gem 'uglifier'
 gem 'jquery-rails'
+gem 'font-awesome-rails'
+gem 'react-rails'
+gem 'coffee-rails'
+
 # Haml for templating!
 gem "haml-rails"
 
@@ -73,7 +75,7 @@ gem 'paperclip'
 
 # Use devise for users and admins
 gem 'devise'
-gem 'omniauth-oauth2'
+gem 'omniauth-oauth2', '~> 1.3.1' # Fixed version because of bug in 1.4
 
 # Use cancancan for authorization
 gem 'cancancan'

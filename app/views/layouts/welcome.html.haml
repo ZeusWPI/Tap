@@ -1,0 +1,12 @@
+!!!
+%html
+  %head
+    %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' }
+    %title Tap - Zeus WPI
+    = stylesheet_link_tag :welcome
+    = stylesheet_link_tag :normalize
+    = stylesheet_link_tag :pure
+    = csrf_meta_tags
+  %body
+    .wrapper
+      = yield

@@ -1,13 +1,1 @@
-%tr
-  %td.order_date
-    = order.created_at.strftime("%d %b %Y at %H:%M")
-%tr
-  %td
-    = order.to_sentence
-  %td
-    = euro_from_cents(order.price_cents)
-  %td
-    - if order.deletable
-      = button_to "Cancel order (until #{(order.created_at + Rails.application.config.call_api_after).strftime("%H:%M")})", user_order_path(@user, order), method: :delete,
-        class: "btn btn-danger", data: { remove: order.sec_until_remove }
-
+= image_tag order.product.avatar, class: 'img-circle img-thumbnail', style: "z-index: #{100 - order_counter}"

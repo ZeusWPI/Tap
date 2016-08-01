@@ -1,0 +1,11 @@
+.calendar-graph {
+  .day:hover {
+    stroke: #555;
+    stroke-width: 1px;
+  }
+
+  .wday {
+    font-size: 9px;
+    fill: #ccc;
+  }
+}
