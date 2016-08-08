@@ -23,3 +23,4 @@ public/system/users
 .project
 
 /coverage
+/node_modules
