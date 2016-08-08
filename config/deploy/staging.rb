@@ -11,3 +11,5 @@ set :application, "tap-beta"
 
 set :branch, '2.0'
 set :deploy_to, '/home/tap-beta/production'
+
+set :npm_flags, '--silent --no-progress'
