@@ -73,7 +73,7 @@ User = React.createClass
                 span className: 'month', date.toLocaleString('en-us', { month: 'short' })
               div className: 'orders-thumbnails',
                 (orders[formatDate(date)] || []).map (o, i) ->
-                  img key: i, src: o.product.avatar, className: 'img-circle img-thumbnail', style: { 'zIndex': 100 - i }
+                  img key: i, src: o.product.avatar, className: 'img-circle img-thumbnail', style: { zIndex: 100 - i }
 
 mapStateToProps = (state) ->
   user: state.user,

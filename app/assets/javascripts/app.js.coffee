@@ -20,6 +20,7 @@ render(
 
 # FETCH DATA
 
-{ fetchUser, fetchOrders } = require './actions/action_creators'
+{ fetchUser, fetchOrders, fetchContributions } = require './actions/action_creators'
 fetchUser()(store.dispatch)
 fetchOrders()(store.dispatch)
+fetchContributions()(store.dispatch)

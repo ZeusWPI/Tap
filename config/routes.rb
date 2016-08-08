@@ -20,6 +20,10 @@ Rails.application.routes.draw do
   resource :user,    only: :show
   resources :orders, only: :index
 
+  namespace :stats do
+    get :contributions
+  end
+
   root to: 'react#index', as: 'user_root'
   get '/*path', to: 'react#index'
 end
