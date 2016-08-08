@@ -10,18 +10,7 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require jquery_ujs
 //= require react
 //= require react_ujs
 //= require components
-//= require_tree .
-
-parseIntNaN = function(value) {
-  parsed_value = parseInt(value, 10);
-  if (isNaN(parsed_value)) {
-    return 0;
-  } else {
-    return parsed_value;
-  }
-}
+//= require app

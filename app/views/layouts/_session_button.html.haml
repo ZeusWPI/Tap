@@ -1,5 +1,0 @@
-.form-group
-  - if user_signed_in?
-    = link_to "Logout", destroy_user_session_path, class: "btn btn-default form-control"
-  - else
-    = link_to "Login", omniauth_authorize_path("user", "zeuswpi"), class: "btn btn-success form-control"

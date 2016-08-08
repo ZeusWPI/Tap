@@ -25,7 +25,6 @@ class UsersController < ApplicationController
   respond_to :json, :html
 
   def show
-    @orders = @user.orders.includes(:product).after(Date.today - 6.days).group_by(&:day)
     respond_with @user
   end
 

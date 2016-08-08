@@ -1,0 +1,21 @@
+{
+  "name": "Tap",
+  "devDependencies": {
+    "browserify": "^13.1.0",
+    "browserify-incremental": "^3.1.1",
+    "coffeeify": "^2.0.1"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">= 0.10"
+  },
+  "dependencies": {
+    "fetch": "^1.1.0",
+    "moment": "^2.14.1",
+    "moment-range": "^2.2.0",
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2"
+  }
+}

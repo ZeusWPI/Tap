@@ -1,13 +1,11 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { omniauth_callbacks: "callbacks" }
+  devise_for :users, controllers: { omniauth_callbacks: 'callbacks' }
 
   devise_scope :user do
     get 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
     unauthenticated :user do
       root to: 'welcome#index'
     end
-
-    root to: 'users#show', as: :user_root
   end
 
   namespace :api do
@@ -19,13 +17,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users, only: [:show, :update] do
-    resources :orders, only: [:new, :create, :destroy]
-  end
+  resource :user,    only: :show
+  resources :orders, only: :index
 
-  resources :products, only: [:new, :create, :index, :edit, :update] do
-    resources :barcodes, only: :create
-  end
-
-  resources :barcodes, only: [:show, :index, :destroy]
+  root to: 'react#index', as: 'user_root'
+  get '/*path', to: 'react#index'
 end

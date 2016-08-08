@@ -1,0 +1,4 @@
+module.exports =
+  ADD_ORDER:  'ADD_ORDER'
+  SET_ORDERS: 'SET_ORDERS'
+  SET_USER:   'SET_USER'

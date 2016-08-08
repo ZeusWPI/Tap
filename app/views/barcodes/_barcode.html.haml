@@ -1,6 +1,0 @@
-%tr
-  %td= barcode.id
-  %td= barcode.code
-  %td= barcode.product.name
-  %td= image_tag barcode.product.avatar(:small)
-  %td= button_to "Delete", barcode_path(barcode), method: :delete, class: "btn btn-danger"

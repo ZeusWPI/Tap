@@ -1,9 +1,0 @@
-- if controller_name == 'products' && can?(:manage, Product)
-  = link_to "Edit", edit_product_path(product), class: "btn btn-default"
-  = link_to "Delete", product_path(product), method: :delete, class: "btn btn-danger", data: {confirm: 'Are you sure?'}
-- if controller_name == 'users'
-  .product_dagschotel
-    - if current_user.dagschotel != product
-      = button_to "Make dagschotel", { controller: 'users', action: 'update', "user[dagschotel_id]" => product.id }, method: :put, class: "btn btn-default"
-    - else
-      %span.btn.btn-success= "Current dagschotel"

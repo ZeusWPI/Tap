@@ -24,5 +24,6 @@ module Tab002
         resource '*', :headers => :any, :methods => [:get, :post, :options]
       end
     end
+    config.browserify_rails.commandline_options = "-t coffeeify --extension=\".js.coffee\""
   end
 end

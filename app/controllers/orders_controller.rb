@@ -11,6 +11,7 @@
 #
 
 class OrdersController < ApplicationController
+  before_action :init, only: :index
   load_and_authorize_resource :user
   load_and_authorize_resource :order, through: :user, shallow: true
 
@@ -30,6 +31,11 @@ class OrdersController < ApplicationController
     end
   end
 
+  def index
+    @orders = @user.orders.includes(:product).after(Date.today - 6.days)
+    respond_with @orders
+  end
+
   def destroy
     @order.destroy
     respond_with @order
@@ -39,5 +45,9 @@ class OrdersController < ApplicationController
 
     def order_params
       params.require(:order).permit(:product_id, :user_id, :method)
+    end
+
+    def init
+      @user = current_user unless params[:id]
     end
 end
