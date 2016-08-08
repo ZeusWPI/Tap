@@ -26,10 +26,10 @@ loadData = (path, callback) ->
         dispatch callback data
 
 module.exports.fetchUser = ->
-  loadData '/user.json', setUser
+  loadData 'user.json', setUser
 
 module.exports.fetchOrders = ->
-  loadData '/orders.json', setOrders
+  loadData 'orders.json', setOrders
 
 module.exports.fetchContributions = ->
-  loadData '/stats/contributions.json', setContributions
+  loadData 'stats/contributions.json', setContributions

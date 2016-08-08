@@ -6,7 +6,7 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = csrf_meta_tags
     :javascript
-      window.base_url = "#{request.base_url}"
+      window.base_url = "#{Rails.application.config.relative_url_root}"
   %body
     .pure-g
       .pure-u-1
