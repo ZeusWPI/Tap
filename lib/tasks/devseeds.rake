@@ -1,4 +1,4 @@
-unless Rails.env.production?
+if Rails.env.development?
   require 'factory_girl'
   require 'faker'
   task :sow => :environment do

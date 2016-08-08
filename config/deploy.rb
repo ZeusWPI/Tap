@@ -4,9 +4,6 @@
 set :application, 'Tap'
 set :repo_url, 'git@github.com:ZeusWPI/Tap.git'
 
-set :branch, 'master'
-set :deploy_to, '/home/tap/production'
-
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
