@@ -5,6 +5,8 @@
     %title Tap - Zeus WPI
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = csrf_meta_tags
+    :javascript
+      window.base_url = "#{request.base_url}"
   %body
     .pure-g
       .pure-u-1

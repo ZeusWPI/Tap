@@ -17,7 +17,7 @@ setUser = (user) ->
 
 loadData = (path, callback) ->
   (dispatch) ->
-    fetch path, credentials
+    fetch "#{@window.base_url}/#{path}", credentials
       .then (response) ->
         throw new Error('Bad response from server') if response.status >= 400
         return response.json()
