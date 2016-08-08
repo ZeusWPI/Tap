@@ -42,7 +42,7 @@ CalendarGraph = React.createClass
     svg height: 110, width: 721, className: 'calendar-graph',
       g transform: 'translate(20, 20)',
         dates.map (d, i) =>
-          g key: i, transform: 'translate(' + 13 * i + ', 0)',
+          g key: i, transform: "translate(#{13 * i}, 0)",
             d.map (day, i) =>
               dd = day._d
               Rect key: i, index: i, count: @count(dd), date: dd

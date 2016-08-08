@@ -19,7 +19,7 @@
 #  frecency            :integer          default(0), not null
 #
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   include Statistics, Avatarable, FriendlyId
 
   friendly_id :name
@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
 
   has_many :orders, -> { includes :product }
   has_many :products, through: :orders
-  belongs_to :dagschotel, class_name: 'Product'
+  has_many :dagschotels
 
   scope :members, -> { where koelkast: false }
   scope :publik,  -> { where private: false }

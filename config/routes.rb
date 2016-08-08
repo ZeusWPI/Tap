@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   end
 
   resource :user,    only: :show
-  resources :orders, only: :index
+  resources :orders, only: [:create, :index]
 
   namespace :stats do
     get :contributions

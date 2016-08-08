@@ -9,7 +9,7 @@
 #  updated_at :datetime
 #
 
-class Barcode < ActiveRecord::Base
+class Barcode < ApplicationRecord
   include FriendlyId
   friendly_id :code
 

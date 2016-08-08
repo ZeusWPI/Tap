@@ -10,7 +10,7 @@
 #  product_id     :integer
 #
 
-class Order < ActiveRecord::Base
+class Order < ApplicationRecord
   include ApplicationHelper
 
   belongs_to :user, counter_cache: true

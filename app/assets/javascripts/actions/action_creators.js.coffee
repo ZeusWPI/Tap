@@ -22,6 +22,7 @@ loadData = (path, callback) ->
         throw new Error('Bad response from server') if response.status >= 400
         return response.json()
       .then (data) ->
+        console.log data
         dispatch callback data
 
 module.exports.fetchUser = ->

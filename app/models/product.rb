@@ -17,7 +17,7 @@
 #  deleted             :boolean          default(FALSE)
 #
 
-class Product < ActiveRecord::Base
+class Product < ApplicationRecord
   include Avatarable
 
   has_many :barcodes, dependent: :destroy
