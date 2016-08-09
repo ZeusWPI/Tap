@@ -72,3 +72,34 @@
     /* margin: 10px; */
   }
 }
+
+.input-wrapper {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+
+  span {
+    display: none;
+    line-height: 110px;
+    vertical-align: middle;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  input {
+    display: hidden;
+  }
+
+  &:hover {
+    img {
+      opacity: 0.5;
+    }
+
+    span {
+      display: block;
+    }
+  }
+}

@@ -5,15 +5,9 @@ range       = require 'moment-range'
 
 CalendarGraph  = React.createFactory require './calendar_graph'
 OrderHere      = React.createFactory require './order_here'
+Avatar         = React.createFactory require './avatar'
 zero           = require '../utils/zero'
 { formatDate } = require '../actions/action_creators'
-
-Avatar = React.createFactory React.createClass
-  render: ->
-    { src, name } = @props
-    div className: 'card-box avatar',
-      h1 null, name
-      img src: src, className: 'img-square'
 
 OrdersCount = React.createFactory React.createClass
   render: ->
