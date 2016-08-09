@@ -90,5 +90,5 @@ Rails.application.configure do
     script_name: config.relative_url_root,
   }
 
-  config.api_url = "http://zeus.ugent.be/tap-beta"
+  config.api_url = "http://zeus.ugent.be/tab"
 end
