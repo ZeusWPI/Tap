@@ -32,6 +32,12 @@ body {
   @include border-radius(50%);
 }
 
+.img-square {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 4px;
+}
+
 .img-thumbnail {
   background-color: #fff;
   border: 1px solid #ddd;

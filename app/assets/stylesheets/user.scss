@@ -8,12 +8,6 @@
   h1 {
     margin-top: 0;
   }
-
-  img {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    padding: 4px;
-  }
 }
 
 .orders-overview {
@@ -65,5 +59,16 @@
         }
       }
     }
+  }
+}
+
+.order-here {
+  .pure-u-1-2 {
+    text-align: center;
+  }
+  /* text-align: center; */
+
+  img {
+    /* margin: 10px; */
   }
 }

@@ -4,6 +4,7 @@ moment      = require 'moment'
 range       = require 'moment-range'
 
 CalendarGraph  = React.createFactory require './calendar_graph'
+OrderHere      = React.createFactory require './order_here'
 zero           = require '../utils/zero'
 { formatDate } = require '../actions/action_creators'
 
@@ -12,7 +13,7 @@ Avatar = React.createFactory React.createClass
     { src, name } = @props
     div className: 'card-box avatar',
       h1 null, name
-      img src: src
+      img src: src, className: 'img-square'
 
 OrdersCount = React.createFactory React.createClass
   render: ->
@@ -31,11 +32,6 @@ Balance = React.createFactory React.createClass
         h3 null, '€', (balance/100).toFixed(2)
         'Balance'
 
-OrderHere = React.createFactory React.createClass
-  render: ->
-    div className: 'card-box',
-      'Order here'
-
 Notify = React.createFactory React.createClass
   render: ->
     div className: 'card-box',
@@ -53,14 +49,17 @@ User = React.createClass
   render: ->
     { user, orders } = @props
     div className: 'pure-g',
-      div className: 'pure-u-1-3',
-        Avatar src: user?.avatar, name: user?.name
+      div className: 'pure-u-1 pure-u-lg-1-3',
         div className: 'pure-g',
-          OrdersCount count: user?.orders_count
-          Balance balance: user?.balance
-        OrderHere null
-        Notify null
-      div className: 'pure-u-2-3',
+          div className: 'pure-u-1 pure-u-md-1-2 pure-u-lg-1',
+            Avatar src: user?.avatar, name: user?.name
+            div className: 'pure-g',
+              OrdersCount count: user?.orders_count
+              Balance balance: user?.balance
+          div className: 'pure-u-1 pure-u-md-1-2 pure-u-lg-1',
+            OrderHere name: 'hallo'
+            Notify null
+      div className: 'pure-u-1 pure-u-lg-2-3',
         div className: 'card-box text-center',
           h2 null, 'Contributions (to the Zeus kassa)'
           CalendarGraph null
