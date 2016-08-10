@@ -84,6 +84,7 @@ Rails.application.configure do
   # Help the asset pipeline for staging
   config.x.host = 'zeus.ugent.be'
   config.relative_url_root = "/tap-beta"
+  config.action_controller.relative_url_root = "/tap-beta"
 
   config.action_mailer.default_url_options = {
     host: config.x.host,
