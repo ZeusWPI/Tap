@@ -17,13 +17,17 @@ Avatar = React.createClass
     reader.onload = (e) =>
       @setState src: e.target.result, changed: true
     reader.readAsDataURL @refs.input.files[0]
+  reset: ->
+    @refs.input.value = null
   discard: ->
     @setState src: @props.src, changed: false
+    @reset()
   save: ->
     updateAvatar(@state.src)
       .then (response) =>
         throw new Error('Bad response from server') if response.status >= 400
         @setState changed: false
+        @reset()
         true
   render: ->
     { name } = @props
