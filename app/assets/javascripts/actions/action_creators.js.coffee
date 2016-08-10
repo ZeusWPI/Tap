@@ -15,14 +15,16 @@ setOrders = (orders) ->
 setUser = (user) ->
   { type: SET_USER, user }
 
+fetchUrl = (path) ->
+  "#{@window.base_url}/#{path}"
+
 loadData = (path, callback) ->
   (dispatch) ->
-    fetch "#{@window.base_url}/#{path}", credentials
+    fetch fetchUrl(path), credentials
       .then (response) ->
         throw new Error('Bad response from server') if response.status >= 400
         return response.json()
       .then (data) ->
-        console.log data
         dispatch callback data
 
 module.exports.fetchUser = ->
@@ -33,3 +35,16 @@ module.exports.fetchOrders = ->
 
 module.exports.fetchContributions = ->
   loadData 'stats/contributions.json', setContributions
+
+module.exports.updateAvatar = (avatar) ->
+  fetch fetchUrl('user'), Object.assign {}, credentials, {
+    method: 'PUT'
+    headers:
+      'Accept':       'application/json'
+      'Content-Type': 'application/json'
+    body: JSON.stringify {
+      authenticity_token: document.querySelector('meta[name=csrf-token]').content
+      user:
+        avatar: avatar
+    }
+  }

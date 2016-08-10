@@ -1,3 +1,5 @@
+React = require 'react'
+
 # STORE
 
 { createStore, applyMiddleware }           = require 'redux'

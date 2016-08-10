@@ -1,3 +1,4 @@
+React = require 'react'
 { div, span, h1, h2, h3, img, i, input } = React.DOM
 { connect } = require 'react-redux'
 moment      = require 'moment'

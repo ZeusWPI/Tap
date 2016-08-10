@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :user,    only: :show
+  resource :user,    only: [:show, :update]
   resources :orders, only: [:create, :index]
 
   namespace :stats do

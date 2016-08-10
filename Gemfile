@@ -7,7 +7,6 @@ gem 'rails', github: 'rails/rails'
 gem 'sass-rails', github: 'rails/sass-rails'
 gem 'uglifier'
 gem 'font-awesome-rails'
-gem 'react-rails'
 gem 'coffee-rails'
 gem 'browserify-rails', github: 'marvwhere/browserify-rails', ref: 'f98787e5aab3b3624f741856da1f3e18e1438a98'
 
