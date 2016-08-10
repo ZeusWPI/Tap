@@ -52,7 +52,7 @@ User = React.createClass
               OrdersCount count: user?.orders_count
               Balance balance: user?.balance
           div className: 'pure-u-1 pure-u-md-1-2 pure-u-lg-1',
-            OrderHere name: 'hallo'
+            OrderHere null
             Notify null
       div className: 'pure-u-1 pure-u-lg-2-3',
         div className: 'card-box text-center',

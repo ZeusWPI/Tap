@@ -68,7 +68,6 @@ end
 
 # Paginate stuff
 gem 'will_paginate'
-gem 'bootstrap-will_paginate'
 
 # Paperclip for easy file attachment
 gem 'paperclip'

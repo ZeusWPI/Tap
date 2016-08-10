@@ -104,12 +104,31 @@
 
 .order-here {
   .pure-u-1-2 {
-    text-align: center;
-  }
-  /* text-align: center; */
+    &:nth-child(odd) .img-square-wrapper {
+      float: right;
+      margin-right: $orderhere-padding;
+    }
 
-  img {
-    /* margin: 10px; */
+    &:nth-child(even) .img-square-wrapper {
+      float: left;
+      margin-left: $orderhere-padding;
+    }
+
+    &:nth-child(1), &:nth-child(2) {
+      .img-square-wrapper {
+        margin-top: 0;
+      }
+    }
+
+    .img-square-wrapper {
+      position: relative;
+      cursor: pointer;
+      margin-top: 2 * $orderhere-padding;
+
+      i {
+        font-size: 250%;
+      }
+    }
   }
 }
 
