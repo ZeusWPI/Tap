@@ -4,11 +4,10 @@ React = require 'react'
 moment      = require 'moment'
 range       = require 'moment-range'
 
+Avatar         = React.createFactory require './avatar'
 CalendarGraph  = React.createFactory require './calendar_graph'
 OrderHere      = React.createFactory require './order_here'
-Avatar         = React.createFactory require './avatar'
-zero           = require '../utils/zero'
-{ formatDate } = require '../actions/action_creators'
+Orders         = React.createFactory require './orders'
 
 OrdersCount = React.createFactory React.createClass
   render: ->
@@ -37,12 +36,8 @@ Notify = React.createFactory React.createClass
         i className: 'fa fa-floppy-o'
 
 User = React.createClass
-  weekRange: ->
-    today = new Date()
-    today.setDate today.getDate() - 6
-    moment.range(today, new Date())
   render: ->
-    { user, orders } = @props
+    { user, location: { query } } = @props
     div className: 'pure-g',
       div className: 'pure-u-1 pure-u-lg-1-3',
         div className: 'pure-g',
@@ -58,16 +53,7 @@ User = React.createClass
         div className: 'card-box text-center',
           h2 null, 'Contributions (to the Zeus kassa)'
           CalendarGraph null
-        div className: 'card-box',
-          @weekRange().toArray('days').reverse().map (m, i) ->
-            date = m._d
-            div key: i, className: 'orders-overview',
-              div className: 'date',
-                span className: 'day', zero(date.getDate())
-                span className: 'month', date.toLocaleString('en-us', { month: 'short' })
-              div className: 'orders-thumbnails',
-                (orders[formatDate(date)] || []).map (o, i) ->
-                  img key: i, src: o.product.avatar, className: 'img-circle img-thumbnail', style: { zIndex: 100 - i }
+        Orders query: query
 
 mapStateToProps = (state) ->
   user: state.user,

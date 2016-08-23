@@ -32,7 +32,9 @@ class OrdersController < ApplicationController
   end
 
   def index
-    @orders = @user.orders.includes(:product).after(Date.today - 6.days)
+    # params[:end]   ||= Date.today
+    # params[:start] ||= params[:end] - 6.days
+    @orders = @user.orders.includes(:product)#.after(params[:start]).before(params[:end])
     respond_with @orders
   end
 

@@ -1,11 +1,12 @@
 React = require 'react'
+{ IndexRoute, Router, Route, browserHistory } = require 'react-router'
 
 # STORE
 
 { createStore, applyMiddleware }           = require 'redux'
 reducer                                    = require './reducers/combine_reducer'
 
-store = createStore(reducer)
+store   = createStore reducer
 
 # RENDER PAGE
 
@@ -16,7 +17,8 @@ User = require './components/user'
 
 render(
   React.createElement Provider, store: store,
-    React.createElement User
+    React.createElement Router, history: browserHistory,
+      React.createElement Route, path: '/', component: User
   document.getElementById 'content'
 )
 

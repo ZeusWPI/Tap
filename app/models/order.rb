@@ -26,7 +26,8 @@ class Order < ApplicationRecord
   validates :product, presence: true
   validates :method,  presence: true
 
-  scope :after, ->(date) { where 'created_at > ?', date }
+  scope :after,  ->(date) { where 'created_at > ?', date }
+  scope :before, ->(date) { where 'created_at <= ?', date }
 
   def deletable
     self.created_at > Rails.application.config.call_api_after.ago

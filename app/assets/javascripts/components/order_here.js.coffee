@@ -5,7 +5,6 @@ React = require 'react'
 OrderHere = React.createClass
   render: ->
     { user } = @props
-    console.log user?.dagschotels?.length
     div className: 'card-box order-here',
       div className: 'pure-g',
         div className: 'pure-u-1-3'
