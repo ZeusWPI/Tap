@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     get :contributions
   end
 
+  mount ActionCable.server => '/cable'
+
   root to: 'react#index', as: 'user_root'
   get '/*path', to: 'react#index'
 end

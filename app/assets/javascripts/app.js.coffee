@@ -28,3 +28,8 @@ render(
 fetchUser()(store.dispatch)
 fetchOrders()(store.dispatch)
 fetchContributions()(store.dispatch)
+
+# SUBSCRIBE TO SOCKETS
+
+{ user_channel } = require './channels/channels'
+user_channel()(store.dispatch)

@@ -24,3 +24,5 @@ public/system/users
 
 /coverage
 /node_modules
+
+dump.rdb

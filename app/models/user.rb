@@ -21,6 +21,7 @@
 
 class User < ApplicationRecord
   include Statistics, Avatarable, FriendlyId
+  after_update :publish_changes
 
   friendly_id :name
 
@@ -81,10 +82,13 @@ class User < ApplicationRecord
     self == User.guest
   end
 
-  def self.koelkast
-    @koelkast || find_or_create_by(name: "Koelkast") do |user|
-      user.avatar   = File.new(File.join("app", "assets", "images", "logo.png"))
-      user.koelkast = true
-    end
+  def channel
+    "user_#{id}"
+  end
+
+  def publish_changes
+    ActionCable.server.broadcast self.channel, { type: 'SET_USER', user: JSON.parse(
+      UsersController.render(partial: 'users/show', locals: { user: self })
+    ) }
   end
 end

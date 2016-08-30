@@ -11,7 +11,7 @@ gem 'coffee-rails'
 gem 'browserify-rails', github: 'marvwhere/browserify-rails', ref: 'f98787e5aab3b3624f741856da1f3e18e1438a98'
 
 # Haml for templating!
-gem "haml-rails"
+gem 'haml-rails'
 
 # JBuilder for jsons
 gem 'jbuilder'
@@ -89,3 +89,5 @@ gem 'delayed_job_active_record'
 
 gem 'httparty'
 gem 'rack-cors'
+gem 'redis'
+gem 'puma'
