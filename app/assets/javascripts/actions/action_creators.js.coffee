@@ -48,3 +48,14 @@ module.exports.updateAvatar = (avatar) ->
         avatar: avatar
     }
   }
+
+module.exports.createOrder = (url) ->
+  fetch url, Object.assign {}, credentials, {
+    method: 'POST'
+    headers:
+      'Accept':       'application/json'
+      'Content-Type': 'application/json'
+    body: JSON.stringify {
+      authenticity_token: document.querySelector('meta[name=csrf-token]').content
+    }
+  }

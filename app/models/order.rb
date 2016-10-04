@@ -20,6 +20,7 @@ class Order < ApplicationRecord
   after_create  :update_user_frecency!
   after_destroy :update_user_frecency!
   after_create :remove_from_stock!
+  after_create :publish
   before_destroy :put_back_in_stock!
 
   validates :user,    presence: true
@@ -59,5 +60,11 @@ class Order < ApplicationRecord
 
     def put_back_in_stock!
       product.increment!(:stock)
+    end
+
+    def publish
+      ActionCable.server.broadcast user.channel, { type: 'ADD_ORDER', order: JSON.parse(
+        ApplicationController.render(partial: 'orders/order', locals: { order: self })
+      ) }
     end
 end
