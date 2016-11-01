@@ -3,6 +3,6 @@ json.avatar image_path user.avatar.url
 json.dagschotels do
   json.array! user.dagschotels.includes(:product) do |d|
     json.avatar image_path d.product.avatar.url
-    json.order orders_url(user_id: user.id, order: { product_id: d.product.id })
+    json.order URI.join(Rails.application.config.root_url, orders_path(user_id: user.id, order: { product_id: d.product.id })).to_s
   end
 end
