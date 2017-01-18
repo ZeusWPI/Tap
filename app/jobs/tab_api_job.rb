@@ -11,7 +11,8 @@ TabApiJob = Struct.new(:order_id) do
         }
       }
       headers = {
-        "Authorization" => "Token token=#{Rails.application.secrets.tab_api_key}"
+        "Authorization" => "Token token=#{Rails.application.secrets.tab_api_key}",
+        'Accept' => 'application/json'
       }
 
       result = HTTParty.post(File.join(Rails.application.config.api_url, "transactions"), body: body, headers: headers )
