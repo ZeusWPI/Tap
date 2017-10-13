@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
     last_datetimes = self.orders.order(created_at: :desc)
                                 .limit(num_orders)
                                 .pluck(:created_at)
-    self.frecency = last_datetimes.map(&:to_time).map(&:to_i).sum / num_orders
+    self.frecency = last_datetimes.map(&:to_time).map(&:to_i).sum / (num_orders * 10)
     self.save
   end
 
