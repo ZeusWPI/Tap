@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.4'
+gem 'rails', '4.2.8'
 
 # Assets
 gem 'sass-rails', '~> 4.0.3'
@@ -23,7 +23,7 @@ group :doc do
 end
 
 group :production do
-  gem 'mysql2', '~> 0.3.18' # Database
+  gem 'mysql2', '< 0.6.0', '>= 0.4.4' # Database
 end
 
 group :test do
