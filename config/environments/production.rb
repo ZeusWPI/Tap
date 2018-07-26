@@ -87,5 +87,5 @@ Rails.application.configure do
     script_name: config.relative_url_root,
   }
 
-  config.api_url = "https://tap.zeus.gent"
+  config.api_url = "https://tab.zeus.gent"
 end
