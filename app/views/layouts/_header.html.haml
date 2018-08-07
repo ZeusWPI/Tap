@@ -28,6 +28,6 @@
             %li
               %p.navbar-text
                 Balance: 
-                = link_to euro_from_cents(current_user.balance), "https://zeus.ugent.be/tab/users/#{current_user.name}"
+                = link_to euro_from_cents(current_user.balance), "https://tab.zeus.gent/users/#{current_user.name}"
         .visible-xs.navbar-form
           = render 'layouts/session_button'
