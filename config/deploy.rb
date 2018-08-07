@@ -4,7 +4,7 @@
 set :application, 'Tap'
 set :repo_url, 'git@github.com:ZeusWPI/Tap.git'
 
-set :branch, 'master'
+set :branch, 'fix-tap-on-herbert'
 set :deploy_to, '/home/tap/production'
 
 # Default branch is :master
