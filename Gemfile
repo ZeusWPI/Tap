@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.2.8'
+gem 'rails', '4.2.4'
 
 # Assets
 gem 'sass-rails', '~> 4.0.3'
@@ -23,7 +23,7 @@ group :doc do
 end
 
 group :production do
-  gem 'mysql2', '< 0.5', '>= 0.3.13' # Database
+  gem 'mysql2', '~> 0.3.18' # Database
 end
 
 group :test do
@@ -77,7 +77,7 @@ gem 'identicon'
 
 # Run stuff in the background
 gem 'daemons'
-gem 'delayed_job', '4.1.4'
+gem 'delayed_job', '~> 4.0'
 gem 'delayed_job_active_record'
 
 gem 'httparty'

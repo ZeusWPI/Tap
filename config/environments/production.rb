@@ -79,13 +79,13 @@ Rails.application.configure do
   Paperclip.options[:command_path] = "/usr/local/bin/"
 
   # Help the asset pipeline for staging
-  config.x.host = 'tap.zeus.gent'
-  config.relative_url_root = "/"
+  config.x.host = 'zeus.ugent.be'
+  config.relative_url_root = "/tap"
 
   config.action_mailer.default_url_options = {
     host: config.x.host,
     script_name: config.relative_url_root,
   }
 
-  config.api_url = "https://tab.zeus.gent"
+  config.api_url = "https://zeus.ugent.be/tab"
 end
