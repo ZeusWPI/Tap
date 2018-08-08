@@ -82,5 +82,4 @@ Rails.application.configure do
   config.x.host = 'tab.zeus.gent'
   config.api_url = "https://tab.zeus.gent/"
 
-  config.middleware.delete(Rack::Runtime)
 end
