@@ -81,4 +81,6 @@ Rails.application.configure do
   # Help the asset pipeline for staging
   config.x.host = 'tab.zeus.gent'
   config.api_url = "https://tab.zeus.gent/"
+
+  config.middleware.delete(Rack::Runtime)
 end
