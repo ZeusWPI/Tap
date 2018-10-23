@@ -49,9 +49,9 @@ class User < ActiveRecord::Base
     self.frecency = (last_datetimes.map(&:to_time).map(&:to_i).sum / (num_orders * 10)) * self.multiplier
     self.save
   end
-  
+
   def multiplier
-	Math.atan(self.balance / 10) + (Math::PI / 2)
+    Math.atan(self.balance / 10) + (Math::PI / 2)
   end
 
   def balance
