@@ -46,8 +46,12 @@ class User < ActiveRecord::Base
                                 .limit(num_orders)
                                 .distinct
                                 .pluck(:created_at)
-    self.frecency = last_datetimes.map(&:to_time).map(&:to_i).sum / (num_orders * 10)
+    self.frecency = (last_datetimes.map(&:to_time).map(&:to_i).sum / (num_orders * 10)) * self.multiplier
     self.save
+  end
+  
+  def multiplier
+	Math.atan(self.balance / 10) + (Math::PI / 2)
   end
 
   def balance
