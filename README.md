@@ -3,6 +3,7 @@
 Yes. We have to drink. But we also have to pay. This is the drinking part.
 
 ## Installation
-1. Make sure Ruby version 2.3.0-dev is installed by running `rbenv version`. If it isn't, install by running `rbenv install 2.3.0-dev`
+1. Make sure Ruby version 2.4.0-dev is installed by running `rbenv version`. If it isn't, install by running `rbenv install 2.4.0-dev`
 2. Run `bundle update` and `bundle install`
-3. Start Tap by running `bundle exec rails s`
+3. Migrate the db using `bundle exec rake db:migrate`
+4. Start Tap by running `bundle exec rails s`
