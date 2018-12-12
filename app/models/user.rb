@@ -46,9 +46,7 @@ class User < ActiveRecord::Base
                                 .limit(num_orders)
                                 .distinct
                                 .pluck(:created_at)
-    frequency = (last_datetimes.map(&:to_time).map(&:to_i).sum / (num_orders * 10))
-    bonus = self.rich_privilige / 1.936
-    self.frecency = frequency * bonus
+    self.frecency = self.rich_privilige * (last_datetimes.map(&:to_time).map(&:to_i).sum / (num_orders * 10))
     self.save
   end
 
