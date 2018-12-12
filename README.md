@@ -7,3 +7,7 @@ Yes. We have to drink. But we also have to pay. This is the drinking part.
 2. Run `bundle update` and `bundle install`
 3. Migrate the db using `bundle exec rake db:migrate`
 4. Start Tap by running `bundle exec rails s`
+
+## Windows installation
+
+[klik hier](README_WINDOWS.md)
