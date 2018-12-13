@@ -83,3 +83,6 @@ gem 'delayed_job', '~> 4.0'
 gem 'delayed_job_active_record'
 
 gem 'httparty', '0.13.7'
+
+# windows support (linux timezone directory is used in the project)
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
