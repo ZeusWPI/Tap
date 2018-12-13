@@ -38,5 +38,5 @@
               %td.text-right
                 Total:
               %td.total_price.euro
-          = f.submit "Order!", class: "btn btn-primary form-control"
+          = f.submit "Order!", class: "btn btn-primary form-control", data: { disable_with: "Please wait..." }
 = render 'products_modal'
