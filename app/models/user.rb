@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
   def balance
     @balance || begin
       if Rails.env.test?
-        nil
+        12345
       else
         headers = {
           "Authorization" => "Token token=#{Rails.application.secrets.tab_api_key}",
