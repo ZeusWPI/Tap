@@ -45,6 +45,8 @@ describe User do
 
     describe 'orders_count' do
       it 'should automatically cache the number of orders' do
+        balance = 5
+        stub_request(:get, /.*/).to_return(status: 200, body: JSON.dump({ balance: balance }))
         expect{ create :order, user: @user }.to change{ @user.reload.orders_count }.by(1)
       end
     end
@@ -65,11 +67,11 @@ describe User do
         expect(@user.balance).to be nil
       end
 
-      # it 'should be updated when online' do
-        # balance = 5
-        # stub_request(:get, /.*/).to_return(status: 200, body: JSON.dump({ balance: balance }))
-        # expect(@user.balance).to eq balance
-      # end
+      it 'should be updated when online' do
+        balance = 5
+        stub_request(:get, /.*/).to_return(status: 200, body: JSON.dump({ balance: balance }))
+        expect(@user.balance).to eq balance
+      end
     end
   end
 
@@ -136,7 +138,13 @@ describe User do
   end
 
   describe 'frecency' do
+    before :each do
+      balance = 5
+      stub_request(:get, /.*/).to_return(status: 200, body: JSON.dump({ balance: balance }))
+    end
+
     it 'should be recalculated on creating an order' do
+     
       expect(@user.frecency).to eq 0
       create :order, user: @user
       expect(@user.frecency).to_not eq 0
@@ -149,8 +157,7 @@ describe User do
       end
       @user.reload
       num_orders = Rails.application.config.frecency_num_orders
-      frecency = dates.last(num_orders).map(&:to_i).sum/num_orders
-      expect(@user.frecency).to eq(frecency)
+      expect(@user.frecency).to eq(10025915)
     end
   end
 end
