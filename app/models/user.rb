@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
   end
 
   def rich_privilige
-    Math.atan(self.balance / 10) + (Math::PI / 2)
+    Math.sqrt(Math.atan(self.balance / 10) + (Math::PI / 2))
   end
 
   def balance
