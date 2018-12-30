@@ -144,21 +144,13 @@ describe User do
     end
 
     it 'should be recalculated on creating an order' do
-     
+
       expect(@user.frecency).to eq 0
       create :order, user: @user
       expect(@user.frecency).to_not eq 0
     end
 
-    it 'should be valid' do
-      dates = [Date.today.to_time, Date.yesterday.to_time]
-      dates.each do |date|
-        create :order, user: @user, created_at: date
-      end
-      @user.reload
-      num_orders = Rails.application.config.frecency_num_orders
-      # On Travis the result is 10025938 cause floating points
-      expect(@user.frecency).to be_within(50).of(10025915)
-    end
+    # TODO: add a test to check if the frecency is correct. Note that
+    #  frecency currently changes over time
   end
 end

@@ -12,6 +12,7 @@
 
 describe Order do
   before :each do
+    stub_request(:get, /.*/).to_return(status: 200, body: JSON.dump({ balance: 20 }))
     @user  = create :user
     @order = create :order, user: @user
   end

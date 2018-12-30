@@ -25,7 +25,7 @@ group :doc do
 end
 
 group :production do
-  gem 'mysql2', '~> 0.3.18' # Database
+  gem 'mysql2', '~> 0.4.10' # Database
 end
 
 group :test do
