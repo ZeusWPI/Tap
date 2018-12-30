@@ -9,6 +9,10 @@
 #
 
 describe OrderItem do
+  before(:each) do
+      stub_request(:get, /.*/).to_return(status: 200, body: JSON.dump({ balance: 20 }))
+  end
+
   it 'has a valid factory' do
     order_item = create :order_item
     expect(order_item).to be_valid
