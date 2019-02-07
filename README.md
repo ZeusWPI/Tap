@@ -13,7 +13,7 @@ Yes. We have to drink. But we also have to pay. This is the drinking part.
 
 [klik hier](README_WINDOWS.md)
 
-## Wat als de delayed job kapot is waardoor er geen transacties van tab naar tap gaan?
+## Wat als de delayed job kapot is waardoor er geen transacties van tap naar tab gaan?
 
 ```
 sudo -u tap RAILS_ENV=production /home/tap/production/current/bin/delayed_job start
