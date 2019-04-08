@@ -23,8 +23,21 @@
 class UsersController < ApplicationController
   load_and_authorize_resource
   before_action :init, only: :show
+  skip_load_and_authorize_resource :only => :show
 
   def show
+    # TODO fix this with `authorize!`
+    if params[:id] && (@user.name != params[:id] && !@user.admin?)
+      respond_to do |format|
+        format.json { render json: ["Mind your own business"] }
+        format.html { redirect_to root_url }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: @user }
+        format.html {}
+      end
+    end
   end
 
   def update
@@ -81,6 +94,17 @@ class UsersController < ApplicationController
   end
 
   def init
-    @user ||= current_user
+    @user ||= current_user || user_token || User.new
+  end
+
+  def user_token
+    @user_token ||= authenticate_with_http_token do |token, options|
+      User.find_by userkey: token
+    end
+  end
+
+  def reset_key
+    @user.generate_key!
+    redirect_to @user
   end
 end

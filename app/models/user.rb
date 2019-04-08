@@ -37,6 +37,7 @@ class User < ActiveRecord::Base
     where(name: auth.uid).first_or_create do |user|
       user.name = auth.uid
       user.avatar = Identicon.data_url_for auth.uid
+      user.generate_key!
     end
   end
 
@@ -88,5 +89,19 @@ class User < ActiveRecord::Base
       user.avatar   = File.new(File.join("app", "assets", "images", "logo.png"))
       user.koelkast = true
     end
+  end
+
+  def generate_key
+    set_key unless self.userkey
+  end
+
+  def generate_key!
+    set_key
+    self.save
+  end
+
+  private
+  def set_key
+    self.userkey = SecureRandom.base64(16)
   end
 end

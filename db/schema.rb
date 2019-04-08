@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160304192839) do
+ActiveRecord::Schema.define(version: 20190408122720) do
 
   create_table "barcodes", force: :cascade do |t|
     t.integer  "product_id"
@@ -86,7 +86,8 @@ ActiveRecord::Schema.define(version: 20160304192839) do
     t.string   "name"
     t.boolean  "private",             default: false
     t.integer  "frecency",            default: 0,     null: false
-    t.boolean  "quickpay_hidden"
+    t.boolean  "quickpay_hidden",     default: false
+    t.string   "userkey"
   end
 
   add_index "users", ["koelkast"], name: "index_users_on_koelkast"
