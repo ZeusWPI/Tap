@@ -24,6 +24,9 @@ class Ability
 
   def initialize_user(user)
     can :read, :all
+    cannot :read, User do |otheruser|
+        otheruser != user && !user.admin? && !user.koelkast
+    end
     can :manage, User, id: user.id
     can :create, Order do |order|
       order.user == user && user.try(:balance).try(:>, -500)

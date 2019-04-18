@@ -23,21 +23,12 @@
 class UsersController < ApplicationController
   load_and_authorize_resource
   before_action :init, only: :show
-  skip_load_and_authorize_resource :only => :show
 
   def show
-    # TODO fix this with `authorize!`
-    if params[:id] && (@user.name != params[:id] && !@user.admin?)
-      respond_to do |format|
-        format.json { render json: ["Mind your own business"] }
-        format.html { redirect_to root_url }
-      end
-    else
       respond_to do |format|
         format.json { render json: @user }
         format.html {}
       end
-    end
   end
 
   def update
