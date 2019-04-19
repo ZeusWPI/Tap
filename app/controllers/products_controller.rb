@@ -48,8 +48,10 @@ class ProductsController < ApplicationController
   def index
     @products = Product.all
     @categories = Product.categories
-
-    render 'products_list/listview' if current_user.admin?
+    respond_to do |format|
+      format.json { render json: @products }
+      format.html { render 'products_list/listview' if current_user.admin? }
+    end
   end
 
   def edit
