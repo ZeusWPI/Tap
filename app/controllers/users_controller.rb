@@ -25,6 +25,10 @@ class UsersController < ApplicationController
   before_action :init, only: :show
 
   def show
+      respond_to do |format|
+        format.json { render json: @user }
+        format.html {}
+      end
   end
 
   def update
@@ -81,6 +85,17 @@ class UsersController < ApplicationController
   end
 
   def init
-    @user ||= current_user
+    @user ||= current_user || user_token || User.new
+  end
+
+  def user_token
+    @user_token ||= authenticate_with_http_token do |token, options|
+      User.find_by userkey: token
+    end
+  end
+
+  def reset_key
+    @user.generate_key!
+    redirect_to @user
   end
 end

@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     member do
       get 'quickpay'               => 'users#quickpay'
       get 'dagschotel/edit'        => 'users#edit_dagschotel', as: 'edit_dagschotel'
+      post :reset_key
     end
   end
 
