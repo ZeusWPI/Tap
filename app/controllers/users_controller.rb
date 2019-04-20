@@ -21,7 +21,7 @@
 #
 
 class UsersController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource except: :show
   before_action :init, only: :show
 
   def show
