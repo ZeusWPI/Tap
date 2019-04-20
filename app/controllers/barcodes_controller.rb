@@ -20,6 +20,10 @@ class BarcodesController < ApplicationController
 
   def index
     @barcodes = Barcode.all.order(:code)
+    respond_to do |format|
+      format.json {render json: @barcodes}
+      format.html {}
+    end
   end
 
   def show
