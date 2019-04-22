@@ -10,8 +10,8 @@
 #
 
 class BarcodesController < ApplicationController
-  load_and_authorize_resource :product, only: :create
-  load_and_authorize_resource :barcode, through: :product, shallow: true
+  load_and_authorize_resource :product, only: :create, except: :index
+  load_and_authorize_resource :barcode, through: :product, shallow: true, except: :index
 
   def create
     @barcode.save
