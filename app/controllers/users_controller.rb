@@ -21,8 +21,7 @@
 #
 
 class UsersController < ApplicationController
-  load_and_authorize_resource except: :show
-  before_action :init, only: :show
+  load_and_authorize_resource
 
   def show
       respond_to do |format|
@@ -43,6 +42,7 @@ class UsersController < ApplicationController
             redirect_to @user
           end
           format.js { head :ok  }
+          format.json { render json: @user }
         end
       else
         respond_to do |format|
@@ -52,6 +52,7 @@ class UsersController < ApplicationController
             render 'show'
           end
           format.js { head :bad_request }
+          format.json { "Update failed!"}
         end
       end
     end
@@ -82,16 +83,6 @@ class UsersController < ApplicationController
 
   def user_params
     params.fetch(:user, {}).permit(:avatar, :private, :dagschotel_id, :quickpay_hidden)
-  end
-
-  def init
-    @user ||= current_user || user_token || User.new
-  end
-
-  def user_token
-    @user_token ||= authenticate_with_http_token do |token, options|
-      User.find_by userkey: token
-    end
   end
 
   def reset_key

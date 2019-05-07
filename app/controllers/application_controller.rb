@@ -1,5 +1,13 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  skip_before_action :verify_authenticity_token, if: :api_request?
+  before_filter :authenticate_user_from_token!
+  before_filter :authenticate_user!
+  before_filter :set_user!
+
+  def api_request?
+    (user_token.present?) && request.format.json?
+  end
 
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
@@ -25,4 +33,27 @@ class ApplicationController < ActionController::Base
       exception.message
     end
   end
+
+  def authenticate_user_from_token!
+    user = user_token
+
+    if user
+      # Notice we are passing store false, so the user is not
+      # actually stored in the session and a token is needed
+      # for every request. If you want the token to work as a
+      # sign in token, you can simply remove store: false.
+      sign_in user, store: false
+    end
+  end
+
+  def set_user!
+    @user = current_user
+  end
+
+  def user_token
+    @user_token ||= authenticate_with_http_token do |token, options|
+      User.find_by userkey: token
+    end
+  end
+
 end
