@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from CanCan::AccessDenied do |exception|
+    Rails.logger.debug "Access denied on #{exception.action} #{exception.subject.inspect}"
     respond_to do |format|
       format.json { render json: [ "Diefstal is een misdrijf." ], status: :forbidden }
       format.html { redirect_to root_path, flash: { error: message_for(exception) } }
