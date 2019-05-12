@@ -22,12 +22,20 @@ class OrdersController < ApplicationController
   end
 
   def create
-    if @order.save
-      flash[:success] = @order.flash_success
-      redirect_to root_path
-    else
-      @products = Product.all.for_sale.order(:name)
-      render 'new'
+    respond_to do |format|
+        format.html do
+            if @order.save
+              flash[:success] = @order.flash_success
+              redirect_to root_path
+            else
+              @products = Product.all.for_sale.order(:name)
+              render 'new'
+            end
+        end
+        format.json do
+            @order.save
+            render json: @order
+        end
     end
   end
 
