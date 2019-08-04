@@ -22,6 +22,7 @@
 
 class UsersController < ApplicationController
   load_and_authorize_resource
+  skip_before_action :set_user!, only: [:quickpay]
 
   def show
       respond_to do |format|
