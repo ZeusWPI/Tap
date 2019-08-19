@@ -65,7 +65,7 @@ gem 'will_paginate',           '3.0.7'
 gem 'bootstrap-will_paginate', '0.0.10'
 
 # Paperclip for easy file attachment
-gem 'paperclip', '4.3.4'
+gem 'paperclip', '>= 5.2.0'
 
 # Use devise for users and admins
 gem 'devise', '3.5.6'
