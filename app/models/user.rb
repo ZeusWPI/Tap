@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   def self.from_omniauth(auth)
     where(name: auth.uid).first_or_create do |user|
       user.name = auth.uid
-      user.avatar = Identicon.data_url_for auth.uid
+      user.avatar = Paperclip.io_adapters.for(Identicon.data_url_for auth.uid)
       user.generate_key!
     end
   end
