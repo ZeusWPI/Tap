@@ -68,7 +68,7 @@ gem 'bootstrap-will_paginate', '0.0.10'
 gem 'paperclip', '>= 5.2.0'
 
 # Use devise for users and admins
-gem 'devise', '3.5.6'
+gem "devise", ">= 4.6.0"
 gem 'omniauth-oauth2', '1.3.1'
 
 # Use cancancan for authorization
