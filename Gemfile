@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'byebug'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.10'
+gem 'rails', '4.2.11.1'
 
 # Assets
 gem 'sass-rails', '~> 4.0.3'
