@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
                                 .pluck(:created_at)
     frequency = (last_datetimes.map(&:to_time).map(&:to_i).sum / (num_orders * 10))
     bonus = self.rich_privilege / 1.936
-    self.frecency = (frequency * bonus * (self.admin ? 1.01 : 1)).to_i
+    self.frecency = frequency * bonus
     self.save
   end
 
