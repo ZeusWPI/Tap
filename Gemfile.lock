@@ -55,7 +55,7 @@ GEM
     bootstrap-switch-rails (3.3.3)
     bootstrap-will_paginate (0.0.10)
       will_paginate
-    builder (3.2.3)
+    builder (3.2.4)
     byebug (11.0.1)
     cancancan (1.13.1)
     capistrano (3.11.2)
@@ -198,7 +198,7 @@ GEM
       mimemagic (~> 0.3.0)
       terrapin (~> 0.6.0)
     public_suffix (4.0.1)
-    rack (1.6.11)
+    rack (1.6.12)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.11.1)
