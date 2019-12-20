@@ -58,6 +58,9 @@ class User < ActiveRecord::Base
   end
 
   def balance
+    if Rails.env.development?
+      return 1234
+    end
     @balance || begin
       headers = {
         "Authorization" => "Token token=#{Rails.application.secrets.tab_api_key}",
