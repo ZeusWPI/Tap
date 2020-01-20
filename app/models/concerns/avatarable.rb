@@ -3,10 +3,10 @@ module Avatarable
 
   included do
     avatar_styles = {
-      large:      "150x150>",
       medium:     "100x100>",
       dagschotel: "80x80>",
-      small:      "40x40>"
+      small:      "40x40>",
+      koelkast:   { geometry: "150x150>", animated: false },
     }
 
     has_attached_file :avatar, styles: avatar_styles, default_style: :medium
