@@ -9,8 +9,7 @@ describe User do
     describe 'as admin' do
       let(:user) { create :admin }
 
-      it{ should be_able_to(:manage, Order.new) }
-      it{ should be_able_to(:manage, OrderItem.new) }
+      it{ should be_able_to(:manage, Barcode.new) }
       it{ should be_able_to(:manage, Product.new) }
       it{ should be_able_to(:manage, Stock.new) }
       it{ should be_able_to(:manage, User.new) }

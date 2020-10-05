@@ -50,12 +50,12 @@ class Order < ActiveRecord::Base
     self.created_at.to_i - (Time.now - Rails.application.config.call_api_after).to_i
   end
 
-  private
 
     def calculate_price
       self.price_cents = self.order_items.map{ |oi| oi.count * (oi.product.try(:price_cents) || 0) }.sum
     end
 
+  private
     def create_api_job
       return if Rails.env.test?
 
