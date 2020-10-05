@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
 
   def message_for exception
     if exception.subject.class == Order && [:new, :create].include?(exception.action)
-      "Betaal uw fucking schulden!"
+      "Betaal uw fucking schulden! (of zet meer geld op Tab)"
     else
       exception.message
     end
