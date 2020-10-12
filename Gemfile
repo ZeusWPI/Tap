@@ -3,14 +3,14 @@ source 'https://rubygems.org'
 gem 'byebug'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.11.1'
+gem 'rails', '5.2'
 
 # Assets
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails', '~> 5.1.0'
 gem 'bootstrap-sass', ">= 3.4.1"
 gem 'bootstrap-switch-rails', '3.3.3'
 gem 'uglifier', '>= 1.3.0'
-gem 'jquery-rails', '4.1.0'
+gem 'jquery-rails', '4.1.1'
 # Haml for templating!
 gem "haml-rails", "~> 1.0"
 
@@ -61,7 +61,7 @@ end
 gem 'airbrake', '~> 4'
 
 # Paginate stuff
-gem 'will_paginate',           '3.0.7'
+gem 'will_paginate',           '>= 3.0.7'
 gem 'bootstrap-will_paginate', '0.0.10'
 
 # Paperclip for easy file attachment
