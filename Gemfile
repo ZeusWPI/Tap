@@ -7,15 +7,16 @@ gem 'rails', '5.2'
 
 # Assets
 gem 'sass-rails', '~> 5.1.0'
+gem 'bootsnap'
 gem 'bootstrap-sass', ">= 3.4.1"
-gem 'bootstrap-switch-rails', '3.3.3'
+gem 'bootstrap-switch-rails', '>=3.3.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails', '4.1.1'
 # Haml for templating!
 gem "haml-rails", "~> 1.0"
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks', '2.5.3'
+gem 'turbolinks', '~> 5'
 
 # Friendly ids!
 gem 'friendly_id', '~> 5.1.0'
