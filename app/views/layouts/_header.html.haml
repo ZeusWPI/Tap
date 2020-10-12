@@ -14,7 +14,7 @@
           = render 'layouts/session_button'
         %ul.nav.navbar-nav.navbar-right
           - if user_signed_in?
-            - if can? :manage, :all
+            - if can? :manage, Product
               %li.dropdown
                 %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", href: "#", role: "button"}
                   Products
@@ -27,7 +27,7 @@
               %p.navbar-text Logged in as #{current_user.name}
             %li
               %p.navbar-text
-                Balance: 
+                Balance:
                 = link_to euro_from_cents(current_user.balance), "https://tab.zeus.gent/users/#{current_user.name}"
         .visible-xs.navbar-form
           = render 'layouts/session_button'
