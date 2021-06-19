@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
       user.name = auth.uid
       user.avatar = Paperclip.io_adapters.for(Identicon.data_url_for auth.uid)
       user.generate_key!
+      user.private = true
     end
   end
 
