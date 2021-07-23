@@ -3,7 +3,7 @@
     .center
       %h1 Order for #{@user.name}
       = form_tag nil, id: "from_barcode_form", data: { url: URI.join(root_url, "barcodes").to_s } do
-        %input.center-block{ type: :number, name: :id, autofocus: true }
+        %input.center-block{ name: :id, autofocus: true, id: "barcode_id" }
       = "- OR -"
       %p
         %button.btn.btn-default.center-block{ data: { toggle: :modal, target: "#products_modal" } }

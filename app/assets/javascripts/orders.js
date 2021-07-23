@@ -46,10 +46,22 @@ ready = function() {
     increment_product($(this).data("product"))
   })
 
+  $("#barcode_id").keyup(function() {
+    barcode = $("#barcode_id").val();
+    if (! (/^\d*$/.test(barcode))) {
+      // barcode does not consist of all numbers; open search modal
+      $("#products_modal").modal('show');
+      $("#product_search").val(barcode);
+      $("#barcode_id").val("");
+      $("#product_search").focus();
+    }
+  })
+
   /* BARCODE SCAN */
   $("#from_barcode_form").submit(function(event) {
     event.preventDefault();
-    barcode = $(this).find("input[type=number]").val();
+    // Keep only numbers in barcode (just in case)
+    barcode = $("#barcode_id").val().replace(/\D/g,'');
     $("#from_barcode_form")[0].reset();
     $.ajax({
       url: $("#from_barcode_form").data("url") + "/" + barcode,
