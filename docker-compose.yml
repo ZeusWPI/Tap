@@ -1,0 +1,30 @@
+#
+# This compose file is meant for development and should not be used in production!
+#
+version: "3"
+services:
+  # Development service
+  development:
+    build:
+      context: .
+      # Build the image using the host network
+      # This is to allow building the image on eduroam (since it clashes with the default docker range)
+      network: host
+      # Development build
+      target: development
+    ports:
+      # adams.ugent.be only support port 3000 for authentication in localhost
+      - "3000:80"
+    volumes:
+      # Mount the source code for development
+      - "./:/tap/"
+    environment:
+      # Enable docker buildkit caching between layers
+      BUILDKIT_INLINE_CACHE: 1
+    networks:
+      - development
+
+networks:
+  # Network for development
+  # This is required to allow running the image on eduroam
+  development:

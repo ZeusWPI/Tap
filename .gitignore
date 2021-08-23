@@ -17,7 +17,7 @@
 /log/*.log
 /tmp
 
-# Avatars of producst
+# Avatars & product images
 public/system/products
 public/system/users
 
