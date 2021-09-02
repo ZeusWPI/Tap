@@ -471,7 +471,6 @@ body {
     &-bill {
       @extend .card;
       @extend .card-content;
-      background-color: white; // TODO: this should be derived from @extend .card;
 
       // Spacing between items
       > * + * {
