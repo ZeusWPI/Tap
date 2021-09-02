@@ -484,6 +484,11 @@ body {
         height: $logo-height;
       }
 
+      &-title {
+        font-size: $size-4;
+        margin-top: 0;
+      }
+
       &-overview {
         &-total {
           text-align: right;
