@@ -7,7 +7,7 @@ FROM ruby:2.4-alpine as base
 # Delete APK cache at the end (for smaller production images)
 RUN apk update && \
     apk add --virtual build-dependencies build-base && \
-    apk add shared-mime-info mariadb-dev sqlite-dev nodejs tzdata && \
+    apk add shared-mime-info mariadb-dev sqlite-dev nodejs tzdata imagemagick && \
     rm -rf /var/cache/apk/*
 
 # Create a working directory
@@ -18,7 +18,8 @@ COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
 
 # Install dependencies
-RUN --mount=type=cache,target=/bundler bundle install
+# Use BuildKit cache for caching dependencies
+RUN --mount=type=cache,target=/usr/local/bundle bundle install
 
 ########################
 ### Production image ###
@@ -34,6 +35,9 @@ ENV RAILS_ENV production
 # Expose port 80
 # This is the main port for the application
 EXPOSE 80
+
+# Pre-compile assets
+RUN rails assets:precompile
 
 # Docker Entrypoint
 # Will be started when the container is started
