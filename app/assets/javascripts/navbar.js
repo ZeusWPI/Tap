@@ -8,7 +8,9 @@ function ready() {
   // Check if there are any navbar burgers
   // Add a click event on each of them
   navbarBurgers.forEach((element) => {
-    element.addEventListener("click", () => {
+    element.addEventListener("click", (e) => {
+      e.preventDefault();
+
       // Find the navbar menu
       const navbarMenu = element
         .closest(".navbar")
