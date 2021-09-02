@@ -1,0 +1,17 @@
+<div class="back">
+  <%= link_to "Go back", root_path %>
+</div>
+
+<div class="title">
+  Update dagschotel
+</div>
+
+<div class="subtitle">
+  Your dagschotel is the item that you like to quickly access on koelkast or your overview page.
+</div>
+
+<div class="card">
+  <div class="card-content">
+    <%= render "products/list", details: false, actions: ["dagschotel:update"] %>
+  </div>
+</div>

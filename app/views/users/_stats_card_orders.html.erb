@@ -1,0 +1,16 @@
+<div class="stat-card">
+  <!-- Icon -->
+  <div class="stat-card-icon">
+    <%= icon('fas', 'glass-martini-alt') %>
+  </div>
+
+  <!-- Text -->
+  <div class="stat-card-text">
+    <div class="stat-card-title">
+      Total orders
+    </div>
+    <div class="stat-card-value">
+      <%= @user.all_orders(nil).count %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<tr class="order-item">
+
+  <!-- Information -->
+  <td class="order-item-info" data-label="Order">
+
+    <!-- Date -->
+    <div class="order-item-info-date">
+      <%= order.created_at.strftime("%d %b %Y at %H:%M") %>
+    </div>
+
+    <!-- Items -->
+    <div class="order-item-info-items">
+      <%= order.to_sentence %>
+    </div>
+  </td>
+
+  <!-- Price -->
+  <td class="order-item-price" data-label="Price">
+    <%= euro_from_cents(order.price_cents) %>
+  </td>
+
+  <!-- Actions -->
+  <td class="order-item-actions">
+    <% if order.deletable %>
+      <%= button_to "Cancel order (until #{(order.created_at + Rails.application.config.call_api_after).strftime("%H:%M")})",
+          user_order_path(@user, order),
+          method: :delete,
+          class: "button is-danger is-light",
+          data: { remove: order.sec_until_remove, disable_with: "Please wait..." } %>
+    <% end %>
+  </td>
+</tr>

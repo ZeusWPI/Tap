@@ -1,0 +1,235 @@
+<div class="columns is-multiline" x-data="setupOrder()">
+  <!-- Select Product -->
+  <div class="column">
+    <div class="order-new-actions">
+      <!-- Title -->
+      <div class="order-new-actions-title">
+        <% if current_user.koelkast %>
+          Place an order for <%= @user.name %>
+        <% else %>
+          Place an order
+        <% end %>
+      </div>
+
+      <!-- Barcode Field (for Koelkast) -->
+      <% if current_user.koelkast %>
+        <%= form_tag nil, id: "barcodeForm", "x-on:submit": "onBarcodeSubmit" do %>
+          <input class="order-new-actions-barcode input is-large" x-model="orderBarcode" id="barcodeId" placeholder="Scan a barcode" autofocus="true" autocomplete="off" />
+        <% end %>
+
+        <div class="order-new-actions-or">
+          - OR -
+        </div>
+      <% end %>
+
+      <!-- Product Select -->
+      <button class="button is-primary is-large" x-on:click="productsModalOpen = true">
+        <%= icon('fas', 'list', class: "mr-3") %> Select product
+      </button>
+
+
+      <!-- Barcode Scanner (for users) -->
+      <% if !current_user.koelkast %>
+        <div class="order-new-actions-or">
+          - OR -
+        </div>
+
+        <div x-cloak>
+          <button class="button is-primary is-large" x-on:click="barcodeModalOpen = true">
+            <%= icon('fas', 'camera', class: "mr-3") %> Scan barcode
+          </button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Bill -->
+  <div class="column is-12 is-7-tablet is-4-desktop">
+    <%= f_form_for [@user, @order] do |f| %>
+      <div class="order-new-bill">
+        <!-- Logo -->
+        <div class="order-new-bill-logo">
+          <%= image_tag "logo.png", alt: "Logo", class: "theme-blend" %>
+        </div>
+
+        <!-- Errors -->
+        <%= f.error_messages %>
+
+        <!-- Overview -->
+        <div class="order-new-bill-overview">
+          <hr />
+
+          <!-- Items -->
+          <table class="order-new-bill-items">
+            <thead>
+              <tr>
+                <th>Quantity</th>
+                <th>Product</th>
+                <th class="has-text-right">Price</th>
+              </tr>
+            </thead>
+
+            <%= f.fields_for :order_items do |ff| %>
+              <tr
+                class="order-new-bill-item"
+                x-init="addOrderItem(<%= ff.object.product.id %>, <%= ff.object.product.price_cents %>, <%= ff.object.count %>, <%= escape_quotes(ff.object.product.barcodes.map(&:code).to_json) %>)"
+                x-show="getOrderItem(<%= ff.object.product.id %>).quantity > 0"
+                x-cloak
+              >
+                <td>
+                  <%= ff.hidden_field :product_id %>
+                  <%= ff.number_field :count, skip_label: true, class: "order-new-bill-input input is-small", "x-model.number": "getOrderItem(#{ff.object.product.id}).quantity" %>
+                </td>
+
+                <td>
+                  <%= ff.object.product.name %>
+                </td>
+
+                <td class="has-text-right" x-text="getOrderItem(<%= ff.object.product.id %>).priceFormatted">
+                  <%= euro_from_cents(ff.object.product.price_cents * ff.object.count) %>
+                </td>
+              </tr>
+            <% end %>
+          </table>
+
+          <!-- Placeholder -->
+          <div class="order-new-bill-placeholder" x-show="!hasProducts">
+            No products selected yet.
+          </div>
+
+          <hr />
+
+          <!-- Total -->
+          <div class="order-new-bill-overview-total">
+            <strong>Total:</strong>
+            <span x-text="totalFormatted">
+              <%= euro_from_cents(0) %>
+            </span>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <%= f.submit "Place order", class: "button is-primary is-fullwidth", data: { disable_with: "Please wait..." } %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= render "products_modal" %>
+  <%= render "barcode_modal" %>
+</div>
+
+<script>
+
+  function setupOrder() {
+    return {
+      /**
+       * If the modal for selecting a product is open or not.
+       */
+      productsModalOpen: false,
+
+      /**
+       * If the modal for selecting a barcode is open or not.
+       */
+      barcodeModalOpen: false,
+
+      /**
+       * Current value of the barcode field
+       */
+      orderBarcode: "",
+
+      /**
+       * List with all order items and their quantities.
+       */
+      orderItems: [],
+
+      /**
+       * Get a specific order item by product id.
+       */
+      getOrderItem(productId) {
+        return this.orderItems.find(item => item.productId === productId);
+      },
+
+      /**
+       * Add a new order item to the list.
+       */
+      addOrderItem(productId, price, quantity, barcodes) {
+        this.orderItems.push({
+          productId: productId,
+          price: price,
+          quantity: quantity,
+          barcodes: barcodes,
+
+          /**
+           * Price of the order item.
+           * This is the calculated price of the product multiplied by the quantity.
+           * Formatted as string with 2 decimal places and € sign.
+           */
+          get priceFormatted() {
+              return `€${(this.quantity * this.price / 100.0).toFixed(2)}`;
+          }
+        });
+      },
+
+      /**
+       * Total price of the order.
+       * This is the sum of all order items price.
+       * Formatted as string with 2 decimal places and € sign.
+       */
+      get totalFormatted() {
+        return `€${(this.orderItems.reduce((acc, item) => acc + (item.price * item.quantity), 0) / 100.0).toFixed(2)}`;
+      },
+
+
+      /**
+       * If there is any product in the order.
+       */
+      get hasProducts() {
+        return this.orderItems.find(p => p.quantity > 0);
+      },
+
+      /**
+       * Increment the product quantity for the given barcode
+       * or throw an alert when the barcode was not found
+       */
+      incrementProduct(code) {
+        // Find the correct product for the given barcode.
+        const orderItem = this.orderItems.find(item => item.barcodes.find(barcode => barcode === code));
+
+        // If the product was found, add it to the order.
+        // Otherwise, throw an error.
+        if (orderItem) {
+          orderItem.quantity++;
+        } else {
+          // TODO: make some utility that can use the flash messages.
+          alert(`Barcode '${code}' was not found in the database.`);
+        }
+      },
+
+      /**
+       * Handle barcode submit.
+       */
+      onBarcodeSubmit(e) {
+        e.preventDefault();
+
+        // Increment the product quantity for the given barcode
+        // or throw an alert when the barcode was not found
+        this.incrementProduct(this.orderBarcode);
+
+        // Reset the barcode.
+        this.orderBarcode = "";
+      },
+
+      /**
+       * Handle barcode scan.
+       */
+      onBarcodeScan(result) {
+        // Close the barcode modal.
+        this.barcodeModalOpen = false;
+
+        // Increment the product quantity for the given barcode
+        // or throw an alert when the barcode was not found
+        this.incrementProduct(result.codeResult.code);
+      }
+    }
+  }
+</script>

@@ -1,0 +1,22 @@
+{
+  "name": "Tap",
+  "short_name": "Tap",
+  "description": "Zeus WPI's drink ordering system",
+  "theme_color": "#ff6600",
+  "background_color": "#f5f5f5",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/icons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

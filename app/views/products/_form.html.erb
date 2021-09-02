@@ -1,0 +1,61 @@
+<div>
+  <%= f_form_for @product, html: { multipart: true } do |f| %>
+
+  <!-- Errors -->
+  <%= f.error_messages %>
+
+  <!-- General -->
+  <div>
+
+    <!-- Header -->
+    <div class="columns is-multiline is-justify-content-space-between">
+      <!-- Title -->
+      <div class="column is-narrow">
+        <h1 class="subtitle">General</h1>
+      </div>
+    </div>
+
+    <%= f.text_field :name %>
+    <%= f.price_field :price, label: "Price" %>
+    <%= f.collection_select :category, Product.categories.keys, :to_s, :titlecase %>
+    <%= f.number_field :stock %>
+    <%= f.number_field :calories %>
+    <%= f.file_field :avatar, fullwidth: true, skip_initial_name: true %>
+    <%= f.check_box :deleted, help: "Deleted products are not removed from the database, but are hidden for regular users", switch: true %>
+  </div>
+
+  <hr />
+
+  <!-- Barcodes -->
+  <div>
+
+    <!-- Header -->
+    <div class="columns is-multiline is-justify-content-space-between">
+
+      <!-- Title -->
+      <div class="column is-narrow">
+        <h1 class="subtitle">Barcodes</h1>
+      </div>
+
+      <!-- Add new barcode -->
+      <div class="column is-narrow">
+        <%= link_to_add_nested f, :barcodes, '#productBarcodes',
+            link_text: "Add barcode",
+            partial: "products/form_barcode",
+            link_classes: "button is-success is-light" %>
+      </div>
+    </div>
+
+    <!-- Available barcodes -->
+    <div id="productBarcodes">
+      <%= f.fields_for :barcodes do |ff| %>
+        <%= render "products/form_barcode", form: ff, show_delete: false %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mt-3">
+    <%= f.submit %>
+  </div>
+<% end %>
+</div>

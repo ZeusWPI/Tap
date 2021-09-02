@@ -1,0 +1,26 @@
+<!-- Heading -->
+<div class="columns is-justify-content-space-between is-align-items-center">
+  <!-- Title -->
+  <div class="column">
+    <div class="title">
+      Products
+    </div>
+
+    <div class="subtitle">
+      All products that are available for purchase.
+    </div>
+  </div>
+
+  <!-- New product -->
+  <% if can? :manage, Product %>
+  <div class="column is-narrow">
+    <%= link_to "New product", new_product_path, class: "button is-primary" %>
+  </div>
+  <% end %>
+</div>
+
+<div class="card">
+  <div class="card-content">
+    <%= render "products/list", details: true, actions: ["product:edit"] %>
+  </div>
+</div>

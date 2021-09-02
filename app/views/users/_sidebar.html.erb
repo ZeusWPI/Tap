@@ -1,0 +1,38 @@
+<div class="sidebar">
+
+  <!-- User -->
+  <div class="sidebar-user">
+    <!-- Avatar -->
+    <div class="sidebar-avatar">
+      <img src="<%= @user.avatar %>" alt="<%= @user.name %>">
+    </div>
+
+    <!-- Username -->
+    <h1 class="sidebar-username title">
+        <%= @user.name %>
+    </h1>
+  </div>
+
+  <!--
+  Balance
+  Only displayed on mobile,
+  as on larger screens it is displayed in the statistics at the top.
+  -->
+  <div class="is-hidden-tablet">
+    <%= render 'stats_card_balance' %>
+  </div>
+
+  <!--
+  Order
+  -->
+  <div>
+    <%= render 'sidebar_order' %>
+  </div>
+
+  <!--
+  Settings
+  -->
+  <div>
+    <%= render 'sidebar_settings' %>
+  </div>
+</div>

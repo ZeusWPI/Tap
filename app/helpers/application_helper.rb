@@ -1,29 +1,51 @@
 module ApplicationHelper
   include ActionView::Helpers::NumberHelper
 
-  def bootstrap_class_for flash_type
-    { success: "alert-success", error: "alert-danger", alert: "alert-warning", notice: "alert-info" }[flash_type] || flash_type.to_s
+  # Get the Bulma notification class for a given flash type
+  def flash_class(flash_type)
+    types = {
+      success: "is-success",
+      error: "is-danger",
+      alert: "is-warning",
+      info: "is-info",
+    }
+
+    types[flash_type.to_sym] || "is-info"
   end
 
-  def flash_messages(opts = {})
-    flash.map do |msg_type, message|
-      content_tag(:div, message, class: "alert #{bootstrap_class_for(msg_type.to_sym)}") do
-        content_tag(:button, 'x', class: "close", data: { dismiss: 'alert' }) +
-        content_tag(:strong, [msg_type.capitalize, "! "].join("")) +
-        message
-      end
-    end.join().html_safe
+  # Convert a given user name to a color hash
+  # Only user dark colors for contrast.
+  def get_user_color(user)
+    require "digest/md5"
+    "#" + Digest::MD5.hexdigest(user.name)[0..5]
   end
 
-  def get_color(user)
-    require 'digest/md5'
-    Digest::MD5.hexdigest(user.name)[0..5]
+  ## Convert a given user to a color hash for the text
+  def get_user_text_color(user)
+    user_color = get_user_color(user).gsub("#", "")
+
+    # Get the hex color as red, green, blue
+    r, g, b = user_color[0..1].hex, user_color[2..3].hex, user_color[4..5].hex
+
+    if (r * 0.299 + g * 0.587 + b * 0.114) > 186
+      "#4a4a4a"
+    else
+      "#ffffff"
+    end
   end
 
-  def get_color_style(user)
-    "background-color: \#"+ get_color(user) +";"
+  # Convert a given users balance into a color hash
+  # If the user has a positive balance, use green
+  # If the user has a negative balance, use red
+  def get_user_balance_color(user)
+    if user.balance > 0
+      "#257942"
+    else
+      "#cc0f35"
+    end
   end
 
+  # Convert a given float in cents to euro's in a formatted string.
   def euro_from_cents(f)
     if f
       euro(f / 100.0)
@@ -32,22 +54,41 @@ module ApplicationHelper
     end
   end
 
+  # Convert a given float in euro's to a formatted string.
   def euro(f)
-    number_to_currency(f, unit: '€')
+    number_to_currency(f, unit: "€")
   end
 
+  # Replace all instances of double quotes with single quotes
+  # This can be useful for escaping strings in HTML
+  def escape_quotes(str)
+    str.gsub("\"", "'")
+  end
+
+  # Create a formatted form.
   def f_form_for(record, options = {}, &block)
     options[:builder] = FormattedFormBuilder
     form_for(record, options, &block)
   end
 
+  # Get the current theme of the user
+  def theme
+    {
+      variant: {
+        name: cookies[:themeVariantName],
+        hue: cookies[:themeVariantHue]
+      },
+      mode: cookies[:themeMode] || "light"
+    }
+  end
+
   def slack_notification(user, message)
-    require 'net/http'
-    require 'json'
-    postData = Net::HTTP.post_form(URI.parse('https://slack.com/api/users.list'), {'token'=>Rails.application.secrets.access_token})
+    require "net/http"
+    require "json"
+    postData = Net::HTTP.post_form(URI.parse("https://slack.com/api/users.list"), { "token" => Rails.application.secrets.access_token })
     data = JSON.parse(postData.body)
     if data["ok"]
-      slackmember = data["members"].select{ |m| m["profile"]["email"] == user.name + "@zeus.ugent.be" }.first
+      slackmember = data["members"].select { |m| m["profile"]["email"] == user.name + "@zeus.ugent.be" }.first
 
       if slackmember
         Webhook.new(channel: "@" + slackmember["name"], username: "Tab").ping(message)

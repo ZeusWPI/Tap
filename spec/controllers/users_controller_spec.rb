@@ -90,7 +90,7 @@ describe UsersController, type: :controller do
     context 'danger zone' do
       it 'should warn for NOPs' do
         put :update, id: @user, user: {}
-        expect(flash[:notice]).to be_present
+        expect(flash[:info]).to be_present
       end
 
       it 'should not accept unreal images' do
@@ -161,7 +161,7 @@ describe UsersController, type: :controller do
 
     # Some weird redirects happen here and I don't know what mock thing is
     # setting them up.
-  
+
     # describe 'failed' do
     #   before :each do
     #     @dagschotel = create :product, stock: 0

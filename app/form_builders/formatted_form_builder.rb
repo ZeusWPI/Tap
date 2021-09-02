@@ -3,196 +3,367 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
   include ActionView::Context
   include ActionView::Helpers::NumberHelper
 
-  FIELD_HELPERS = %w[text_field number_field file_field password_field]
+  # Field types to override with the custom form field
+  FIELD_TYPES = [
+    "text_field",
+    "number_field",
+    "password_field",
+  ]
 
-  delegate :content_tag, to: :@template
-
+  # Initialize the form builder
   def initialize(object_name, object, template, options)
     @inline_errors = true
 
     super
   end
 
-  FIELD_HELPERS.each do |method_name|
-    with_method_name    = "#{method_name}_with_format"
-    without_method_name = "#{method_name}_without_format"
-
-    define_method(with_method_name) do |name, options = {}|
-      form_group_builder(name, options) do
-        send(without_method_name, name, options)
-      end
-    end
-
-    alias_method_chain method_name, :format
-  end
-
-  def price_field(name, options = {})
-    options[:min]   ||= 0
-    options[:step]  ||= 0.01
-    # if object.is_a?(ActiveRecord::Base)
-      # options[:value] ||= object[name]
-    if object.respond_to?(name)
-      options[:value] ||= object.send name
-    end
-    options[:value] = number_with_precision(options[:value], precision: 2)
-
-    form_group_builder(name, options) do
-      content_tag :div, class: "input-group" do
-        content_tag(:span, class: "input-group-addon") do
-          content_tag :span, nil, class: "glyphicon glyphicon-euro"
-        end +
-        number_field_without_format(name, options)
+  # Add a method for each type in FIELD_TYPES.
+  # This method will define a custom form field.
+  FIELD_TYPES.each do |type|
+    define_method(type) do |attribute, options = {}|
+      form_field(attribute, options) do
+        super(attribute, options.reverse_merge(class: input_css_class(attribute, options)))
       end
     end
   end
 
-  def check_box_with_format(name, options = {}, checked_value = "1", unchecked_value = "0", &block)
-    options.symbolize_keys!
+  # (override) Custom file upload input
+  def file_field(attribute, options = {})
+    form_field(attribute, options) do
+      file_tag(attribute, options) do
+        file_label_tag(attribute, options) do
+          # Input for selecting the file
+          control = super(attribute, options.reverse_merge(class: "file-input"))
 
-    checkbox = check_box_without_format(name, options.except(:label), checked_value, unchecked_value)
-    label_content = block_given? ? capture(&block) : options[:label]
+          # File select label
+          label = file_select_label_tag(attribute, options)
 
-    content_tag :div, class: control_wrapper_class do
-      if options[:skip_label]
-        checkbox
-      else
-        checkbox + " " + label(name, label_content)
+          # File select filename
+          name = file_select_name_tag(attribute, options) do
+            if object.send(attribute).present? and !options[:skip_initial_name]
+              object.send(attribute).original_filename
+            else
+              "No file selected"
+            end
+          end
+
+          content = control
+
+          # Add the label if "skip_label" option is false
+          content += label if !options[:skip_label]
+
+          # Add the filename if "skip_name" option is false
+          content += name if !options[:skip_name]
+
+          content
+        end
       end
     end
   end
 
-  def counter(name, options = {})
-    form_group_builder(name, options.merge(wrapper_class: "input-group input-group-lg")) do
-      counter_button("btn-dec", "glyphicon-minus") +
-      number_field_without_format(name, options.merge({class: 'form-control row_counter center'})) +
-      counter_button("btn-inc", "glyphicon-plus")
+  # (override) Custom collection select
+  def collection_select(attribute, collection, value_method, text_method, options = {}, html_options = {})
+    form_field(attribute, options) do
+      content_tag(:div, class: "select is-fullwidth") do
+        super(attribute, collection, value_method, text_method, options, html_options)
+      end
     end
   end
 
-  alias_method_chain :check_box, :format
+  # (override) Custom checkbox
+  def check_box(attribute, options = {}, checked_value = "1", unchecked_value = "0", &block)
+    # Make sure the data option is set
+    if !options[:data]
+      options[:data] = {}
+    end
 
-  def collection_select_with_format(name, collection, value_method = :to_s, text_method = :titlecase, options = {}, html_options = {})
-    form_group_builder(name, options, html_options) do
-      collection_select_without_format(name, collection, value_method, text_method, options, html_options)
+    # Add "switch" to the data when the option is present
+    if options[:switch]
+      options[:data][:switch] = options[:switch]
+    end
+
+    # Add "submit" to the data when the option is present
+    if options[:submit]
+      options[:data][:submit] = options[:submit]
+    end
+
+    # Default control
+    control = super(attribute, options, checked_value, unchecked_value)
+
+    # If the "switch" option is provided, render a custom switch.
+    if options[:switch]
+      # Switch slider
+      slider = content_tag(:span, class: "switch-slider") do
+      end
+
+      # New control in a switch wrapper
+      control = content_tag(:label, class: "switch") do
+        control + slider
+      end
+    end
+
+    form_field(attribute, options) do
+      control
     end
   end
 
-  alias_method_chain :collection_select, :format
+  # (new) Custom price field
+  # Wrapper around a number_field with steps in floats instead of in integers.
+  def price_field(attribute, options = {})
 
-  def submit_with_format(name = nil, options = {})
-    options[:class] = submit_class unless options[:class]
+    # Minimum value and step size
+    options[:min] ||= 0
+    options[:step] ||= 0.01
 
-    content = submit_without_format(name, options)
-    if options[:skip_wrapper]
-      content
+    # Set the prefix icon
+    options[:prefix_icon] = "fas fa-euro-sign"
+
+    # Regular number field
+    number_field(attribute, options)
+  end
+
+  # (override) Custom submit button
+  def submit(value = nil, options = {})
+    css_class = "is-flex"
+
+    # If the "justify" option is provided, use it as the class.
+    # If not provided, justify to the end.
+    if options[:justify]
+      css_class += " is-justify-content-#{options[:justify]}"
     else
-      content_tag :div, content, class: submit_wrapper_class
+      css_class += " is-justify-content-flex-end"
+    end
+
+    field_tag(nil, options) do
+      control_tag(nil, options) do
+        content_tag(:div, class: css_class) do
+          # Add "Please wait..." to the button while the form is submitting
+          # Only add the option if not already provided.
+          if !options[:data]
+            options[:data] = {}
+            if !options[:data][:disable_with]
+              options[:data][:disable_with] = "Please wait..."
+            end
+          end
+
+          super(value, options.reverse_merge(class: "button is-primary"))
+        end
+      end
     end
   end
 
-  alias_method_chain :submit, :format
+  # (override) Custom label
+  def label(attribute, text = nil, options = {}, &block)
+    options[:class] = "label"
+    super(attribute, text, options, &block)
+  end
 
+  # List with error messages
   def error_messages
     if object.errors.any?
-      content_tag :div, class: "panel panel-danger form-errors" do
-        error_header + error_body
-      end
-    end
-  end
+      # Notification
+      content_tag(:div, class: "notification is-danger is-light") do
 
-  def error_header
-    content_tag(:div, class: "panel-heading") do
-      "#{pluralize(object.errors.count, "error")} prohibited this #{object.class.name.downcase} from being saved:"
-    end
-  end
-
-  def error_body
-    content_tag(:div, class: "panel-body") do
-      content_tag :ul do
-        object.errors.full_messages.map do |msg|
-          content_tag :li, msg
-        end.join.html_safe
+        # Error messages
+        content_tag(:ul) do
+          object.errors.full_messages.map do |msg|
+            content_tag(:li, msg)
+          end.join.html_safe
+        end
       end
     end
   end
 
   private
-    def label_class
-      "control-label"
+
+  # Input CSS class
+  def input_css_class(attribute, options = {})
+    css_class = "input"
+
+    # Add error class when the field has an error.
+    if object.errors[attribute].length > 0
+      css_class += " is-danger"
     end
 
-    def control_class
-      "form-control"
+    # Add size class
+    if options[:size]
+      css_class += " is-#{options[:size]}"
     end
 
-    def control_wrapper_class
-      "form-group"
+    css_class
+  end
+
+
+  # Field content tag
+  def field_tag(attribute, options = {})
+    content_tag(:div, class: "field") do
+      yield
+    end
+  end
+
+  # Control content tag
+  def control_tag(attribute, options = {})
+    css_class = "control"
+
+    # Add "has-icons-left" class if the option "prefix_icon" is provided.
+    if options[:prefix_icon]
+      css_class += " has-icons-left"
     end
 
-    def submit_class
-      "btn btn-primary"
+    # Add "has-icons-right" class if the option "suffix_icon" is provided.
+    if options[:suffix_icon]
+      css_class += " has-icons-right"
     end
 
-    def submit_wrapper_class
-      "actions"
+    # Prefix icon
+    prefix_icon = content_tag(:span, class: "icon is-small is-left") do
+      icon_tag(options[:prefix_icon] || "")
     end
 
-    def form_group(*args, &block)
-      options = args.extract_options!
-      name = args.first
+    # Suffix icon
+    suffix_icon = content_tag(:span, class: "icon is-small is-right") do
+      icon_tag(options[:suffix_icon] || "")
+    end
 
-      options[:class] = [control_wrapper_class, options[:class]].compact.join(' ')
+    content_tag(:div, class: css_class) do
+      # Only include prefix and suffix icon when the option is present
+      yield + (options[:prefix_icon] ? prefix_icon : "") + (options[:suffix_icon] ? suffix_icon : "")
+    end
+  end
 
-      content_tag(:div, options.except(:label)) do
-        label = generate_label(name, options[:label]) if options[:label]
-        control = capture(&block).to_s
+  # Icon content tag
+  def icon_tag(icon, options = {})
+    content_tag(:i, "", class: icon)
+  end
 
-        if label
-          label + control
-        else
-          control
-        end
+  # File content tag
+  def file_tag(attribute, options = {})
+    css_class = "file"
+
+    # Add "has-name" class if the skip_name option is false
+    if !options[:skip_name]
+      css_class += " has-name"
+    end
+
+    # Add "is-boxed" class if the option "boxed" is true
+    if options[:boxed]
+      css_class += " is-boxed"
+    end
+
+    # Add "is-fullwidth" class if the option "fullwidth" is true
+    if options[:fullwidth]
+      css_class += " is-fullwidth"
+    end
+
+    # Add error class when the field has an error.
+    if object.errors[attribute].length > 0
+      css_class += " is-danger"
+    end
+
+    content_tag(:div, class: css_class) do
+      yield
+    end
+  end
+
+  # File label content tag
+  def file_label_tag(attribute, options = {})
+    content_tag(:label, class: "file-label") do
+      yield
+    end
+  end
+
+  # File select file label tag
+  def file_select_label_tag(attribute, options = {})
+    content_tag(:span, class: "file-cta") do
+      # Icon
+      icon = content_tag(:span, class: "file-icon") do
+        icon_tag("fas fa-upload")
       end
+
+      # Text
+      text = content_tag(:span, class: "file-label") do
+        "Choose a file..."
+      end
+
+      icon + text
     end
+  end
 
-    def form_group_builder(method, options, html_options = nil)
-      options.symbolize_keys!
+  # File select file name tag
+  def file_select_name_tag(attribute, options = {})
+    content_tag(:span, class: "file-name") do
+      yield
+    end
+  end
 
-      css_options = html_options || options
-      css_options[:class] = [control_class, css_options[:class]].compact.join(" ")
+  # Build a form field
+  def form_field(attribute, options)
+    content_tag(:div, class: "field") do
+      # Label
+      label = label(attribute, options[:label])
 
-      wrapper_class = css_options.delete(:wrapper_class)
-      wrapper_options = css_options.delete(:wrapper)
-
-      form_group_options = {
-        class: wrapper_class
-      }
-
-      if wrapper_options.is_a?(Hash)
-        form_group_options.merge!(wrapper_options)
+      # Prefix control
+      prefix_control = content_tag(:div, class: "control") do
+        options[:prefix_control]
       end
 
-      unless options.delete(:skip_label)
-        form_group_options.reverse_merge!(label: {
-          text: options.delete(:label),
-          class: label_class
-        })
+      # Suffix control
+      suffix_control = content_tag(:div, class: "control") do
+        options[:suffix_control]
       end
 
-      form_group(method, form_group_options) do
+      # Control
+      control = control_tag(attribute, options) do
         yield
       end
-    end
 
-    def generate_label(name, options = {})
-      label("#{name}:", options[:text], options)
-    end
+      # Error messages
+      error = content_tag(:div, class: "help is-danger") do
+        object.errors[attribute].join(", ").capitalize
+      end
 
-    def counter_button(button, glyphicon)
-      content_tag :span, class: "input-group-btn" do
-        content_tag :button, class: "btn btn-default #{button}", type: "button" do
-          content_tag :span, "", class: "glyphicon #{glyphicon}"
+      # Help message
+      help = content_tag(:div, class: "help") do
+        options[:help]
+      end
+
+      # Content
+      content = control
+
+      # Prepend prefix control when the option is present
+      if options[:prefix_control]
+        content = prefix_control + content
+      end
+
+      # Append suffix control when the option is present
+      if options[:suffix_control]
+        content = content + suffix_control
+      end
+
+      # Append the error message when any error is present
+      if object.errors[attribute].length > 0
+        content = content + error
+      end
+
+      # Append the help message when any help message is present
+      if options[:help]
+        content = content + help
+      end
+
+      # If a prefix or suffix control is provided, wrap the content in another div with the "has-addons" class.
+      # This is to ensure that the controls are aligned and the label is not rendered next to the input.
+      if options[:prefix_control] || options[:suffix_control]
+        content = content_tag(:div, class: "field has-addons") do
+          content
         end
       end
+
+      # If the skip_label option is false, prepend the labeL.
+      if !options[:skip_label]
+        content = label + content
+      end
+
+      content
     end
+  end
 end

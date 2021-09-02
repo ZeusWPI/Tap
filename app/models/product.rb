@@ -22,7 +22,7 @@ class Product < ActiveRecord::Base
 
   has_many :order_items
   has_many :barcodes, dependent: :destroy
-  accepts_nested_attributes_for :barcodes
+  accepts_nested_attributes_for :barcodes, allow_destroy: true
 
   enum category: %w(food beverages other)
 
@@ -33,10 +33,14 @@ class Product < ActiveRecord::Base
 
   scope :for_sale, -> { where deleted: false }
 
+  # Get price in euros
+  # based on the value in cents.
   def price
     self.price_cents / 100.0
   end
 
+  # Set the price in euros.
+  # Will set the price in cents.
   def price=(value)
     if value.is_a? String then value.sub!(',', '.') end
     self.price_cents = (value.to_f * 100).to_int

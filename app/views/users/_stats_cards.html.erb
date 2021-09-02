@@ -1,0 +1,23 @@
+<div class="columns is-multiline is-mobile is-justify-content-space-between">
+  <!--
+  Balance
+  Hide on mobile, as the balance is already displayed at the top of the sidebar
+  -->
+  <div class="column is-hidden-mobile is-small-mobile">
+    <%= render "stats_card_balance" %>
+  </div>
+
+  <!--
+  Total orders
+  -->
+  <div class="column is-6-mobile is-small-mobile">
+    <%= render "stats_card_orders" %>
+  </div>
+
+  <!--
+  Most ordered product
+  -->
+  <div class="column is-6-mobile is-hidden-icon is-small-mobile">
+    <%= render "stats_card_popular" %>
+  </div>
+</div>

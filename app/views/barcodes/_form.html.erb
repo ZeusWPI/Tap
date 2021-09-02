@@ -1,0 +1,10 @@
+<div>
+  <%= f_form_for @barcode do |f| %>
+    <!-- Errors -->
+    <%= f.error_messages %>
+
+    <%= f.text_field :code, size: "large", placeholder: "Enter barcode" %>
+
+    <%= f.submit "Next" %>
+  <% end %>
+</div>

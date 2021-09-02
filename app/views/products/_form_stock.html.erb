@@ -1,0 +1,74 @@
+<div x-data="setupProductStockForm(<%= @product.stock %>)">
+  <%= f_form_for @product do |f| %>
+
+    <!-- Header -->
+    <div class="columns is-multiline is-justify-content-space-between">
+      <!-- Title -->
+      <div class="column is-narrow">
+        <h1 class="subtitle">Add to stock</h1>
+      </div>
+    </div>
+
+    <!--
+    Hidden stock value
+
+    This is used to update the stock value when the user adds new stock.
+    It will receive the value of the sum.
+    -->
+    <div class="is-hidden">
+      <%= f.number_field :stock, "x-bind:value": "stockNew" %>
+    </div>
+
+    <!-- Current stock field -->
+    <div class="field">
+      <label class="label">Current Stock</label>
+      <div class="control">
+        <input class="input" type="number" value="<%= @product.stock %>" readonly disabled>
+      </div>
+    </div>
+
+    <!-- Purchased field -->
+    <div class="field">
+      <label class="label">Purchased</label>
+      <div class="control">
+        <input class="input" type="number" x-model="stockPurchased" min="0" />
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- Total -->
+    <div class="columns">
+      <!-- New Stock -->
+      <div class="column">
+        <strong>New Stock:</strong>
+
+        <span x-text="stockNew"><%= @product.stock %></span>
+        <span x-text="() => `(+ ${stockPurchased})`" class="text-primary has-text-success">(+ 0)</span>
+      </div>
+
+      <!-- Submit -->
+      <div class="column">
+        <%= f.submit "Add to stock" %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<script>
+function setupProductStockForm(stockCurrent) {
+  return {
+    /**
+     * Purchased stock value.
+     */
+    stockPurchased: 0,
+
+    /**
+     * Computed new stock value
+     */
+    get stockNew() {
+      return Number(this.stockPurchased) + stockCurrent;
+    }
+  }
+}
+</script>

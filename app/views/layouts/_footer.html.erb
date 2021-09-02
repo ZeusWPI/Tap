@@ -1,0 +1,22 @@
+<footer class="footer">
+  <div class="container content">
+    <div class="columns is-multiline is-justify-content-space-between">
+      <!-- Copyright -->
+      <div class="column is-narrow">
+        <%= link_to "Tap", root_path %> by <%= link_to "Zeus WPI", "https://zeus.gent", target: "_blank" %>
+      </div>
+
+      <!-- Change theme -->
+      <div class="column is-narrow">
+        <%= link_to "Change theme", theme_path, class: "button is-primary is-light is-small" %>
+      </div>
+
+      <!-- Links -->
+      <div class="column is-narrow">
+        <%= mail_to "bestuur@zeus.ugent.be", "Contact", class: "footer-link" %>
+        <%= link_to "Zeus WPI", "https://zeus.gent", class: "footer-link" %>
+        <%= link_to "GitHub", "https://github.com/ZeusWPI/Tap", class: "footer-link" %>
+      </div>
+    </div>
+  </div>
+</footer>

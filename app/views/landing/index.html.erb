@@ -1,0 +1,39 @@
+<div class="landing">
+
+  <!-- Hero -->
+  <div class="landing-hero">
+    <div class="container">
+      <div class="landing-hero-content columns is-justify-content-flex-start">
+        <!-- Text -->
+        <div class="landing-hero-text column is-6-tablet is-7-desktop is-5-widescreen">
+          <div class="landing-hero-flash">
+            <%= render "layouts/flash", isLight: true %>
+          </div>
+
+          <h1 class="landing-hero-title">Tap</h1>
+
+          <div class="landing-hero-description">
+            Yes. We have to drink & eat. But we also have to pay. This handles the drinking part!
+          </div>
+
+          <div class="landing-hero-actions">
+            <%= link_to "Login with Zeus WPI", omniauth_authorize_path("user", "zeuswpi"), class: "button is-primary is-medium" %>
+
+            <a class="landing-hero-register" href="https://zeus.gent">
+            No account yet? Create one here!
+            </a>
+          </div>
+        </div>
+
+        <!-- Image -->
+        <div class="landing-hero-image column">
+          <%= image_tag "landing/hero.png", alt: "Hero", class: "theme-blend" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features -->
+  <div class="landing-features">
+  </div>
+</div>

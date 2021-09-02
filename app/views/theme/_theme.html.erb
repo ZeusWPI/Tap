@@ -1,0 +1,35 @@
+<% default = !variant[:hue] && mode == "light" %>
+<% selected = (variant[:hue] == theme[:variant][:hue] && mode == theme[:mode]) || (default && !theme[:variant][:hue]) %>
+
+<%=
+  button_to set_theme_path,
+  params: {
+    "theme[mode]": mode,
+    "theme[variantName]": variant[:name],
+    "theme[variantHue]": variant[:hue]
+  },
+  form: { class: "is-fullheight" },
+  class: "theme-item #{selected ? 'theme-item--selected' : ''}",
+  style: "filter: hue-rotate(#{variant[:hue]})" do %>
+    <!-- Image -->
+    <%= image_tag "theme/placeholder-#{mode}.svg", class: "theme-item-image" %>
+
+    <!-- Name -->
+    <div class="theme-item-name">
+      <%= variant[:name] %>
+    </div>
+
+    <!-- Default -->
+    <% if default %>
+      <div class="theme-item-default">
+        Default theme
+      </div>
+    <% end %>
+
+    <!-- Selected -->
+    <% if selected %>
+      <div class="theme-item-selected">
+        (selected)
+      </div>
+    <% end %>
+<% end %>

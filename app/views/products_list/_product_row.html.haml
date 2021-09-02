@@ -1,9 +1,0 @@
-%tr{id: "products_row_#{dom_id(product)}"}
-  %td= link_to image_tag(product.avatar(:small)), edit_product_path(product)
-  %td= product.name
-  %td= euro(product.price)
-  %td= product.stock
-  %td
-    %span{class: "glyphicon #{product.deleted ? "glyphicon-check" : "glyphicon-unchecked"}"}
-  %td= product.calories
-  %td= link_to "Edit", edit_product_path(product), class: "btn btn-default", remote: true
