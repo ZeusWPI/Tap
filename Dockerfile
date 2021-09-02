@@ -19,7 +19,8 @@ COPY Gemfile.lock Gemfile.lock
 
 # Install dependencies
 # Use BuildKit cache for caching dependencies
-RUN --mount=type=cache,target=/usr/local/bundle bundle install
+#RUN --mount=type=cache,target=/usr/local/bundle bundle install
+RUN bundle install
 
 ########################
 ### Production image ###
@@ -37,7 +38,7 @@ ENV RAILS_ENV production
 EXPOSE 80
 
 # Pre-compile assets
-RUN rails assets:precompile
+RUN rake assets:precompile
 
 # Docker Entrypoint
 # Will be started when the container is started
