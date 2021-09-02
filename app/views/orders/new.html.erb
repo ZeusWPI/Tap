@@ -30,7 +30,7 @@
 
       <!-- Barcode Scanner (for users) -->
       <% if !current_user.koelkast %>
-        <div class="order-new-actions-or">
+        <div class="order-new-actions-or" x-cloak>
           - OR -
         </div>
 
@@ -48,7 +48,7 @@
     <%= f_form_for [@user, @order] do |f| %>
       <div class="order-new-bill">
         <!-- Logo -->
-        <div class="order-new-bill-logo">
+        <div class="order-new-bill-logo is-hidden-mobile">
           <%= image_tag "logo.png", alt: "Logo", class: "theme-blend" %>
         </div>
 
@@ -65,7 +65,7 @@
               <tr>
                 <th>Quantity</th>
                 <th>Product</th>
-                <th class="has-text-right">Price</th>
+                <th class="has-text-right" x-cloak>Price</th>
               </tr>
             </thead>
 
@@ -74,7 +74,7 @@
                 class="order-new-bill-item"
                 x-init="addOrderItem(<%= ff.object.product.id %>, <%= ff.object.product.price_cents %>, <%= ff.object.count %>, <%= escape_quotes(ff.object.product.barcodes.map(&:code).to_json) %>)"
                 x-show="getOrderItem(<%= ff.object.product.id %>).quantity > 0"
-                x-cloak
+
               >
                 <td>
                   <%= ff.hidden_field :product_id %>
@@ -85,7 +85,7 @@
                   <%= ff.object.product.name %>
                 </td>
 
-                <td class="has-text-right" x-text="getOrderItem(<%= ff.object.product.id %>).priceFormatted">
+                <td class="has-text-right" x-text="getOrderItem(<%= ff.object.product.id %>).priceFormatted" x-cloak>
                   <%= euro_from_cents(ff.object.product.price_cents * ff.object.count) %>
                 </td>
               </tr>
@@ -93,14 +93,14 @@
           </table>
 
           <!-- Placeholder -->
-          <div class="order-new-bill-placeholder" x-show="!hasProducts">
+          <div class="order-new-bill-placeholder" x-show="!hasProducts" x-cloak>
             No products selected yet.
           </div>
 
           <hr />
 
           <!-- Total -->
-          <div class="order-new-bill-overview-total">
+          <div class="order-new-bill-overview-total" x-cloak>
             <strong>Total:</strong>
             <span x-text="totalFormatted">
               <%= euro_from_cents(0) %>
