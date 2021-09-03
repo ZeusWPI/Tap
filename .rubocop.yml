@@ -1,0 +1,20 @@
+# Use double-quotes instead of single-quotes
+# Double quotes allow for string interpolation, so we enforce
+# double quotes for consistency.
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+# Do not report errors on missing documentation.
+Documentation:
+  Enabled: false
+
+# Do not complain about blocks that are too long.
+Metrics/BlockLength:
+  Enabled: false
+
+AllCops:
+  NewCops: enable
+
+  # Do not lint the database migrations
+  Exclude:
+    - "db/migrate/*"
