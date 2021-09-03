@@ -95,6 +95,9 @@ group :development do
   gem 'capistrano-rvm'
   gem 'capistrano-rbenv'
   gem 'capistrano-passenger'
+
+  # Linting
+  gem 'rubocop', '~> 1.12'
 end
 
 # Development/Test shared dependencies
