@@ -38,6 +38,7 @@ $logo-height: 155px;
 html {
   max-height: 100vh;
   min-height: 100vh;
+  overflow-y: auto;
 }
 
 body {
@@ -553,6 +554,7 @@ body {
 .user {
   display: flex;
   flex-direction: column;
+  align-items: center;
   height: 100%;
   flex-grow: 0;
   position: relative;
@@ -579,6 +581,7 @@ body {
     margin-top: -1.5rem;
     text-align: center;
     z-index: 10;
+    width: 100%;
   }
 
   &-dagschotel {
