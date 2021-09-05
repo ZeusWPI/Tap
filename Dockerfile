@@ -19,8 +19,11 @@ COPY Gemfile.lock Gemfile.lock
 
 # Install dependencies
 # Use BuildKit cache for caching dependencies
-#RUN --mount=type=cache,target=/usr/local/bundle bundle install
-RUN bundle install
+RUN --mount=type=cache,target=vendor/cache bundle install
+
+# Copy all of the .gem files needed to run the application into the vendor/cache directory.
+# In the future, when running [bundle install(1)][bundle-install], use the gems in the cache in preference to the ones on rubygems.org
+RUN bundle cache
 
 ########################
 ### Production image ###
