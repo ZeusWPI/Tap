@@ -35,7 +35,7 @@ Rails.application.routes.draw do
       get "dagschotel/edit" => "users#edit_dagschotel"
       post "dagschotel/order" => "users#order_dagschotel"
 
-      # Legacy endpoints, required for Tapp
+      # Legacy endpoints, required for Tappb
       get "quickpay" => "users#order_dagschotel"
 
       # Change the user's API key.
