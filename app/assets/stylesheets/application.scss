@@ -232,13 +232,6 @@ body {
       font-size: 1.5rem;
     }
   }
-
-  &-menu {
-    // Allow hamburger menu on non-JS browsers.
-    .navbar:target & {
-      display: block;
-    }
-  }
 }
 
 .sidebar {
