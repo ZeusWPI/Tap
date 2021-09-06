@@ -11,7 +11,7 @@
     </div>
 
     <%= link_to euro_from_cents(@user.balance),
-        "https://tab.zeus.gent/users/#{@user.name}",
+        "#{config.api_url}users/#{@user.name}",
         target: "blank",
         class: "stat-card-value theme-no-blend",
         style: "color: #{get_user_balance_color(@user)}"
@@ -19,7 +19,7 @@
 
     <div class="stat-card-hint">
       <%= link_to "Manage your balance",
-          "https://tab.zeus.gent/users/#{@user.name}",
+          "#{config.api_url}users/#{@user.name}",
           target: "blank"
       %>
     </div>
