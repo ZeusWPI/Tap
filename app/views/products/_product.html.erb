@@ -4,7 +4,7 @@
 <% compact = compact || false %>
 <% compact_mobile = compact_mobile || false %>
 
-<% product_show = search ? "shouldShowProduct('#{escape_javascript product.name}')" : "true" %>
+<% product_show = search ? "shouldShowProduct('#{escape_javascript product.name}', '#{escape_javascript product.category}')" : "true" %>
 <% product_wrapper_class = "column #{compact ? 'is-12 py-1' : ' is-4-tablet is-3-desktop is-2-widescreen'} #{compact_mobile ? 'is-12-mobile py-1-mobile' : ''}" %>
 <% product_class = "products-item #{compact ? 'is-compact' : ''} #{compact_mobile ? 'is-compact-mobile' : ''}"  %>
 <% product_render = render "products/product_content",
