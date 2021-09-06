@@ -4,8 +4,6 @@
 <% compact = compact || false %>
 <% compact_mobile = compact_mobile || false %>
 
-<% product_wrapper_class = "column #{compact ? 'is-12 py-1' : ' is-4-tablet is-3-desktop is-2-widescreen'} #{compact_mobile ? 'is-12-mobile py-1-mobile' : ''}" %>
-
 <div x-data="setupProductList()" x-init="$watch('productSearch', () => onProductSearchChange())">
 
   <!-- Header -->
@@ -46,39 +44,40 @@
 
     <!-- All -->
     <div class="columns is-multiline" x-show="isActiveTab('all')">
-        <% @products.each do |product| %>
-          <div
-            class="<%= product_wrapper_class %>"
-            x-show="shouldShowProduct('<%= escape_javascript product.name %>')"
-          >
-            <%= render product, details: details, actions: actions, compact: compact, compact_mobile: compact_mobile %>
-          </div>
-        <% end %>
+      <%= render partial: "products/product",
+        collection: @products,
+        as: :product,
+        cache: true,
+        locals: {
+          search: true,
+          details: details,
+          actions: actions,
+          compact: compact,
+          compact_mobile: compact_mobile
+        }
+      %>
     </div>
 
     <!-- Categories -->
     <% if display_categories %>
-      <% @categories.each do |o, i| %>
-        <div class="columns is-multiline" x-show="isActiveTab('<%= o %>')" x-cloak>
-
-          <!-- Placeholder -->
-          <% if @products.where(category: i).count == 0 %>
-            <div class="column placeholder">
-              No items in this category.
-            </div>
-          <% end %>
-
-          <% @products.where(category: i).each do |product| %>
-            <div
-              class="<%= product_wrapper_class  %>"
-              x-show="shouldShowProduct('<%= escape_javascript product.name %>')"
-            >
-              <%= render product, details: details, actions: actions, compact: compact, compact_mobile: compact_mobile %>
-            </div>
-          <% end %>
+      <% @categories.each do |category, index| %>
+        <div class="columns is-multiline" x-show="isActiveTab('<%= category %>')" x-cloak>
+          <%= render partial: "products/product",
+            collection: @products.where(category: index),
+            as: :product,
+            cache: true,
+            locals: {
+              search: true,
+              details: details,
+              actions: actions,
+              compact: compact,
+              compact_mobile: compact_mobile
+            }
+          %>
         </div>
       <% end %>
     <% end %>
+
 
     <!--
     No search results placeholder

@@ -1,45 +1,52 @@
 <% details = details || false %>
 <% actions = actions || [] %>
+<% search = search || false %>
 <% compact = compact || false %>
 <% compact_mobile = compact_mobile || false %>
+
+<% product_show = search ? "shouldShowProduct('#{escape_javascript product.name}')" : "true" %>
+<% product_wrapper_class = "column #{compact ? 'is-12 py-1' : ' is-4-tablet is-3-desktop is-2-widescreen'} #{compact_mobile ? 'is-12-mobile py-1-mobile' : ''}" %>
 <% product_class = "products-item #{compact ? 'is-compact' : ''} #{compact_mobile ? 'is-compact-mobile' : ''}"  %>
 <% product_render = render "products/product_content",
-    details: details,
-    actions: actions,
-    product: product,
-    compact: compact,
-    compact_mobile: compact_mobile %>
+  details: details,
+  actions: actions,
+  product: product,
+  compact: compact,
+  compact_mobile: compact_mobile
+%>
 
-<% if actions.include? "barcode:link" %>
 
+<div class="<%= product_wrapper_class %>" x-show="<%= product_show  %>">
   <!--
   Use when linking a new barcode to a specific product
   -->
-  <%=
-    button_to product_barcodes_path(product),
-    class: product_class,
-    data: { product: product.id, dismiss: :modal },
-    params: { "barcode[code]" => params[:barcode][:code] } do %>
-      <%= product_render %>
-  <% end %>
-<% elsif actions.include? "order:add" %>
+  <% if actions.include? "barcode:link" %>
+    <%=
+      button_to product_barcodes_path(product),
+      class: product_class,
+      data: { product: product.id, dismiss: :modal },
+      params: { "barcode[code]" => params[:barcode][:code] } do %>
+        <%= product_render %>
+    <% end %>
 
   <!--
   Use within the product select modal on the order page
   -->
-  <button
-    class="<%= product_class %>"
-    x-on:click.prevent="getOrderItem(<%= product.id %>).quantity++"
-    x-on:click="productsModalOpen = false"
-  >
-    <%= product_render %>
-  </button>
-<% else %>
+  <% elsif actions.include? "order:add" %>
+    <button
+      class="<%= product_class %>"
+      x-on:click.prevent="getOrderItem(<%= product.id %>).quantity++"
+      x-on:click="productsModalOpen = false"
+    >
+      <%= product_render %>
+    </button>
 
   <!--
   Use in all other places
   -->
-  <div class="<%= product_class %> products-item--not-clickable">
-    <%= product_render %>
-  </div>
-<% end %>
+  <% else %>
+    <div class="<%= product_class %> products-item--not-clickable">
+      <%= product_render %>
+    </div>
+  <% end %>
+</div>
