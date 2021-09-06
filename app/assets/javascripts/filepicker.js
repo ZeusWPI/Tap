@@ -1,7 +1,7 @@
 /**
  * Update the label of a file picker with the name of the file when the user selects a file.
  */
-function ready() {
+function readyFilepicker() {
   // Find all available filepickers
   const fileInputs = document.querySelectorAll("input[type=file]");
 
@@ -21,4 +21,4 @@ function ready() {
 }
 
 // Load on document load or between turbolink navigations
-document.addEventListener("turbolinks:load", ready);
+document.addEventListener("turbolinks:load", readyFilepicker);

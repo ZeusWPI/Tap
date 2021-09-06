@@ -1,7 +1,7 @@
 /**
  * Handle navbar expansion menu on mobile
  */
-function ready() {
+function readyNavbar() {
   // Get all "navbar-burger" elements
   const navbarBurgers = document.querySelectorAll(".navbar-burger");
 
@@ -24,4 +24,4 @@ function ready() {
 }
 
 // Load on document load or between turbolink navigations
-document.addEventListener("turbolinks:load", ready);
+document.addEventListener("turbolinks:load", readyNavbar);
