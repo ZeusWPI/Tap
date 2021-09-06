@@ -69,3 +69,12 @@ make build
   <summary>Docker image build is stuck on "Fetching gems..." or another command</summary>
   If you are connected to the **`eduroam`** network, Docker build will not have access to the internet. This is because eduroam and docker use the same IP range, which causes conflicts. To solve this you can [reconfigure Docker to use a different IP range](https://support.skyformation.com/hc/en-us/articles/360009195759-How-To-Change-the-Docker-IP-address-space). A recommended range can be `172.31.248.0/21` which is rarely used by other networks.
 </details>
+
+<details>
+  <summary>There are no transactions going from Tap to Tab</summary>
+  The delay job may not be running. You can start it using:
+
+  ```sh
+  sudo -u tap RAILS_ENV=production /home/tap/production/current/bin/delayed_job start
+  ```
+</details>
