@@ -5,6 +5,9 @@
       <!-- Title -->
       <div class="order-new-actions-title">
         <% if current_user.koelkast %>
+          <div class="back is-size-5">
+            <%= link_to "Go back", root_path %>
+          </div>
           Place an order for <%= @user.name %>
         <% else %>
           Place an order

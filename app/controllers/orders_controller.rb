@@ -19,9 +19,9 @@ class OrdersController < ApplicationController
   skip_before_action :set_user!
 
   # Create a new order page
-  # GET /products/new
+  # GET /users/{username}/orders/new
   def new
-    @products = Product.all.for_sale.order(:name)
+    @products = Product.all.for_sale.order(:name).includes(:barcodes)
     @categories = Product.categories
     @order.products << @products
   end
