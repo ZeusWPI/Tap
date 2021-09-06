@@ -49,7 +49,7 @@
         <% @products.each do |product| %>
           <div
             class="<%= product_wrapper_class %>"
-            x-show="shouldShowProduct('<%= product.name %>')"
+            x-show="shouldShowProduct('<%= escape_javascript product.name %>')"
           >
             <%= render product, details: details, actions: actions, compact: compact, compact_mobile: compact_mobile %>
           </div>
@@ -71,7 +71,7 @@
           <% @products.where(category: i).each do |product| %>
             <div
               class="<%= product_wrapper_class  %>"
-              x-show="shouldShowProduct('<%= product.name %>')"
+              x-show="shouldShowProduct('<%= escape_javascript product.name %>')"
             >
               <%= render product, details: details, actions: actions, compact: compact, compact_mobile: compact_mobile %>
             </div>
@@ -86,7 +86,7 @@
     The value of "shouldShowProduct" is a hack to display the placeholder when no entries match the given search query.
     It checks if there is no match in a string concatenation of all product names.
     -->
-    <div class="placeholder" x-show="!shouldShowProduct('<%= @products.map(&:name).join %>')" x-cloak>
+    <div class="placeholder" x-show="!shouldShowProduct('<%= escape_javascript @products.map(&:name).join %>')" x-cloak>
       No products found matching that query.
     </div>
   </div>
