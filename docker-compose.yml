@@ -23,10 +23,3 @@ services:
       BUILDKIT_INLINE_CACHE: 1
     tmpfs:
       - /tap/tmp
-    networks:
-      - development
-
-networks:
-  # Network for development
-  # This is required to allow running the image on eduroam
-  development:
