@@ -245,7 +245,6 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
-  position: sticky;
   top: 0;
 
   @include from($tablet) {
