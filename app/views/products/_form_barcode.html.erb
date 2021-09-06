@@ -1,0 +1,17 @@
+<% show_delete = show_delete.present? ? show_delete : true %>
+
+<div id="barcodeWrapper" class="columns is-variable is-1 is-align-items-end">
+  <div class="column">
+    <%= form.text_field :code %>
+  </div>
+
+  <% if show_delete %>
+    <div class="column is-narrow">
+    <%= link_to_remove_nested form,
+        link_text: "x",
+        link_classes: "button is-danger is-light",
+        fields_wrapper_selector: "#barcodeWrapper"
+      %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,93 @@
+<% details = details || false %>
+<% actions = actions || [] %>
+<% compact = compact || false %>
+<% compact_mobile = compact_mobile || false %>
+
+<!-- Image -->
+<div class="products-item-image">
+  <%= image_tag product.avatar %>
+</div>
+
+<!-- Information -->
+<div class="products-item-info">
+
+  <!-- Name -->
+  <div class="products-item-info-name <%= product.deleted ? 'products-item-info-name--deleted' : '' %>">
+    <%= product.name %>
+  </div>
+
+  <!-- Price -->
+  <div class="products-item-info-price">
+    <%= euro(product.price) %>
+  </div>
+
+  <!-- Details -->
+  <% if details %>
+  <div class="products-item-info-details">
+    <div class="products-item-info-calories">
+      <%= product.calories ? kcal(product.calories) : kcal("N/A") %>
+    </div>
+
+    <div class="products-item-info-stock">
+      In stock: <%= product.stock %>
+    </div>
+
+    <!-- Deleted -->
+    <% if product.deleted %>
+      <div class="products-item-info-deleted">
+        Deleted
+      </div>
+    <% end %>
+  </div>
+  <% end %>
+</div>
+
+<!-- Actions -->
+<div class="products-item-actions">
+  <!-- Set dagschotel -->
+  <% if actions.include? "dagschotel:update" %>
+    <% if current_user.dagschotel != product %>
+      <%= button_to "Make dagschotel",
+        {
+          controller: 'users',
+          action: 'update',
+          "user[dagschotel_id]" => product.id
+        },
+        method: :put,
+        class: "button is-primary is-light"
+      %>
+    <% else %>
+      <%= button_to "Current dagschotel",
+        {
+          controller: 'users',
+          action: 'update',
+          "user[dagschotel_id]" => "nil"
+        },
+        method: :put,
+        class: "button is-light is-success",
+        "x-data": "{ hover: false }",
+        "x-bind:value": "hover ? 'Remove dagschotel' : 'Current dagschotel'",
+        "x-bind:class": "hover ? 'is-danger' : ''",
+        "x-on:mouseenter": "hover = true",
+        "x-on:mouseleave": "hover = false"
+      %>
+    <% end %>
+  <% end %>
+
+  <!-- Edit product -->
+  <% if actions.include?('product:edit') && can?(:manage, Product) %>
+    <%= link_to "Edit",
+        edit_product_path(product),
+        class: "button is-primary is-light"
+      %>
+  <% end %>
+
+  <!-- Add to order (when on compact layout on mobile) -->
+  <div class="is-hidden-tablet">
+    <% if actions.include?("order:add") && compact_mobile %>
+      <div class="button is-success is-light">
+        <%= icon("fas", "cart-plus") %>
+      </div>
+    <% end %>
+  </div>
+</div>

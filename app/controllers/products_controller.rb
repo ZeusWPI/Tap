@@ -20,55 +20,60 @@
 class ProductsController < ApplicationController
   load_and_authorize_resource except: :index
 
-  respond_to :html, :js
-
-  def create
-    if @product.save
-      flash[:success] = "Product created!"
-      redirect_to barcode_products_path
-    else
-      render 'link'
-    end
-  end
-
-  def barcode
-  end
-
-  def load_barcode
-    @product = Barcode.find_by(code: params[:barcode]).try(:product)
-    if @product
-      render 'products/stock_entry'
-    else
-      @product = Product.new
-      @product.barcodes.build(code: params[:barcode])
-      render 'products/link'
-    end
-  end
-
+  # Get a list of all products
+  # GET /products
   def index
-    @products = Product.all
+    # If the user is not an admin, only show products that are not deleted
+    @products = (current_user.admin? ? Product.all : Product.for_sale).order("name asc")
     @categories = Product.categories
+
     respond_to do |format|
       format.json { render json: @products }
-      format.html { render 'products_list/listview' if current_user.admin? }
+      format.html {}
     end
   end
 
-  def edit
-    respond_with @product
+  # Create a new product page
+  # GET /products/new
+  def new
   end
 
+  # Edit an existing product page
+  # GET /products/edit/{id}
+  def edit
+  end
+
+  # Create a new product
+  # POST /products
+  def create
+
+    # If the product was saved successfully
+    # Otherwise, render the new page again, which will show the errors
+    if @product.save
+      flash[:success] = "Product has been created!"
+      redirect_to products_path
+    else
+      render :new
+    end
+  end
+
+  # Update an existing product
+  # POST /products/{id}
   def update
-    @product.update_attributes product_params
-    respond_to do |format|
-      format.js   { respond_with @product }
-      format.html { redirect_to barcode_products_path, notice: "Stock has been updated!" }
+
+    # If the product was updated successfully
+    # Otherwise, render the edit page again, which will show the errors
+    if @product.update_attributes product_params
+      flash[:success] = "Product has been updated!"
+      redirect_to products_path
+    else
+      render :edit
     end
   end
 
   private
 
-    def product_params
-      params.require(:product).permit(:name, :price, :avatar, :category, :stock, :calories, :deleted, :barcode, barcodes_attributes: [:code])
-    end
+  def product_params
+    params.require(:product).permit(:name, :price, :avatar, :category, :stock, :calories, :deleted, :barcode, barcodes_attributes: [:id, :code, :_destroy])
+  end
 end

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html class="theme--<%= theme[:mode] %>">
+  <head>
+    <title>Tap - Zeus WPI's drink ordering system</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="dark light">
+
+    <!-- CSRF tags -->
+    <%= csrf_meta_tags %>
+
+    <!-- CSS -->
+    <%= stylesheet_link_tag "application", media: "all", 'data-turbolinks-track': "reload" %>
+
+    <!-- JS -->
+    <%= javascript_include_tag "application", "data-turbolinks-track": "reload" %>
+
+    <!-- Vendor supplied dependencies -->
+    <script src="/vendor/javascript/alpinejs@3.2.4.min.js" defer data-turbolinks-track="reload"></script>
+    <script src="/vendor/javascript/quagga@1.4.2.min.js" defer data-turbolinks-track="reload"></script>
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="/icons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#f5f5f5">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+    <meta name="theme-color" content="#ff6600">
+
+    <!-- Manifest for PWA support -->
+    <link rel="manifest" href="/manifest.json">
+
+    <!-- Global CSS variables -->
+    <style>
+    :root {
+      <% if theme[:variant][:hue] != "" %>
+        --theme-hue-rotation: <%= theme[:variant][:hue] %>;
+      <% end %>
+    }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- Navbar -->
+    <%= render "layouts/navbar" %>
+
+    <!-- Page -->
+    <div class="<%= controller_name != 'landing' ? 'container container--main' : '' %>">
+      <!--
+      Flash Messages
+      Hide on landing page, as it will handle it's own flash messages
+      -->
+      <% if controller_name != 'landing' %>
+        <%= render "layouts/flash", isLight: true %>
+      <% end %>
+
+      <!-- Content -->
+      <%= yield %>
+    </div>
+
+    <!-- Footer -->
+    <% if current_user && !current_user.koelkast %>
+      <%= render "layouts/footer" %>
+    <% end %>
+  </body>
+</html>

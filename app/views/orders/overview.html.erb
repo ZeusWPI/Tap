@@ -1,0 +1,36 @@
+<div class="columns is-multiline">
+
+	<!-- Recent orders -->
+  <div class="column is-1 is-hidden-touch">
+    <div class="order-overview-recent">
+      <% unless @last.empty? %>
+        <h4 class="title is-size-6">Recent</h4>
+
+        <div class="order-overview-recent-avatars">
+          <% @last.each do |user| %>
+            <%= image_tag user.avatar(:small), class: "order-overview-recent-avatar" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+	<!-- Users -->
+  <div class="column is-11">
+    <div class="order-overview-users card">
+      <div class="card-content">
+        <!-- Order as guest -->
+        <div class="order-overview-guest">
+          <%= link_to "Not a Zeus Account? Order as a guest.", new_user_order_path(User.guest), class: "button is-medium is-primary is-light" %>
+        </div>
+
+        <hr />
+
+        <!-- Users -->
+        <div class="order-overview-users-avatar columns is-mobile is-multiline">
+          <%= render "users/list" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

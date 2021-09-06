@@ -28,10 +28,10 @@ class User < ActiveRecord::Base
 
   has_many :orders, -> { includes :products }
   has_many :products, through: :orders
-  belongs_to :dagschotel, class_name: 'Product'
+  belongs_to :dagschotel, class_name: "Product"
 
   scope :members, -> { where koelkast: false }
-  scope :publik,  -> { where private: false }
+  scope :publik, -> { where private: false }
 
   def self.from_omniauth(auth)
     where(name: auth.uid).first_or_create do |user|
@@ -45,27 +45,39 @@ class User < ActiveRecord::Base
   def calculate_frecency
     num_orders = Rails.application.config.frecency_num_orders
     last_datetimes = self.orders.order(created_at: :desc)
-                                .limit(num_orders)
-                                .distinct
-                                .pluck(:created_at)
+      .limit(num_orders)
+      .distinct
+      .pluck(:created_at)
+
+    # The frequency is determined by the most recent orders
     frequency = (last_datetimes.map(&:to_time).map(&:to_i).sum / (num_orders * 10))
+
+    # The higher the user's balance, the higher the ranking.
     bonus = self.rich_privilege / 1.936
+
+    # Calculate the frecency
     self.frecency = frequency * bonus
     self.save
   end
 
+  # Users with more money rank higher in the list on Koelkast
   def rich_privilege
     Math.atan(self.balance / 10) + (Math::PI / 2)
   end
 
+  # Get the users balance
   def balance
+
+    # If in development, return a mocked amount
     if Rails.env.development?
       return 1234
     end
+
+    # If in production, fetch the user's balance from Tab.
     @balance || begin
       headers = {
         "Authorization" => "Token token=#{Rails.application.secrets.tab_api_key}",
-        "Content-type" => "application/json"
+        "Content-type" => "application/json",
       }
       result = HTTParty.get(File.join(Rails.application.config.api_url, "users", "#{name}.json"), headers: headers)
 
@@ -90,7 +102,7 @@ class User < ActiveRecord::Base
 
   def self.koelkast
     @koelkast || find_or_create_by(name: "Koelkast") do |user|
-      user.avatar   = File.new(File.join("app", "assets", "images", "logo.png"))
+      user.avatar = File.new(File.join("app", "assets", "images", "logo.png"))
       user.koelkast = true
     end
   end
@@ -105,6 +117,7 @@ class User < ActiveRecord::Base
   end
 
   private
+
   def set_key
     self.userkey = SecureRandom.base64(16)
   end

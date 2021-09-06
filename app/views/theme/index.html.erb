@@ -1,0 +1,39 @@
+<div class="title">
+  Edit your theme
+</div>
+
+<div class="subtitle">
+  Your theme is stored in your browser's cookies and is device specific.
+</div>
+
+
+<div class="card">
+  <div class="card-content">
+
+    <!-- Light themes -->
+    <div class="pb-6">
+      <h1 class="subtitle">Light themes</h1>
+
+      <div class="columns is-multiline is-mobile">
+        <% @theme_variants.each do |o, i| %>
+          <div class="column is-6-mobile is-3-tablet is-2-desktop">
+            <%= render "theme/theme", variant: o, mode: "light" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Dark themes -->
+    <div>
+      <h1 class="subtitle">Dark themes</h1>
+
+      <div class="columns is-multiline is-mobile">
+        <% @theme_variants.each do |o, i| %>
+          <div class="column is-6-mobile is-3-tablet is-2-desktop">
+            <%= render "theme/theme", variant: o, mode: "dark" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

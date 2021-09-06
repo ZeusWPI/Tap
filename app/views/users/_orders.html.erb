@@ -1,0 +1,19 @@
+<% orders = @user.all_orders(params[:page_orders]) %>
+
+<div class="card">
+  <div class="card-content">
+
+    <!-- Title -->
+    <h1 class="title is-size-4">All orders (<%= orders.count %>)</h1>
+
+    <!-- Placeholder -->
+    <% if orders.count === 0 %>
+      <p class="placeholder">You have no orders yet.</p>
+    <% else %>
+      <table class="table--responsive">
+        <%= render orders %>
+      </table>
+      <%= will_paginate orders, :param_name => 'page_orders', renderer: BulmaPagination::Rails, class: "is-small is-centered" %>
+    <% end %>
+  </div>
+</div>

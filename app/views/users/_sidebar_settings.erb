@@ -1,0 +1,43 @@
+<div class="card">
+  <div class="card-content">
+    <h1 class="title is-size-5">Settings</h1>
+
+    <div class="sidebar-settings">
+      <a class="button is-primary is-light" href="<%= dagschotel_edit_user_path(@user) %>">
+        <% if !@user.dagschotel %>
+        Set Dagschotel
+        <% else %>
+        Change Dagschotel
+        <% end %>
+      </a>
+
+      <hr />
+
+      <!-- Hide on koelkast -->
+      <div>
+        <%= f_form_for @user do |f| %>
+          <%= f.check_box :private, label: "Hide on koelkast", help: "Orders can be placed on koelkast for every public account. Private accounts can only order products by logging in here.", switch: true, submit: true %>
+        <% end %>
+      </div>
+
+      <hr />
+
+      <!-- Hide dagschotel on koelkast -->
+      <div>
+        <%= f_form_for @user do |f| %>
+          <%= f.check_box :quickpay_hidden, label: "Hide dagschotel", help: "Do not display your dagschotel next to your avatar on koelkast.", switch: true, submit: true %>
+        <% end %>
+      </div>
+
+      <hr />
+
+      <!-- Change avatar -->
+      <div>
+        <%= f_form_for @user do |f| %>
+          <%= f.file_field :avatar, skip_initial_name: true, boxed: true %>
+          <%= f.submit "Change avatar", class: "button is-primary is-light", justify: "start", data: { disable_with: "Please wait..." } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

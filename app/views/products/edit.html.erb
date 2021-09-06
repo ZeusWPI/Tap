@@ -1,0 +1,29 @@
+<div class="title">
+  Edit product: <%= @product.name %>
+</div>
+
+<div class="subtitle">
+  Edit the product on the left or change the stock on the right.
+</div>
+
+
+<div class="columns is-multiline">
+
+  <!-- Edit -->
+  <div class="column is-7">
+    <div class="card">
+      <div class="card-content">
+        <%= render "products/form" %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Change stock -->
+  <div class="column is-5">
+    <div class="card">
+      <div class="card-content">
+        <%= render "products/form_stock" %>
+      </div>
+    </div>
+  </div>
+</div>

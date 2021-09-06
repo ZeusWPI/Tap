@@ -1,0 +1,138 @@
+<% details = details || false %>
+<% actions = actions || [] %>
+<% display_categories = defined?(categories) ? categories : true %>
+<% compact = compact || false %>
+<% compact_mobile = compact_mobile || false %>
+
+<% product_wrapper_class = "column #{compact ? 'is-12 py-1' : ' is-4-tablet is-3-desktop is-2-widescreen'} #{compact_mobile ? 'is-12-mobile py-1-mobile' : ''}" %>
+
+<div x-data="setupProductList()" x-init="$watch('productSearch', () => onProductSearchChange())">
+
+  <!-- Header -->
+  <div class="columns is-multiline">
+    <!-- Tabs -->
+    <% if display_categories %>
+      <div class="column">
+        <div class="tabs">
+          <ul>
+            <!-- All -->
+            <li x-bind:class="isActiveTab('all') ? 'is-active' : ''">
+              <a x-on:click="setActiveTab('all')">All</a>
+            </li>
+
+            <!-- Categories -->
+              <% @categories.each do |o, i| %>
+                <li x-bind:class="isActiveTab('<%= o %>') ? 'is-active' : ''">
+                  <a x-on:click="setActiveTab('<%= o %>')">
+                    <%= o.titleize %>
+                  </a>
+                </li>
+              <% end %>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Search -->
+    <div class="column <%= display_categories ? 'is-narrow' : 'is-fullwidth' %>">
+      <div class="search">
+        <input x-model="productSearch" class="input" placeholder="Search for a product..." />
+      </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="tabs-content">
+
+    <!-- All -->
+    <div class="columns is-multiline" x-show="isActiveTab('all')">
+        <% @products.each do |product| %>
+          <div
+            class="<%= product_wrapper_class %>"
+            x-show="shouldShowProduct('<%= product.name %>')"
+          >
+            <%= render product, details: details, actions: actions, compact: compact, compact_mobile: compact_mobile %>
+          </div>
+        <% end %>
+    </div>
+
+    <!-- Categories -->
+    <% if display_categories %>
+      <% @categories.each do |o, i| %>
+        <div class="columns is-multiline" x-show="isActiveTab('<%= o %>')" x-cloak>
+
+          <!-- Placeholder -->
+          <% if @products.where(category: i).count == 0 %>
+            <div class="column placeholder">
+              No items in this category.
+            </div>
+          <% end %>
+
+          <% @products.where(category: i).each do |product| %>
+            <div
+              class="<%= product_wrapper_class  %>"
+              x-show="shouldShowProduct('<%= product.name %>')"
+            >
+              <%= render product, details: details, actions: actions, compact: compact, compact_mobile: compact_mobile %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+
+    <!--
+    No search results placeholder
+
+    The value of "shouldShowProduct" is a hack to display the placeholder when no entries match the given search query.
+    It checks if there is no match in a string concatenation of all product names.
+    -->
+    <div class="placeholder" x-show="!shouldShowProduct('<%= @products.map(&:name).join %>')" x-cloak>
+      No products found matching that query.
+    </div>
+  </div>
+</div>
+
+<script>
+function setupProductList() {
+  return {
+    /**
+     * Active product tab.
+     */
+    productTab: "all",
+
+    /**
+     * Search field value
+     */
+    productSearch: "",
+
+    /**
+     * If a given tab is the active tab.
+     */
+    isActiveTab(tab) {
+      return this.productTab === tab;
+    },
+
+    /**
+     * Make a tab the active tab.
+     */
+    setActiveTab(tab) {
+      this.productTab = tab;
+    },
+
+    /**
+     * If a specific product should be shown, based on if the name matches the search field value.
+     */
+    shouldShowProduct(name) {
+      return name.toLowerCase().includes(this.productSearch.toLowerCase());
+    },
+
+    /**
+     * When the product search value changes.
+     * Reset the productTab to "all", since searching should always show all items.
+     */
+    onProductSearchChange() {
+      this.productTab = "all";
+    }
+  }
+}
+</script>

@@ -1,0 +1,24 @@
+<div class="card">
+  <div class="card-content">
+    <h1 class="title is-size-5">Order</h1>
+
+    <div class="sidebar-order">
+      <!-- New order -->
+      <%= link_to new_user_order_path(@user), class: "button is-fullwidth is-primary is-light" do %>
+        New order
+      <% end %>
+
+      <% if @user.dagschotel %>
+        <div>
+          <strong>or</strong>
+        </div>
+
+        <!-- Dagschotel -->
+        <%= button_to dagschotel_order_user_path(@user), method: :post, class: "button button-flex is-fullwidth is-primary is-light" do %>
+            Order Dagschotel
+            <%= image_tag @user.dagschotel.avatar, title: "Huidige dagschotel" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

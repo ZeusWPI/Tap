@@ -10,18 +10,19 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require jquery_ujs
-//= require bootstrap
-//= require bootstrap-switch
-//= require turbolinks
-//= require_tree .
 
-parseIntNaN = function(value) {
-  parsed_value = parseInt(value, 10);
-  if (isNaN(parsed_value)) {
-    return 0;
-  } else {
-    return parsed_value;
-  }
-}
+// Turbolinks makes following links faster
+//= require turbolinks
+
+// Building nested forms
+//= require vanilla_nested
+
+// Chartkick for Charts
+//= require chartkick
+//= require Chart.bundle
+
+// Integrated rails features
+//= require rails-ujs
+
+// Include all JavaScript files in this directory
+//= require_tree .

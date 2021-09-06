@@ -1,0 +1,37 @@
+<div class="card mt-5">
+  <div class="card-content">
+    <h1 class="title is-size-4">Ordered items</h1>
+
+    <% if @user.products_group_by_id.length > 0 && @user.products_group_by_category.length > 0 %>
+      <div class="columns is-multiline">
+        <!-- Ordered Products -->
+        <div class="column is-6">
+          <%= pie_chart @user.most_frequently_ordered_products, title: "Orders by product" %>
+        </div>
+
+        <!-- Categories -->
+        <div class="column is-6">
+          <%= pie_chart @user.products_group_by_category.map{|c| [c.category, c.count]}.to_h, title: "Orders by category" %>
+        </div>
+      </div>
+    <% else %>
+      <div class="placeholder">
+      No data to display yet.
+      </div>
+    <% end %>
+
+    <hr />
+
+    <div class="content">
+      <h1 class="title is-size-4">Specifics</h1>
+
+      <ul>
+        <% @user.products_group_by_id.each do |p| %>
+        <li>
+          <%= pluralize(p.count, p.name) %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

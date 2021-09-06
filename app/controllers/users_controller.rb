@@ -22,18 +22,26 @@
 
 class UsersController < ApplicationController
   load_and_authorize_resource
-  skip_before_action :set_user!, only: [:quickpay]
 
+  # Do not set the user to the current logged in user when ordering a dagschotel.
+  # This is to allow Koelkast to use this endpoint for other users.
+  skip_before_action :set_user!, only: [:order_dagschotel]
+
+  # User profile page
+  # GET /users/{username}
+  # GET / (when logged in, and not koelkast)
   def show
-      respond_to do |format|
-        format.json { render json: @user }
-        format.html {}
-      end
+    respond_to do |format|
+      format.json { render json: @user }
+      format.html { }
+    end
   end
 
+  # Update a user
+  # POST /users/{username}
   def update
     if user_params.empty?
-      flash[:notice] = "Nothing happened."
+      flash[:info] = "Nothing happened!"
       redirect_to @user
     else
       if @user.update_attributes(user_params)
@@ -42,7 +50,7 @@ class UsersController < ApplicationController
             flash[:success] = "Successfully updated!"
             redirect_to @user
           end
-          format.js { head :ok  }
+          format.js { head :ok }
           format.json { render json: @user }
         end
       else
@@ -50,15 +58,17 @@ class UsersController < ApplicationController
           format.html do
             flash[:error] = "Update failed!"
             @user.reload
-            render 'show'
+            render "show"
           end
           format.js { head :bad_request }
-          format.json { "Update failed!"}
+          format.json { "Update failed!" }
         end
       end
     end
   end
 
+  # Update dagschotel page
+  # GET /users/{username}/dagschotel/edit
   def edit_dagschotel
     @dagschotel = @user.dagschotel
 
@@ -66,17 +76,24 @@ class UsersController < ApplicationController
     @categories = Product.categories
   end
 
-  def quickpay
+  # Order the user's dagschotel
+  # POST /users/{username}/dagschotel/order
+  # GET /users/{username}/quickpay (legacy endpoint, required not to break Tappb)
+  def order_dagschotel
     authorize! :create, @user.orders.build
     order = @user.orders.build
     order.order_items.build(count: 1, product: @user.dagschotel)
+
     if order.save
+      flash[:success] = "Your dagschotel has been ordered!"
+
       respond_to do |format|
-        format.html { redirect_to(@user) }
+        format.html { redirect_to(root_path) }
         format.json { render json: { message: "Quick pay succeeded for #{@user.name}." }, status: :ok }
       end
     else
-      head :unprocessable_entity
+      flash[:error] = order.valid? ? "Something went wrong! Please try again." : order.errors.full_messages.join(". ")
+      redirect_to :back
     end
   end
 

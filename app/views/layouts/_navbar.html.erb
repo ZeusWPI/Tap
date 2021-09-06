@@ -1,0 +1,64 @@
+<nav class="navbar <%= controller_name == 'landing' || current_user.koelkast ? 'is-primary is-raised' : 'is-transparent' %>" id="navbar">
+  <div class="container">
+    <!-- Brand -->
+    <div class="navbar-brand">
+      <%= link_to "Tap", root_path, class: "navbar-title" %>
+
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" href="#navbar">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <!-- Menu -->
+    <div class="navbar-menu">
+
+      <div class="navbar-start">
+      </div>
+
+      <div class="navbar-end">
+        <% if current_user %>
+          <% if !current_user.koelkast %>
+            <%= link_to "Home", root_path, class: "navbar-item" %>
+            <%= link_to "Products", products_path, class: "navbar-item" %>
+            <%= link_to "New order", new_user_order_path(current_user), class: "navbar-item" %>
+
+            <!-- User -->
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                <%= current_user.name %>
+              </a>
+              <div class="navbar-dropdown is-boxed">
+
+                <!-- Product Options -->
+                <% if can? :manage, Product %>
+                <div>
+                  <%= link_to "Products", products_path, class: "navbar-item" %>
+                  <%= link_to "New product", new_product_path, class: "navbar-item" %>
+                </div>
+
+                <hr class="navbar-divider">
+                <% end %>
+
+                <!-- Barcode Options -->
+                <% if can? :manage, Barcode %>
+                <div>
+                  <%= link_to "Barcodes", barcodes_path, class: "navbar-item" %>
+                  <%= link_to "New barcode", new_barcode_path, class: "navbar-item" %>
+                </div>
+
+                <hr class="navbar-divider">
+                <% end %>
+
+                <%= link_to "Logout", destroy_user_session_path, class: "navbar-item" %>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <%= link_to "Login", omniauth_authorize_path("user", "zeuswpi"), class: "navbar-item" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</nav>

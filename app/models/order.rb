@@ -36,12 +36,6 @@ class Order < ActiveRecord::Base
     }.to_sentence
   end
 
-  def flash_success
-    f = "#{to_sentence} ordered."
-    f << " Please put #{euro_from_cents(price_cents)} in our pot!" if user.guest?
-    f << " Enjoy it!"
-  end
-
   def deletable
     self.created_at > Rails.application.config.call_api_after.ago
   end

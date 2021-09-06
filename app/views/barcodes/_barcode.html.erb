@@ -1,0 +1,17 @@
+<tr class="barcode-item">
+  <td data-label="ID">
+    <%= barcode.id %>
+  </td>
+  <td data-label="Barcode">
+    <%= barcode.code %>
+  </td>
+  <td data-label="Product">
+    <%= barcode.product.name %>
+  </td>
+  <td scope="row">
+    <%= image_tag barcode.product.avatar(:small) %>
+  </td>
+  <td class="is-flex is-justify-content-flex-end">
+    <%= button_to "Delete", barcode_path(barcode), method: :delete, class: "button is-danger is-light" %>
+  </td>
+</tr>

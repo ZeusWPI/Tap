@@ -1,0 +1,27 @@
+<div class="stat-card">
+  <!-- Icon -->
+  <div class="stat-card-icon">
+      <%= icon('fas', 'euro-sign') %>
+  </div>
+
+  <!-- Text -->
+  <div class="stat-card-text">
+    <div class="stat-card-title">
+      Balance
+    </div>
+
+    <%= link_to euro_from_cents(@user.balance),
+        "#{config.api_url}users/#{@user.name}",
+        target: "blank",
+        class: "stat-card-value theme-no-blend",
+        style: "color: #{get_user_balance_color(@user)}"
+    %>
+
+    <div class="stat-card-hint">
+      <%= link_to "Manage your balance",
+          "#{config.api_url}users/#{@user.name}",
+          target: "blank"
+      %>
+    </div>
+  </div>
+</div>

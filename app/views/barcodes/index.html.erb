@@ -1,0 +1,40 @@
+<!-- Heading -->
+<div class="columns is-justify-content-space-between is-align-items-center">
+  <!-- Title -->
+  <div class="column">
+    <div class="title">
+      Barcodes
+    </div>
+
+    <div class="subtitle">
+      All available barcodes.
+    </div>
+  </div>
+
+  <!-- New product -->
+  <% if can? :manage, Product %>
+  <div class="column is-narrow">
+    <%= link_to "New barcode", new_barcode_path, class: "button is-primary" %>
+  </div>
+  <% end %>
+</div>
+
+<div class="card">
+  <div class="card-content">
+    <table class="barcode-items">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Barcode</th>
+          <th>Product</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <%= render @barcodes %>
+      </tbody>
+    </table>
+  </div>
+</div>

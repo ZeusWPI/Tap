@@ -23,7 +23,7 @@ class Ability
       order.calculate_price
       !order.try(:user).try(:private) && order.try(:user).try(:balance).try(:>=, order.price_cents)
     end
-    can :quickpay, User
+    can :order_dagschotel, User
   end
 
   def initialize_user(user)

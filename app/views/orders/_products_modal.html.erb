@@ -1,0 +1,23 @@
+<div class="products-modal modal is-active" x-show="productsModalOpen" x-cloak>
+  <div class="modal-background" x-on:click="productsModalOpen = false"></div>
+
+  <div class="modal-card" x-show="productsModalOpen" x-transition x-transition.duration.150ms>
+
+    <!-- Header -->
+    <header class="modal-card-head">
+      <p class="modal-card-title">Choose a product</p>
+      <button class="delete" aria-label="close" x-on:click="productsModalOpen = false"></button>
+    </header>
+
+    <!-- Content -->
+    <section class="modal-card-body">
+       <!-- Products -->
+      <%= render "products/list", compact_mobile: true, details: false, actions: ["order:add"] %>
+    </section>
+
+    <!-- Footer -->
+    <footer class="modal-card-foot is-justify-content-flex-end">
+      <button class="button is-danger is-light" x-on:click="productsModalOpen = false">Close</button>
+    </footer>
+  </div>
+</div>

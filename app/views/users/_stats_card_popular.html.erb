@@ -1,0 +1,20 @@
+<div class="stat-card">
+  <!-- Icon -->
+  <div class="stat-card-icon">
+    <%= icon('fas', 'fire') %>
+  </div>
+
+  <!-- Text -->
+  <div class="stat-card-text">
+    <div class="stat-card-title">
+      Most ordered
+    </div>
+    <div class="stat-card-value">
+      <% if @user.products_group_by_id.length > 0 %>
+        <%= @user.products_group_by_id.first.name %>
+      <% else %>
+        None
+      <% end %>
+    </div>
+  </div>
+</div>
