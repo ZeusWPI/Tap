@@ -21,6 +21,9 @@
 public/system/products
 public/system/users
 
+# Precompiled assets
+public/assets
+
 .project
 
 /coverage
