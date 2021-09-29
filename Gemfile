@@ -7,11 +7,10 @@ gem "ed25519"
 gem 'byebug'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.11.1'
-gem 'rails-ujs', '~> 0.1.0'
+gem 'rails', '~> 5.0', '>= 5.0.7.2'
 
 # Sass
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '~> 6.0'
 
 # For compressing JS
 gem 'uglifier', '~> 4.2'
@@ -27,9 +26,6 @@ gem 'vanilla_nested', '~> 1.2'
 # Charts
 gem 'chartkick', '~> 3.4'
 
-# Haml for templating!
-gem "haml-rails", "~> 1.0"
-
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks', '~> 5.2'
 
@@ -41,7 +37,6 @@ gem 'airbrake', '~> 4'
 
 # Paginate stuff
 gem 'will_paginate',           '3.0.7'
-gem 'bootstrap-will_paginate', '0.0.10'
 
 # Paperclip for easy file attachment
 gem 'paperclip', '~> 6.1'
