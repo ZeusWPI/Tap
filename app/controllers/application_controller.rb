@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   skip_before_action :verify_authenticity_token, if: :api_request?
-  before_filter :authenticate_user_from_token!
-  before_filter :authenticate_user!
-  before_filter :set_user!
+  before_action :authenticate_user_from_token!
+  before_action :authenticate_user!
+  before_action :set_user!
 
   def api_request?
     (user_token.present?) && request.format.json?

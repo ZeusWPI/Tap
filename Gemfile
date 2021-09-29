@@ -10,7 +10,8 @@ gem 'byebug'
 gem 'rails', '~> 5.0', '>= 5.0.7.2'
 
 # Boot large ruby/rails apps faster
-gem 'bootsnap', '~> 1.7', '>= 1.7.7'
+gem 'bootsnap', '~> 1.7'
+gem 'listen', '~> 3.7'
 
 # Sass
 gem 'sass-rails', '~> 6.0'
@@ -35,7 +36,7 @@ gem 'turbolinks', '~> 5.2'
 gem 'friendly_id', '~> 5.1.0'
 
 # Airbrake
-gem 'airbrake', '~> 4'
+gem 'airbrake', '~> 10.0'
 
 # Paginate stuff
 gem 'will_paginate', '~> 3.3'
@@ -45,11 +46,11 @@ gem 'will_paginate-bulma', '~> 1.0'
 gem 'paperclip', '~> 6.1'
 
 # Use devise for users and admins
-gem "devise", ">= 4.6.0"
-gem 'omniauth-oauth2', '1.3.1'
+gem 'devise', '~> 4.8'
+gem 'omniauth-oauth2', '~> 1.7'
 
 # Use cancancan for authorization
-gem 'cancancan', '1.13.1'
+gem 'cancancan', '~> 3.3'
 
 # Default avatar for users
 gem 'identicon', '0.0.5'
