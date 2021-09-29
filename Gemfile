@@ -17,7 +17,6 @@ gem 'uglifier', '~> 4.2'
 
 # Bulma
 gem 'bulma-rails', '~> 0.9.1'
-gem 'will_paginate-bulma', '~> 1.0'
 gem 'font-awesome-sass', '~> 5.15'
 
 # Add nested forms support
@@ -36,7 +35,8 @@ gem 'friendly_id', '~> 5.1.0'
 gem 'airbrake', '~> 4'
 
 # Paginate stuff
-gem 'will_paginate',           '3.0.7'
+gem 'will_paginate', '~> 3.3'
+gem 'will_paginate-bulma', '~> 1.0'
 
 # Paperclip for easy file attachment
 gem 'paperclip', '~> 6.1'

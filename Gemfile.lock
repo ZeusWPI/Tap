@@ -327,7 +327,7 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    will_paginate (3.0.7)
+    will_paginate (3.3.1)
     will_paginate-bulma (1.0.0)
       will_paginate (>= 3.0.3)
 
@@ -375,7 +375,7 @@ DEPENDENCIES
   uglifier (~> 4.2)
   vanilla_nested (~> 1.2)
   webmock
-  will_paginate (= 3.0.7)
+  will_paginate (~> 3.3)
   will_paginate-bulma (~> 1.0)
 
 BUNDLED WITH
