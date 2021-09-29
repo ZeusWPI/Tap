@@ -9,6 +9,9 @@ gem 'byebug'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0', '>= 5.0.7.2'
 
+# Boot large ruby/rails apps faster
+gem 'bootsnap', '~> 1.7', '>= 1.7.7'
+
 # Sass
 gem 'sass-rails', '~> 6.0'
 
