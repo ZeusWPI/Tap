@@ -23,14 +23,13 @@
 class UsersController < ApplicationController
   load_and_authorize_resource
 
-  # Do not set the user to the current logged in user when ordering a dagschotel.
-  # This is to allow Koelkast to use this endpoint for other users.
-  skip_before_action :set_user!, only: [:order_dagschotel]
-
   # User profile page
   # GET /users/{username}
   # GET / (when logged in, and not koelkast)
   def show
+    # If the "@user" is not set, set it to the current user
+    @user ||= current_user
+
     respond_to do |format|
       format.json { render json: @user }
       format.html { }

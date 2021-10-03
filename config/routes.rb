@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   # /users/...
   resources :users, only: [:show, :update] do
     resources :orders, only: [:new, :create, :destroy]
+
     member do
       # Dagschotel
       get "dagschotel/edit" => "users#edit_dagschotel"

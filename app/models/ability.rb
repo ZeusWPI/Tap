@@ -4,12 +4,12 @@ class Ability
   def initialize(user)
     return unless user
 
-    # Default permissions for all users
-    initialize_user(user)
-
     # Special permissions for certain users
     initialize_admin    if user.admin?
     initialize_koelkast if user.koelkast?
+
+    # Default permissions for all users
+    initialize_user(user)
   end
 
   # Admin permissions
@@ -22,13 +22,13 @@ class Ability
 
   # Regular user permissions
   def initialize_user(user)
-    # The user cannot read other users account/balance.
-    cannot :read, User do |otheruser|
-      otheruser != user && !user.koelkast
-    end
-
     # The user can read all information (products, ...)
     can :read, :all
+
+    # The user cannot read other users account/balance.
+    cannot :read, User do |other_user|
+      other_user != user
+    end
 
     # The user can manage it's own account
     can :manage, User, id: user.id

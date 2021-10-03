@@ -16,7 +16,7 @@ class OrdersController < ApplicationController
   load_and_authorize_resource :user
   load_and_authorize_resource :order, through: :user, shallow: true, only: [:overview, :destroy]
   load_and_authorize_resource :order, through: :user, only: [:new, :create]
-  skip_before_action :set_user!
+  load_and_authorize_resource find_by: :name
 
   # Create a new order page
   # GET /users/{username}/orders/new

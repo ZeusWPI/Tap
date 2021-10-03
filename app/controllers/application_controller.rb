@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
   skip_before_action :verify_authenticity_token, if: :api_request?
   before_action :authenticate_user_from_token!
   before_action :authenticate_user!
-  before_action :set_user!
 
   def api_request?
     (user_token.present?) && request.format.json?
@@ -74,10 +73,6 @@ class ApplicationController < ActionController::Base
       # sign in token, you can simply remove store: false.
       sign_in user, store: false
     end
-  end
-
-  def set_user!
-    @user = current_user
   end
 
   def user_token
