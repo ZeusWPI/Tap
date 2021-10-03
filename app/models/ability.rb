@@ -4,9 +4,12 @@ class Ability
   def initialize(user)
     return unless user
 
+    # Default permissions for all users
+    initialize_user(user)
+
+    # Special permissions for certain users
     initialize_admin    if user.admin?
     initialize_koelkast if user.koelkast?
-    initialize_user(user)
   end
 
   # Admin permissions
