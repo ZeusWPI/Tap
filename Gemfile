@@ -8,15 +8,14 @@ gem "ed25519"
 gem 'byebug'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2'
-gem 'webpacker', '~> 5.4'
+gem 'rails', '~> 6.1', '>= 6.1.4.1'
 
 # Boot large ruby/rails apps faster
 gem 'bootsnap', '~> 1.7'
 gem 'listen', '~> 3.7'
 
 # Sass
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '~> 6.0'
 
 # For compressing JS
 gem 'uglifier', '~> 4.2'
@@ -104,7 +103,7 @@ end
 # Development/Test shared dependencies
 group :development, :test do
   gem 'factory_girl_rails', '4.6.0'
-  gem 'faker', '1.4.2'
+  gem 'faker', '~> 2.19'
 end
 
 # Documentation dependencies
