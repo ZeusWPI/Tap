@@ -3,7 +3,7 @@
   <!-- User dagschotel -->
   <% if user.dagschotel && !user.quickpay_hidden %>
     <%= button_to dagschotel_order_user_path(user), method: :post, class: "user-dagschotel" do %>
-      <%= image_tag user.dagschotel.avatar(:dagschotel) %>
+      <%= image_tag user.dagschotel.avatar(:dagschotel).url %>
     <% end %>
   <% end %>
 
