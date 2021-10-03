@@ -16,7 +16,7 @@
         <!-- Dagschotel -->
         <%= button_to dagschotel_order_user_path(@user), method: :post, class: "button button-flex is-fullwidth is-primary is-light" do %>
             Order Dagschotel
-            <%= image_tag @user.dagschotel.avatar, title: "Huidige dagschotel" %>
+            <%= image_tag @user.dagschotel.avatar.url, title: "Huidige dagschotel" %>
         <% end %>
       <% end %>
     </div>
