@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gem 'bcrypt_pbkdf'
 gem "ed25519"
 
+# Ruby debugger
 gem 'byebug'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -14,7 +15,7 @@ gem 'bootsnap', '~> 1.7'
 gem 'listen', '~> 3.7'
 
 # Sass
-gem 'sass-rails', '~> 6.0'
+gem 'sass-rails', '~> 5.0'
 
 # For compressing JS
 gem 'uglifier', '~> 4.2'
@@ -47,7 +48,7 @@ gem 'paperclip', '~> 6.1'
 
 # Use devise for users and admins
 gem 'devise', '~> 4.8'
-gem 'omniauth-oauth2', '~> 1.7'
+gem 'omniauth-oauth2', '~> 1.3.1'
 
 # Use cancancan for authorization
 gem 'cancancan', '~> 3.3'
@@ -60,7 +61,7 @@ gem 'daemons', '1.2.3'
 gem 'delayed_job', '~> 4.0'
 gem 'delayed_job_active_record'
 
-gem 'httparty', '0.13.7'
+gem 'httparty', '~> 0.20.0'
 
 # windows support (linux timezone directory is used in the project)
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
