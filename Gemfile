@@ -11,7 +11,7 @@ gem 'byebug'
 gem 'rails', '~> 6.1', '>= 6.1.4.1'
 
 # Boot large ruby/rails apps faster
-gem 'bootsnap', '~> 1.7'
+gem 'bootsnap', '~> 1.9', '>= 1.9.1'
 gem 'listen', '~> 3.7'
 
 # Sass
