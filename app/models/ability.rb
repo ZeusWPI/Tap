@@ -37,7 +37,8 @@ class Ability
     # * The user is trying to place an order for himself
     # * The user has the appropriate balance for an order
     can :create, Order do |order|
-      order.user == user && user.try(:balance).try(:>=, order.price_cents)
+      order.calculate_price
+      order.try(:user) == user && user.try(:balance).try(:>=, order.price_cents)
     end
 
     # A user can delete an order if:
@@ -54,6 +55,7 @@ class Ability
     # * The user is not set to "private"
     # * The user has the appropriate balance for an order
     can :manage, Order do |order|
+      order.calculate_price
       !order.try(:user).try(:private) && order.try(:user).try(:balance).try(:>=, order.price_cents)
     end
 

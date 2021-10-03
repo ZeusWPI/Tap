@@ -22,6 +22,7 @@
 
 class UsersController < ApplicationController
   load_and_authorize_resource
+  load_and_authorize_resource find_by: :name
 
   # User profile page
   # GET /users/{username}

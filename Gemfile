@@ -34,7 +34,7 @@ gem 'chartkick', '~> 3.4'
 gem 'turbolinks', '~> 5.2'
 
 # Friendly ids!
-gem 'friendly_id', '~> 5.1.0'
+gem 'friendly_id', '~> 5.4'
 
 # Airbrake
 gem 'airbrake', '~> 10.0'
