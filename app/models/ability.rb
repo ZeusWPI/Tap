@@ -20,6 +20,22 @@ class Ability
     can :manage, User
   end
 
+  # "Koelkast" user permissions
+  def initialize_koelkast
+    # Koelkast can manage orders for users that have the following requirements:
+    # * The user is not set to "private"
+    # * The user has the appropriate balance for an order
+    can :manage, Order do |order|
+      order.calculate_price
+      !order.try(:user).try(:private) && order.try(:user).try(:balance).try(:>=, order.price_cents)
+    end
+
+    # Koelkast can order a dagschotel for a user.
+    # Since ordering a dagschotel uses the underlying order model,
+    # the same rules as creating an order apply here.
+    can :order_dagschotel, User
+  end
+
   # Regular user permissions
   def initialize_user(user)
     # The user can read all information (products, ...)
@@ -27,7 +43,7 @@ class Ability
 
     # The user cannot read other users account/balance.
     cannot :read, User do |other_user|
-      other_user != user
+      other_user != user && !user.koelkast
     end
 
     # The user can manage it's own account
@@ -47,21 +63,5 @@ class Ability
     can :destroy, Order do |order|
       order.try(:user) == user && order.deletable
     end
-  end
-
-  # "Koelkast" user permissions
-  def initialize_koelkast
-    # Koelkast can manage orders for users that have the following requirements:
-    # * The user is not set to "private"
-    # * The user has the appropriate balance for an order
-    can :manage, Order do |order|
-      order.calculate_price
-      !order.try(:user).try(:private) && order.try(:user).try(:balance).try(:>=, order.price_cents)
-    end
-
-    # Koelkast can order a dagschotel for a user.
-    # Since ordering a dagschotel uses the underlying order model,
-    # the same rules as creating an order apply here.
-    can :order_dagschotel, User
   end
 end
