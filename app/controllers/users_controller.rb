@@ -44,7 +44,7 @@ class UsersController < ApplicationController
       flash[:info] = "Nothing happened!"
       redirect_to @user
     else
-      if @user.update_attributes(user_params)
+      if @user.update!(user_params)
         respond_to do |format|
           format.html do
             flash[:success] = "Successfully updated!"

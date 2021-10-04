@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
 
   has_many :orders, -> { includes :products }
   has_many :products, through: :orders
-  belongs_to :dagschotel, class_name: "Product"
+  belongs_to :dagschotel, class_name: "Product", optional: true
 
   scope :members, -> { where koelkast: false }
   scope :publik, -> { where private: false }
