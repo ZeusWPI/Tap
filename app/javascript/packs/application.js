@@ -25,6 +25,7 @@ ActiveStorage.start();
 import "./filepicker.js";
 import "./barcode_scanner.js";
 import "./navbar.js";
+import "./submit.js";
 import "./remove.js";
 import "./pwa.js";
 
