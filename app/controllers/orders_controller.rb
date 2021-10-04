@@ -20,7 +20,7 @@ class OrdersController < ApplicationController
   # Create a new order page
   # GET /users/{username}/orders/new
   def new
-    @products = Product.all.for_sale.order(:name).includes(:barcodes)
+    @products = Product.for_sale.order(:name).includes(:barcodes)
     @categories = Product.categories
     @order.products << @products
   end
