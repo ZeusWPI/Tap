@@ -2,7 +2,7 @@
  * Handle objects that want to be removed after a specific timeframe.
  * Used for example in the order list to cancel an order
  */
-function readyRemove() {
+function ready() {
   // Find all elements with the data-remove attribute
   const elements = document.querySelectorAll("[data-remove]");
 
@@ -19,4 +19,4 @@ function readyRemove() {
 }
 
 // Load on document load or between turbolink navigations
-document.addEventListener("turbolinks:load", readyRemove);
+document.addEventListener("turbolinks:load", ready);

@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
   # The theme will be stored in a cookie containing the name of the theme
   # POST /theme
   def set_theme
-    cookies.permanent[:themeMode] = params[:theme][:mode] if params[:theme][:mode] else "light"
+    cookies.permanent[:themeMode] = params[:theme][:mode] || "light"
     cookies.permanent[:themeVariantName] = params[:theme][:variantName]
     cookies.permanent[:themeVariantHue] = params[:theme][:variantHue]
 

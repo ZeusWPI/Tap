@@ -605,7 +605,7 @@ body {
     // This is especialy important on koelkast, for easier navigation.
     // 1344px is the width of the ".container"
     .modal-card {
-      min-width: cal(min(80%, 1344px));
+      min-width: calc(min(80%, 1344px));
     }
   }
 
