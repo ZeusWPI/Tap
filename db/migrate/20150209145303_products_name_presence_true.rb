@@ -1,4 +1,4 @@
-class ProductsNamePresenceTrue < ActiveRecord::Migration
+class ProductsNamePresenceTrue < ActiveRecord::Migration[4.2]
   def up
     change_column :products, :name, :string, null: false
   end

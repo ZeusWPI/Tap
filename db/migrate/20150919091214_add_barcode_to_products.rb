@@ -1,4 +1,4 @@
-class AddBarcodeToProducts < ActiveRecord::Migration
+class AddBarcodeToProducts < ActiveRecord::Migration[4.2]
   def change
     create_table :barcodes do |t|
       t.references :product

@@ -1,4 +1,4 @@
-class RemoveDeviseFieldsFromUsers < ActiveRecord::Migration
+class RemoveDeviseFieldsFromUsers < ActiveRecord::Migration[4.2]
   def change
     remove_column :users, :sign_in_count, :integer
     remove_column :users, :current_sign_in_at, :datetime
