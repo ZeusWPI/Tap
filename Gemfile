@@ -107,6 +107,7 @@ end
 group :development, :test do
   gem 'factory_bot', '~> 6.2'
   gem 'faker', '~> 2.19'
+  gem 'tqdm', '~> 0.3.0'
 end
 
 # Documentation dependencies

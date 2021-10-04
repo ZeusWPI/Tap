@@ -339,6 +339,7 @@ GEM
     tilt (2.0.10)
     tins (1.29.1)
       sync
+    tqdm (0.3.0)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
@@ -409,6 +410,7 @@ DEPENDENCIES
   sdoc (~> 2.2)
   spring (~> 3.0)
   sqlite3 (~> 1.4)
+  tqdm (~> 0.3.0)
   turbolinks (~> 5.2)
   tzinfo-data
   vanilla_nested (~> 1.4)
