@@ -97,7 +97,6 @@ group :development do
   gem 'capistrano-rails', '~> 1.6'
   gem 'capistrano-rvm', '~> 0.1.2'
   gem 'capistrano-rbenv', '~> 2.2'
-  gem 'capistrano-nvm', '~> 0.0.7'
   gem 'capistrano-passenger', '~> 0.2.1'
 
   # Linting
