@@ -70,7 +70,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
 # Production dependencies
 group :production do
-  gem 'mysql2', '~> 0.4.10' # Database
+  gem 'mysql2', '~> 0.5.3'
 end
 
 # Test dependencies
