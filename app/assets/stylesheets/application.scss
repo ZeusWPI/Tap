@@ -1139,10 +1139,10 @@ body {
   width: 100%;
 }
 
-// TurboLinks progress bar color
-.turbolinks-progress-bar {
+// Turbo progress bar color
+.turbo-progress-bar {
   height: 3px;
-  background-color: $primary;
+  background-color: var(--turbolinks-progress-bar-color, $primary);
 }
 
 // Make the modal fullscreen on mobile/tablet

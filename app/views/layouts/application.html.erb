@@ -37,6 +37,10 @@
       <% if theme[:variant][:hue] != "" %>
         --theme-hue-rotation: <%= theme[:variant][:hue] %>;
       <% end %>
+
+      <% if current_user && current_user.koelkast %>
+        --turbolinks-progress-bar-color: white;
+      <% end %>
     }
     </style>
   </head>
