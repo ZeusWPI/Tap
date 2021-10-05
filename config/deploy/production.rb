@@ -9,6 +9,6 @@ set :rbenv_type, :system
 set :rbenv_ruby, File.read('.ruby-version').strip
 
 # NVM config
-set :nvm_type, :user
-set :nvm_node, 'v14.18.0'
-set :nvm_map_bins, %w{node npm yarn}
+set :default_env, {
+  path: "/home/tap/.nvm/versions/node/v14.18.0/bin:$PATH"
+}
