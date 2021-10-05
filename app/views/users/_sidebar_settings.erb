@@ -16,7 +16,13 @@
       <!-- Hide on koelkast -->
       <div>
         <%= f_form_for @user do |f| %>
-          <%= f.check_box :private, label: "Hide on koelkast", help: "Orders can be placed on koelkast for every public account. Private accounts can only order products by logging in here.", switch: true, submit: true %>
+          <%=
+            f.check_box :private,
+            label: "Hide on koelkast",
+            help: "Orders can be placed on koelkast for every public account. Private accounts can only order products by logging in here.",
+            switch: true,
+            submit: true
+          %>
         <% end %>
       </div>
 
@@ -25,7 +31,13 @@
       <!-- Hide dagschotel on koelkast -->
       <div>
         <%= f_form_for @user do |f| %>
-          <%= f.check_box :quickpay_hidden, label: "Hide dagschotel", help: "Do not display your dagschotel next to your avatar on koelkast.", switch: true, submit: true %>
+          <%=
+            f.check_box :quickpay_hidden,
+            label: "Hide dagschotel",
+            help: "Do not display your dagschotel next to your avatar on koelkast.",
+            switch: true,
+            submit: true
+          %>
         <% end %>
       </div>
 

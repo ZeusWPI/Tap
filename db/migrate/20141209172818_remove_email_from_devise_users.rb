@@ -1,4 +1,4 @@
-class RemoveEmailFromDeviseUsers < ActiveRecord::Migration
+class RemoveEmailFromDeviseUsers < ActiveRecord::Migration[4.2]
   def change
     remove_index :users, :confirmation_token
     remove_index :users, :email

@@ -1,7 +1,7 @@
 ##################
 ### Base image ###
 ##################
-FROM ruby:2.4-alpine as base
+FROM ruby:3.0.2-alpine as base
 
 # Install the required packages for building
 # Delete APK cache at the end (for smaller production images)

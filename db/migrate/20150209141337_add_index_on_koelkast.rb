@@ -1,4 +1,4 @@
-class AddIndexOnKoelkast < ActiveRecord::Migration
+class AddIndexOnKoelkast < ActiveRecord::Migration[4.2]
   def change
     add_index :users, :koelkast
     add_index :users, :orders_count

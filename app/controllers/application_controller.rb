@@ -1,9 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   skip_before_action :verify_authenticity_token, if: :api_request?
-  before_filter :authenticate_user_from_token!
-  before_filter :authenticate_user!
-  before_filter :set_user!
+  before_action :authenticate_user_from_token!
+  before_action :authenticate_user!
 
   def api_request?
     (user_token.present?) && request.format.json?
@@ -46,7 +45,7 @@ class ApplicationController < ActionController::Base
   # The theme will be stored in a cookie containing the name of the theme
   # POST /theme
   def set_theme
-    cookies.permanent[:themeMode] = params[:theme][:mode] if params[:theme][:mode] else "light"
+    cookies.permanent[:themeMode] = params[:theme][:mode] || "light"
     cookies.permanent[:themeVariantName] = params[:theme][:variantName]
     cookies.permanent[:themeVariantHue] = params[:theme][:variantHue]
 
@@ -74,10 +73,6 @@ class ApplicationController < ActionController::Base
       # sign in token, you can simply remove store: false.
       sign_in user, store: false
     end
-  end
-
-  def set_user!
-    @user = current_user
   end
 
   def user_token

@@ -22,15 +22,15 @@
 
 class UsersController < ApplicationController
   load_and_authorize_resource
-
-  # Do not set the user to the current logged in user when ordering a dagschotel.
-  # This is to allow Koelkast to use this endpoint for other users.
-  skip_before_action :set_user!, only: [:order_dagschotel]
+  load_and_authorize_resource find_by: :name
 
   # User profile page
   # GET /users/{username}
   # GET / (when logged in, and not koelkast)
   def show
+    # If the "@user" is not set, set it to the current user
+    @user ||= current_user
+
     respond_to do |format|
       format.json { render json: @user }
       format.html { }
@@ -44,7 +44,7 @@ class UsersController < ApplicationController
       flash[:info] = "Nothing happened!"
       redirect_to @user
     else
-      if @user.update_attributes(user_params)
+      if @user.update!(user_params)
         respond_to do |format|
           format.html do
             flash[:success] = "Successfully updated!"
@@ -100,7 +100,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.fetch(:user, {}).permit(:avatar, :private, :dagschotel_id, :quickpay_hidden)
+    params.fetch(:user).permit(:avatar, :private, :dagschotel_id, :quickpay_hidden)
   end
 
   def reset_key

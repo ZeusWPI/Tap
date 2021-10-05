@@ -119,7 +119,7 @@ body {
     }
 
     &-content {
-      height: max(90vh, 500px);
+      height: calc(max(90vh, 500px));
 
       @include until($tablet) {
         height: auto;
@@ -424,6 +424,7 @@ body {
 
     &-price {
       width: 20%;
+      vertical-align: middle;
     }
 
     &-actions {
@@ -605,7 +606,7 @@ body {
     // This is especialy important on koelkast, for easier navigation.
     // 1344px is the width of the ".container"
     .modal-card {
-      min-width: min(80%, 1344px);
+      min-width: calc(min(80%, 1344px));
     }
   }
 

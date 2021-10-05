@@ -13,15 +13,14 @@
 class OrdersController < ApplicationController
   include ApplicationHelper
 
-  load_and_authorize_resource :user
+  load_and_authorize_resource :user, find_by: :name
   load_and_authorize_resource :order, through: :user, shallow: true, only: [:overview, :destroy]
   load_and_authorize_resource :order, through: :user, only: [:new, :create]
-  skip_before_action :set_user!
 
   # Create a new order page
   # GET /users/{username}/orders/new
   def new
-    @products = Product.all.for_sale.order(:name).includes(:barcodes)
+    @products = Product.for_sale.order(:name).includes(:barcodes)
     @categories = Product.categories
     @order.products << @products
   end

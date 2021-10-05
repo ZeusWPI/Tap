@@ -139,3 +139,5 @@ class BarcodeScanner {
     Quagga.offDetected(this.detectedHandler);
   }
 }
+
+window.BarcodeScanner = BarcodeScanner;

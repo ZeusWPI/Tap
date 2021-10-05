@@ -5,7 +5,7 @@ module Avatarable
     avatar_styles = {
       medium:     "100x100>",
       dagschotel: "80x80>",
-      small:      "40x40>",
+      small:      { geometry: "40x40>", animated: false },
       koelkast:   { geometry: "150x150>", animated: false },
     }
 

@@ -63,7 +63,7 @@ class ProductsController < ApplicationController
 
     # If the product was updated successfully
     # Otherwise, render the edit page again, which will show the errors
-    if @product.update_attributes product_params
+    if @product.update!(product_params)
       flash[:success] = "Product has been updated!"
       redirect_to products_path
     else

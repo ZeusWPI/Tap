@@ -1,7 +1,7 @@
 /**
  * PWA (progressive web app) support
  */
-function readyPWA() {
+function ready() {
   // Make sure the browser supports service workers
   if ("serviceWorker" in navigator) {
     // Register a new service worker.
@@ -20,4 +20,4 @@ function readyPWA() {
 }
 
 // Load on document load
-document.addEventListener("DOMContentLoaded", readyPWA);
+document.addEventListener("DOMContentLoaded", ready);
