@@ -160,6 +160,10 @@ GEM
       activesupport (>= 5.0)
     hashdiff (1.0.1)
     hashie (4.1.0)
+    hotwire-rails (0.1.3)
+      rails (>= 6.0.0)
+      stimulus-rails
+      turbo-rails
     http-accept (1.7.0)
     http-cookie (1.0.4)
       domain_name (~> 0.5)
@@ -330,6 +334,8 @@ GEM
     sshkit (1.21.2)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    stimulus-rails (0.6.0)
+      rails (>= 6.0.0)
     sync (0.5.0)
     term-ansicolor (1.7.1)
       tins (~> 1.0)
@@ -340,6 +346,8 @@ GEM
     tins (1.29.1)
       sync
     tqdm (0.3.0)
+    turbo-rails (0.8.1)
+      rails (>= 6.0.0)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
@@ -396,6 +404,7 @@ DEPENDENCIES
   faker (~> 2.19)
   font-awesome-sass (~> 5.15)
   friendly_id (~> 5.4)
+  hotwire-rails (~> 0.1.3)
   httparty (~> 0.20.0)
   identicon (= 0.0.5)
   kt-paperclip (~> 7.0)

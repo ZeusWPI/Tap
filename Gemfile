@@ -10,6 +10,9 @@ gem 'puma', '~> 5.5.0'
 gem 'bootsnap', '~> 1.9'
 gem 'listen', '~> 3.7'
 
+# HTML over the wire.
+gem 'hotwire-rails', '~> 0.1.3'
+
 # Sass
 gem 'sassc-rails', '~> 2.1'
 
@@ -25,9 +28,6 @@ gem 'vanilla_nested', '~> 1.4'
 
 # Charts
 gem 'chartkick', '~> 4.0'
-
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks', '~> 5.2'
 
 # Friendly ids
 # Will replace endpoints like /users/:id with /users/:username
