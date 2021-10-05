@@ -16,7 +16,6 @@
 import Rails from "@rails/ujs";
 import * as ActiveStorage from "@rails/activestorage";
 import "@hotwired/turbo-rails";
-import "../controllers";
 
 Rails.start();
 ActiveStorage.start();
@@ -27,6 +26,8 @@ import "./barcode_scanner.js";
 import "./navbar.js";
 import "./submit.js";
 import "./remove.js";
+import "./order.js";
+import "./modal.js";
 import "./pwa.js";
 
 // ChartKick for charts

@@ -1,12 +1,12 @@
-<div class="products-modal modal is-active" x-show="productsModalOpen" x-cloak>
-  <div class="modal-background" x-on:click="productsModalOpen = false"></div>
+<div class="products-modal modal" id="productsModal">
+  <div class="modal-background"></div>
 
-  <div class="modal-card" x-show="productsModalOpen" x-transition x-transition.duration.150ms>
+  <div class="modal-card">
 
     <!-- Header -->
     <header class="modal-card-head">
       <p class="modal-card-title">Choose a product</p>
-      <button class="delete" aria-label="close" x-on:click="productsModalOpen = false"></button>
+      <button class="delete" aria-label="close" data-modal-close="productsModal"></button>
     </header>
 
     <!-- Content -->
@@ -17,7 +17,7 @@
 
     <!-- Footer -->
     <footer class="modal-card-foot is-justify-content-flex-end">
-      <button class="button is-danger is-light" x-on:click="productsModalOpen = false">Close</button>
+      <button class="button is-danger is-light" data-modal-close="productsModal">Close</button>
     </footer>
   </div>
 </div>

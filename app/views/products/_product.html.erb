@@ -33,11 +33,7 @@
   Use within the product select modal on the order page
   -->
   <% elsif actions.include? "order:add" %>
-    <button
-      class="<%= product_class %>"
-      x-on:click.prevent="getOrderItem(<%= product.id %>).quantity++"
-      x-on:click="productsModalOpen = false"
-    >
+    <button class="<%= product_class %>" data-order-product-increment="<%= product.id %>" data-modal-close="productsModal">
       <%= product_render %>
     </button>
 
