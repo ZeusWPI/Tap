@@ -14,7 +14,7 @@ require 'capistrano/rbenv'
 # NVM (Node Version Manager) support
 require 'capistrano/nvm'
 set :nvm_type, :user
-set :nvm_node, 'lts'
+set :nvm_node, 'v14.18.0'
 set :nvm_map_bins, %w{node npm yarn}
 
 # Loads custom tasks from `lib/capistrano/tasks' if you have any defined.
