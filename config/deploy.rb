@@ -31,11 +31,6 @@ set :linked_files, %w{config/database.yml config/secrets.yml}
 # Default value for linked_dirs is []
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
-# NVM config
-set :nvm_type, :user
-set :nvm_node, 'v14.18.0'
-set :nvm_map_bins, %w{node npm yarn}
-
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
