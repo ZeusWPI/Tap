@@ -9,14 +9,15 @@
     <%= csrf_meta_tags %>
 
     <!-- CSS -->
-    <%= stylesheet_link_tag "application", media: "all", 'data-turbo-track': "reload" %>
+    <%= stylesheet_link_tag "application", media: "all", 'data-turbo-track': "reload", defer: true %>
 
     <!-- JS -->
     <%= javascript_pack_tag "application", "data-turbo-track": "reload" %>
 
     <!-- Vendor supplied dependencies -->
-    <script src="/vendor/javascript/alpinejs@3.2.4.min.js" defer data-turbo-track="reload"></script>
-    <script src="/vendor/javascript/quagga@1.4.2.min.js" defer data-turbo-track="reload"></script>
+    <% if current_user && !current_user.koelkast %>
+      <script src="/vendor/javascript/quagga@1.4.2.min.js" defer data-turbo-track="reload"></script>
+    <% end %>
 
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">

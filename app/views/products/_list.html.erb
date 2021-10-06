@@ -4,7 +4,7 @@
 <% compact = compact || false %>
 <% compact_mobile = compact_mobile || false %>
 
-<div x-data="setupProductList()" x-init="$watch('productSearch', () => onProductSearchChange())">
+<div>
 
   <!-- Header -->
   <div class="columns is-multiline">
@@ -14,14 +14,16 @@
         <div class="tabs">
           <ul>
             <!-- All -->
-            <li x-bind:class="isActiveTab('all') ? 'is-active' : ''">
-              <a x-on:click="setActiveTab('all')">All</a>
+            <li>
+              <a data-products-tab="all">
+                All
+              </a>
             </li>
 
             <!-- Categories -->
               <% @categories.each do |category, index| %>
-                <li x-bind:class="isActiveTab('<%= category %>') ? 'is-active' : ''">
-                  <a x-on:click="setActiveTab('<%= category %>')">
+                <li>
+                  <a data-products-tab="<%= category %>">
                     <%= category.titleize %>
                   </a>
                 </li>
@@ -34,7 +36,7 @@
     <!-- Search -->
     <div class="column <%= display_categories ? 'is-narrow' : 'is-fullwidth' %>">
       <div class="search">
-        <input x-model="productSearch" class="input" placeholder="Search for a product..." />
+        <input id="productsSearchInput" class="input" placeholder="Search for a product..." />
       </div>
     </div>
   </div>
@@ -63,7 +65,7 @@
     The value of "shouldShowProduct" is a hack to display the placeholder when no entries match the given search query.
     It checks if there is no match in a string concatenation of all product names.
     -->
-    <div class="placeholder" x-show="!shouldShowProduct('<%= escape_javascript @products.map(&:name).join %>', null)" x-cloak>
+    <div class="placeholder is-hidden" id="productsPlaceholder">
       No products found matching that query.
     </div>
   </div>

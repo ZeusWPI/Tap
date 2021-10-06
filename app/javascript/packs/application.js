@@ -28,6 +28,8 @@ import "./submit.js";
 import "./remove.js";
 import "./order.js";
 import "./modal.js";
+import "./flash.js";
+import "./stock.js";
 import "./pwa.js";
 
 // ChartKick for charts

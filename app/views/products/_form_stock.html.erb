@@ -1,4 +1,4 @@
-<div x-data="setupProductStockForm(<%= @product.stock %>)">
+<div id="stock" data-stock="<%= @product.stock %>">
   <%= f_form_for @product do |f| %>
 
     <!-- Header -->
@@ -16,7 +16,7 @@
     It will receive the value of the sum.
     -->
     <div class="is-hidden">
-      <%= f.number_field :stock, "x-bind:value": "stockNew" %>
+      <%= f.number_field :stock, id: "stockValue" %>
     </div>
 
     <!-- Current stock field -->
@@ -31,7 +31,7 @@
     <div class="field">
       <label class="label">Purchased</label>
       <div class="control">
-        <input class="input" type="number" x-model="stockPurchased" min="0" />
+        <input class="input" id="stockPurchasedInput" type="number" min="0" />
       </div>
     </div>
 
@@ -43,8 +43,7 @@
       <div class="column">
         <strong>New Stock:</strong>
 
-        <span x-text="stockNew"><%= @product.stock %></span>
-        <span x-text="() => `(+ ${stockPurchased})`" class="text-primary has-text-success">(+ 0)</span>
+        <span id="stockNew" class="has-text-success"><%= @product.stock %></span>
       </div>
 
       <!-- Submit -->

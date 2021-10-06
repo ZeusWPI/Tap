@@ -1,0 +1,86 @@
+<%= f_form_for [@user, @order] do |f| %>
+  <div class="order-new-bill">
+    <!-- Logo -->
+    <div class="order-new-bill-logo is-hidden-mobile">
+      <%= image_tag "logo.png", alt: "Logo", class: "theme-blend" %>
+    </div>
+
+    <!-- Title -->
+    <h1 class="order-new-bill-title is-hidden-desktop">
+      Your order
+    </h1>
+
+    <!-- Errors -->
+    <%= f.error_messages %>
+
+    <!-- Overview -->
+    <div class="order-new-bill-overview">
+      <hr />
+
+      <!-- Items -->
+      <table class="order-new-bill-items">
+        <thead>
+          <tr>
+            <th>Quantity</th>
+            <th>Product</th>
+            <th class="has-text-right">Subtotal</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <%= f.fields_for :order_items do |ff| %>
+          <tr
+            id="orderItem"
+            class="order-new-bill-item is-hidden"
+            data-order-product-id="<%= ff.object.product.id %>"
+            data-order-product-price="<%= ff.object.product.price_cents %>"
+            data-order-product-barcodes="<%= ff.object.product.barcodes.map(&:code).to_json %>"
+          >
+            <%= ff.hidden_field :product_id %>
+
+            <td>
+              <%=
+                ff.number_field :count,
+                id: "orderItemQuantity",
+                class: "order-new-bill-input input is-small",
+                skip_label: true
+              %>
+            </td>
+
+            <td>
+              <%= ff.object.product.name %>
+            </td>
+
+            <td class="has-text-right" id="orderItemSubtotal" data-order-product-subtotal="<%= ff.object.product.price_cents * ff.object.count %>">
+              <%= euro_from_cents(ff.object.product.price_cents * ff.object.count) %>
+            </td>
+
+            <td>
+              <div class="button is-danger is-light" data-order-product-delete="<%= ff.object.product.id %>">
+                <%= icon('fas', 'trash-alt') %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+
+      <!-- Placeholder -->
+      <div class="order-new-bill-placeholder" id="orderPlaceholder">
+        No products selected yet.
+      </div>
+
+      <hr />
+
+      <!-- Total -->
+      <div class="order-new-bill-overview-total">
+        <strong>Total:</strong>
+        <span id="orderTotal">
+          <%= euro_from_cents(0) %>
+        </span>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <%= f.submit "Place order", class: "button is-primary is-fullwidth", data: { disable_with: "Please wait..." } %>
+  </div>
+<% end %>

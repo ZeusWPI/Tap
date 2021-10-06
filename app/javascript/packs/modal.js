@@ -19,6 +19,11 @@ function ready() {
     openElements.forEach((element) => {
       element.addEventListener("click", () => {
         modal.classList.add("is-active");
+
+        // Emit open event
+        document.dispatchEvent(
+          new CustomEvent("modal:open", { detail: { id } })
+        );
       });
     });
 
@@ -26,6 +31,11 @@ function ready() {
     closeElements.forEach((element) => {
       element.addEventListener("click", () => {
         modal.classList.remove("is-active");
+
+        // Emit close event
+        document.dispatchEvent(
+          new CustomEvent("modal:close", { detail: { id } })
+        );
       });
     });
   });

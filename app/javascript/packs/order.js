@@ -34,6 +34,7 @@ function ready() {
     const subtotalField = item.querySelector("#orderItemSubtotal");
     const productId = item.dataset.orderProductId;
     const productPrice = item.dataset.orderProductPrice;
+    const productBarcodes = item.dataset.orderProductBarcodes;
 
     // Function for updating the item when the quantity changes
     function updateItem() {
@@ -81,6 +82,17 @@ function ready() {
         // Update the item
         updateItem();
       });
+
+    // Update the quantity when a barcode is scanned
+    document.addEventListener("barcode:scanned", (e) => {
+      if (productBarcodes.includes(e.detail.barcode)) {
+        // Increment the quantity
+        quantityField.value++;
+
+        // Update the item
+        updateItem();
+      }
+    });
 
     // Also update the price initially
     updateItem();

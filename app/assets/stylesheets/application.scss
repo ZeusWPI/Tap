@@ -952,7 +952,10 @@ body {
 // Barcode Scanner Canvas
 .scanner {
   &-modal {
-    display: flex;
+    .is-active & {
+      display: flex;
+    }
+
     justify-content: center;
     align-items: center;
 

@@ -1,7 +1,7 @@
 <% flash.each do |type, msg| %>
-  <div class="notification <%= isLight ? 'is-light' : '' %> <%= flash_class(type) %>" x-data="{ show: true }" x-show="show" x-transition>
+  <div id="flash" class="notification <%= isLight ? 'is-light' : '' %> <%= flash_class(type) %>">
     <!-- Close button -->
-    <button class="delete" x-on:click="show = !show"></button>
+    <button class="delete"></button>
 
     <!-- Message -->
     <%= msg %>
