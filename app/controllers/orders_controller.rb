@@ -46,7 +46,7 @@ class OrdersController < ApplicationController
           redirect_to root_path
         else
           flash[:error] = @order.valid? ? "Something went wrong! Please try again." : @order.errors.full_messages.join(". ")
-          redirect_to :back
+          redirect_back fallback_location: root_path
         end
       end
       format.json do

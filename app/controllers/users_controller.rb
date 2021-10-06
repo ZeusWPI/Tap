@@ -93,7 +93,7 @@ class UsersController < ApplicationController
       end
     else
       flash[:error] = order.valid? ? "Something went wrong! Please try again." : order.errors.full_messages.join(". ")
-      redirect_to :back
+      redirect_back fallback_location: root_path
     end
   end
 

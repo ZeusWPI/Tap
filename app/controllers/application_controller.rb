@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
     cookies.permanent[:themeVariantHue] = params[:theme][:variantHue]
 
     flash[:success] = "Theme has been set to #{params[:theme][:mode].capitalize} #{params[:theme][:variantName]}"
-    redirect_to :back
+    redirect_back fallback_location: root_path
   end
 
   private
