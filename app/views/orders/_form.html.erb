@@ -29,13 +29,7 @@
         </thead>
 
         <%= f.fields_for :order_items do |ff| %>
-          <tr
-            id="orderItem"
-            class="order-new-bill-item is-hidden"
-            data-order-product-id="<%= ff.object.product.id %>"
-            data-order-product-price="<%= ff.object.product.price_cents %>"
-            data-order-product-barcodes="<%= ff.object.product.barcodes.map(&:code).to_json %>"
-          >
+          <tr class="order-new-bill-item">
             <%= ff.hidden_field :product_id %>
 
             <td>
@@ -51,23 +45,30 @@
               <%= ff.object.product.name %>
             </td>
 
-            <td class="has-text-right" id="orderItemSubtotal" data-order-product-subtotal="<%= ff.object.product.price_cents * ff.object.count %>">
+            <td class="has-text-right" id="orderItemSubtotal">
               <%= euro_from_cents(ff.object.product.price_cents * ff.object.count) %>
             </td>
 
             <td>
-              <div class="button is-danger is-light" data-order-product-delete="<%= ff.object.product.id %>">
+              <%=
+                button_to new_remove_user_orders_path(@user),
+                class: "button is-danger is-light",
+                type: "button",
+                params: { product_id: ff.object.product.id } do
+              %>
                 <%= icon('fas', 'trash-alt') %>
-              </div>
+              <% end %>
             </td>
           </tr>
         <% end %>
       </table>
 
       <!-- Placeholder -->
-      <div class="order-new-bill-placeholder" id="orderPlaceholder">
-        No products selected yet.
-      </div>
+      <% if f.object.order_items.empty? %>
+        <div class="order-new-bill-placeholder">
+          No products selected yet.
+        </div>
+      <% end %>
 
       <hr />
 
@@ -75,7 +76,7 @@
       <div class="order-new-bill-overview-total">
         <strong>Total:</strong>
         <span id="orderTotal">
-          <%= euro_from_cents(0) %>
+          <%= euro_from_cents(f.object.price_cents) %>
         </span>
       </div>
     </div>

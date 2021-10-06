@@ -16,9 +16,10 @@
 
       <!-- Barcode Field (for Koelkast) -->
       <% if current_user.koelkast %>
-        <%= form_tag nil do %>
+        <%= form_tag new_add_user_orders_path(@user) do |f| %>
           <input
             class="order-new-actions-barcode input is-large"
+            name="barcode"
             placeholder="Scan a barcode"
             autofocus="true"
             autocomplete="off"

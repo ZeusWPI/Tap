@@ -1,5 +1,3 @@
-import { formatPrice } from "../helpers/price.js";
-
 /**
  * Handle modal opening/closing
  */
@@ -43,3 +41,4 @@ function ready() {
 
 // Load on document load
 document.addEventListener("turbo:load", ready);
+document.addEventListener("turbo:frame-load", ready);

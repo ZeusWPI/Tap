@@ -14,23 +14,33 @@
 // const imagePath = (name) => images(name, true)
 
 import Rails from "@rails/ujs";
-import * as ActiveStorage from "@rails/activestorage";
 import "@hotwired/turbo-rails";
 
+// Start Rails
 Rails.start();
-ActiveStorage.start();
 
-// Local JavaScript dependencies
-import "./filepicker.js";
-import "./barcode_scanner.js";
-import "./navbar.js";
-import "./submit.js";
-import "./remove.js";
-import "./order.js";
-import "./modal.js";
-import "./flash.js";
-import "./stock.js";
-import "./pwa.js";
+/**
+ * Dependencies
+ */
 
 // ChartKick for charts
 import "chartkick/chart.js";
+
+/**
+ * Local JavaScript dependencies
+ */
+// PWA
+import "./pwa";
+
+// Utils
+import "./utils/filepicker";
+import "./utils/flash";
+import "./utils/modal";
+import "./utils/navbar";
+import "./utils/submit";
+import "./utils/remove";
+
+// Pages
+import "./pages/products";
+import "./pages/scanner";
+import "./pages/stock";

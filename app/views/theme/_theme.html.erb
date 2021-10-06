@@ -8,9 +8,10 @@
     "theme[variantName]": variant[:name],
     "theme[variantHue]": variant[:hue]
   },
-  form: { class: "is-fullheight" },
+  form: { class: "is-fullheight", data: { turbo: false }},
   class: "theme-item #{selected ? 'theme-item--selected' : ''}",
-  style: "filter: hue-rotate(#{variant[:hue]})" do %>
+  style: "filter: hue-rotate(#{variant[:hue]})" do
+%>
     <!-- Image -->
     <%= image_tag "theme/placeholder-#{mode}.svg", class: "theme-item-image" %>
 

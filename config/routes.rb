@@ -31,6 +31,8 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :update] do
     resources :orders, only: [:new, :create, :destroy] do
       get :new_products, on: :collection
+      post :new_add, on: :collection
+      post :new_remove, on: :collection
     end
 
     member do

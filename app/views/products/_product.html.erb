@@ -32,9 +32,19 @@
   Use within the product select modal on the order page
   -->
   <% elsif actions.include? "order:add" %>
-    <button class="<%= product_class %>" data-order-product-increment="<%= product.id %>" data-modal-close="productsModal">
+    <%=
+      button_to new_add_user_orders_path(@user),
+      class: product_class,
+      data: {
+        "modal-close": "productsModal"
+      },
+      params: {
+        product_id: product.id,
+      } do
+    %>
+
       <%= product_render %>
-    </button>
+    <% end %>
 
   <!--
   Use in all other places
