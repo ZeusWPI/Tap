@@ -25,6 +25,15 @@ class OrdersController < ApplicationController
     @order.products << @products
   end
 
+
+  # Order products page
+  # GET /users/{username}/orders/new/products
+  def new_products
+    @products = Product.for_sale.order(:name).includes(:barcodes)
+    @categories = Product.categories
+    render "new_products"
+  end
+
   # Create a new order
   # POST /users/{username}/orders/new
   def create

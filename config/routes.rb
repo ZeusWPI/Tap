@@ -29,7 +29,9 @@ Rails.application.routes.draw do
 
   # /users/...
   resources :users, only: [:show, :update] do
-    resources :orders, only: [:new, :create, :destroy]
+    resources :orders, only: [:new, :create, :destroy] do
+      get :new_products, on: :collection
+    end
 
     member do
       # Dagschotel

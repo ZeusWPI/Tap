@@ -11,8 +11,9 @@
 
     <!-- Content -->
     <section class="modal-card-body">
-       <!-- Products -->
-      <%= render "products/list", compact_mobile: true, details: false, actions: ["order:add"] %>
+      <turbo-frame id="orderProducts" src="<%= new_products_user_orders_path(current_user) %>" loading="lazy">
+        Loading...
+      </turbo-frame>
     </section>
 
     <!-- Footer -->
