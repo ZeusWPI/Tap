@@ -4,7 +4,7 @@
 <% compact = compact || false %>
 <% compact_mobile = compact_mobile || false %>
 
-<div v-scope="ProductsController()">
+<div v-scope="ProductsController({})">
   <!-- Header -->
   <div class="columns is-multiline" v-cloak>
     <!-- Tabs -->
@@ -66,9 +66,7 @@
   </div>
 </div>
 
-<script type="module">
-import { createApp } from 'https://unpkg.com/petite-vue?module'
-
+<script>
 function ProductsController(props) {
   return {
     /**
@@ -112,8 +110,4 @@ function ProductsController(props) {
     }
   }
 }
-
-createApp({
-  ProductsController
-}).mount()
 </script>

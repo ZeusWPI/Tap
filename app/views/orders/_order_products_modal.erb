@@ -12,7 +12,7 @@
     <!-- Content -->
     <section class="modal-card-body">
       <turbo-frame id="orderProducts" src="<%= new_products_user_orders_path(current_user) %>" loading="lazy">
-        Loading...
+        <div class="products-modal-loading"></div>
       </turbo-frame>
     </section>
 

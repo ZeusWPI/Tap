@@ -1,7 +1,7 @@
 <% flash.each do |type, msg| %>
-  <div id="flash" class="notification <%= isLight ? 'is-light' : '' %> <%= flash_class(type) %>">
+  <div v-scope="{ open: true }" class="notification <%= isLight ? 'is-light' : '' %> <%= flash_class(type) %>" v-show="open">
     <!-- Close button -->
-    <button class="delete"></button>
+    <button class="delete" @click="open = false"></button>
 
     <!-- Message -->
     <%= msg %>

@@ -1,10 +1,13 @@
-<nav class="navbar <%= controller_name == 'landing' || current_user.koelkast ? 'is-primary is-raised' : 'is-transparent' %>">
+<nav
+  v-scope="{ open: false }"
+  class="navbar <%= controller_name == 'landing' || current_user.koelkast ? 'is-primary is-raised' : 'is-transparent' %>"
+>
   <div class="container">
     <!-- Brand -->
     <div class="navbar-brand">
       <%= link_to "Tap", root_path, class: "navbar-title" %>
 
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <a role="button" class="navbar-burger" :class="open ? 'is-active' : ''" aria-label="menu" aria-expanded="false" @click="open = !open">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
@@ -12,7 +15,7 @@
     </div>
 
     <!-- Menu -->
-    <div class="navbar-menu">
+    <div class="navbar-menu" :class="open ? 'is-active' : ''">
 
       <div class="navbar-start">
       </div>

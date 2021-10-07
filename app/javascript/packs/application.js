@@ -15,7 +15,6 @@
 
 import Rails from "@rails/ujs";
 import "@hotwired/turbo-rails";
-//import "petite-vue";
 
 // Start Rails
 Rails.start();
@@ -35,8 +34,6 @@ import "./pwa";
 
 // Utils
 import "./utils/filepicker";
-import "./utils/flash";
-import "./utils/navbar";
 import "./utils/submit";
 import "./utils/remove";
 
