@@ -39,6 +39,7 @@ import "./pwa";
 import "./utils/filepicker";
 import "./utils/submit";
 import "./utils/remove";
+import "./utils/modal";
 
 // Pages
 import "./pages/scanner";
