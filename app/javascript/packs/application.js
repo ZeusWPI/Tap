@@ -23,6 +23,9 @@ Rails.start();
  * Dependencies
  */
 
+// Vanilla Nested for nested dynamic forms
+import "vanilla-nested";
+
 // ChartKick for charts
 import "chartkick/chart.js";
 

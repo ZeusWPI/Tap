@@ -9,6 +9,7 @@
     "chart.js": "^3.5.1",
     "chartkick": "^4.0.5",
     "petite-vue": "^0.3.0",
+    "vanilla-nested": "arielj/vanilla-nested",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12"
   },

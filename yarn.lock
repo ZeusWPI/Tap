@@ -6731,6 +6731,10 @@ v8-compile-cache@^2.1.1:
   resolved "https://registry.yarnpkg.com/v8-compile-cache/-/v8-compile-cache-2.3.0.tgz#2de19618c66dc247dcfb6f99338035d8245a2cee"
   integrity sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==
 
+vanilla-nested@arielj/vanilla-nested:
+  version "1.4.0"
+  resolved "https://codeload.github.com/arielj/vanilla-nested/tar.gz/20fbf3f790521f45d19e6dbadcd596bc11912dd1"
+
 vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
