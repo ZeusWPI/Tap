@@ -4,7 +4,59 @@
 <% compact = compact || false %>
 <% compact_mobile = compact_mobile || false %>
 
-<div>
+<script type="module">
+import { createApp } from 'https://unpkg.com/petite-vue?module'
+
+function ProductsController(props) {
+  return {
+    /**
+     * Currently active tab category.
+     */
+    tab: "all",
+
+    /**
+     * Value of the search input.
+     */
+    search: "",
+
+    /**
+     * Should a specific product be shown
+     * @param name name of the product
+     * @param category name of the category of the product
+     */
+    showProduct(name, category) {
+      // If the product doesn't match the category, return false
+      if (category && this.tab !== "all" && this.tab !== category) {
+        return false;
+      }
+
+      // If the product doesn't match the search query, return false
+      if (this.search && !name.toLowerCase().includes(this.search.toLowerCase())) {
+        return false;
+      }
+
+      return true;
+    },
+
+    /**
+     * Should the placeholder be shown (when no products match a given query)
+     */
+    get showPlaceholder() {
+      // This is a simple hack to check if no products match a specific query.
+      // As product name the concatenation of all products is used,
+      // so when there is no match the string will not include the searched keyword
+      // and the placeholder can be shown.
+      return !this.showProduct('<%= escape_javascript @products.map(&:name).join %>', null)
+    }
+  }
+}
+
+createApp({
+  ProductsController
+}).mount()
+</script>
+
+<div v-scope="ProductsController({})">
   <!-- Header -->
   <div class="columns is-multiline">
     <!-- Tabs -->
@@ -13,16 +65,16 @@
         <div class="tabs">
           <ul>
             <!-- All -->
-            <li>
-              <a data-products-tab="all">
+            <li :class="tab === 'all' ? 'is-active' : ''" >
+              <a @click="tab = 'all'">
                 All
               </a>
             </li>
 
             <!-- Categories -->
               <% @categories.each do |category, index| %>
-                <li>
-                  <a data-products-tab="<%= category %>">
+                <li :class="tab === '<%= category %>' ? 'is-active' : ''" >
+                  <a @click="tab = '<%= category %>'">
                     <%= category.titleize %>
                   </a>
                 </li>
@@ -35,7 +87,7 @@
     <!-- Search -->
     <div class="column <%= display_categories ? 'is-narrow' : 'is-fullwidth' %>">
       <div class="search">
-        <input id="productsSearchInput" class="input" placeholder="Search for a product..." />
+        <input v-model="search" class="input" placeholder="Search for a product..." />
       </div>
     </div>
   </div>
@@ -64,66 +116,10 @@
     The value of "shouldShowProduct" is a hack to display the placeholder when no entries match the given search query.
     It checks if there is no match in a string concatenation of all product names.
     -->
-    <div class="placeholder is-hidden" id="productsPlaceholder">
+    <div class="placeholder" v-show="showPlaceholder" v-cloak>
       No products found matching that query.
     </div>
   </div>
 </div>
 
-<script>
-function setupProductList() {
-  return {
-    /**
-     * Active product tab.
-     */
-    productTab: "all",
 
-    /**
-     * Search field value
-     */
-    productSearch: "",
-
-    /**
-     * If a given tab is the active tab.
-     */
-    isActiveTab(tab) {
-      return this.productTab === tab;
-    },
-
-    /**
-     * Make a tab the active tab.
-     */
-    setActiveTab(tab) {
-      this.productTab = tab;
-    },
-
-    /**
-     * If a specific product should be shown, based on:
-     * * if it matches the category
-     * * if the name matches the search field value.
-     */
-    shouldShowProduct(name, category) {
-
-      // If the product doesn't match the category, return false
-      if (category && this.productTab !== "all" && this.productTab !== category) {
-        return false;
-      }
-
-      // If the product doesn't match the search query, return false
-      if (this.productSearch && !name.toLowerCase().includes(this.productSearch.toLowerCase())) {
-        return false;
-      }
-
-      return true;
-    },
-
-    /**
-     * When the product search value changes.
-     * Reset the productTab to "all", since searching should always show all items.
-     */
-    onProductSearchChange() {
-      this.productTab = "all";
-    }
-  }
-}
-</script>

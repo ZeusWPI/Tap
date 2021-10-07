@@ -15,6 +15,7 @@
 
 import Rails from "@rails/ujs";
 import "@hotwired/turbo-rails";
+//import "petite-vue";
 
 // Start Rails
 Rails.start();

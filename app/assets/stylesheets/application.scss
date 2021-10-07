@@ -92,9 +92,8 @@ body {
   }
 }
 
-// Add support for Alpine "x-cloak" element.
-// Ref: https://alpinejs.dev/directives/cloak
-[x-cloak] {
+// Add support for Petite Vue "v-cloak" attribute.
+[v-cloak] {
   display: none !important;
 }
 
