@@ -41,6 +41,4 @@ import "./utils/submit";
 import "./utils/remove";
 
 // Pages
-import "./pages/products";
 import "./pages/scanner";
-import "./pages/stock";

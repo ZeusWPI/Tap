@@ -36,9 +36,6 @@
     <%=
       button_to new_add_user_orders_path(@user),
       class: product_class,
-      data: {
-        "modal-close": "productsModal"
-      },
       params: {
         product_id: product.id,
       } do
