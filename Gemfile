@@ -10,8 +10,8 @@ gem 'puma', '~> 5.5.0'
 gem 'bootsnap', '~> 1.9'
 gem 'listen', '~> 3.7'
 
-# HTML over the wire.
-gem 'hotwire-rails', '~> 0.1.3'
+# The speed of a single-page web application without having to write any JavaScript.
+gem 'turbo-rails', '~> 0.8.1'
 
 # Sass
 gem 'sassc-rails', '~> 2.1'
