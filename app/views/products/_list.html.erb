@@ -4,6 +4,68 @@
 <% compact = compact || false %>
 <% compact_mobile = compact_mobile || false %>
 
+<div v-scope="ProductsController()">
+  <!-- Header -->
+  <div class="columns is-multiline" v-cloak>
+    <!-- Tabs -->
+    <% if display_categories %>
+      <div class="column">
+        <div class="tabs">
+          <ul>
+            <!-- All -->
+            <li :class="tab === 'all' ? 'is-active' : ''" >
+              <a @click="tab = 'all'">
+                All
+              </a>
+            </li>
+
+            <!-- Categories -->
+              <% @categories.each do |category, index| %>
+                <li :class="tab === '<%= category %>' ? 'is-active' : ''" >
+                  <a @click="tab = '<%= category %>'">
+                    <%= category.titleize %>
+                  </a>
+                </li>
+              <% end %>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Search -->
+    <div class="column <%= display_categories ? 'is-narrow' : 'is-fullwidth' %>">
+      <div class="search">
+        <input v-model="search" class="input" placeholder="Search for a product..." />
+      </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="tabs-content">
+    <div class="columns is-multiline">
+      <%= render partial: "products/product",
+        collection: @products,
+        as: :product,
+        cache: true,
+        locals: {
+          search: true,
+          details: details,
+          actions: actions,
+          compact: compact,
+          compact_mobile: compact_mobile
+        }
+      %>
+    </div>
+
+    <!--
+    No search results placeholder
+    -->
+    <div class="placeholder" v-show="showPlaceholder" v-cloak>
+      No products found matching that query.
+    </div>
+  </div>
+</div>
+
 <script type="module">
 import { createApp } from 'https://unpkg.com/petite-vue?module'
 
@@ -55,71 +117,3 @@ createApp({
   ProductsController
 }).mount()
 </script>
-
-<div v-scope="ProductsController({})">
-  <!-- Header -->
-  <div class="columns is-multiline">
-    <!-- Tabs -->
-    <% if display_categories %>
-      <div class="column">
-        <div class="tabs">
-          <ul>
-            <!-- All -->
-            <li :class="tab === 'all' ? 'is-active' : ''" >
-              <a @click="tab = 'all'">
-                All
-              </a>
-            </li>
-
-            <!-- Categories -->
-              <% @categories.each do |category, index| %>
-                <li :class="tab === '<%= category %>' ? 'is-active' : ''" >
-                  <a @click="tab = '<%= category %>'">
-                    <%= category.titleize %>
-                  </a>
-                </li>
-              <% end %>
-          </ul>
-        </div>
-      </div>
-    <% end %>
-
-    <!-- Search -->
-    <div class="column <%= display_categories ? 'is-narrow' : 'is-fullwidth' %>">
-      <div class="search">
-        <input v-model="search" class="input" placeholder="Search for a product..." />
-      </div>
-    </div>
-  </div>
-
-  <!-- Content -->
-  <div class="tabs-content">
-    <div class="columns is-multiline">
-      <%= render partial: "products/product",
-        collection: @products,
-        as: :product,
-        cache: true,
-        locals: {
-          search: true,
-          details: details,
-          actions: actions,
-          compact: compact,
-          compact_mobile: compact_mobile
-        }
-      %>
-    </div>
-
-
-    <!--
-    No search results placeholder
-
-    The value of "shouldShowProduct" is a hack to display the placeholder when no entries match the given search query.
-    It checks if there is no match in a string concatenation of all product names.
-    -->
-    <div class="placeholder" v-show="showPlaceholder" v-cloak>
-      No products found matching that query.
-    </div>
-  </div>
-</div>
-
-

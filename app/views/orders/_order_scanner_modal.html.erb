@@ -1,0 +1,98 @@
+<div class="scanner-modal modal modal-target" id="modalOrderScanner">
+  <a class="modal-background" href="#"></a>
+
+  <div class="modal-card">
+
+    <!-- Header -->
+    <header class="modal-card-head">
+      <p class="modal-card-title">Scan a barcode</p>
+      <a class="delete" aria-label="close" href="#"></a>
+    </header>
+
+    <!-- Content -->
+    <div class="modal-card-body theme-no-blend p-0">
+
+      <!-- Canvas -->
+      <div class="scanner-canvas">
+        <div id="barcodeCanvas"></div>
+        <div class="scanner-canvas-laser" x-cloak x-show="!scannerState.error && !scannerState.loading" x-transition></div>
+
+        <!-- Loading -->
+        <div class="scanner-canvas-loading" x-cloak x-show="scannerState.loading" x-transition>
+          <div class="scanner-canvas-loading-title">Accessing Camera...</div>
+          <div class="scanner-canvas-loading-message">Please wait while we fetch your camera.</div>
+        </div>
+
+        <!-- Error -->
+        <div class="scanner-canvas-error" x-cloak x-show="scannerState.error" x-transition>
+          <div class="scanner-canvas-error-title" x-text="scannerState.error?.title"></div>
+          <div class="scanner-canvas-error-message" x-text="scannerState.error?.message"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="modal-card-foot is-justify-content-flex-end">
+      <a class="button is-danger" href="#">Close</a>
+    </footer>
+  </div>
+</div>
+
+<script>
+function setupBarcodeModal() {
+  // Barcode Scanner
+  const scanner = new BarcodeScanner("#barcodeCanvas");
+
+  // State of the scanner
+  const scannerState = Alpine.reactive({
+    loading: true,
+    error: null
+  })
+
+  // Set the scan callback
+  scanner.onDetected = (barcode) => {
+    this.onBarcodeScan(barcode);
+  }
+
+  // Set loaded callback
+  scanner.onSuccess = () => {
+    scannerState.loading = false
+  }
+
+  // Set the error callback
+  scanner.onError = (error) => {
+    scannerState.loading = false
+    scannerState.error = {};
+
+    // Permission Denied
+    if (error.name === "NotAllowedError") {
+      scannerState.error.title = "Camera access denied!"
+      scannerState.error.message = "Please allow camera access for this site and reload the webpage."
+    }
+    // Other errors
+    else {
+      scannerState.error.title = error.name;
+      scannerState.error.message = error.message;
+    }
+  }
+
+  // Watch the modal open state for changes
+  // Init and destroy the barcode scanner.
+  this.$watch('barcodeModalOpen', (value) => {
+    if (value) {
+      scanner.init();
+    } else {
+      scanner.destroy();
+
+      // Reset the state
+      scannerState.loading = true;
+      scannerState.error = null;
+    }
+  })
+
+  return {
+    scanner,
+    scannerState
+  }
+}
+</script>

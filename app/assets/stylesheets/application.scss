@@ -1151,6 +1151,16 @@ body {
   background-color: var(--turbolinks-progress-bar-color, $primary);
 }
 
+// Modal using :target (without JavaScript)
+.modal-target {
+  display: none;
+
+  &:target {
+    @extend .is-active;
+    display: block;
+  }
+}
+
 // Make the modal fullscreen on mobile/tablet
 @include until($tablet) {
   .modal-card-head,

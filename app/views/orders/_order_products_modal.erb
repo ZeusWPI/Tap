@@ -1,25 +1,24 @@
-<div class="products-modal modal" id="productsModal">
-  <div class="modal-background"></div>
+<div class="products-modal modal modal-target" id="modalOrderProducts">
+  <a class="modal-background" href="#"></a>
 
   <div class="modal-card">
 
     <!-- Header -->
     <header class="modal-card-head">
       <p class="modal-card-title">Choose a product</p>
-      <button class="delete" aria-label="close" data-modal-close="productsModal"></button>
+      <a class="delete" aria-label="close" href="#"></a>
     </header>
 
     <!-- Content -->
     <section class="modal-card-body">
       <turbo-frame id="orderProducts" src="<%= new_products_user_orders_path(current_user) %>" loading="lazy">
         Loading...
-        <%= render "products/list", compact_mobile: true, details: false, actions: ["order:add"] %>
       </turbo-frame>
     </section>
 
     <!-- Footer -->
     <footer class="modal-card-foot is-justify-content-flex-end">
-      <button class="button is-danger is-light" data-modal-close="productsModal">Close</button>
+      <a class="button is-danger is-light" href="#">Close</a>
     </footer>
   </div>
 </div>

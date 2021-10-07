@@ -36,7 +36,6 @@ import "./pwa";
 // Utils
 import "./utils/filepicker";
 import "./utils/flash";
-import "./utils/modal";
 import "./utils/navbar";
 import "./utils/submit";
 import "./utils/remove";

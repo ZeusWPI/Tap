@@ -4,10 +4,16 @@
     <div class="order-new-actions">
       <!-- Title -->
       <div class="order-new-actions-title">
+
+        <!-- Back button -->
         <% if current_user.koelkast %>
           <div class="back is-size-5">
             <%= link_to "Go back", root_path %>
           </div>
+        <% end %>
+
+        <!-- Title -->
+        <% if current_user.koelkast %>
           Place an order for <%= @user.name %>
         <% else %>
           Place an order
@@ -32,31 +38,31 @@
       <% end %>
 
       <!-- Product Select -->
-      <button class="button is-primary is-large" data-modal-open="productsModal">
+      <a class="button is-primary is-large" href="#modalOrderProducts">
         <%= icon('fas', 'list', class: "mr-3") %> Select product
-      </button>
+      </a>
 
 
       <!-- Barcode Scanner (for users) -->
       <% if !current_user.koelkast %>
-        <div class="order-new-actions-or">
+        <div class="order-new-actions-or" v-cloak>
           - OR -
         </div>
 
         <div>
-          <button class="button is-primary is-large" data-modal-open="barcodeScannerModal">
+          <a class="button is-primary is-large" href="#modalOrderScanner" v-cloak>
             <%= icon('fas', 'camera', class: "mr-3") %> Scan barcode
-          </button>
+          </a>
         </div>
       <% end %>
     </div>
   </div>
 
   <!-- Bill -->
-  <div class="column is-12 is-7-tablet is-4-desktop">
+  <div class="column is-12 is-7-tablet is-5-desktop is-4-widescreen">
     <%= render partial: "form" %>
   </div>
 </div>
 
 <%= render "order_products_modal" %>
-<%= render "barcode_modal" %>
+<%= render "order_scanner_modal" %>
