@@ -65,11 +65,11 @@
         },
         method: :put,
         class: "button is-light is-success",
-        "x-data": "{ hover: false }",
-        "x-bind:value": "hover ? 'Remove dagschotel' : 'Current dagschotel'",
-        "x-bind:class": "hover ? 'is-danger' : ''",
-        "x-on:mouseenter": "hover = true",
-        "x-on:mouseleave": "hover = false"
+        "v-scope": "{ hover: false }",
+        ":value": "hover ? 'Remove dagschotel' : 'Current dagschotel'",
+        ":class": "hover ? 'is-danger' : ''",
+        "@mouseenter": "hover = true",
+        "@mouseleave": "hover = false"
       %>
     <% end %>
   <% end %>
