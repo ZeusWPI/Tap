@@ -17,7 +17,12 @@ module OrderSessionHelper
   # (this can be the case when ordering from Koelkast)
   def get_order_session(user)
     order_session_versions = session[:order] || {}
-    order_session = order_session_versions[ORDER_SESSION_VERSION]
+    order_session = order_session_versions[ORDER_SESSION_VERSION] || {}
+
+    # Fix: https://stackoverflow.com/questions/23530055/ruby-on-rails-sneakily-changing-nested-hash-keys-from-symbols-to-strings
+    # Session, stored internally or session retrieved from a cookie have a different form.
+    # Rails, why you do this?
+    order_session = order_session.symbolize_keys!
 
     # Create a new order session if it does not exist
     if not order_session
@@ -30,7 +35,7 @@ module OrderSessionHelper
 
     # Otherwise: return the existing order session
     else
-      order_session
+      return order_session
     end
   end
 

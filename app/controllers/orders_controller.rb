@@ -113,7 +113,7 @@ class OrdersController < ApplicationController
           flash[:success] << " Enjoy!"
 
           # Clear the order session
-          clear_order_session()
+          delete_order_session()
 
           # Redirect back to the root
           redirect_to root_path
