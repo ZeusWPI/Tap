@@ -611,17 +611,6 @@ body {
     .modal-card {
       min-width: calc(min(80%, 1344px));
     }
-
-    // Loading spinner
-    &-loading {
-      @extend .loader;
-      animation: spinAround 0.8s infinite linear;
-      border-color: transparent transparent $primary $primary !important;
-      border-width: 4px !important;
-      width: 150px !important;
-      height: 150px !important;
-      margin: 10vh auto;
-    }
   }
 
   &-item {
@@ -1164,11 +1153,39 @@ body {
 
 // Modal using :target (without JavaScript)
 .modal-target {
-  display: none;
+  $transition-duration: 0.2s;
+  visibility: hidden;
+  display: flex;
 
+  // Display the modal when the target is active.
   &:target {
-    @extend .is-active;
-    display: block;
+    visibility: visible;
+
+    // Transition: modal background
+    .modal-background {
+      opacity: 1;
+    }
+
+    // Transition: modal card
+    &:target {
+      .modal-card {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  }
+
+  // Transition: modal background
+  .modal-background {
+    transition: opacity $transition-duration;
+    opacity: 0;
+  }
+
+  // Transition: modal card
+  .modal-card {
+    transform: scale(0.7);
+    opacity: 0;
+    transition: all $transition-duration;
   }
 }
 
