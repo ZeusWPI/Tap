@@ -1,8 +1,4 @@
 # Helpers for handeling ordering session
-#
-# When a user is building an order the state is stored inside the session storage.
-# This is done to prevent giant forms from being generated which causes delay on both the server and client.
-# This helper is used to store and retrieve the state of the order.
 module OrderSessionHelper
   # Session versioning
   # If there are changes to the order session format they will break in production,
@@ -11,46 +7,62 @@ module OrderSessionHelper
   # To prevent these errors a version is used, which will ignore older versions of the session.
   ORDER_SESSION_VERSION = '1.0'
 
-  # Get the order session from the session storage for a given user.
-  # If the order session does not exist, an empty order session will be created.
-  # If the order session exists, but is owned by another user, delete the order session and create a new one.
-  # (this can be the case when ordering from Koelkast)
-  def get_order_session(user)
+  # Pop the order session from the session store and return it
+  # @param [user] user to check if the order session belongs to
+  def pop_order_session(user)
+
+    # Retrieve the order session
     order_session_versions = session[:order] || {}
-    order_session = order_session_versions[ORDER_SESSION_VERSION] || {}
+    order_session = order_session_versions[ORDER_SESSION_VERSION] || create_order_session(user, [])
 
     # Fix: https://stackoverflow.com/questions/23530055/ruby-on-rails-sneakily-changing-nested-hash-keys-from-symbols-to-strings
     # Session, stored internally or session retrieved from a cookie have a different form.
     # Rails, why you do this?
     order_session = order_session.symbolize_keys!
 
-    # Create a new order session if it does not exist
-    if not order_session
-      create_order_session(user)
-
-    # If the order session is owned by another user, delete the order session and create a new one.
-    elsif order_session[:user_id] != user.id
-      delete_order_session()
-      create_order_session(user)
-
-    # Otherwise: return the existing order session
-    else
-      return order_session
+     # If the order session is owned by another user, delete the order session and create a new one.
+    if order_session[:user_id] != user.id
+      create_order_session(user, [])
     end
+
+    # Delete the order session from the session storage
+    session.delete(:order)
+
+    return order_session
   end
 
-  # Create a new order session for a given user.
-  # Will override any existing order session.
-  def create_order_session(user)
+  # Push the order session to the session store.
+  # @param [user] user to check if the order session belongs to
+  # @param [product_ids] list of product ids to add to the order
+  def push_order_session(user, product_ids)
+
+    # Create a new order session
+    order_session = create_order_session(user, product_ids)
+
+    # Store the order session
+    session[:order][ORDER_SESSION_VERSION] = order_session
+  end
+
+  # Create a new order session
+  # @param [user] user to check if the order session belongs to
+  # @param [product_ids] list of product ids to add to the order
+  def create_order_session(user, product_ids)
     session[:order] = {}
     session[:order][ORDER_SESSION_VERSION] = {
       user_id: user.id,
-      items: []
+      product_ids: product_ids
     }
+
+    return session[:order][ORDER_SESSION_VERSION]
   end
 
-  # Delete the current order session
-  def delete_order_session()
-    session[:order] = {}
+  # Convert the order session to a string for usage as form field value.
+  def stringify_order_session(order_session)
+    return order_session.to_json
+  end
+
+  # Convert the order session string into a valid order session hash.
+  def parse_order_session(order_session_string)
+    return JSON.parse(order_session_string).symbolize_keys!
   end
 end

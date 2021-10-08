@@ -51,10 +51,14 @@
 
             <td>
               <%=
-                button_to new_remove_user_orders_path(@user),
+                button_to new_user_orders_path(@user),
                 class: "button is-danger is-light",
                 type: "button",
-                params: { product_id: ff.object.product.id } do
+                params: {
+                  update_action: "add",
+                  product_id: ff.object.product.id,
+                  session: stringify_order_session(@order_session),
+                } do
               %>
                 <%= icon('fas', 'trash-alt') %>
               <% end %>

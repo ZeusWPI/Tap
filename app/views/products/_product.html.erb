@@ -34,13 +34,14 @@
   -->
   <% elsif actions.include? "order:add" %>
     <%=
-      button_to new_add_user_orders_path(@user),
+      button_to new_user_orders_path(@user),
       class: product_class,
       params: {
+        update_action: "add",
         product_id: product.id,
+        session: stringify_order_session(@order_session),
       } do
     %>
-
       <%= product_render %>
     <% end %>
 

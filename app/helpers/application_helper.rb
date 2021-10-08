@@ -71,6 +71,12 @@ module ApplicationHelper
     form_for(record, options, &block)
   end
 
+  # Create a formatted form
+  def f_form_with(**options, &block)
+    options[:builder] = FormattedFormBuilder
+    form_with(**options, &block)
+  end
+
   # Get the current theme of the user
   def theme
     {

@@ -3,10 +3,10 @@
  */
 function ready() {
   // Listen to the hash change and notify a potential modal open/close listener
-  window.addEventListener("hashchange", (e) => {
+  window.addEventListener("turbolinks:click", (e) => {
     // Get the hashes from the event urls
-    const oldHash = e.oldURL.split("#")[1];
-    const newHash = e.newURL.split("#")[1];
+    const oldHash = window.location.hash.replace("#", "");
+    const newHash = e.data.url.split("#")[1];
 
     // If the hash contains a value, emit a potential modal close event.
     // Otherwise emit a potential modal open event.

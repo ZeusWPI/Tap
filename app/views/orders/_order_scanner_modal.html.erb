@@ -18,8 +18,10 @@
     <div class="modal-card-body theme-no-blend p-0">
 
       <!-- Hidden barcode field for submitting the barcode -->
-      <%= form_tag new_add_user_orders_path(@user), id: "orderBarcodeScannerForm" do |f| %>
-        <input id="orderBarcodeScannerFormInput" hidden="true" name="barcode" />
+      <%= form_with url: new_user_orders_path(@user), id: "orderBarcodeScannerForm" do |f| %>
+        <%= f.hidden_field :update_action, value: "add" %>
+        <%= f.hidden_field :session, value: stringify_order_session(@order_session) %>
+        <%= f.hidden_field :barcode, id: "orderBarcodeScannerFormInput" %>
       <% end %>
 
       <!-- Canvas -->

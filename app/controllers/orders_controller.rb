@@ -25,16 +25,16 @@ class OrdersController < ApplicationController
     @categories = Product.categories
 
     # Get the order session for the user
-    order_session = get_order_session(@user)
+    @order_session = pop_order_session(@user)
 
     # Build the order_items from the order session
-    order_products = Product.find(order_session[:items])
+    order_products = Product.find(@order_session[:product_ids])
 
     for order_product in order_products
 
       # Get the count of the order item
       # This is the amount of times the product id is present inside the order session.
-      count = order_session[:items].count(order_product.id)
+      count = @order_session[:product_ids].count(order_product.id)
 
       # Build the order_item
       @order.order_items.build(count: count, product: order_product)
@@ -43,53 +43,55 @@ class OrdersController < ApplicationController
     @order.calculate_price
   end
 
-  # Add a product to the order
-  # POST /users/{username}/orders/new_add
-  def new_add
-    order_session = get_order_session(@user)
+  # Add or remove a product from/to the order
+  # POST /users/{username}/orders/new
+  def new_update
+    action = params[:update_action]
+    order_session = parse_order_session(params[:session])
+    product_ids = order_session[:product_ids]
 
-    if params[:barcode]
-      product = Barcode.find_by(code: params[:barcode]).try(:product)
+    # Add product to order form
+    if action == "add"
+      if params[:barcode]
+        product = Barcode.find_by(code: params[:barcode]).try(:product)
 
-      # If the product exists, add it to the order
-      # Otherwise show an error message.
-      if product
-        # Add the product to the order session
-        order_session[:items] << product.id
+        # If the product exists, add it to the order
+        # Otherwise show an error message.
+        if product
+          # Add the product to the order session
+          product_ids << product.id
+        else
+          flash[:error] = "No product with that barcode found!"
+        end
+      elsif params[:product_id]
+        product = Product.find_by(id: params[:product_id])
+
+        # If the product exists, add it to the order
+        # Otherwise show an error message.
+        if product
+          # Add the product to the order session
+          product_ids << product.id
+
+        else
+          flash[:error] = "That product does not exist!"
+        end
       else
-        flash[:error] = "No product with that barcode found!"
+        flash[:error] = "Something went wrong!"
       end
-    elsif params[:product_id]
-      product = Product.find_by(id: params[:product_id])
-
-      # If the product exists, add it to the order
-      # Otherwise show an error message.
-      if product
-        # Add the product to the order session
-        order_session[:items] << product.id
-      else
-        flash[:error] = "That product does not exist!"
-      end
-    else
-      flash[:error] = "Something went wrong!"
     end
 
-    # Redirect back to the order page
-    redirect_to new_user_order_path(@user)
-  end
-
-  # Remove a product from the order
-  # POST /users/{username}/orders/new_remove
-  def new_remove
-    order_session = get_order_session(@user)
-
-    if params[:product_id]
-      order_session[:items].delete(params[:product_id])
-    else
-      flash[:error] = "Something went wrong!"
+    # Remove product from the order form
+    if action == "remove"
+      if params[:product_id]
+        product_ids.delete(params[:product_id])
+      else
+        flash[:error] = "Something went wrong!"
+      end
     end
 
-    # Redirect back to the order page
+    # Push a new order session to the session store
+    push_order_session(@user, product_ids)
+
     redirect_to new_user_order_path(@user)
   end
 
@@ -111,9 +113,6 @@ class OrdersController < ApplicationController
           flash[:success] = "#{@order.to_sentence} ordered."
           flash[:success] << " Please put #{euro_from_cents(@order.price_cents)} in our pot!" if @user.guest?
           flash[:success] << " Enjoy!"
-
-          # Clear the order session
-          delete_order_session()
 
           # Redirect back to the root
           redirect_to root_path
