@@ -1,4 +1,4 @@
-<div class="user">
+<div v-scope="{ loading: false }" class="user" :class="loading ? 'user--loading' : ''" @click="loading = true">
 
   <!-- User dagschotel -->
   <% if user.dagschotel && !user.quickpay_hidden %>
@@ -8,7 +8,14 @@
   <% end %>
 
   <!-- User image -->
-  <%= link_to image_tag(user.avatar(:koelkast)), new_user_order_path(user), class: "user-avatar" %>
+  <div class="user-avatar">
+    <%= link_to image_tag(user.avatar(:koelkast)), new_user_order_path(user) %>
+
+    <!-- Loading -->
+    <div class="user-avatar-loading">
+      <div class="user-avatar-loading-spinner"></div>
+    </div>
+  </div>
 
   <!-- User name -->
   <%= link_to user.name, new_user_order_path(user), class: "user-name", style: "color: #{get_user_text_color(user)}; background-color: #{get_user_color(user)}" %>
