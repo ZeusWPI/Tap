@@ -9,14 +9,14 @@
     <%= csrf_meta_tags %>
 
     <!-- CSS -->
-    <%= stylesheet_link_tag "application", media: "all", 'data-turbo-track': "reload", defer: true %>
+    <%= stylesheet_link_tag "application", media: "all", 'data-turbolinks-track': "reload", defer: true %>
 
     <!-- JS -->
-    <%= javascript_pack_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
 
     <!-- Vendor supplied dependencies -->
     <% if current_user && !current_user.koelkast %>
-      <script src="/vendor/javascript/quagga@1.4.2.min.js" defer data-turbo-track="reload"></script>
+      <script src="/vendor/javascript/quagga@1.4.2.min.js" defer data-turbolinks-track="reload"></script>
     <% end %>
 
     <!-- Icons -->
@@ -40,7 +40,7 @@
       <% end %>
 
       <% if current_user && current_user.koelkast %>
-        --turbo-progress-bar-color: white;
+        --turbolinks-progress-bar-color: white;
       <% end %>
     }
     </style>

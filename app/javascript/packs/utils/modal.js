@@ -23,4 +23,4 @@ function ready() {
 }
 
 // Load on document load or between turbolink navigations
-document.addEventListener("turbo:load", ready);
+document.addEventListener("turbolinks:load", ready);

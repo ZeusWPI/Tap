@@ -31,8 +31,8 @@ import "chartkick/chart.js";
 // Petite Vue
 import "./dependencies/petite-vue";
 
-// Turbo
-import "./dependencies/turbo";
+// Turbolinks
+import "./dependencies/turbolinks";
 
 /**
  * Local JavaScript dependencies

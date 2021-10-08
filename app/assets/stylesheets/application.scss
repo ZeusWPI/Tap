@@ -1157,9 +1157,9 @@ body {
 }
 
 // Turbo progress bar color
-.turbo-progress-bar {
+.turbolinks-progress-bar {
   height: 3px;
-  background-color: var(--turbo-progress-bar-color, $primary);
+  background-color: var(--turbolinks-progress-bar-color, $primary);
 }
 
 // Modal using :target (without JavaScript)
