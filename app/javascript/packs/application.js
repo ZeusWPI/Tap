@@ -14,7 +14,6 @@
 // const imagePath = (name) => images(name, true)
 
 import Rails from "@rails/ujs";
-import "@hotwired/turbo-rails";
 
 // Start Rails
 Rails.start();
@@ -28,6 +27,12 @@ import "vanilla-nested";
 
 // ChartKick for charts
 import "chartkick/chart.js";
+
+// Petite Vue
+import "./dependencies/petite-vue";
+
+// Turbo
+import "./dependencies/turbo";
 
 /**
  * Local JavaScript dependencies

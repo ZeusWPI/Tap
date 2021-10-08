@@ -12,6 +12,7 @@
 
 class OrdersController < ApplicationController
   include ApplicationHelper
+  include OrderSessionHelper
 
   load_and_authorize_resource :user, find_by: :name
   load_and_authorize_resource :order, through: :user, shallow: true, only: [:overview, :destroy]
@@ -23,19 +24,17 @@ class OrdersController < ApplicationController
     @products = Product.for_sale.order(:name)
     @categories = Product.categories
 
-    # When creating an order the session is used to store the products of the order.
-    # The products for a specific order are stored as a list of product ids.
-    # Ids can be used multiple times when ordering multiples of the same item.
-    session[:order] ||= []
+    # Get the order session for the user
+    order_session = get_order_session(@user)
 
-    # Build the order_items from the session
-    order_products = Product.find(session[:order])
+    # Build the order_items from the order session
+    order_products = Product.find(order_session[:items])
 
     for order_product in order_products
 
       # Get the count of the order item
       # This is the amount of times the product id is present inside the order session.
-      count = session[:order].count(order_product.id)
+      count = order_session[:items].count(order_product.id)
 
       # Build the order_item
       @order.order_items.build(count: count, product: order_product)
@@ -47,6 +46,8 @@ class OrdersController < ApplicationController
   # Add a product to the order
   # POST /users/{username}/orders/new_add
   def new_add
+    order_session = get_order_session(@user)
+
     if params[:barcode]
       product = Barcode.find_by(code: params[:barcode]).try(:product)
 
@@ -54,7 +55,7 @@ class OrdersController < ApplicationController
       # Otherwise show an error message.
       if product
         # Add the product to the order session
-        session[:order] << product.id
+        order_session[:items] << product.id
       else
         flash[:error] = "No product with that barcode found!"
       end
@@ -65,7 +66,7 @@ class OrdersController < ApplicationController
       # Otherwise show an error message.
       if product
         # Add the product to the order session
-        session[:order] << product.id
+        order_session[:items] << product.id
       else
         flash[:error] = "That product does not exist!"
       end
@@ -73,18 +74,23 @@ class OrdersController < ApplicationController
       flash[:error] = "Something went wrong!"
     end
 
-    # Redirect back
-    redirect_back fallback_location: new_user_order_path(current_user)
+    # Redirect back to the order page
+    redirect_to new_user_order_path(@user)
   end
 
   # Remove a product from the order
   # POST /users/{username}/orders/new_remove
   def new_remove
+    order_session = get_order_session(@user)
+
     if params[:product_id]
-      session[:order].delete(params[:product_id])
+      order_session[:items].delete(params[:product_id])
     else
       flash[:error] = "Something went wrong!"
     end
+
+    # Redirect back to the order page
+    redirect_to new_user_order_path(@user)
   end
 
   # Order products page
@@ -100,20 +106,20 @@ class OrdersController < ApplicationController
   def create
     respond_to do |format|
       format.html do
-        # Make sure the user can pay the order
-        if @user.try(:balance).try(:<, @order.price_cents)
-          flash[:error] = "You do not have enough money to order this!"
-          redirect_back fallback_location: root_path
-
         # Make sure the order is saved correctly
-        elsif @order.save
+        if @order.save
           flash[:success] = "#{@order.to_sentence} ordered."
           flash[:success] << " Please put #{euro_from_cents(@order.price_cents)} in our pot!" if @user.guest?
           flash[:success] << " Enjoy!"
+
+          # Clear the order session
+          clear_order_session()
+
+          # Redirect back to the root
           redirect_to root_path
         else
           flash[:error] = @order.valid? ? "Something went wrong! Please try again." : @order.errors.full_messages.join(". ")
-          redirect_back fallback_location: root_path
+          redirect_to new_user_order_path(@user)
         end
       end
 
