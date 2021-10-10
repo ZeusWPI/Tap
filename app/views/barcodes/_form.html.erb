@@ -1,5 +1,5 @@
 <div>
-  <%= f_form_for @barcode do |f| %>
+  <%= f_form_for @barcode, data: { turbo: false } do |f| %>
     <!-- Errors -->
     <%= f.error_messages %>
 
