@@ -76,6 +76,9 @@ function ScannerController(props) {
       this.scanner.onDetected = (barcode) => {
         document.getElementById("orderBarcodeScannerFormInput").value = barcode.codeResult.code;
         document.getElementById("orderBarcodeScannerForm")?.submit();
+
+        // Close modal
+        closeModal("modalOrderScanner");
       }
 
       // Set loaded callback
