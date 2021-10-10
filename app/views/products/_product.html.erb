@@ -37,6 +37,7 @@
       button_to new_user_orders_path(@user),
       class: product_class,
       onclick: "closeModal('modalOrderProducts')",
+      "@click": "loading = true",
       params: {
         update_action: "add",
         product_id: product.id,

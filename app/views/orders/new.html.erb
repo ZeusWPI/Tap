@@ -1,75 +1,77 @@
-<div class="columns is-multiline">
-  <!-- Select Product -->
-  <div class="column">
-    <div class="order-new-actions">
-      <!-- Title -->
-      <div class="order-new-actions-title">
+<div v-scope="{ loading: false }">
+  <div class="columns is-multiline">
+    <!-- Select Product -->
+    <div class="column">
+      <div class="order-new-actions">
+        <!-- Title -->
+        <div class="order-new-actions-title">
 
-        <!-- Back button -->
+          <!-- Back button -->
+          <% if current_user.koelkast %>
+            <div class="back is-size-5">
+              <%= link_to "Go back", root_path %>
+            </div>
+          <% end %>
+
+          <!-- Title -->
+          <% if current_user.koelkast %>
+            Place an order for <%= @user.name %>
+          <% else %>
+            Place an order
+          <% end %>
+        </div>
+
+        <!-- Barcode Field (for Koelkast) -->
         <% if current_user.koelkast %>
-          <div class="back is-size-5">
-            <%= link_to "Go back", root_path %>
+          <%= f_form_with url: new_user_orders_path(@user), update_action: "add" do |f| %>
+
+            <!-- Hidden form input -->
+            <%= f.hidden_field :update_action, value: "add" %>
+            <%= f.hidden_field :session, value: stringify_order_session(@order_session) %>
+
+            <!-- Barcode input -->
+            <%=
+              f.text_field :barcode,
+              class: "order-new-actions-barcode input is-large",
+              placeholder: "Scan a barcode",
+              autofocus: true,
+              autocomplete: "off",
+              skip_label: true
+            %>
+          <% end %>
+
+          <div class="order-new-actions-or">
+            - OR -
           </div>
         <% end %>
 
-        <!-- Title -->
-        <% if current_user.koelkast %>
-          Place an order for <%= @user.name %>
-        <% else %>
-          Place an order
+        <!-- Product Select -->
+        <a class="button is-primary is-large" href="#modalOrderProducts">
+          <%= icon('fas', 'list', class: "mr-3") %> Select product
+        </a>
+
+
+        <!-- Barcode Scanner (for users) -->
+        <% if !current_user.koelkast %>
+          <div class="order-new-actions-or" v-cloak>
+            - OR -
+          </div>
+
+          <div>
+            <a class="button is-primary is-large" href="#modalOrderScanner" v-cloak>
+              <%= icon('fas', 'camera', class: "mr-3") %> Scan barcode
+            </a>
+          </div>
         <% end %>
       </div>
+    </div>
 
-      <!-- Barcode Field (for Koelkast) -->
-      <% if current_user.koelkast %>
-        <%= f_form_with url: new_user_orders_path(@user), update_action: "add" do |f| %>
-
-          <!-- Hidden form input -->
-          <%= f.hidden_field :update_action, value: "add" %>
-          <%= f.hidden_field :session, value: stringify_order_session(@order_session) %>
-
-          <!-- Barcode input -->
-          <%=
-            f.text_field :barcode,
-            class: "order-new-actions-barcode input is-large",
-            placeholder: "Scan a barcode",
-            autofocus: true,
-            autocomplete: "off",
-            skip_label: true
-          %>
-        <% end %>
-
-        <div class="order-new-actions-or">
-          - OR -
-        </div>
-      <% end %>
-
-      <!-- Product Select -->
-      <a class="button is-primary is-large" href="#modalOrderProducts">
-        <%= icon('fas', 'list', class: "mr-3") %> Select product
-      </a>
-
-
-      <!-- Barcode Scanner (for users) -->
-      <% if !current_user.koelkast %>
-        <div class="order-new-actions-or" v-cloak>
-          - OR -
-        </div>
-
-        <div>
-          <a class="button is-primary is-large" href="#modalOrderScanner" v-cloak>
-            <%= icon('fas', 'camera', class: "mr-3") %> Scan barcode
-          </a>
-        </div>
-      <% end %>
+    <!-- Bill -->
+    <div class="column is-12 is-7-tablet is-5-desktop is-4-widescreen">
+      <%= render partial: "form" %>
     </div>
   </div>
 
-  <!-- Bill -->
-  <div class="column is-12 is-7-tablet is-5-desktop is-4-widescreen">
-    <%= render partial: "form" %>
-  </div>
+  <%= render "order_products_modal" %>
+  <%= render "order_scanner_modal" %>
 </div>
-
-<%= render "order_products_modal" %>
-<%= render "order_scanner_modal" %>

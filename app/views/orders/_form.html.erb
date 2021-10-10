@@ -14,7 +14,7 @@
     <%= f.error_messages %>
 
     <!-- Overview -->
-    <div class="order-new-bill-overview">
+    <div class="order-new-bill-overview" v-show="!loading">
       <hr />
 
       <!-- Items -->
@@ -83,6 +83,13 @@
           <%= euro_from_cents(f.object.price_cents) %>
         </span>
       </div>
+    </div>
+
+    <!-- Loading -->
+    <div class="order-new-bill-loading" v-show="loading" v-cloak>
+      <hr>
+      <div class="order-new-bill-loading-spinner"></div>
+      <hr>
     </div>
 
     <!-- Actions -->

@@ -94,7 +94,7 @@ body {
 
 // Add support for Petite Vue "v-cloak" attribute.
 [v-cloak] {
-  //display: none;
+  display: none;
 }
 
 .landing {
@@ -508,6 +508,22 @@ body {
 
       &-input {
         width: 70px;
+      }
+
+      &-loading {
+        position: relative;
+
+        &-spinner {
+          @extend .loader;
+          margin: auto;
+
+          // Overrides
+          animation: spinAround 0.8s infinite linear;
+          border-color: transparent transparent $primary $primary !important;
+          border-width: 4px !important;
+          width: 70px !important;
+          height: 70px !important;
+        }
       }
     }
   }
