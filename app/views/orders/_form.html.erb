@@ -1,93 +1,96 @@
-<%= f_form_for [@user, @order] do |f| %>
-  <div class="order-new-bill">
-    <!-- Logo -->
-    <div class="order-new-bill-logo is-hidden-mobile">
-      <%= image_tag "logo.png", alt: "Logo", class: "theme-blend" %>
-    </div>
 
-    <!-- Title -->
-    <h1 class="order-new-bill-title is-hidden-desktop">
-      Your order
-    </h1>
-
-    <!-- Errors -->
-    <%= f.error_messages %>
-
-    <!-- Overview -->
-    <div class="order-new-bill-overview" v-show="!loading">
-      <hr />
-
-      <!-- Items -->
-      <table class="order-new-bill-items">
-        <thead>
-          <tr>
-            <th>Quantity</th>
-            <th>Product</th>
-            <th>Subtotal</th>
-            <th></th>
-          </tr>
-        </thead>
-
-        <%= f.fields_for :order_items do |ff| %>
-          <tr class="order-new-bill-item">
-            <%= ff.hidden_field :product_id %>
-
-            <td class="has-text-centered">
-              <%= ff.object.count %>
-              <%= ff.hidden_field :count %>
-            </td>
-
-            <td>
-              <%= ff.object.product.name %>
-            </td>
-
-            <td id="orderItemSubtotal">
-              <%= euro_from_cents(ff.object.product.price_cents * ff.object.count) %>
-            </td>
-
-            <td class="has-text-right">
-              <%= button_to new_user_orders_path(@user),
-                class: "button is-danger is-light",
-                type: "button",
-                params: {
-                  update_action: "remove",
-                  product_id: ff.object.product.id,
-                  session: stringify_order_session(@order_session),
-                } do
-              %>
-                <%= icon('fas', 'trash-alt') %>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
-      </table>
-
-      <!-- Placeholder -->
-      <% if f.object.order_items.empty? %>
-        <div class="order-new-bill-placeholder">
-          No products selected yet.
-        </div>
-      <% end %>
-
-      <hr />
-
-      <!-- Total -->
-      <div class="order-new-bill-overview-total">
-        <strong>Total:</strong>
-        <span id="orderTotal">
-          <%= euro_from_cents(f.object.price_cents) %>
-        </span>
-      </div>
-    </div>
-
-    <!-- Loading -->
-    <div class="order-new-bill-loading" v-show="loading" v-cloak>
-      <hr>
-      <div class="order-new-bill-loading-spinner"></div>
-      <hr>
-    </div>
-
-    <!-- Actions -->
-    <%= f.submit "Place order", class: "button is-primary is-fullwidth", data: { disable_with: "Please wait..." } %>
+<div class="order-new-bill">
+  <!-- Logo -->
+  <div class="order-new-bill-logo is-hidden-mobile">
+    <%= image_tag "logo.png", alt: "Logo", class: "theme-blend" %>
   </div>
-<% end %>
+
+  <!-- Title -->
+  <h1 class="order-new-bill-title is-hidden-desktop">
+    Your order
+  </h1>
+
+  <!-- Overview -->
+  <div class="order-new-bill-overview" v-show="!loading">
+    <hr />
+
+    <!-- Items -->
+    <table class="order-new-bill-items">
+      <thead>
+        <tr>
+          <th>Quantity</th>
+          <th>Product</th>
+          <th>Subtotal</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <% @order.order_items.each do |order_item| %>
+        <tr class="order-new-bill-item">
+
+          <td class="has-text-centered">
+            <%= order_item.count %>
+          </td>
+
+          <td>
+            <%= order_item.product.name %>
+          </td>
+
+          <td>
+            <%= euro_from_cents(order_item.product.price_cents * order_item.count) %>
+          </td>
+
+          <td class="has-text-right">
+            <%= button_to new_user_orders_path(@user),
+              class: "button is-danger is-light",
+              type: "button",
+              "@click": "loading = true",
+              params: {
+                update_action: "remove",
+                product_id: order_item.product.id,
+                session: stringify_order_session(@order_session),
+              } do
+            %>
+              <%= icon('fas', 'trash-alt') %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+
+    <!-- Placeholder -->
+    <% if @order.order_items.empty? %>
+      <div class="order-new-bill-placeholder">
+        No products selected yet.
+      </div>
+    <% end %>
+
+    <hr />
+
+    <!-- Total -->
+    <div class="order-new-bill-overview-total">
+      <strong>Total:</strong>
+      <span id="orderTotal">
+        <%= euro_from_cents(@order.price_cents) %>
+      </span>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="order-new-bill-loading" v-show="loading" v-cloak>
+    <hr>
+    <div class="order-new-bill-loading-spinner"></div>
+    <hr>
+  </div>
+
+  <!-- Actual form -->
+  <%= f_form_for [@user, @order] do |f| %>
+    <%= f.fields_for :order_items do |ff| %>
+      <%= ff.hidden_field :product_id %>
+      <%= ff.hidden_field :count %>
+    <% end %>
+
+    <!-- Submit -->
+    <%= f.submit "Place order", class: "button is-primary is-fullwidth", data: { disable_with: "Please wait..." } %>
+  <% end %>
+</div>

@@ -83,7 +83,7 @@ class OrdersController < ApplicationController
     # Remove product from the order form
     if action == "remove"
       if params[:product_id]
-        product_ids.delete(params[:product_id])
+        product_ids.delete(JSON.parse(params[:product_id]))
       else
         flash[:error] = "Something went wrong!"
       end
@@ -92,6 +92,7 @@ class OrdersController < ApplicationController
     # Push a new order session to the session store
     push_order_session(@user, product_ids)
 
+    # Redirect back to the order page
     redirect_to new_user_order_path(@user)
   end
 
