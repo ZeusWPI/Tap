@@ -572,15 +572,6 @@ body {
   flex-grow: 0;
   position: relative;
 
-  &--loading {
-    img {
-      filter: blur(5px) !important;
-    }
-
-    // Disable clicking when the user is loading
-    pointer-events: none;
-  }
-
   &-avatar {
     position: relative;
     height: 150px;
@@ -590,44 +581,20 @@ body {
     border: 1px solid $grey-lighter;
     overflow: hidden;
 
-    &-loading {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1000;
-      visibility: hidden;
-
-      // Show the loading spinner when loading.
-      .user--loading & {
-        visibility: visible;
-      }
-
-      &-spinner {
-        @extend .loader;
-
-        position: absolute;
-        top: -1rem;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin: auto;
-
-        // Overrides
-        animation: spinAround 0.8s infinite linear;
-        border-color: transparent transparent $primary $primary !important;
-        border-width: 4px !important;
-        width: 70px !important;
-        height: 70px !important;
-      }
-    }
-
     img {
       width: 100%;
       height: 100%;
       object-fit: contain;
       vertical-align: middle;
+    }
+
+    &--loading {
+      img {
+        filter: blur(5px) !important;
+      }
+
+      // Disable clicking when loading
+      pointer-events: none;
     }
   }
 
@@ -661,9 +628,40 @@ body {
       vertical-align: middle;
     }
 
-    // Hide the dagschotel when loading
-    .user--loading & {
-      visibility: hidden;
+    &--loading {
+      img {
+        filter: blur(5px) !important;
+      }
+
+      // Disable clicking when loading
+      pointer-events: none;
+    }
+  }
+
+  &-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+
+    &-spinner {
+      @extend .loader;
+
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+
+      // Overrides
+      animation: spinAround 0.8s infinite linear;
+      border-color: transparent transparent $primary $primary !important;
+      border-width: 4px !important;
+      width: 50% !important;
+      height: 50% !important;
     }
   }
 }
