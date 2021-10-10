@@ -9,14 +9,14 @@
     <%= csrf_meta_tags %>
 
     <!-- CSS -->
-    <%= stylesheet_link_tag "application", media: "all", 'data-turbolinks-track': "reload", defer: true %>
+    <%= stylesheet_link_tag "application", media: "all", 'data-turbo-track': "reload", defer: true %>
 
     <!-- JS -->
-    <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
+    <%= javascript_pack_tag "application", "data-turbo-track": "reload" %>
 
     <!-- Vendor supplied dependencies -->
     <% if current_user && !current_user.koelkast %>
-      <script src="/vendor/javascript/quagga@1.4.2.min.js" defer data-turbolinks-track="reload"></script>
+      <script src="/vendor/javascript/quagga@1.4.2.min.js" defer data-turbo-track="reload"></script>
     <% end %>
 
     <!-- Icons -->
@@ -29,6 +29,9 @@
     <meta name="msapplication-config" content="/browserconfig.xml">
     <meta name="theme-color" content="#ff6600">
 
+    <!-- Disable Turbo caching -->
+    <meta name="turbo-cache-control" content="no-cache">
+
     <!-- Manifest for PWA support -->
     <link rel="manifest" href="/manifest.json">
 
@@ -40,7 +43,7 @@
       <% end %>
 
       <% if current_user && current_user.koelkast %>
-        --turbolinks-progress-bar-color: white;
+        --turbo-progress-bar-color: white;
       <% end %>
     }
     </style>

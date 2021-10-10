@@ -1,7 +1,7 @@
 import { createApp } from "petite-vue";
 
 // Start petite-vue on page load
-document.addEventListener("turbolinks:load", () => {
+document.addEventListener("turbo:load", () => {
   createApp().mount();
 });
 

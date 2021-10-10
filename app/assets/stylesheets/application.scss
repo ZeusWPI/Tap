@@ -676,6 +676,17 @@ body {
     .modal-card {
       min-width: calc(min(80%, 1344px));
     }
+
+    // Loading spinner
+    &-loading {
+      @extend .loader;
+      animation: spinAround 0.8s infinite linear;
+      border-color: transparent transparent $primary $primary !important;
+      border-width: 4px !important;
+      width: 150px !important;
+      height: 150px !important;
+      margin: 10vh auto;
+    }
   }
 
   &-item {
@@ -1211,9 +1222,9 @@ body {
 }
 
 // Turbo progress bar color
-.turbolinks-progress-bar {
+.turbo-progress-bar {
   height: 3px;
-  background-color: var(--turbolinks-progress-bar-color, $primary);
+  background-color: var(--turbo-progress-bar-color, $primary);
 }
 
 // Modal using :target (without JavaScript)

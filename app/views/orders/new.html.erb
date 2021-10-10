@@ -23,7 +23,7 @@
 
         <!-- Barcode Field (for Koelkast) -->
         <% if current_user.koelkast %>
-          <%= f_form_with url: new_user_orders_path(@user), update_action: "add" do |f| %>
+          <%= f_form_with url: new_user_orders_path(@user), local: true, html: { "@submit": "loading = true" } do |f| %>
 
             <!-- Hidden form input -->
             <%= f.hidden_field :update_action, value: "add" %>
@@ -46,7 +46,7 @@
         <% end %>
 
         <!-- Product Select -->
-        <a class="button is-primary is-large" href="#modalOrderProducts">
+        <a class="button is-primary is-large" href="#modalOrderProducts" data-turbo="false">
           <%= icon('fas', 'list', class: "mr-3") %> Select product
         </a>
 
@@ -58,7 +58,7 @@
           </div>
 
           <div>
-            <a class="button is-primary is-large" href="#modalOrderScanner" v-cloak>
+            <a class="button is-primary is-large" href="#modalOrderScanner" data-turbo="false" v-cloak>
               <%= icon('fas', 'camera', class: "mr-3") %> Scan barcode
             </a>
           </div>
@@ -72,6 +72,11 @@
     </div>
   </div>
 
+  <!-- Products Modal -->
   <%= render "order_products_modal" %>
-  <%= render "order_scanner_modal" %>
+
+  <!-- Barcode Camera Scanner -->
+  <% if !current_user.koelkast %>
+    <%= render "order_scanner_modal" %>
+  <% end %>
 </div>
