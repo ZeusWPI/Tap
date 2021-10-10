@@ -24,3 +24,16 @@ function ready() {
 
 // Load on document load or between turbolink navigations
 document.addEventListener("turbolinks:load", ready);
+
+/**
+ * Function for closing a modal using JavaScript
+ * Used when a button already acts as a form submit.
+ * @param {string} id id of the modal to close.
+ */
+window.closeModal = (id) => {
+  // Make sure the current open modal is the modal with the given id
+  if (window.location.hash.replace("#", "") === id) {
+    // Remove the hash from the URL to close the modal
+    window.location.hash = "";
+  }
+};
