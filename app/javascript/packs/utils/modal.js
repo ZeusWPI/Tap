@@ -8,22 +8,24 @@ function ready() {
     const oldHash = e.oldURL.split("#")[1];
     const newHash = e.newURL.split("#")[1];
 
+    // Get the modal id from the hash
+    const modalId = newHash || oldHash;
+
+    // Get the modal element
+    const modal = document.getElementById(modalId);
+
     // If the hash contains a value, emit a potential modal close event.
     // Otherwise emit a potential modal open event.
-    if (newHash) {
-      window.dispatchEvent(
-        new CustomEvent("modal:open", { detail: { id: newHash } })
-      );
-    } else {
-      window.dispatchEvent(
-        new CustomEvent("modal:close", { detail: { id: oldHash } })
-      );
-    }
+    modal.dispatchEvent(
+      new CustomEvent(newHash ? "modal:open" : "modal:close", {
+        detail: { id: modalId },
+      })
+    );
   });
 }
 
-// Load on document load or between turbolink navigations
-document.addEventListener("turbo:load", ready);
+// Load on document load
+document.addEventListener("DOMContentLoaded", ready);
 
 /**
  * Function for closing a modal using JavaScript

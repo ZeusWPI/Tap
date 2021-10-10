@@ -100,15 +100,17 @@ function ScannerController(props) {
         }
       }
 
+      const content = document.getElementById("modalOrderScanner");
+
       // Initialize the barcode scanner when the modal is opened
-      window.addEventListener("modal:open", (e) => {
+      content.addEventListener("modal:open", (e) => {
         if(e.detail.id === "modalOrderScanner") {
           this.init();
         }
       });
 
       // Destroy the barcode scanner when the modal is closed
-      window.addEventListener("modal:close", (e) => {
+      content.addEventListener("modal:close", (e) => {
         if(e.detail.id === "modalOrderScanner") {
           this.destroy();
         }
