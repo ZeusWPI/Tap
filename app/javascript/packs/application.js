@@ -28,12 +28,6 @@ import "vanilla-nested";
 // ChartKick for charts
 import "chartkick/chart.js";
 
-// Petite Vue
-import "./dependencies/petite-vue";
-
-// Turbo
-import "./dependencies/turbo";
-
 /**
  * Local JavaScript dependencies
  */

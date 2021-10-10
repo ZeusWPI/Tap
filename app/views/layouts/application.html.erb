@@ -15,8 +15,10 @@
     <%= javascript_pack_tag "application", "data-turbo-track": "reload" %>
 
     <!-- Vendor supplied dependencies -->
+    <%= javascript_pack_tag "dependencies/turbo",      "data-turbo-track": "reload", defer: true %>
+    <%= javascript_pack_tag "dependencies/petite-vue", "data-turbo-track": "reload", defer: true %>
     <% if current_user && !current_user.koelkast %>
-      <script src="/vendor/javascript/quagga@1.4.2.min.js" defer data-turbo-track="reload"></script>
+      <%= javascript_pack_tag "dependencies/quagga",   "data-turbo-track": "reload", defer: true %>
     <% end %>
 
     <!-- Icons -->
