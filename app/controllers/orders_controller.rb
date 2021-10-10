@@ -100,6 +100,7 @@ class OrdersController < ApplicationController
   def new_products
     @products = Product.for_sale.order(:name)
     @categories = Product.categories
+    @order_session = base64_decode_order_session(params[:session])
     render "new_products"
   end
 

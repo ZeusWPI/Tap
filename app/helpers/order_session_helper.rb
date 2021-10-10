@@ -22,7 +22,7 @@ module OrderSessionHelper
 
      # If the order session is owned by another user, delete the order session and create a new one.
     if order_session[:user_id] != user.id
-      create_order_session(user, [])
+      order_session = create_order_session(user, [])
     end
 
     # Delete the order session from the session storage
@@ -64,5 +64,15 @@ module OrderSessionHelper
   # Convert the order session string into a valid order session hash.
   def parse_order_session(order_session_string)
     return JSON.parse(order_session_string).symbolize_keys!
+  end
+
+  # Convert the order session into a string, base64 encoded for usage in URL.
+  def base64_encode_order_session(order_session)
+    return Base64.encode64(stringify_order_session(order_session))
+  end
+
+  # Convert the order session string from URL into a valid order session hash.
+  def base64_decode_order_session(order_session_string)
+    return parse_order_session(Base64.decode64(order_session_string))
   end
 end

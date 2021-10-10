@@ -13,7 +13,11 @@
     <section class="modal-card-body">
       <!-- Lazy load products on koelkast -->
       <% if current_user.koelkast %>
-        <turbo-frame id="orderProducts" src="<%= new_products_user_orders_path(current_user) %>" loading="lazy">
+        <turbo-frame
+          id="orderProducts"
+          src="<%= new_products_user_orders_path(current_user, :session => base64_encode_order_session(@order_session)) %>"
+          loading="lazy"
+        >
           <div class="products-modal-loading"></div>
         </turbo-frame>
       <% else %>
