@@ -6,6 +6,6 @@ document.addEventListener("turbo:load", () => {
 });
 
 // Start petite-vue on frame load
-document.addEventListener("turbo:frame", () => {
+document.addEventListener("turbo:frame-load", () => {
   createApp().mount();
 });
