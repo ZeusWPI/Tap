@@ -1230,12 +1230,11 @@ body {
 // Modal using :target (without JavaScript)
 .modal-target {
   $transition-duration: 0.2s;
-  visibility: hidden;
-  display: flex;
+  display: none;
 
   // Display the modal when the target is active.
   &:target {
-    visibility: visible;
+    display: flex;
 
     // Transition: modal background
     .modal-background {
