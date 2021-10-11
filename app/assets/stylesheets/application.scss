@@ -673,6 +673,21 @@ body {
     // 1344px is the width of the ".container"
     .modal-card {
       min-width: calc(min(80%, 1344px));
+      min-height: calc(100vh - 40px);
+    }
+
+    // Hide the order products frame on Koelkast when the
+    // modal is not a target.
+    // This is to prevent breaking lazy-loading
+    &:not(:target) {
+      #orderProducts {
+        display: none;
+      }
+    }
+    &:target {
+      #orderProducts {
+        display: block;
+      }
     }
 
     // Loading spinner
@@ -1228,11 +1243,21 @@ body {
 // Modal using :target (without JavaScript)
 .modal-target {
   $transition-duration: 0.2s;
-  display: none;
+  display: flex;
+
+  // Transition: modal background
+  .modal-background {
+    transition: opacity $transition-duration;
+  }
+
+  // Transition: modal cart
+  .modal-card {
+    transition: all $transition-duration;
+  }
 
   // Display the modal when the target is active.
   &:target {
-    display: flex;
+    visibility: visible;
 
     // Transition: modal background
     .modal-background {
@@ -1248,17 +1273,20 @@ body {
     }
   }
 
-  // Transition: modal background
-  .modal-background {
-    transition: opacity $transition-duration;
-    opacity: 0;
-  }
+  // Hide the modal when the target is not active.
+  &:not(:target) {
+    visibility: hidden;
 
-  // Transition: modal card
-  .modal-card {
-    transform: scale(0.7);
-    opacity: 0;
-    transition: all $transition-duration;
+    // Transition: modal background
+    .modal-background {
+      opacity: 0;
+    }
+
+    // Transition: modal card
+    .modal-card {
+      transform: scale(0.7);
+      opacity: 0;
+    }
   }
 }
 
