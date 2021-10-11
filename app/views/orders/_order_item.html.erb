@@ -1,0 +1,22 @@
+<% item = f.object %>
+<% product = item.product %>
+
+<tr class="order-new-bill-item">
+  <%= f.hidden_field :product_id %>
+
+  <td>
+    <%=
+      f.number_field :count,
+      skip_label: true,
+      class: "order-new-bill-input input is-small"
+    %>
+  </td>
+
+  <td>
+    <%= product.name %>
+  </td>
+
+  <td class="has-text-right">
+    <%= euro_from_cents(product.price_cents * item.count) %>
+  </td>
+</tr>

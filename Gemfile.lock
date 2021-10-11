@@ -340,9 +340,6 @@ GEM
     tins (1.29.1)
       sync
     tqdm (0.3.0)
-    turbolinks (5.2.1)
-      turbolinks-source (~> 5.2)
-    turbolinks-source (5.2.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unf (0.1.4)
@@ -411,7 +408,6 @@ DEPENDENCIES
   spring (~> 3.0)
   sqlite3 (~> 1.4)
   tqdm (~> 0.3.0)
-  turbolinks (~> 5.2)
   tzinfo-data
   vanilla_nested (~> 1.4)
   webmock

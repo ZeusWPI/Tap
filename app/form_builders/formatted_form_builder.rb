@@ -181,7 +181,7 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
     css_class = "input"
 
     # Add error class when the field has an error.
-    if object.errors[attribute].length > 0
+    if object && object.errors[attribute].length > 0
       css_class += " is-danger"
     end
 
@@ -256,7 +256,7 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
     end
 
     # Add error class when the field has an error.
-    if object.errors[attribute].length > 0
+    if object && object.errors[attribute].length > 0
       css_class += " is-danger"
     end
 
@@ -319,7 +319,9 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
 
       # Error messages
       error = content_tag(:div, class: "help is-danger") do
-        object.errors[attribute].join(", ").capitalize
+        if object
+          object.errors[attribute].join(", ").capitalize
+        end
       end
 
       # Help message
@@ -341,7 +343,7 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
       end
 
       # Append the error message when any error is present
-      if object.errors[attribute].length > 0
+      if object && object.errors[attribute].length > 0
         content = content + error
       end
 

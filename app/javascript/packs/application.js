@@ -14,20 +14,29 @@
 // const imagePath = (name) => images(name, true)
 
 import Rails from "@rails/ujs";
-import Turbolinks from "turbolinks";
-import * as ActiveStorage from "@rails/activestorage";
 
+// Start Rails
 Rails.start();
-Turbolinks.start();
-ActiveStorage.start();
 
-// Local JavaScript dependencies
-import "./filepicker.js";
-import "./barcode_scanner.js";
-import "./navbar.js";
-import "./submit.js";
-import "./remove.js";
-import "./pwa.js";
+/**
+ * Dependencies
+ */
+
+// Vanilla Nested for nested dynamic forms
+import "vanilla-nested";
 
 // ChartKick for charts
 import "chartkick/chart.js";
+
+/**
+ * Local JavaScript dependencies
+ */
+// PWA
+import "./pwa";
+
+// Utils
+import "./utils/filepicker";
+import "./utils/submit";
+import "./utils/remove";
+import "./utils/modal";
+import "./utils/scanner";

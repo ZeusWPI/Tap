@@ -18,5 +18,5 @@ function ready() {
   });
 }
 
-// Load on document load or between turbolink navigations
-document.addEventListener("turbolinks:load", ready);
+// Load on page load
+document.addEventListener("turbo:load", ready);

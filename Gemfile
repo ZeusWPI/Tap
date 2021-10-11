@@ -26,9 +26,6 @@ gem 'vanilla_nested', '~> 1.4'
 # Charts
 gem 'chartkick', '~> 4.0'
 
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks', '~> 5.2'
-
 # Friendly ids
 # Will replace endpoints like /users/:id with /users/:username
 gem 'friendly_id', '~> 5.4'

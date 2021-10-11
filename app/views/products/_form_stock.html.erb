@@ -1,6 +1,5 @@
-<div x-data="setupProductStockForm(<%= @product.stock %>)">
+<div v-scope="StockController({ currentStock: <%= @product.stock %> })" v-cloak>
   <%= f_form_for @product do |f| %>
-
     <!-- Header -->
     <div class="columns is-multiline is-justify-content-space-between">
       <!-- Title -->
@@ -16,7 +15,7 @@
     It will receive the value of the sum.
     -->
     <div class="is-hidden">
-      <%= f.number_field :stock, "x-bind:value": "stockNew" %>
+      <%= f.number_field :stock, ":value": "newStock" %>
     </div>
 
     <!-- Current stock field -->
@@ -31,7 +30,7 @@
     <div class="field">
       <label class="label">Purchased</label>
       <div class="control">
-        <input class="input" type="number" x-model="stockPurchased" min="0" />
+        <input class="input" v-model="purchasedStock" type="number" min="0" />
       </div>
     </div>
 
@@ -43,8 +42,9 @@
       <div class="column">
         <strong>New Stock:</strong>
 
-        <span x-text="stockNew"><%= @product.stock %></span>
-        <span x-text="() => `(+ ${stockPurchased})`" class="text-primary has-text-success">(+ 0)</span>
+        <span class="has-text-success">
+          {{ newStock }}
+        </span>
       </div>
 
       <!-- Submit -->
@@ -56,18 +56,23 @@
 </div>
 
 <script>
-function setupProductStockForm(stockCurrent) {
+function StockController(props) {
   return {
     /**
-     * Purchased stock value.
+     * Current Stock
      */
-    stockPurchased: 0,
+    currentStock: props.currentStock,
 
     /**
-     * Computed new stock value
+     * Purchased stock
      */
-    get stockNew() {
-      return Number(this.stockPurchased) + stockCurrent;
+    purchasedStock: 0,
+
+    /**
+     * New stock (current stock + purchased stock)
+     */
+    get newStock() {
+      return this.currentStock + this.purchasedStock;
     }
   }
 }
