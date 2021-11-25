@@ -54,7 +54,7 @@ class Ability
     # * The user has the appropriate balance for an order
     can :create, Order do |order|
       order.calculate_price
-      order.try(:user) == user && (user.guest || user.try(:balance).try(:>=, order.price_cents))
+      order.try(:user) == user && (!user.guest || user.try(:balance).try(:>=, order.price_cents))
     end
 
     # A user can delete an order if:
