@@ -18,17 +18,18 @@
 	<!-- Users -->
   <div class="column is-11">
     <div class="order-overview-users card">
-      <div class="card-content has-text-centered">
+      <div class="card-content">
+        <!-- Order as guest -->
+        <div class="order-overview-guest">
+          <%= link_to "Not a Zeus Account? Order as a guest.", new_user_order_path(User.guest), class: "button is-medium is-primary is-light" %>
+        </div>
 
-        <h1 class="title is-size-1" style="color: #007bff">
-          Hydra Codenight
-        </h1>
+        <hr />
 
-        <p class="subtitle is-size-3">
-          We voorzien gratis snacks en drinks voor de Hydra Codenight.
-        <p>
-
-        <%= link_to "Click here to order", new_user_order_path(User.guest), class: "button is-large is-info" %>
+        <!-- Users -->
+        <div class="order-overview-users-avatar columns is-mobile is-multiline">
+          <%= render "users/list" %>
+        </div>
       </div>
     </div>
   </div>
