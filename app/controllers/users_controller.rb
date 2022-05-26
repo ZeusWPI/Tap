@@ -97,14 +97,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def reset_key
+    @user.generate_key!
+    redirect_to @user
+  end
+
   private
 
   def user_params
     params.fetch(:user).permit(:avatar, :private, :dagschotel_id, :quickpay_hidden)
-  end
-
-  def reset_key
-    @user.generate_key!
-    redirect_to @user
   end
 end

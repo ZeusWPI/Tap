@@ -56,8 +56,9 @@
     <!-- Display the API key -->
     <div>
       <h2 class="label">API key</h2>
-      <pre><code><%= @user.userkey %></code></pre>
-      <p class="help">Use this key to access Tap programmatically.</p>
+      <pre class="field"><code><%= @user.userkey %></code></pre>
+
+      <%= button_to 'Reset key', reset_key_user_path(@user), { method: 'post', class: 'button is-primary is-light' } %>
     </div>
   </div>
 </div>
