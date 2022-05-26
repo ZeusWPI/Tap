@@ -119,6 +119,6 @@ class User < ActiveRecord::Base
   private
 
   def set_key
-    self.userkey = SecureRandom.base64(16)
+    self.userkey = SecureRandom.base64(18)
   end
 end
