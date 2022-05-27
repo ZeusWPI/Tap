@@ -81,7 +81,7 @@ describe UsersController, type: :controller do
       end
 
       it 'should accept real images' do
-        file = fixture_file_upload('files/real-image.png', 'image/png')
+        file = fixture_file_upload('real-image.png', 'image/png')
         put :update, params: { id: @user, user: { avatar: file } }
         expect(flash[:success]).to be_present
       end
@@ -95,7 +95,7 @@ describe UsersController, type: :controller do
       end
 
       it 'should not accept unreal images' do
-        file = fixture_file_upload('files/unreal-image.svg', 'image/svg+xml')
+        file = fixture_file_upload('unreal-image.svg', 'image/svg+xml')
         expect {
           put :update, params: { id: @user, user: { avatar: file } }
         }.to raise_error(ActiveRecord::RecordInvalid)
