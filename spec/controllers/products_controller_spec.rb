@@ -44,9 +44,9 @@ describe ProductsController, type: :controller do
         }.to change{ Product.count }.by(1)
       end
 
-      skip 'should redirect to barcode page' do
+      it 'should redirect to barcode page' do
         post :create, params: { product: attributes_for(:product) }
-        expect(response).to redirect_to action: :barcode
+        expect(response).to redirect_to action: :index
       end
     end
 
