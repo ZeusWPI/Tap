@@ -20,7 +20,7 @@
 require 'faker'
 require 'identicon'
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :product do
     name        { Faker::Name.name }
     price_cents { 1 + rand(120) }
@@ -30,7 +30,7 @@ FactoryGirl.define do
     avatar      { Identicon.data_url_for name }
 
     factory :invalid_product do
-      name nil
+      name { nil }
     end
   end
 end

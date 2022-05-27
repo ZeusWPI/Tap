@@ -40,7 +40,7 @@ describe UsersController, type: :controller do
 
   describe 'GET show' do
     before :each do
-      get :show, id: @user
+      get :show, params: { id: @user }
     end
 
     it 'should be successful' do
@@ -62,41 +62,43 @@ describe UsersController, type: :controller do
 
   describe 'PUT update' do
     it 'should load the correct user' do
-      put :update, id: @user, user: attributes_for(:user)
+      put :update, params: { id: @user, user: attributes_for(:user).except(:avatar) }
       expect(assigns(:user)).to eq(@user)
     end
 
     context 'successful' do
       it 'should update privacy' do
         new_private = !(@user.private)
-        put :update, id: @user, user: { private: new_private }
+        put :update, params: { id: @user, user: { private: new_private } }
         expect(@user.reload.private).to be new_private
         expect(flash[:success]).to be_present
       end
 
       it 'should update dagschotel' do
         product = create :product
-        put :update, id: @user, user: { dagschotel_id:  product.id }
+        put :update, params: { id: @user, user: { dagschotel_id:  product.id } }
         expect(@user.reload.dagschotel).to eq(product)
       end
 
       it 'should accept real images' do
         file = fixture_file_upload('files/real-image.png', 'image/png')
-        put :update, id: @user, user: { avatar: file }
+        put :update, params: { id: @user, user: { avatar: file } }
         expect(flash[:success]).to be_present
       end
     end
 
     context 'danger zone' do
-      it 'should warn for NOPs' do
-        put :update, id: @user, user: {}
-        expect(flash[:info]).to be_present
+      it 'should error for NOPs' do
+        expect {
+          put :update, params: { id: @user, user: {} }
+        }.to raise_error(ActionController::ParameterMissing)
       end
 
       it 'should not accept unreal images' do
         file = fixture_file_upload('files/unreal-image.svg', 'image/svg+xml')
-        put :update, id: @user, user: { avatar: file }
-        expect(flash[:error]).to be_present
+        expect {
+          put :update, params: { id: @user, user: { avatar: file } }
+        }.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
   end
@@ -111,7 +113,7 @@ describe UsersController, type: :controller do
     end
 
     it 'should render the page' do
-      get :edit_dagschotel, id: @user
+      get :edit_dagschotel, params: { id: @user }
       expect(response).to render_template(:edit_dagschotel)
     end
   end
@@ -135,13 +137,13 @@ describe UsersController, type: :controller do
 
       it 'should make an order' do
         expect{
-          get :quickpay, id: @user
+          get :order_dagschotel, params: { id: @user }
         }.to change{ @user.reload.orders_count }.by(1)
       end
 
       describe 'order' do
         before :each do
-          get :quickpay, id: @user
+          get :order_dagschotel, params: { id: @user }
           @order = @user.orders.last
         end
 

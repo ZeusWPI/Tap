@@ -12,11 +12,11 @@
 
 require 'faker'
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :order do
     user
     transient do
-      products_count 1
+      products_count { 1 }
     end
     before(:create) do |order, evaluator|
       order.order_items << create_list(:order_item, evaluator.products_count, order: order)

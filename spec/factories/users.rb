@@ -23,19 +23,19 @@
 require 'faker'
 require 'identicon'
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :user do
-    name    { Faker::Internet.user_name }
-    avatar  { Identicon.data_url_for name }
+    name { Faker::Internet.user_name }
+    avatar { File.new("#{Rails.root}/spec/fixtures/files/real-image.png") }
     private { false }
 
     factory :admin do
-      admin true
+      admin { true }
     end
 
     factory :koelkast do
-      koelkast true
-      name "koelkast"
+      koelkast { true }
+      name { "koelkast" }
     end
   end
 end

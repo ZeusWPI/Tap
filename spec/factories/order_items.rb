@@ -8,10 +8,10 @@
 #  count      :integer          default(0)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :order_item do
     order
     association :product, factory: :product
-    count { 1 + rand(5) }
+    count { rand(1..5) }
   end
 end
