@@ -29,16 +29,16 @@ describe BarcodesController, type: :controller do
   describe 'POST create' do
     context 'successful' do
       it 'should create a barcode' do
-        expect{
-          post :create, product_id: @product, barcode: attributes_for(:barcode)
+        expect {
+          post :create, params: { product_id: @product, barcode: attributes_for(:barcode) }
         }.to change{ Barcode.count }.by(1)
       end
     end
 
     context 'failed' do
       it 'should not create a barcode' do
-        expect{
-          post :create, product_id: @product, barcode: attributes_for(:invalid_barcode)
+        expect {
+          post :create, params: { product_id: @product, barcode: attributes_for(:invalid_barcode) }
         }.to_not change{ Barcode.count }
       end
     end
@@ -66,17 +66,17 @@ describe BarcodesController, type: :controller do
     end
 
     it 'should load the correct barcode' do
-      get :show, id: @barcode
+      get :show, params: { id: @barcode }
       expect(assigns(:barcode)).to eq(@barcode)
     end
 
     it 'should allow friendly id' do
-      get :show, id: @barcode.code
+      get :show, params: { id: @barcode.code }
       expect(assigns(:barcode)).to eq(@barcode)
     end
 
     it 'should respond with this barcode' do
-      get :show, id: @barcode
+      get :show, params: { id: @barcode }
       expect(response.body).to eq @barcode.product.to_json
     end
   end

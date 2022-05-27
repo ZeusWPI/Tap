@@ -103,6 +103,8 @@ end
 # Development/Test shared dependencies
 group :development, :test do
   gem 'factory_bot', '~> 6.2'
+  gem 'factory_bot_rails', '~> 6.2'
+  gem 'rails-controller-testing', '~> 1.0'
   gem 'faker', '~> 2.19'
   gem 'tqdm', '~> 0.3.0'
 end

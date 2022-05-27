@@ -9,13 +9,13 @@
 #  updated_at :datetime
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :barcode do
     product
     sequence :code
 
     factory :invalid_barcode do
-      code nil
+      code { nil }
     end
   end
 end
