@@ -97,7 +97,7 @@ group :development do
   gem 'capistrano-passenger', '~> 0.2.1'
 
   # Linting
-  gem 'rubocop', '~> 1.22'
+  gem 'rubocop', '~> 1.30'
 end
 
 # Development/Test shared dependencies
