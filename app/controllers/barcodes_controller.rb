@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: barcodes
@@ -18,22 +20,20 @@ class BarcodesController < ApplicationController
   def index
     @barcodes = Barcode.all.order(:code)
     respond_to do |format|
-      format.json {render json: @barcodes}
-      format.html {}
+      format.json { render json: @barcodes }
+      format.html {} # rubocop:disable Lint/EmptyBlock
     end
   end
 
   # Create a new barcode page
   # GET /barcodes/new
-  def new
-  end
+  def new; end
 
   # Create a new barcode
   # POST /barcodes
   def create
-
     # If the barcode exists, redirect to the product page of that product
-    if Barcode.where(code: @barcode.code).exists?
+    if Barcode.exists?(code: @barcode.code)
       flash[:info] = "Barcode already exists! This product is linked to the given barcode."
       redirect_to edit_product_path(Barcode.where(code: @barcode.code).take.product)
       return
@@ -41,7 +41,7 @@ class BarcodesController < ApplicationController
 
     # This is the first step of the create process
     # The barcode does not have a product yet, so redirect to the link page.
-    if !@barcode.product
+    unless @barcode.product
 
       # List with products and categories
       # If the user chooses to link the barcode to an existing product.
@@ -78,11 +78,10 @@ class BarcodesController < ApplicationController
   def destroy
     if @barcode.destroy
       flash[:success] = "Barcode successfully deleted!"
-      redirect_to barcodes_path
     else
       flash[:error] = "Barcode could not be deleted!"
-      redirect_to barcodes_path
     end
+    redirect_to barcodes_path
   end
 
   private

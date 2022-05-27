@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -20,13 +22,15 @@
 #  quickpay_hidden     :boolean
 #
 
-class User < ActiveRecord::Base
-  include Statistics, Avatarable, FriendlyId
+class User < ApplicationRecord
+  include FriendlyId
+  include Avatarable
+  include Statistics
   friendly_id :name, use: :finders
 
-  devise :omniauthable, :omniauth_providers => [:zeuswpi]
+  devise :omniauthable, omniauth_providers: [:zeuswpi]
 
-  has_many :orders, -> { includes :products }
+  has_many :orders, -> { includes :products }, inverse_of: :user, dependent: :restrict_with_error
   has_many :products, through: :orders
   belongs_to :dagschotel, class_name: "Product", optional: true
 
@@ -36,7 +40,7 @@ class User < ActiveRecord::Base
   def self.from_omniauth(auth)
     where(name: auth.uid).first_or_create do |user|
       user.name = auth.uid
-      user.avatar = Paperclip.io_adapters.for(Identicon.data_url_for auth.uid)
+      user.avatar = Paperclip.io_adapters.for(Identicon.data_url_for(auth.uid))
       user.generate_key!
       user.private = true
     end
@@ -44,47 +48,42 @@ class User < ActiveRecord::Base
 
   def calculate_frecency
     num_orders = Rails.application.config.frecency_num_orders
-    last_datetimes = self.orders.order(created_at: :desc)
-      .limit(num_orders)
-      .distinct
-      .pluck(:created_at)
+    last_datetimes = orders.order(created_at: :desc)
+                           .limit(num_orders)
+                           .distinct
+                           .pluck(:created_at)
 
     # The frequency is determined by the most recent orders
     frequency = (last_datetimes.map(&:to_time).map(&:to_i).sum / (num_orders * 10))
 
     # The higher the user's balance, the higher the ranking.
-    bonus = self.rich_privilege / 1.936
+    bonus = rich_privilege / 1.936
 
     # Calculate the frecency
     self.frecency = frequency * bonus
-    self.save
+    save
   end
 
   # Users with more money rank higher in the list on Koelkast
   def rich_privilege
-    Math.atan(self.balance / 10) + (Math::PI / 2)
+    Math.atan(balance / 10) + (Math::PI / 2)
   end
 
   # Get the users balance
   def balance
-
     # If in development, return a mocked amount
-    if Rails.env.development?
-      return 1234
-    end
+    return 1234 if Rails.env.development?
 
     # If in production, fetch the user's balance from Tab.
     @balance || begin
       headers = {
         "Authorization" => "Token token=#{Rails.application.secrets.tab_api_key}",
-        "Content-type" => "application/json",
+        "Content-type" => "application/json"
       }
       result = HTTParty.get(File.join(Rails.application.config.api_url, "users", "#{name}.json"), headers: headers)
 
-      if result.code == 200
-        JSON.parse(result.body)["balance"]
-      end
-    rescue
+      JSON.parse(result.body)["balance"] if result.code == 200
+    rescue StandardError # rubocop:disable Lint/SuppressedException
     end
   end
 
@@ -108,12 +107,12 @@ class User < ActiveRecord::Base
   end
 
   def generate_key
-    set_key unless self.userkey
+    set_key unless userkey
   end
 
   def generate_key!
     set_key
-    self.save
+    save
   end
 
   private

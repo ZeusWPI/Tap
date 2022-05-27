@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: barcodes
@@ -10,28 +12,26 @@
 #
 
 describe Barcode do
-  before :each do
-    @barcode = create :barcode
-  end
+  let(:barcode) { create :barcode }
 
-  it 'has a valid factory' do
-    expect(@barcode).to be_valid
+  it "has a valid factory" do
+    expect(barcode).to be_valid
   end
 
   ############
   #  FIELDS  #
   ############
 
-  describe 'fields' do
-    describe 'code' do
-      it 'should be present' do
-        @barcode.code = nil
-        expect(@barcode).to_not be_valid
+  describe "fields" do
+    describe "code" do
+      it "is present" do
+        barcode.code = nil
+        expect(barcode).not_to be_valid
       end
 
-      it 'should be unique' do
-        barcode = build :barcode, code: @barcode.code
-        expect(barcode).to_not be_valid
+      it "is unique" do
+        local_barcode = build :barcode, code: barcode.code
+        expect(local_barcode).not_to be_valid
       end
     end
   end

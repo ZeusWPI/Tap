@@ -1,3 +1,7 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
 # Use double-quotes instead of single-quotes
 # Double quotes allow for string interpolation, so we enforce
 # double quotes for consistency.
@@ -5,16 +9,66 @@ Style/StringLiterals:
   EnforcedStyle: double_quotes
 
 # Do not report errors on missing documentation.
-Documentation:
+Style/Documentation:
   Enabled: false
 
 # Do not complain about blocks that are too long.
 Metrics/BlockLength:
   Enabled: false
 
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/ParameterLists:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+# Our tests fail without normal doubles.
+RSpec/VerifiedDoubles:
+  Enabled: false
+
+# We decide how many expectations.
+RSpec/MultipleExpectations:
+  Enabled: false
+
+# We decide how many lines.
+RSpec/ExampleLength:
+  Enabled: false
+
+# We decide how nested our groups get
+RSpec/NestedGroups:
+  Enabled: false
+
+RSpec/ContextWording:
+  Enabled: false
+
 AllCops:
   NewCops: enable
 
-  # Do not lint the database migrations
+  # Do not lint the following
   Exclude:
-    - "db/migrate/*"
+    - "db/schema.rb"
+    - "config/**/*"
+    - "bin/**/*"
+    - "data/**/*"
+    - "lib/**/*"
+    - "log/**/*"
+    - "tmp/**/*"
+    - "db/**/*"
+    - "vendor/**/*"
+    - "node_modules/**/*"
+    - "out/**/*"

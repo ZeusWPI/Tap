@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -20,101 +22,95 @@
 #  quickpay_hidden     :boolean
 #
 
-require 'webmock/rspec'
+require "webmock/rspec"
 
 describe User do
-  before :each do
-    @user = create :user
-  end
+  let(:user) { create :user }
 
-  it 'has a valid factory' do
-    expect(@user).to be_valid
+  it "has a valid factory" do
+    expect(user).to be_valid
   end
 
   ############
   #  FIELDS  #
   ############
 
-  describe 'fields' do
-    describe 'avatar' do
-      it 'should be present' do
-        @user.avatar = nil
-        expect(@user).to_not be_valid
+  describe "fields" do
+    describe "avatar" do
+      it "is present" do
+        user.avatar = nil
+        expect(user).not_to be_valid
       end
     end
 
-    describe 'orders_count' do
-      it 'should automatically cache the number of orders' do
+    describe "orders_count" do
+      it "automaticallies cache the number of orders" do
         balance = 5
         stub_request(:get, /.*/).to_return(status: 200, body: JSON.dump({ balance: balance }))
-        expect{ create :order, user: @user }.to change{ @user.reload.orders_count }.by(1)
+        expect { create :order, user: user }.to change { user.reload.orders_count }.by(1)
       end
     end
 
-    describe 'admin' do
-      it 'should be false by default' do
-        expect(@user.reload.admin).to be false
+    describe "admin" do
+      it "is false by default" do
+        expect(user.reload.admin).to be false
       end
     end
 
-    describe 'balance' do
-      before :all do
-        @api_url = "www.example.com/api.json"
-      end
-
-      it 'should be nil if offline' do
+    describe "balance" do
+      it "is nil if offline" do
         stub_request(:get, /.*/).to_return(status: 404)
-        expect(@user.balance).to be nil
+        expect(user.balance).to be_nil
       end
 
-      it 'should be updated when online' do
+      it "is updated when online" do
         balance = 5
         stub_request(:get, /.*/).to_return(status: 200, body: JSON.dump({ balance: balance }))
-        expect(@user.balance).to eq balance
+        expect(user.balance).to eq balance
       end
     end
   end
 
-  describe 'omniauth' do
-    it 'should be a new user' do
+  describe "omniauth" do
+    it "is a new user" do
       name = "yet-another-test-user"
       omniauth = double(uid: name)
-      expect(User.from_omniauth(omniauth).name).to eq name
+      expect(described_class.from_omniauth(omniauth).name).to eq name
     end
 
-    it 'should be the logged in user' do
+    it "is the logged in user" do
       second_user = create :user
       omniauth = double(uid: second_user.name)
-      expect(User.from_omniauth(omniauth)).to eq second_user
+      expect(described_class.from_omniauth(omniauth)).to eq second_user
     end
   end
 
-  describe 'static users' do
-    describe 'koelkast' do
-      it 'should be false by default' do
-        expect(@user.reload.koelkast).to be false
+  describe "static users" do
+    describe "koelkast" do
+      it "is false by default" do
+        expect(user.reload.koelkast).to be false
       end
 
-      it 'should be true for koelkast' do
-        expect(User.koelkast.koelkast).to be true
+      it "is true for koelkast" do
+        expect(described_class.koelkast.koelkast).to be true
       end
 
-      it 'should not be an admin' do
-        expect(User.koelkast.admin).to be false
+      it "is not an admin" do
+        expect(described_class.koelkast.admin).to be false
       end
     end
 
-    describe 'guest' do
-      it 'should not be an admin' do
-        expect(User.guest.admin).to be false
+    describe "guest" do
+      it "is not an admin" do
+        expect(described_class.guest.admin).to be false
       end
 
-      it 'should be public' do
-        expect(User.guest.private).to be false
+      it "is public" do
+        expect(described_class.guest.private).to be false
       end
 
-      it 'should be a guest' do
-        expect(User.guest.guest?).to be true
+      it "is a guest" do
+        expect(described_class.guest.guest?).to be true
       end
     end
   end
@@ -123,31 +119,30 @@ describe User do
   #  SCOPES  #
   ############
 
-  describe 'scopes' do
-    it 'members should return members' do
+  describe "scopes" do
+    it "members should return members" do
       create :koelkast
-      user = create :user
-      expect(User.members).to eq([@user, user])
+      local_user = create :user
+      expect(described_class.members).to eq([local_user, user])
     end
 
-    it 'publik should return publik members' do
-      user = create :user
+    it "publik should return publik members" do
+      local_user = create :user
       create :user, private: true
-      expect(User.publik).to eq([@user, user])
+      expect(described_class.publik).to eq([local_user, user])
     end
   end
 
-  describe 'frecency' do
-    before :each do
+  describe "frecency" do
+    before do
       balance = 5
       stub_request(:get, /.*/).to_return(status: 200, body: JSON.dump({ balance: balance }))
     end
 
-    it 'should be recalculated on creating an order' do
-
-      expect(@user.frecency).to eq 0
-      create :order, user: @user
-      expect(@user.frecency).to_not eq 0
+    it "is recalculated on creating an order" do
+      expect(user.frecency).to eq 0
+      create :order, user: user
+      expect(user.frecency).not_to eq 0
     end
 
     # TODO: add a test to check if the frecency is correct. Note that

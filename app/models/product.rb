@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: products
@@ -17,16 +19,16 @@
 #  deleted             :boolean          default(FALSE)
 #
 
-class Product < ActiveRecord::Base
+class Product < ApplicationRecord
   include Avatarable
 
-  has_many :order_items
+  has_many :order_items, dependent: :restrict_with_error
   has_many :barcodes, dependent: :destroy
   accepts_nested_attributes_for :barcodes, allow_destroy: true
 
-  enum category: %w(food beverages other)
+  enum category: { "food" => 0, "beverages" => 1, "other" => 2 }
 
-  validates :name,        presence: true, uniqueness: true
+  validates :name,        presence: true, uniqueness: true # rubocop:disable Rails/UniqueValidationWithoutIndex
   validates :price_cents, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :stock,       presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :calories,    numericality: { only_integer: true, allow_nil: true, greater_than_or_equal_to: 0 }
@@ -36,13 +38,13 @@ class Product < ActiveRecord::Base
   # Get price in euros
   # based on the value in cents.
   def price
-    self.price_cents / 100.0
+    price_cents / 100.0
   end
 
   # Set the price in euros.
   # Will set the price in cents.
   def price=(value)
-    if value.is_a? String then value.sub!(',', '.') end
+    value.sub!(",", ".") if value.is_a? String
     self.price_cents = (value.to_f * 100).to_int
   end
 end

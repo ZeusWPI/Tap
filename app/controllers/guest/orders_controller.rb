@@ -1,9 +1,13 @@
-class Guest::OrdersController < OrdersController
-  before_action :load_guest
+# frozen_string_literal: true
 
-  private
+module Guest
+  class OrdersController < OrdersController
+    before_action :load_guest
 
-  def load_guest
-    @user = User.guest
+    private
+
+    def load_guest
+      @user = User.guest
+    end
   end
 end

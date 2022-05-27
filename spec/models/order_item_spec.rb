@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: order_items
@@ -9,11 +11,11 @@
 #
 
 describe OrderItem do
-  before(:each) do
-      stub_request(:get, /.*/).to_return(status: 200, body: JSON.dump({ balance: 20 }))
+  before do
+    stub_request(:get, /.*/).to_return(status: 200, body: JSON.dump({ balance: 20 }))
   end
 
-  it 'has a valid factory' do
+  it "has a valid factory" do
     order_item = create :order_item
     expect(order_item).to be_valid
   end
@@ -22,27 +24,25 @@ describe OrderItem do
   #  FIELDS  #
   ############
 
-  describe 'fields' do
-    before :each do
-      @order_item = create :order_item
-    end
+  describe "fields" do
+    let(:order_item) { create :order_item }
 
-    describe 'product' do
-      it 'should be present' do
-        @order_item.product = nil
-        expect(@order_item).to_not be_valid
+    describe "product" do
+      it "is present" do
+        order_item.product = nil
+        expect(order_item).not_to be_valid
       end
     end
 
-    describe 'count' do
-      it 'should be present' do
-        @order_item.count = nil
-        expect(@order_item).to_not be_valid
+    describe "count" do
+      it "is present" do
+        order_item.count = nil
+        expect(order_item).not_to be_valid
       end
 
-      it 'should be positive' do
-        @order_item.count = -5
-        expect(@order_item).to_not be_valid
+      it "is positive" do
+        order_item.count = -5
+        expect(order_item).not_to be_valid
       end
 
       # Stock is not up to date
@@ -59,20 +59,18 @@ describe OrderItem do
   #  CALLBACKS  #
   ###############
 
-  describe 'stock change' do
-    before :each do
-      @product = create :product
-      @count = rand 10
-      @order_item = build :order_item, product: @product, count: @count
+  describe "stock change" do
+    let(:product) { create :product }
+    let(:count) { rand 10 }
+    let(:order_item) { build :order_item, product: product, count: count }
+
+    it "decrements on create" do
+      expect { order_item.save }.to change(product, :stock).by(-count)
     end
 
-    it 'should decrement on create' do
-      expect{ @order_item.save }.to change{ @product.stock }.by(-@count)
-    end
-
-    it 'should increment on destroy' do
-      @order_item.save
-      expect{ @order_item.destroy }.to change{ @product.stock }.by(@count)
+    it "increments on destroy" do
+      order_item.save
+      expect { order_item.destroy }.to change(product, :stock).by(count)
     end
   end
 end

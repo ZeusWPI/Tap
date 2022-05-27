@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: barcodes
@@ -9,11 +11,11 @@
 #  updated_at :datetime
 #
 
-class Barcode < ActiveRecord::Base
+class Barcode < ApplicationRecord
   include FriendlyId
   friendly_id :code, use: :finders
 
   belongs_to :product
 
-  validates :code,    presence: true, uniqueness: true
+  validates :code, presence: true, uniqueness: true # rubocop:disable Rails/UniqueValidationWithoutIndex
 end

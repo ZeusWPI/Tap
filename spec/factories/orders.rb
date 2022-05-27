@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: orders
@@ -10,7 +12,7 @@
 #  transaction_id :integer
 #
 
-require 'faker'
+require "faker"
 
 FactoryBot.define do
   factory :order do

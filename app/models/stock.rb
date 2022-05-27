@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 class Stock
   include ActiveModel::Model
   include ActiveModel::Validations
 
   def stock_entries
-    @stockentries ||= []
+    @stock_entries ||= []
   end
 
   def stock_entries_attributes=(attributes)
-    attributes.each do |i, se_attr|
+    attributes.each do |_i, se_attr|
       stock_entries.push(StockEntry.new(se_attr))
     end
   end
@@ -16,7 +18,7 @@ class Stock
     return false unless valid?
 
     stock_entries.each do |se|
-      se.product.increment!(:stock, se.count.to_i) if se.count.to_i > 0
+      se.product.increment!(:stock, se.count.to_i) if se.count.to_i.positive? # rubocop:disable Rails/SkipsModelValidations
     end
   end
 
@@ -31,7 +33,7 @@ class Stock
     validates :count, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
     validates :product, presence: true
 
-    def initialize(attributes={})
+    def initialize(attributes = {})
       super
       @count ||= 0
     end
