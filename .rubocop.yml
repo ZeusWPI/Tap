@@ -1,3 +1,7 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
 # Use double-quotes instead of single-quotes
 # Double quotes allow for string interpolation, so we enforce
 # double quotes for consistency.

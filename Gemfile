@@ -98,6 +98,8 @@ group :development do
 
   # Linting
   gem 'rubocop', '~> 1.30'
+  gem 'rubocop-rails', '~> 2.14'
+  gem 'rubocop-rspec', '~> 2.11'
 end
 
 # Development/Test shared dependencies
