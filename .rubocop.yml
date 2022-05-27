@@ -5,7 +5,7 @@ Style/StringLiterals:
   EnforcedStyle: double_quotes
 
 # Do not report errors on missing documentation.
-Documentation:
+Style/Documentation:
   Enabled: false
 
 # Do not complain about blocks that are too long.
@@ -15,6 +15,15 @@ Metrics/BlockLength:
 AllCops:
   NewCops: enable
 
-  # Do not lint the database migrations
+  # Do not lint the following
   Exclude:
-    - "db/migrate/*"
+    - "db/schema.rb"
+    - "config/**/*"
+    - "bin/**/*"
+    - "data/**/*"
+    - "lib/**/*"
+    - "log/**/*"
+    - "tmp/**/*"
+    - "db/**/*"
+    - "vendor/**/*"
+    - "node_modules/**/"
