@@ -9,11 +9,11 @@
 #
 
 describe OrderItem do
-  before(:each) do
-      stub_request(:get, /.*/).to_return(status: 200, body: JSON.dump({ balance: 20 }))
+  before do
+    stub_request(:get, /.*/).to_return(status: 200, body: JSON.dump({ balance: 20 }))
   end
 
-  it 'has a valid factory' do
+  it "has a valid factory" do
     order_item = create :order_item
     expect(order_item).to be_valid
   end
@@ -22,27 +22,27 @@ describe OrderItem do
   #  FIELDS  #
   ############
 
-  describe 'fields' do
-    before :each do
+  describe "fields" do
+    before do
       @order_item = create :order_item
     end
 
-    describe 'product' do
-      it 'should be present' do
+    describe "product" do
+      it "is present" do
         @order_item.product = nil
-        expect(@order_item).to_not be_valid
+        expect(@order_item).not_to be_valid
       end
     end
 
-    describe 'count' do
-      it 'should be present' do
+    describe "count" do
+      it "is present" do
         @order_item.count = nil
-        expect(@order_item).to_not be_valid
+        expect(@order_item).not_to be_valid
       end
 
-      it 'should be positive' do
+      it "is positive" do
         @order_item.count = -5
-        expect(@order_item).to_not be_valid
+        expect(@order_item).not_to be_valid
       end
 
       # Stock is not up to date
@@ -59,20 +59,20 @@ describe OrderItem do
   #  CALLBACKS  #
   ###############
 
-  describe 'stock change' do
-    before :each do
+  describe "stock change" do
+    before do
       @product = create :product
       @count = rand 10
       @order_item = build :order_item, product: @product, count: @count
     end
 
-    it 'should decrement on create' do
-      expect{ @order_item.save }.to change{ @product.stock }.by(-@count)
+    it "decrements on create" do
+      expect { @order_item.save }.to change { @product.stock }.by(-@count)
     end
 
-    it 'should increment on destroy' do
+    it "increments on destroy" do
       @order_item.save
-      expect{ @order_item.destroy }.to change{ @product.stock }.by(@count)
+      expect { @order_item.destroy }.to change { @product.stock }.by(@count)
     end
   end
 end

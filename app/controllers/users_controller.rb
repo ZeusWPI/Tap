@@ -33,7 +33,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.json { render json: @user }
-      format.html { }
+      format.html {}
     end
   end
 
@@ -43,26 +43,24 @@ class UsersController < ApplicationController
     if user_params.empty?
       flash[:info] = "Nothing happened!"
       redirect_to @user
+    elsif @user.update!(user_params)
+      respond_to do |format|
+        format.html do
+          flash[:success] = "Successfully updated!"
+          redirect_to @user
+        end
+        format.js { head :ok }
+        format.json { render json: @user }
+      end
     else
-      if @user.update!(user_params)
-        respond_to do |format|
-          format.html do
-            flash[:success] = "Successfully updated!"
-            redirect_to @user
-          end
-          format.js { head :ok }
-          format.json { render json: @user }
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Update failed!"
+          @user.reload
+          render "show"
         end
-      else
-        respond_to do |format|
-          format.html do
-            flash[:error] = "Update failed!"
-            @user.reload
-            render "show"
-          end
-          format.js { head :bad_request }
-          format.json { "Update failed!" }
-        end
+        format.js { head :bad_request }
+        format.json { "Update failed!" }
       end
     end
   end

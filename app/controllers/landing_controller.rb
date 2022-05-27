@@ -4,8 +4,7 @@ class LandingController < ApplicationController
 
   # Landing page
   # GET / (when logged out)
-  def index
-  end
+  def index; end
 
   def token_sign_in
     if user_signed_in? || params[:token] != Rails.application.secrets.koelkast_token

@@ -29,7 +29,7 @@
 #
 
 describe UsersController, type: :controller do
-  before :each do
+  before do
     @user = create :user
     sign_in @user
   end
@@ -38,20 +38,20 @@ describe UsersController, type: :controller do
   #  SHOW  #
   ##########
 
-  describe 'GET show' do
-    before :each do
+  describe "GET show" do
+    before do
       get :show, params: { id: @user }
     end
 
-    it 'should be successful' do
-      expect(response).to have_http_status(200)
+    it "is successful" do
+      expect(response).to have_http_status(:ok)
     end
 
-    it 'should render the user' do
+    it "renders the user" do
       expect(response).to render_template(:show)
     end
 
-    it 'should load the correct user' do
+    it "loads the correct user" do
       expect(assigns(:user)).to eq(@user)
     end
   end
@@ -60,45 +60,45 @@ describe UsersController, type: :controller do
   #  UPDATE  #
   ############
 
-  describe 'PUT update' do
-    it 'should load the correct user' do
+  describe "PUT update" do
+    it "loads the correct user" do
       put :update, params: { id: @user, user: attributes_for(:user).except(:avatar) }
       expect(assigns(:user)).to eq(@user)
     end
 
-    context 'successful' do
-      it 'should update privacy' do
-        new_private = !(@user.private)
+    context "successful" do
+      it "updates privacy" do
+        new_private = !@user.private
         put :update, params: { id: @user, user: { private: new_private } }
         expect(@user.reload.private).to be new_private
         expect(flash[:success]).to be_present
       end
 
-      it 'should update dagschotel' do
+      it "updates dagschotel" do
         product = create :product
-        put :update, params: { id: @user, user: { dagschotel_id:  product.id } }
+        put :update, params: { id: @user, user: { dagschotel_id: product.id } }
         expect(@user.reload.dagschotel).to eq(product)
       end
 
-      it 'should accept real images' do
-        file = fixture_file_upload('real-image.png', 'image/png')
+      it "accepts real images" do
+        file = fixture_file_upload("real-image.png", "image/png")
         put :update, params: { id: @user, user: { avatar: file } }
         expect(flash[:success]).to be_present
       end
     end
 
-    context 'danger zone' do
-      it 'should error for NOPs' do
-        expect {
+    context "danger zone" do
+      it "errors for NOPs" do
+        expect do
           put :update, params: { id: @user, user: {} }
-        }.to raise_error(ActionController::ParameterMissing)
+        end.to raise_error(ActionController::ParameterMissing)
       end
 
-      it 'should not accept unreal images' do
-        file = fixture_file_upload('unreal-image.svg', 'image/svg+xml')
-        expect {
+      it "does not accept unreal images" do
+        file = fixture_file_upload("unreal-image.svg", "image/svg+xml")
+        expect do
           put :update, params: { id: @user, user: { avatar: file } }
-        }.to raise_error(ActiveRecord::RecordInvalid)
+        end.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
   end
@@ -107,12 +107,12 @@ describe UsersController, type: :controller do
   #  EDIT_DAGSCHOTEL  #
   #####################
 
-  describe 'GET edit_dagschotel' do
-    it 'should be successful' do
-      expect(response).to have_http_status(200)
+  describe "GET edit_dagschotel" do
+    it "is successful" do
+      expect(response).to have_http_status(:ok)
     end
 
-    it 'should render the page' do
+    it "renders the page" do
       get :edit_dagschotel, params: { id: @user }
       expect(response).to render_template(:edit_dagschotel)
     end
@@ -122,40 +122,40 @@ describe UsersController, type: :controller do
   #  QUICKPAY  #
   ##############
 
-  describe 'GET quickpay' do
-    describe 'successful' do
-      before :each do
-        balance = 12345
+  describe "GET quickpay" do
+    describe "successful" do
+      before do
+        balance = 12_345
         stub_request(:get, /.*/).to_return(status: 200, body: JSON.dump({ balance: balance }))
         @dagschotel = create :product, stock: 20
         @user.update_attribute(:dagschotel, @dagschotel)
       end
 
-      it 'should be successful' do
-        expect(response).to have_http_status(200)
+      it "is successful" do
+        expect(response).to have_http_status(:ok)
       end
 
-      it 'should make an order' do
-        expect{
+      it "makes an order" do
+        expect do
           get :order_dagschotel, params: { id: @user }
-        }.to change{ @user.reload.orders_count }.by(1)
+        end.to change { @user.reload.orders_count }.by(1)
       end
 
-      describe 'order' do
-        before :each do
+      describe "order" do
+        before do
           get :order_dagschotel, params: { id: @user }
           @order = @user.orders.last
         end
 
-        it 'should contain 1 orderitem' do
+        it "contains 1 orderitem" do
           expect(@order.order_items.size).to eq 1
         end
 
-        it 'should have an orderitem with count 1' do
+        it "has an orderitem with count 1" do
           expect(@order.order_items.first.count).to eq 1
         end
 
-        it 'should contain an orderitem for @dagschotel' do
+        it "contains an orderitem for @dagschotel" do
           expect(@order.order_items.first.product).to eq @dagschotel
         end
       end

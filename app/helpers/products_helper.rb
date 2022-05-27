@@ -18,7 +18,6 @@
 #
 
 module ProductsHelper
-
   # Convert calories to kilocalories
   def kcal(calories)
     calories.to_s + " kcal"

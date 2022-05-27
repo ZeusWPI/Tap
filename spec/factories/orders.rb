@@ -10,7 +10,7 @@
 #  transaction_id :integer
 #
 
-require 'faker'
+require "faker"
 
 FactoryBot.define do
   factory :order do

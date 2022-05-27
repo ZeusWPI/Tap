@@ -7,7 +7,7 @@ class Stock
   end
 
   def stock_entries_attributes=(attributes)
-    attributes.each do |i, se_attr|
+    attributes.each do |_i, se_attr|
       stock_entries.push(StockEntry.new(se_attr))
     end
   end
@@ -31,7 +31,7 @@ class Stock
     validates :count, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
     validates :product, presence: true
 
-    def initialize(attributes={})
+    def initialize(attributes = {})
       super
       @count ||= 0
     end

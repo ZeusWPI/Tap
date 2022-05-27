@@ -35,18 +35,15 @@ class ProductsController < ApplicationController
 
   # Create a new product page
   # GET /products/new
-  def new
-  end
+  def new; end
 
   # Edit an existing product page
   # GET /products/edit/{id}
-  def edit
-  end
+  def edit; end
 
   # Create a new product
   # POST /products
   def create
-
     # If the product was saved successfully
     # Otherwise, render the new page again, which will show the errors
     if @product.save
@@ -60,7 +57,6 @@ class ProductsController < ApplicationController
   # Update an existing product
   # POST /products/{id}
   def update
-
     # If the product was updated successfully
     # Otherwise, render the edit page again, which will show the errors
     if @product.update!(product_params)
@@ -74,6 +70,7 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:name, :price, :avatar, :category, :stock, :calories, :deleted, :barcode, barcodes_attributes: [:id, :code, :_destroy])
+    params.require(:product).permit(:name, :price, :avatar, :category, :stock, :calories, :deleted, :barcode,
+                                    barcodes_attributes: %i[id code _destroy])
   end
 end

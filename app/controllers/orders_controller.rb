@@ -15,8 +15,8 @@ class OrdersController < ApplicationController
   include OrderSessionHelper
 
   load_and_authorize_resource :user, find_by: :name
-  load_and_authorize_resource :order, through: :user, shallow: true, only: [:overview, :destroy]
-  load_and_authorize_resource :order, through: :user, only: [:new, :create]
+  load_and_authorize_resource :order, through: :user, shallow: true, only: %i[overview destroy]
+  load_and_authorize_resource :order, through: :user, only: %i[new create]
 
   # Create a new order page
   # GET /users/{username}/orders/new
@@ -119,7 +119,8 @@ class OrdersController < ApplicationController
           # Redirect back to the root
           redirect_to root_path
         else
-          flash[:error] = @order.valid? ? "Something went wrong! Please try again." : @order.errors.full_messages.join(". ")
+          flash[:error] =
+            @order.valid? ? "Something went wrong! Please try again." : @order.errors.full_messages.join(". ")
           redirect_to new_user_order_path(@user)
         end
       end
@@ -150,6 +151,6 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(order_items_attributes: [:count, :price, :product_id])
+    params.require(:order).permit(order_items_attributes: %i[count price product_id])
   end
 end

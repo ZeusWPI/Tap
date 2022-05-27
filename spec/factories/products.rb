@@ -17,15 +17,15 @@
 #  deleted             :boolean          default(FALSE)
 #
 
-require 'faker'
-require 'identicon'
+require "faker"
+require "identicon"
 
 FactoryBot.define do
   factory :product do
     name        { Faker::Name.name }
-    price_cents { 1 + rand(120) }
+    price_cents { rand(1..120) }
     price       { price_cents / 100.0 }
-    stock       { 30 + rand(30) }
+    stock       { rand(30..59) }
     calories    { rand 20 }
     avatar      { Identicon.data_url_for name }
 

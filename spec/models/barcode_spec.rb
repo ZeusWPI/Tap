@@ -10,11 +10,11 @@
 #
 
 describe Barcode do
-  before :each do
+  before do
     @barcode = create :barcode
   end
 
-  it 'has a valid factory' do
+  it "has a valid factory" do
     expect(@barcode).to be_valid
   end
 
@@ -22,16 +22,16 @@ describe Barcode do
   #  FIELDS  #
   ############
 
-  describe 'fields' do
-    describe 'code' do
-      it 'should be present' do
+  describe "fields" do
+    describe "code" do
+      it "is present" do
         @barcode.code = nil
-        expect(@barcode).to_not be_valid
+        expect(@barcode).not_to be_valid
       end
 
-      it 'should be unique' do
+      it "is unique" do
         barcode = build :barcode, code: @barcode.code
-        expect(barcode).to_not be_valid
+        expect(barcode).not_to be_valid
       end
     end
   end

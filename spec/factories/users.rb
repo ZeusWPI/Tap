@@ -20,8 +20,8 @@
 #  quickpay_hidden     :boolean
 #
 
-require 'faker'
-require 'identicon'
+require "faker"
+require "identicon"
 
 FactoryBot.define do
   factory :user do

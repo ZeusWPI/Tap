@@ -27,7 +27,7 @@
 #
 
 describe ProductsController, type: :controller do
-  before :each do
+  before do
     @admin = create :admin
     sign_in @admin
   end
@@ -36,28 +36,28 @@ describe ProductsController, type: :controller do
   #  CREATE  #
   ############
 
-  describe 'POST create' do
-    context 'successful' do
-      it 'should create a product' do
-        expect{
+  describe "POST create" do
+    context "successful" do
+      it "creates a product" do
+        expect do
           post :create, params: { product: attributes_for(:product) }
-        }.to change{ Product.count }.by(1)
+        end.to change { Product.count }.by(1)
       end
 
-      it 'should redirect to barcode page' do
+      it "redirects to barcode page" do
         post :create, params: { product: attributes_for(:product) }
         expect(response).to redirect_to action: :index
       end
     end
 
-    context 'failed' do
-      it 'should not create a product' do
-        expect{
+    context "failed" do
+      it "does not create a product" do
+        expect do
           post :create, params: { product: attributes_for(:invalid_product) }
-        }.to_not change{ Product.count}
+        end.not_to change { Product.count }
       end
 
-      it 'should render form' do
+      it "renders form" do
         post :create, params: { product: attributes_for(:invalid_product) }
         expect(response).to render_template("products/new")
       end
@@ -68,11 +68,11 @@ describe ProductsController, type: :controller do
   #  INDEX  #
   ###########
 
-  describe 'GET index' do
-    it 'should load all the products' do
+  describe "GET index" do
+    it "loads all the products" do
       product = create :product
       get :index
-      expect(assigns :products).to eq([product])
+      expect(assigns(:products)).to eq([product])
     end
   end
 
@@ -80,22 +80,22 @@ describe ProductsController, type: :controller do
   #  EDIT  #
   ##########
 
-  describe 'GET edit' do
-    before :each do
+  describe "GET edit" do
+    before do
       @product = create :product
       get :edit, params: { id: @product }
     end
 
-    it 'should be successful' do
-      expect(response).to have_http_status(200)
+    it "is successful" do
+      expect(response).to have_http_status(:ok)
     end
 
-    it 'should render the correct form' do
+    it "renders the correct form" do
       expect(response).to render_template(:edit)
     end
 
-    it 'should load the correct product' do
-      expect(assigns :product).to eq(@product)
+    it "loads the correct product" do
+      expect(assigns(:product)).to eq(@product)
     end
   end
 
@@ -103,29 +103,29 @@ describe ProductsController, type: :controller do
   #  UPDATE  #
   ############
 
-  describe 'PUT update' do
-    before :each do
+  describe "PUT update" do
+    before do
       @product = create :product
     end
 
-    it 'loads right product' do
+    it "loads right product" do
       put :update, params: { id: @product, product: attributes_for(:product) }
-      expect(assigns :product).to eq(@product)
+      expect(assigns(:product)).to eq(@product)
     end
 
-    context 'successful' do
-      it 'should update attributes' do
+    context "successful" do
+      it "updates attributes" do
         put :update, params: { id: @product, product: { name: "new_product_name" } }
         expect(@product.reload.name).to eq("new_product_name")
       end
     end
 
-    context 'failed' do
-      it 'should not update attributes' do
+    context "failed" do
+      it "does not update attributes" do
         old_price = @product.price
-        expect {
+        expect do
           put :update, params: { id: @product, product: attributes_for(:invalid_product) }
-        }.to raise_error(ActiveRecord::RecordInvalid)
+        end.to raise_error(ActiveRecord::RecordInvalid)
         expect(@product.reload.price).to eq(old_price)
       end
     end
@@ -135,9 +135,9 @@ describe ProductsController, type: :controller do
   #  BARCODE  #
   #############
 
-  describe 'GET barcode' do
-    it 'should be successful' do
-      expect(response).to have_http_status(200)
+  describe "GET barcode" do
+    it "is successful" do
+      expect(response).to have_http_status(:ok)
     end
   end
 end

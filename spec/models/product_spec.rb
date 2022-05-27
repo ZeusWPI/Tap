@@ -18,11 +18,11 @@
 #
 
 describe Product do
-  before :each do
+  before do
     @product = create :product
   end
 
-  it 'has a valid factory' do
+  it "has a valid factory" do
     expect(@product).to be_valid
   end
 
@@ -30,82 +30,82 @@ describe Product do
   #  FIELDS  #
   ############
 
-  describe 'fields' do
-    describe 'name' do
-      it 'should be present' do
+  describe "fields" do
+    describe "name" do
+      it "is present" do
         @product.name = nil
-        expect(@product).to_not be_valid
+        expect(@product).not_to be_valid
       end
 
-      it 'shold be unique' do
-        expect(build :product, name: @product.name).to_not be_valid
+      it "shold be unique" do
+        expect(build(:product, name: @product.name)).not_to be_valid
       end
     end
 
-    describe 'price_cents' do
-      it 'should be present' do
+    describe "price_cents" do
+      it "is present" do
         @product.price_cents = nil
-        expect(@product).to_not be_valid
+        expect(@product).not_to be_valid
       end
 
-      it 'should be a number' do
+      it "is a number" do
         @product.price_cents = "123abc"
-        expect(@product).to_not be_valid
+        expect(@product).not_to be_valid
       end
 
-      it 'should be strict positive' do
+      it "is strict positive" do
         @product.price = -5
-        expect(@product).to_not be_valid
+        expect(@product).not_to be_valid
         @product.price = 0
-        expect(@product).to_not be_valid
+        expect(@product).not_to be_valid
       end
     end
 
-    describe 'stock' do
-      it 'should be present' do
+    describe "stock" do
+      it "is present" do
         @product.stock = nil
-        expect(@product).to_not be_valid
+        expect(@product).not_to be_valid
       end
 
-      it 'should be a number' do
+      it "is a number" do
         @product.stock = "123abc"
-        expect(@product).to_not be_valid
+        expect(@product).not_to be_valid
       end
 
-      it 'should be positive' do
+      it "is positive" do
         @product.stock = -5
-        expect(@product).to_not be_valid
+        expect(@product).not_to be_valid
         @product.stock = 0
         expect(@product).to be_valid
       end
     end
 
-    describe 'calories' do
-      it 'does not have to be present' do
+    describe "calories" do
+      it "does not have to be present" do
         @product.calories = nil
         expect(@product).to be_valid
       end
 
-      it 'should be a number' do
+      it "is a number" do
         @product.calories = "123abc"
-        expect(@product).to_not be_valid
+        expect(@product).not_to be_valid
       end
 
-      it 'should be positive' do
+      it "is positive" do
         @product.calories = -5
-        expect(@product).to_not be_valid
+        expect(@product).not_to be_valid
       end
     end
 
-    describe 'avatar' do
-      it 'should be present' do
+    describe "avatar" do
+      it "is present" do
         @product.avatar = nil
-        expect(@product).to_not be_valid
+        expect(@product).not_to be_valid
       end
     end
 
-    describe 'deleted' do
-      it 'should default false' do
+    describe "deleted" do
+      it "defaults false" do
         expect(@product.deleted).to be false
       end
     end
@@ -115,12 +115,12 @@ describe Product do
   #  METHODS  #
   #############
 
-  describe 'price' do
-    it 'should read the correct value' do
+  describe "price" do
+    it "reads the correct value" do
       expect(@product.price).to eq(@product.price_cents / 100.0)
     end
 
-    it 'should write the correct value' do
+    it "writes the correct value" do
       @product.price = 1.5
       @product.save
       expect(@product.reload.price_cents).to eq(150)
@@ -131,8 +131,8 @@ describe Product do
   #  SCOPES  #
   ############
 
-  describe 'for sale' do
-    it 'should return non-deleted products' do
+  describe "for sale" do
+    it "returns non-deleted products" do
       product = create :product
       product.update_attribute(:deleted, true)
       expect(Product.for_sale).to eq([@product])

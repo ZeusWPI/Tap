@@ -11,14 +11,15 @@
 #
 
 class Order < ActiveRecord::Base
-  include ActionView::Helpers::TextHelper, ApplicationHelper
+  include ApplicationHelper
+  include ActionView::Helpers::TextHelper
 
   belongs_to :user, counter_cache: true
   has_many :order_items, dependent: :destroy
   has_many :products, through: :order_items
 
   before_validation :calculate_price
-  before_save { |o| o.order_items = o.order_items.reject{ |oi| oi.count == 0 } }
+  before_save { |o| o.order_items = o.order_items.reject { |oi| oi.count == 0 } }
   after_create :create_api_job, unless: -> { user.guest? }
 
   after_create :update_user_frecency
@@ -31,39 +32,40 @@ class Order < ActiveRecord::Base
   accepts_nested_attributes_for :order_items
 
   def to_sentence
-    self.order_items.map {
-      |oi| pluralize(oi.count, oi.product.name)
-    }.to_sentence
+    order_items.map do |oi|
+      pluralize(oi.count, oi.product.name)
+    end.to_sentence
   end
 
   def deletable
-    self.created_at > Rails.application.config.call_api_after.ago
+    created_at > Rails.application.config.call_api_after.ago
   end
 
   def sec_until_remove
-    self.created_at.to_i - (Time.now - Rails.application.config.call_api_after).to_i
+    created_at.to_i - (Time.now - Rails.application.config.call_api_after).to_i
   end
 
   def calculate_price
-    self.price_cents = self.order_items.map{ |oi| oi.count * (oi.product.try(:price_cents) || 0) }.sum
+    self.price_cents = order_items.map { |oi| oi.count * (oi.product.try(:price_cents) || 0) }.sum
   end
 
   private
-    def create_api_job
-      return if Rails.env.test?
 
-      priority = 0
-      run_at   = Rails.application.config.call_api_after.from_now
-      job      = TabApiJob.new(id)
+  def create_api_job
+    return if Rails.env.test?
 
-      Delayed::Job.enqueue job, priority: priority, run_at: run_at
-    end
+    priority = 0
+    run_at   = Rails.application.config.call_api_after.from_now
+    job      = TabApiJob.new(id)
 
-    def product_presence
-      errors.add(:base, "You have to order at least one product.") if order_items.map(&:count).sum.zero?
-    end
+    Delayed::Job.enqueue job, priority: priority, run_at: run_at
+  end
 
-    def update_user_frecency
-      self.user.calculate_frecency
-    end
+  def product_presence
+    errors.add(:base, "You have to order at least one product.") if order_items.map(&:count).sum.zero?
+  end
+
+  def update_user_frecency
+    user.calculate_frecency
+  end
 end

@@ -7,7 +7,7 @@ module ApplicationHelper
       success: "is-success",
       error: "is-danger",
       alert: "is-warning",
-      info: "is-info",
+      info: "is-info"
     }
 
     types[flash_type.to_sym] || "is-info"
@@ -25,9 +25,11 @@ module ApplicationHelper
     user_color = get_user_color(user).gsub("#", "")
 
     # Get the hex color as red, green, blue
-    r, g, b = user_color[0..1].hex, user_color[2..3].hex, user_color[4..5].hex
+    r = user_color[0..1].hex
+    g = user_color[2..3].hex
+    b = user_color[4..5].hex
 
-    if (r * 0.299 + g * 0.587 + b * 0.114) > 186
+    if ((r * 0.299) + (g * 0.587) + (b * 0.114)) > 186
       "#4a4a4a"
     else
       "#ffffff"

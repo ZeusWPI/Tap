@@ -18,20 +18,18 @@ class BarcodesController < ApplicationController
   def index
     @barcodes = Barcode.all.order(:code)
     respond_to do |format|
-      format.json {render json: @barcodes}
+      format.json { render json: @barcodes }
       format.html {}
     end
   end
 
   # Create a new barcode page
   # GET /barcodes/new
-  def new
-  end
+  def new; end
 
   # Create a new barcode
   # POST /barcodes
   def create
-
     # If the barcode exists, redirect to the product page of that product
     if Barcode.where(code: @barcode.code).exists?
       flash[:info] = "Barcode already exists! This product is linked to the given barcode."
@@ -41,7 +39,7 @@ class BarcodesController < ApplicationController
 
     # This is the first step of the create process
     # The barcode does not have a product yet, so redirect to the link page.
-    if !@barcode.product
+    unless @barcode.product
 
       # List with products and categories
       # If the user chooses to link the barcode to an existing product.

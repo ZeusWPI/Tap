@@ -4,10 +4,10 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
   include ActionView::Helpers::NumberHelper
 
   # Field types to override with the custom form field
-  FIELD_TYPES = [
-    "text_field",
-    "number_field",
-    "password_field",
+  FIELD_TYPES = %w[
+    text_field
+    number_field
+    password_field
   ]
 
   # Initialize the form builder
@@ -50,10 +50,10 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
           content = control
 
           # Add the label if "skip_label" option is false
-          content += label if !options[:skip_label]
+          content += label unless options[:skip_label]
 
           # Add the filename if "skip_name" option is false
-          content += name if !options[:skip_name]
+          content += name unless options[:skip_name]
 
           content
         end
@@ -71,21 +71,15 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   # (override) Custom checkbox
-  def check_box(attribute, options = {}, checked_value = "1", unchecked_value = "0", &block)
+  def check_box(attribute, options = {}, checked_value = "1", unchecked_value = "0")
     # Make sure the data option is set
-    if !options[:data]
-      options[:data] = {}
-    end
+    options[:data] = {} unless options[:data]
 
     # Add "switch" to the data when the option is present
-    if options[:switch]
-      options[:data][:switch] = options[:switch]
-    end
+    options[:data][:switch] = options[:switch] if options[:switch]
 
     # Add "submit" to the data when the option is present
-    if options[:submit]
-      options[:data][:submit] = options[:submit]
-    end
+    options[:data][:submit] = options[:submit] if options[:submit]
 
     # Default control
     control = super(attribute, options, checked_value, unchecked_value)
@@ -110,7 +104,6 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
   # (new) Custom price field
   # Wrapper around a number_field with steps in floats instead of in integers.
   def price_field(attribute, options = {})
-
     # Minimum value and step size
     options[:min] ||= 0
     options[:step] ||= 0.01
@@ -128,22 +121,20 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
 
     # If the "justify" option is provided, use it as the class.
     # If not provided, justify to the end.
-    if options[:justify]
-      css_class += " is-justify-content-#{options[:justify]}"
-    else
-      css_class += " is-justify-content-flex-end"
-    end
+    css_class += if options[:justify]
+                   " is-justify-content-#{options[:justify]}"
+                 else
+                   " is-justify-content-flex-end"
+                 end
 
     field_tag(nil, options) do
       control_tag(nil, options) do
         content_tag(:div, class: css_class) do
           # Add "Please wait..." to the button while the form is submitting
           # Only add the option if not already provided.
-          if !options[:data]
+          unless options[:data]
             options[:data] = {}
-            if !options[:data][:disable_with]
-              options[:data][:disable_with] = "Please wait..."
-            end
+            options[:data][:disable_with] = "Please wait..." unless options[:data][:disable_with]
           end
 
           super(value, options.reverse_merge(class: "button is-primary"))
@@ -163,7 +154,6 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
     if object.errors.any?
       # Notification
       content_tag(:div, class: "notification is-danger is-light") do
-
         # Error messages
         content_tag(:ul) do
           object.errors.full_messages.map do |msg|
@@ -181,39 +171,28 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
     css_class = "input"
 
     # Add error class when the field has an error.
-    if object && object.errors[attribute].length > 0
-      css_class += " is-danger"
-    end
+    css_class += " is-danger" if object && object.errors[attribute].length > 0
 
     # Add size class
-    if options[:size]
-      css_class += " is-#{options[:size]}"
-    end
+    css_class += " is-#{options[:size]}" if options[:size]
 
     css_class
   end
 
-
   # Field content tag
-  def field_tag(attribute, options = {})
-    content_tag(:div, class: "field") do
-      yield
-    end
+  def field_tag(_attribute, _options = {}, &block)
+    content_tag(:div, class: "field", &block)
   end
 
   # Control content tag
-  def control_tag(attribute, options = {})
+  def control_tag(_attribute, options = {})
     css_class = "control"
 
     # Add "has-icons-left" class if the option "prefix_icon" is provided.
-    if options[:prefix_icon]
-      css_class += " has-icons-left"
-    end
+    css_class += " has-icons-left" if options[:prefix_icon]
 
     # Add "has-icons-right" class if the option "suffix_icon" is provided.
-    if options[:suffix_icon]
-      css_class += " has-icons-right"
-    end
+    css_class += " has-icons-right" if options[:suffix_icon]
 
     # Prefix icon
     prefix_icon = content_tag(:span, class: "icon is-small is-left") do
@@ -232,48 +211,36 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   # Icon content tag
-  def icon_tag(icon, options = {})
+  def icon_tag(icon, _options = {})
     content_tag(:i, "", class: icon)
   end
 
   # File content tag
-  def file_tag(attribute, options = {})
+  def file_tag(attribute, options = {}, &block)
     css_class = "file"
 
     # Add "has-name" class if the skip_name option is false
-    if !options[:skip_name]
-      css_class += " has-name"
-    end
+    css_class += " has-name" unless options[:skip_name]
 
     # Add "is-boxed" class if the option "boxed" is true
-    if options[:boxed]
-      css_class += " is-boxed"
-    end
+    css_class += " is-boxed" if options[:boxed]
 
     # Add "is-fullwidth" class if the option "fullwidth" is true
-    if options[:fullwidth]
-      css_class += " is-fullwidth"
-    end
+    css_class += " is-fullwidth" if options[:fullwidth]
 
     # Add error class when the field has an error.
-    if object && object.errors[attribute].length > 0
-      css_class += " is-danger"
-    end
+    css_class += " is-danger" if object && object.errors[attribute].length > 0
 
-    content_tag(:div, class: css_class) do
-      yield
-    end
+    content_tag(:div, class: css_class, &block)
   end
 
   # File label content tag
-  def file_label_tag(attribute, options = {})
-    content_tag(:label, class: "file-label") do
-      yield
-    end
+  def file_label_tag(_attribute, _options = {}, &block)
+    content_tag(:label, class: "file-label", &block)
   end
 
   # File select file label tag
-  def file_select_label_tag(attribute, options = {})
+  def file_select_label_tag(_attribute, _options = {})
     content_tag(:span, class: "file-cta") do
       # Icon
       icon = content_tag(:span, class: "file-icon") do
@@ -290,14 +257,12 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   # File select file name tag
-  def file_select_name_tag(attribute, options = {})
-    content_tag(:span, class: "file-name") do
-      yield
-    end
+  def file_select_name_tag(_attribute, _options = {}, &block)
+    content_tag(:span, class: "file-name", &block)
   end
 
   # Build a form field
-  def form_field(attribute, options)
+  def form_field(attribute, options, &block)
     content_tag(:div, class: "field") do
       # Label
       label = label(attribute, options[:label])
@@ -313,15 +278,11 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
       end
 
       # Control
-      control = control_tag(attribute, options) do
-        yield
-      end
+      control = control_tag(attribute, options, &block)
 
       # Error messages
       error = content_tag(:div, class: "help is-danger") do
-        if object
-          object.errors[attribute].join(", ").capitalize
-        end
+        object.errors[attribute].join(", ").capitalize if object
       end
 
       # Help message
@@ -333,24 +294,16 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
       content = control
 
       # Prepend prefix control when the option is present
-      if options[:prefix_control]
-        content = prefix_control + content
-      end
+      content = prefix_control + content if options[:prefix_control]
 
       # Append suffix control when the option is present
-      if options[:suffix_control]
-        content = content + suffix_control
-      end
+      content += suffix_control if options[:suffix_control]
 
       # Append the error message when any error is present
-      if object && object.errors[attribute].length > 0
-        content = content + error
-      end
+      content += error if object && object.errors[attribute].length > 0
 
       # Append the help message when any help message is present
-      if options[:help]
-        content = content + help
-      end
+      content += help if options[:help]
 
       # If a prefix or suffix control is provided, wrap the content in another div with the "has-addons" class.
       # This is to ensure that the controls are aligned and the label is not rendered next to the input.
@@ -361,9 +314,7 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
       end
 
       # If the skip_label option is false, prepend the labeL.
-      if !options[:skip_label]
-        content = label + content
-      end
+      content = label + content unless options[:skip_label]
 
       content
     end

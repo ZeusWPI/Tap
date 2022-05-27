@@ -1,5 +1,5 @@
 TabApiJob = Struct.new(:order_id) do
-  def perform(*args)
+  def perform(*_args)
     order = Order.find_by(id: order_id)
     if order && !order.transaction_id
       body = {
@@ -12,21 +12,21 @@ TabApiJob = Struct.new(:order_id) do
       }
       headers = {
         "Authorization" => "Token token=#{Rails.application.secrets.tab_api_key}",
-        'Accept' => 'application/json'
+        "Accept" => "application/json"
       }
 
-      result = HTTParty.post(File.join(Rails.application.config.api_url, "transactions"), body: body, headers: headers )
+      result = HTTParty.post(File.join(Rails.application.config.api_url, "transactions"), body: body, headers: headers)
       order.update_attribute(:transaction_id, JSON.parse(result.body)["id"].to_i)
     end
   end
 
   def headers
     {
-        "Authorization" => "Token token=#{Rails.application.secrets.tab_api_key}"
+      "Authorization" => "Token token=#{Rails.application.secrets.tab_api_key}"
     }
   end
 
-  def error(job, exception)
+  def error(_job, exception)
     Airbrake.notify(exception)
   end
 end

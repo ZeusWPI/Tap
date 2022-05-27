@@ -11,13 +11,13 @@
 #
 
 describe Order do
-  before :each do
+  before do
     stub_request(:get, /.*/).to_return(status: 200, body: JSON.dump({ balance: 20 }))
     @user  = create :user
     @order = create :order, user: @user
   end
 
-  it 'has a valid factory' do
+  it "has a valid factory" do
     expect(@order).to be_valid
   end
 
@@ -25,35 +25,35 @@ describe Order do
   #  FIELDS  #
   ############
 
-  describe 'fields' do
-    describe 'user' do
-      it 'should be an association' do
+  describe "fields" do
+    describe "user" do
+      it "is an association" do
         expect(Order.reflect_on_association(:user).macro).to eq(:belongs_to)
       end
 
-      it 'should be present' do
+      it "is present" do
         @order.user = nil
-        expect(@order).to_not be_valid
+        expect(@order).not_to be_valid
       end
     end
 
-    describe 'price_cents' do
-      it 'should be calculated from order_items' do
+    describe "price_cents" do
+      it "is calculated from order_items" do
         @order = build :order, products_count: 0
-        sum = (create_list :product, 1 + rand(10)).map do |p|
-          create(:order_item, order: @order, product: p, count: 1 + rand(5)) do |oi|
+        sum = (create_list :product, rand(1..10)).map do |p|
+          create(:order_item, order: @order, product: p, count: rand(1..5)) do |oi|
             @order.order_items << oi
           end
-        end.map{ |oi| oi.count * oi.product.price_cents }.sum
+        end.map { |oi| oi.count * oi.product.price_cents }.sum
         @order.save
         expect(@order.price_cents).to eq(sum)
       end
     end
 
-    describe 'order_items' do
-      it 'should be validated' do
+    describe "order_items" do
+      it "is validated" do
         @order.order_items.build(count: -5)
-        expect(@order).to_not be_valid
+        expect(@order).not_to be_valid
       end
     end
   end
@@ -62,8 +62,8 @@ describe Order do
   #  CALLBACKS  #
   ###############
 
-  describe 'empty order_items' do
-    it 'should be removed' do
+  describe "empty order_items" do
+    it "is removed" do
       product = create :product
       @order.order_items << create(:order_item, order: @order, product: product, count: 0)
       @order.save
@@ -75,19 +75,19 @@ describe Order do
   #  HELPERS  #
   #############
 
-  describe 'deletable' do
-    it 'should be true' do
+  describe "deletable" do
+    it "is true" do
       @order.created_at = Rails.application.config.call_api_after.ago + 2.minutes
       expect(@order.deletable).to be true
     end
 
-    it 'should be false' do
+    it "is false" do
       @order.created_at = Rails.application.config.call_api_after.ago - 2.minutes
       expect(@order.deletable).to be false
     end
   end
 
-  it 'sec_until_remove should return a number of seconds' do
+  it "sec_until_remove should return a number of seconds" do
     @order.created_at = Rails.application.config.call_api_after.ago + 2.minutes
     expect((@order.sec_until_remove - 120).abs).to be < 10
   end
