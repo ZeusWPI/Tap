@@ -19,3 +19,18 @@ jobs:
     - run: RAILS_ENV=test bundle exec rake db:create
     - run: RAILS_ENV=test bundle exec rake db:schema:load
     - run: bundle exec rake
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Lint with rubocop
+        env:
+          RAILS_ENV: "test"
+        run: |
+          bundle exec rubocop -c  .rubocop.yml
