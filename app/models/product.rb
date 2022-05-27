@@ -22,13 +22,13 @@
 class Product < ApplicationRecord
   include Avatarable
 
-  has_many :order_items
+  has_many :order_items, dependent: :restrict_with_error
   has_many :barcodes, dependent: :destroy
   accepts_nested_attributes_for :barcodes, allow_destroy: true
 
   enum category: { "food" => 0, "beverages" => 1, "other" => 2 }
 
-  validates :name,        presence: true, uniqueness: true
+  validates :name,        presence: true, uniqueness: true # rubocop:disable Rails/UniqueValidationWithoutIndex
   validates :price_cents, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :stock,       presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :calories,    numericality: { only_integer: true, allow_nil: true, greater_than_or_equal_to: 0 }

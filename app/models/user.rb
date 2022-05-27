@@ -30,7 +30,7 @@ class User < ApplicationRecord
 
   devise :omniauthable, omniauth_providers: [:zeuswpi]
 
-  has_many :orders, -> { includes :products }
+  has_many :orders, -> { includes :products }, inverse_of: :user, dependent: :restrict_with_error
   has_many :products, through: :orders
   belongs_to :dagschotel, class_name: "Product", optional: true
 
@@ -83,7 +83,7 @@ class User < ApplicationRecord
       result = HTTParty.get(File.join(Rails.application.config.api_url, "users", "#{name}.json"), headers: headers)
 
       JSON.parse(result.body)["balance"] if result.code == 200
-    rescue StandardError
+    rescue StandardError # rubocop:disable Lint/SuppressedException
     end
   end
 

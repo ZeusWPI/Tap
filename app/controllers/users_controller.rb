@@ -35,7 +35,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.json { render json: @user }
-      format.html {}
+      format.html {} # rubocop:disable Lint/EmptyBlock
     end
   end
 

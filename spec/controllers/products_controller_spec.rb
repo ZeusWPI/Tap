@@ -29,9 +29,10 @@
 #
 
 describe ProductsController, type: :controller do
+  let(:admin) { create :admin }
+
   before do
-    @admin = create :admin
-    sign_in @admin
+    sign_in admin
   end
 
   ############
@@ -83,9 +84,10 @@ describe ProductsController, type: :controller do
   ##########
 
   describe "GET edit" do
+    let(:product) { create :product }
+
     before do
-      @product = create :product
-      get :edit, params: { id: @product }
+      get :edit, params: { id: product }
     end
 
     it "is successful" do
@@ -97,7 +99,7 @@ describe ProductsController, type: :controller do
     end
 
     it "loads the correct product" do
-      expect(assigns(:product)).to eq(@product)
+      expect(assigns(:product)).to eq(product)
     end
   end
 
@@ -106,29 +108,27 @@ describe ProductsController, type: :controller do
   ############
 
   describe "PUT update" do
-    before do
-      @product = create :product
-    end
+    let(:product) { create :product }
 
     it "loads right product" do
-      put :update, params: { id: @product, product: attributes_for(:product) }
-      expect(assigns(:product)).to eq(@product)
+      put :update, params: { id: product, product: attributes_for(:product) }
+      expect(assigns(:product)).to eq(product)
     end
 
     context "successful" do
       it "updates attributes" do
-        put :update, params: { id: @product, product: { name: "new_product_name" } }
-        expect(@product.reload.name).to eq("new_product_name")
+        put :update, params: { id: product, product: { name: "new_product_name" } }
+        expect(product.reload.name).to eq("new_product_name")
       end
     end
 
     context "failed" do
       it "does not update attributes" do
-        old_price = @product.price
+        old_price = product.price
         expect do
-          put :update, params: { id: @product, product: attributes_for(:invalid_product) }
+          put :update, params: { id: product, product: attributes_for(:invalid_product) }
         end.to raise_error(ActiveRecord::RecordInvalid)
-        expect(@product.reload.price).to eq(old_price)
+        expect(product.reload.price).to eq(old_price)
       end
     end
   end

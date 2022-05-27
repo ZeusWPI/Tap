@@ -51,7 +51,7 @@ RSpec.configure do |config|
 
   # Delete files from paperclip
   config.after(:suite) do
-    FileUtils.rm_rf(Dir["#{Rails.root}/spec/test_files/"])
+    FileUtils.rm_rf(Dir[Rails.root.join("/spec/test_files/")])
   end
 
   # The settings below are suggested to provide a good initial experience

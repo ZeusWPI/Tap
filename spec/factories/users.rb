@@ -28,7 +28,7 @@ require "identicon"
 FactoryBot.define do
   factory :user do
     name { Faker::Internet.user_name }
-    avatar { File.new("#{Rails.root}/spec/fixtures/files/real-image.png") }
+    avatar { File.new(Rails.root.join("spec/fixtures/files/real-image.png")) }
     private { false }
 
     factory :admin do

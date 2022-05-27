@@ -12,12 +12,10 @@
 #
 
 describe Barcode do
-  before do
-    @barcode = create :barcode
-  end
+  let(:barcode) { create :barcode }
 
   it "has a valid factory" do
-    expect(@barcode).to be_valid
+    expect(barcode).to be_valid
   end
 
   ############
@@ -27,13 +25,13 @@ describe Barcode do
   describe "fields" do
     describe "code" do
       it "is present" do
-        @barcode.code = nil
-        expect(@barcode).not_to be_valid
+        barcode.code = nil
+        expect(barcode).not_to be_valid
       end
 
       it "is unique" do
-        barcode = build :barcode, code: @barcode.code
-        expect(barcode).not_to be_valid
+        local_barcode = build :barcode, code: barcode.code
+        expect(local_barcode).not_to be_valid
       end
     end
   end

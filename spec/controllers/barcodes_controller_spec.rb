@@ -18,10 +18,11 @@
 #
 
 describe BarcodesController, type: :controller do
+  let(:product) { create :product }
+  let(:admin) { create :admin }
+
   before do
-    @product = create :product
-    @admin = create :admin
-    sign_in @admin
+    sign_in admin
   end
 
   ##########
@@ -32,7 +33,7 @@ describe BarcodesController, type: :controller do
     context "successful" do
       it "creates a barcode" do
         expect do
-          post :create, params: { product_id: @product, barcode: attributes_for(:barcode) }
+          post :create, params: { product_id: product, barcode: attributes_for(:barcode) }
         end.to change(Barcode, :count).by(1)
       end
     end
@@ -40,7 +41,7 @@ describe BarcodesController, type: :controller do
     context "failed" do
       it "does not create a barcode" do
         expect do
-          post :create, params: { product_id: @product, barcode: attributes_for(:invalid_barcode) }
+          post :create, params: { product_id: product, barcode: attributes_for(:invalid_barcode) }
         end.not_to change(Barcode, :count)
       end
     end
@@ -63,23 +64,21 @@ describe BarcodesController, type: :controller do
   ##########
 
   describe "GET show" do
-    before do
-      @barcode = create :barcode
-    end
+    let(:barcode) { create :barcode }
 
     it "loads the correct barcode" do
-      get :show, params: { id: @barcode }
-      expect(assigns(:barcode)).to eq(@barcode)
+      get :show, params: { id: barcode }
+      expect(assigns(:barcode)).to eq(barcode)
     end
 
     it "allows friendly id" do
-      get :show, params: { id: @barcode.code }
-      expect(assigns(:barcode)).to eq(@barcode)
+      get :show, params: { id: barcode.code }
+      expect(assigns(:barcode)).to eq(barcode)
     end
 
     it "responds with this barcode" do
-      get :show, params: { id: @barcode }
-      expect(response.body).to eq @barcode.product.to_json
+      get :show, params: { id: barcode }
+      expect(response.body).to eq barcode.product.to_json
     end
   end
 end

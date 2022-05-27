@@ -17,5 +17,5 @@ class Barcode < ApplicationRecord
 
   belongs_to :product
 
-  validates :code, presence: true, uniqueness: true
+  validates :code, presence: true, uniqueness: true # rubocop:disable Rails/UniqueValidationWithoutIndex
 end

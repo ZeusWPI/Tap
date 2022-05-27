@@ -23,10 +23,10 @@ class OrderItem < ApplicationRecord
   private
 
   def remove_from_stock!
-    product.decrement!(:stock, count)
+    product.decrement!(:stock, count) # rubocop:disable Rails/SkipsModelValidations
   end
 
   def put_back_in_stock!
-    product.increment!(:stock, count)
+    product.increment!(:stock, count) # rubocop:disable Rails/SkipsModelValidations
   end
 end

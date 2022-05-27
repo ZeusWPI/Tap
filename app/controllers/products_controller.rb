@@ -31,7 +31,7 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       format.json { render json: @products }
-      format.html {}
+      format.html {} # rubocop:disable Lint/EmptyBlock
     end
   end
 

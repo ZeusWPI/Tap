@@ -89,7 +89,7 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
     # If the "switch" option is provided, render a custom switch.
     if options[:switch]
       # Switch slider
-      slider = content_tag(:span, class: "switch-slider") do
+      slider = content_tag(:span, class: "switch-slider") do # rubocop:disable Lint/EmptyBlock
       end
 
       # New control in a switch wrapper
@@ -153,15 +153,15 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
 
   # List with error messages
   def error_messages
-    if object.errors.any?
-      # Notification
-      content_tag(:div, class: "notification is-danger is-light") do
-        # Error messages
-        content_tag(:ul) do
-          object.errors.full_messages.map do |msg|
-            content_tag(:li, msg)
-          end.join.html_safe
-        end
+    return unless object.errors.any?
+
+    # Notification
+    content_tag(:div, class: "notification is-danger is-light") do
+      # Error messages
+      content_tag(:ul) do
+        object.errors.full_messages.map do |msg|
+          content_tag(:li, msg)
+        end.join.html_safe # rubocop:disable Rails/OutputSafety
       end
     end
   end

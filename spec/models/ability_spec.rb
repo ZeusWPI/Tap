@@ -2,9 +2,9 @@
 
 require "cancan/matchers"
 
-describe User do
+describe Ability do
   describe "abilities" do
-    subject(:ability) { Ability.new(user) }
+    subject(:ability) { described_class.new(user) }
 
     let(:user) { nil }
 
@@ -15,7 +15,7 @@ describe User do
       it { is_expected.to be_able_to(:manage, Barcode.new) }
       it { is_expected.to be_able_to(:manage, Product.new) }
       it { is_expected.to be_able_to(:manage, Stock.new) }
-      it { is_expected.to be_able_to(:manage, described_class.new) }
+      it { is_expected.to be_able_to(:manage, User.new) }
     end
 
     # Normal User
@@ -24,7 +24,7 @@ describe User do
 
       # it{ should be_able_to(:create, Order.new(user: user)) }
       it {
-        expect(subject).to be_able_to(:destroy,
+        expect(ability).to be_able_to(:destroy,
                                       Order.new(user: user,
                                                 created_at: (Rails.application.config.call_api_after - 1.minute).ago))
       }
@@ -41,8 +41,8 @@ describe User do
       it { is_expected.not_to be_able_to(:create, Stock.new) }
 
       it { is_expected.to be_able_to(:manage, user) }
-      it { is_expected.not_to be_able_to(:create, described_class.new) }
-      it { is_expected.not_to be_able_to(:update, described_class.new) }
+      it { is_expected.not_to be_able_to(:create, User.new) }
+      it { is_expected.not_to be_able_to(:update, User.new) }
     end
 
     describe "as koelkast" do
@@ -52,7 +52,7 @@ describe User do
       # it{ should be_able_to(:manage, Order.new, user: create(:user)) }
       it { is_expected.not_to be_able_to(:create, build(:order, user: create(:user, private: true))) }
       it { is_expected.not_to be_able_to(:manage, Stock.new) }
-      it { is_expected.not_to be_able_to(:manage, described_class.new) }
+      it { is_expected.not_to be_able_to(:manage, User.new) }
     end
   end
 end

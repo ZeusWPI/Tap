@@ -16,6 +16,46 @@ Style/Documentation:
 Metrics/BlockLength:
   Enabled: false
 
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/ParameterLists:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+# Our tests fail without normal doubles.
+RSpec/VerifiedDoubles:
+  Enabled: false
+
+# We decide how many expectations.
+RSpec/MultipleExpectations:
+  Enabled: false
+
+# We decide how many lines.
+RSpec/ExampleLength:
+  Enabled: false
+
+# We decide how nested our groups get
+RSpec/NestedGroups:
+  Enabled: false
+
+RSpec/ContextWording:
+  Enabled: false
+
 AllCops:
   NewCops: enable
 
@@ -30,4 +70,5 @@ AllCops:
     - "tmp/**/*"
     - "db/**/*"
     - "vendor/**/*"
-    - "node_modules/**/"
+    - "node_modules/**/*"
+    - "out/**/*"

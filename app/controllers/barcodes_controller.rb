@@ -21,7 +21,7 @@ class BarcodesController < ApplicationController
     @barcodes = Barcode.all.order(:code)
     respond_to do |format|
       format.json { render json: @barcodes }
-      format.html {}
+      format.html {} # rubocop:disable Lint/EmptyBlock
     end
   end
 

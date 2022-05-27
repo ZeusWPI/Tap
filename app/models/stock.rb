@@ -5,7 +5,7 @@ class Stock
   include ActiveModel::Validations
 
   def stock_entries
-    @stockentries ||= []
+    @stock_entries ||= []
   end
 
   def stock_entries_attributes=(attributes)
@@ -18,7 +18,7 @@ class Stock
     return false unless valid?
 
     stock_entries.each do |se|
-      se.product.increment!(:stock, se.count.to_i) if se.count.to_i.positive?
+      se.product.increment!(:stock, se.count.to_i) if se.count.to_i.positive? # rubocop:disable Rails/SkipsModelValidations
     end
   end
 

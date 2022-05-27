@@ -50,17 +50,17 @@ module ApplicationHelper
   end
 
   # Convert a given float in cents to euro's in a formatted string.
-  def euro_from_cents(f)
-    if f
-      euro(f / 100.0)
+  def euro_from_cents(float_amount)
+    if float_amount
+      euro(float_amount / 100.0)
     else
       "undefined"
     end
   end
 
   # Convert a given float in euro's to a formatted string.
-  def euro(f)
-    number_to_currency(f, unit: "€")
+  def euro(float_amount)
+    number_to_currency(float_amount, unit: "€")
   end
 
   # Replace all instances of double quotes with single quotes

@@ -25,26 +25,24 @@ describe OrderItem do
   ############
 
   describe "fields" do
-    before do
-      @order_item = create :order_item
-    end
+    let(:order_item) { create :order_item }
 
     describe "product" do
       it "is present" do
-        @order_item.product = nil
-        expect(@order_item).not_to be_valid
+        order_item.product = nil
+        expect(order_item).not_to be_valid
       end
     end
 
     describe "count" do
       it "is present" do
-        @order_item.count = nil
-        expect(@order_item).not_to be_valid
+        order_item.count = nil
+        expect(order_item).not_to be_valid
       end
 
       it "is positive" do
-        @order_item.count = -5
-        expect(@order_item).not_to be_valid
+        order_item.count = -5
+        expect(order_item).not_to be_valid
       end
 
       # Stock is not up to date
@@ -62,19 +60,17 @@ describe OrderItem do
   ###############
 
   describe "stock change" do
-    before do
-      @product = create :product
-      @count = rand 10
-      @order_item = build :order_item, product: @product, count: @count
-    end
+    let(:product) { create :product }
+    let(:count) { rand 10 }
+    let(:order_item) { build :order_item, product: product, count: count }
 
     it "decrements on create" do
-      expect { @order_item.save }.to change { @product.stock }.by(-@count)
+      expect { order_item.save }.to change(product, :stock).by(-count)
     end
 
     it "increments on destroy" do
-      @order_item.save
-      expect { @order_item.destroy }.to change { @product.stock }.by(@count)
+      order_item.save
+      expect { order_item.destroy }.to change(product, :stock).by(count)
     end
   end
 end

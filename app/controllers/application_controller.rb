@@ -67,14 +67,13 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user_from_token!
     user = user_token
+    return unless user
 
-    if user
-      # Notice we are passing store false, so the user is not
-      # actually stored in the session and a token is needed
-      # for every request. If you want the token to work as a
-      # sign in token, you can simply remove store: false.
-      sign_in user, store: false
-    end
+    # Notice we are passing store false, so the user is not
+    # actually stored in the session and a token is needed
+    # for every request. If you want the token to work as a
+    # sign in token, you can simply remove store: false.
+    sign_in user, store: false
   end
 
   def user_token

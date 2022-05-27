@@ -25,12 +25,10 @@
 require "webmock/rspec"
 
 describe User do
-  before do
-    @user = create :user
-  end
+  let(:user) { create :user }
 
   it "has a valid factory" do
-    expect(@user).to be_valid
+    expect(user).to be_valid
   end
 
   ############
@@ -40,8 +38,8 @@ describe User do
   describe "fields" do
     describe "avatar" do
       it "is present" do
-        @user.avatar = nil
-        expect(@user).not_to be_valid
+        user.avatar = nil
+        expect(user).not_to be_valid
       end
     end
 
@@ -49,30 +47,26 @@ describe User do
       it "automaticallies cache the number of orders" do
         balance = 5
         stub_request(:get, /.*/).to_return(status: 200, body: JSON.dump({ balance: balance }))
-        expect { create :order, user: @user }.to change { @user.reload.orders_count }.by(1)
+        expect { create :order, user: user }.to change { user.reload.orders_count }.by(1)
       end
     end
 
     describe "admin" do
       it "is false by default" do
-        expect(@user.reload.admin).to be false
+        expect(user.reload.admin).to be false
       end
     end
 
     describe "balance" do
-      before :all do
-        @api_url = "www.example.com/api.json"
-      end
-
       it "is nil if offline" do
         stub_request(:get, /.*/).to_return(status: 404)
-        expect(@user.balance).to be_nil
+        expect(user.balance).to be_nil
       end
 
       it "is updated when online" do
         balance = 5
         stub_request(:get, /.*/).to_return(status: 200, body: JSON.dump({ balance: balance }))
-        expect(@user.balance).to eq balance
+        expect(user.balance).to eq balance
       end
     end
   end
@@ -94,7 +88,7 @@ describe User do
   describe "static users" do
     describe "koelkast" do
       it "is false by default" do
-        expect(@user.reload.koelkast).to be false
+        expect(user.reload.koelkast).to be false
       end
 
       it "is true for koelkast" do
@@ -128,14 +122,14 @@ describe User do
   describe "scopes" do
     it "members should return members" do
       create :koelkast
-      user = create :user
-      expect(described_class.members).to eq([@user, user])
+      local_user = create :user
+      expect(described_class.members).to eq([local_user, user])
     end
 
     it "publik should return publik members" do
-      user = create :user
+      local_user = create :user
       create :user, private: true
-      expect(described_class.publik).to eq([@user, user])
+      expect(described_class.publik).to eq([local_user, user])
     end
   end
 
@@ -146,9 +140,9 @@ describe User do
     end
 
     it "is recalculated on creating an order" do
-      expect(@user.frecency).to eq 0
-      create :order, user: @user
-      expect(@user.frecency).not_to eq 0
+      expect(user.frecency).to eq 0
+      create :order, user: user
+      expect(user.frecency).not_to eq 0
     end
 
     # TODO: add a test to check if the frecency is correct. Note that
