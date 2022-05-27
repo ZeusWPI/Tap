@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: orders
@@ -30,8 +32,7 @@ class OrdersController < ApplicationController
     # Build the order_items from the order session
     order_products = Product.find(@order_session[:product_ids])
 
-    for order_product in order_products
-
+    order_products.each do |order_product|
       # Get the count of the order item
       # This is the amount of times the product id is present inside the order session.
       count = @order_session[:product_ids].count(order_product.id)

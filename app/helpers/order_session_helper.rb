@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Helpers for handeling ordering session
 module OrderSessionHelper
   # Session versioning

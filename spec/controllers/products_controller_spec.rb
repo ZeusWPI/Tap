@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: products
@@ -41,7 +43,7 @@ describe ProductsController, type: :controller do
       it "creates a product" do
         expect do
           post :create, params: { product: attributes_for(:product) }
-        end.to change { Product.count }.by(1)
+        end.to change(Product, :count).by(1)
       end
 
       it "redirects to barcode page" do
@@ -54,7 +56,7 @@ describe ProductsController, type: :controller do
       it "does not create a product" do
         expect do
           post :create, params: { product: attributes_for(:invalid_product) }
-        end.not_to change { Product.count }
+        end.not_to change(Product, :count)
       end
 
       it "renders form" do

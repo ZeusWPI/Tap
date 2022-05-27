@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -20,7 +22,7 @@
 #  quickpay_hidden     :boolean
 #
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   include FriendlyId
   include Avatarable
   include Statistics

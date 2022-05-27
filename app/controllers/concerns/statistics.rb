@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Statistics
   extend ActiveSupport::Concern
 
@@ -41,15 +43,15 @@ module Statistics
 
     # Select the top x products ordered by most frequently ordered.
     # Convert them to a hash with product name and order amount.
-    products_ordered_top = products_ordered.limit(products_amount).map { |p| [p.name, p.count] }.to_h
+    products_ordered_top = products_ordered.limit(products_amount).to_h { |p| [p.name, p.count] }
 
     # Other products, not included in the top
     other_products = products_ordered.last([products_ordered.length - products_amount, 0].max)
 
     # Count all non included products
-    other_products_count = other_products.map { |p| p.count }.sum
+    other_products_count = other_products.map(&:count).sum
 
-    products_ordered_top["Other"] = other_products_count if other_products_count > 0
+    products_ordered_top["Other"] = other_products_count if other_products_count.positive?
 
     products_ordered_top
   end

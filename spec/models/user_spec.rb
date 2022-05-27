@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -79,13 +81,13 @@ describe User do
     it "is a new user" do
       name = "yet-another-test-user"
       omniauth = double(uid: name)
-      expect(User.from_omniauth(omniauth).name).to eq name
+      expect(described_class.from_omniauth(omniauth).name).to eq name
     end
 
     it "is the logged in user" do
       second_user = create :user
       omniauth = double(uid: second_user.name)
-      expect(User.from_omniauth(omniauth)).to eq second_user
+      expect(described_class.from_omniauth(omniauth)).to eq second_user
     end
   end
 
@@ -96,25 +98,25 @@ describe User do
       end
 
       it "is true for koelkast" do
-        expect(User.koelkast.koelkast).to be true
+        expect(described_class.koelkast.koelkast).to be true
       end
 
       it "is not an admin" do
-        expect(User.koelkast.admin).to be false
+        expect(described_class.koelkast.admin).to be false
       end
     end
 
     describe "guest" do
       it "is not an admin" do
-        expect(User.guest.admin).to be false
+        expect(described_class.guest.admin).to be false
       end
 
       it "is public" do
-        expect(User.guest.private).to be false
+        expect(described_class.guest.private).to be false
       end
 
       it "is a guest" do
-        expect(User.guest.guest?).to be true
+        expect(described_class.guest.guest?).to be true
       end
     end
   end
@@ -127,13 +129,13 @@ describe User do
     it "members should return members" do
       create :koelkast
       user = create :user
-      expect(User.members).to eq([@user, user])
+      expect(described_class.members).to eq([@user, user])
     end
 
     it "publik should return publik members" do
       user = create :user
       create :user, private: true
-      expect(User.publik).to eq([@user, user])
+      expect(described_class.publik).to eq([@user, user])
     end
   end
 

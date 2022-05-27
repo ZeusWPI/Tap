@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: products
@@ -17,7 +19,7 @@
 #  deleted             :boolean          default(FALSE)
 #
 
-class Product < ActiveRecord::Base
+class Product < ApplicationRecord
   include Avatarable
 
   has_many :order_items

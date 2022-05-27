@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 TabApiJob = Struct.new(:order_id) do
   def perform(*_args)
     order = Order.find_by(id: order_id)

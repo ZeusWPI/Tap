@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: orders
@@ -28,7 +30,7 @@ describe Order do
   describe "fields" do
     describe "user" do
       it "is an association" do
-        expect(Order.reflect_on_association(:user).macro).to eq(:belongs_to)
+        expect(described_class.reflect_on_association(:user).macro).to eq(:belongs_to)
       end
 
       it "is present" do

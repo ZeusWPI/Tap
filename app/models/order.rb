@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: orders
@@ -10,7 +12,7 @@
 #  transaction_id :integer
 #
 
-class Order < ActiveRecord::Base
+class Order < ApplicationRecord
   include ApplicationHelper
   include ActionView::Helpers::TextHelper
 
@@ -19,13 +21,12 @@ class Order < ActiveRecord::Base
   has_many :products, through: :order_items
 
   before_validation :calculate_price
-  before_save { |o| o.order_items = o.order_items.reject { |oi| oi.count == 0 } }
+  before_save { |o| o.order_items = o.order_items.reject { |oi| oi.count.zero? } }
   after_create :create_api_job, unless: -> { user.guest? }
 
   after_create :update_user_frecency
   after_destroy :update_user_frecency
 
-  validates :user, presence: true
   validates_associated :order_items
   validate :product_presence
 
@@ -42,7 +43,7 @@ class Order < ActiveRecord::Base
   end
 
   def sec_until_remove
-    created_at.to_i - (Time.now - Rails.application.config.call_api_after).to_i
+    created_at.to_i - (Time.zone.now - Rails.application.config.call_api_after).to_i
   end
 
   def calculate_price

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: products
@@ -20,6 +22,6 @@
 module ProductsHelper
   # Convert calories to kilocalories
   def kcal(calories)
-    calories.to_s + " kcal"
+    "#{calories} kcal"
   end
 end

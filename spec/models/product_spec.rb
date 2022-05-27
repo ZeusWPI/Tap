@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: products
@@ -135,7 +137,7 @@ describe Product do
     it "returns non-deleted products" do
       product = create :product
       product.update_attribute(:deleted, true)
-      expect(Product.for_sale).to eq([@product])
+      expect(described_class.for_sale).to eq([@product])
     end
   end
 end

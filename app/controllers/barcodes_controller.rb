@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: barcodes
@@ -31,7 +33,7 @@ class BarcodesController < ApplicationController
   # POST /barcodes
   def create
     # If the barcode exists, redirect to the product page of that product
-    if Barcode.where(code: @barcode.code).exists?
+    if Barcode.exists?(code: @barcode.code)
       flash[:info] = "Barcode already exists! This product is linked to the given barcode."
       redirect_to edit_product_path(Barcode.where(code: @barcode.code).take.product)
       return
@@ -76,11 +78,10 @@ class BarcodesController < ApplicationController
   def destroy
     if @barcode.destroy
       flash[:success] = "Barcode successfully deleted!"
-      redirect_to barcodes_path
     else
       flash[:error] = "Barcode could not be deleted!"
-      redirect_to barcodes_path
     end
+    redirect_to barcodes_path
   end
 
   private

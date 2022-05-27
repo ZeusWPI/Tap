@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "cancan/matchers"
 
 describe User do
@@ -13,7 +15,7 @@ describe User do
       it { is_expected.to be_able_to(:manage, Barcode.new) }
       it { is_expected.to be_able_to(:manage, Product.new) }
       it { is_expected.to be_able_to(:manage, Stock.new) }
-      it { is_expected.to be_able_to(:manage, User.new) }
+      it { is_expected.to be_able_to(:manage, described_class.new) }
     end
 
     # Normal User
@@ -39,8 +41,8 @@ describe User do
       it { is_expected.not_to be_able_to(:create, Stock.new) }
 
       it { is_expected.to be_able_to(:manage, user) }
-      it { is_expected.not_to be_able_to(:create, User.new) }
-      it { is_expected.not_to be_able_to(:update, User.new) }
+      it { is_expected.not_to be_able_to(:create, described_class.new) }
+      it { is_expected.not_to be_able_to(:update, described_class.new) }
     end
 
     describe "as koelkast" do
@@ -50,7 +52,7 @@ describe User do
       # it{ should be_able_to(:manage, Order.new, user: create(:user)) }
       it { is_expected.not_to be_able_to(:create, build(:order, user: create(:user, private: true))) }
       it { is_expected.not_to be_able_to(:manage, Stock.new) }
-      it { is_expected.not_to be_able_to(:manage, User.new) }
+      it { is_expected.not_to be_able_to(:manage, described_class.new) }
     end
   end
 end

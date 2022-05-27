@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FormattedFormBuilder < ActionView::Helpers::FormBuilder
   include ActionView::Helpers::TextHelper
   include ActionView::Context
@@ -8,7 +10,7 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
     text_field
     number_field
     password_field
-  ]
+  ].freeze
 
   # Initialize the form builder
   def initialize(object_name, object, template, options)
@@ -40,7 +42,7 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
 
           # File select filename
           name = file_select_name_tag(attribute, options) do
-            if object.send(attribute).present? and !options[:skip_initial_name]
+            if object.send(attribute).present? && !options[:skip_initial_name]
               object.send(attribute).original_filename
             else
               "No file selected"
@@ -171,7 +173,7 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
     css_class = "input"
 
     # Add error class when the field has an error.
-    css_class += " is-danger" if object && object.errors[attribute].length > 0
+    css_class += " is-danger" if object && object.errors[attribute].length.positive?
 
     # Add size class
     css_class += " is-#{options[:size]}" if options[:size]
@@ -229,7 +231,7 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
     css_class += " is-fullwidth" if options[:fullwidth]
 
     # Add error class when the field has an error.
-    css_class += " is-danger" if object && object.errors[attribute].length > 0
+    css_class += " is-danger" if object && object.errors[attribute].length.positive?
 
     content_tag(:div, class: css_class, &block)
   end
@@ -300,7 +302,7 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
       content += suffix_control if options[:suffix_control]
 
       # Append the error message when any error is present
-      content += error if object && object.errors[attribute].length > 0
+      content += error if object && object.errors[attribute].length.positive?
 
       # Append the help message when any help message is present
       content += help if options[:help]

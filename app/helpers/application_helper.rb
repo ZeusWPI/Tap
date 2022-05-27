@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   include ActionView::Helpers::NumberHelper
 
@@ -17,7 +19,7 @@ module ApplicationHelper
   # Only user dark colors for contrast.
   def get_user_color(user)
     require "digest/md5"
-    "#" + Digest::MD5.hexdigest(user.name)[0..5]
+    "##{Digest::MD5.hexdigest(user.name)[0..5]}"
   end
 
   ## Convert a given user to a color hash for the text
@@ -40,7 +42,7 @@ module ApplicationHelper
   # If the user has a positive balance, use green
   # If the user has a negative balance, use red
   def get_user_balance_color(user)
-    if user.balance > 0
+    if user.balance.positive?
       "#257942"
     else
       "#cc0f35"

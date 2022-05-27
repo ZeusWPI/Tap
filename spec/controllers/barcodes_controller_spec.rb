@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: barcodes
@@ -31,7 +33,7 @@ describe BarcodesController, type: :controller do
       it "creates a barcode" do
         expect do
           post :create, params: { product_id: @product, barcode: attributes_for(:barcode) }
-        end.to change { Barcode.count }.by(1)
+        end.to change(Barcode, :count).by(1)
       end
     end
 
@@ -39,7 +41,7 @@ describe BarcodesController, type: :controller do
       it "does not create a barcode" do
         expect do
           post :create, params: { product_id: @product, barcode: attributes_for(:invalid_barcode) }
-        end.not_to change { Barcode.count }
+        end.not_to change(Barcode, :count)
       end
     end
   end

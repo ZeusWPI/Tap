@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Stock
   include ActiveModel::Model
   include ActiveModel::Validations
@@ -16,7 +18,7 @@ class Stock
     return false unless valid?
 
     stock_entries.each do |se|
-      se.product.increment!(:stock, se.count.to_i) if se.count.to_i > 0
+      se.product.increment!(:stock, se.count.to_i) if se.count.to_i.positive?
     end
   end
 
