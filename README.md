@@ -32,11 +32,12 @@ To provide a consistent experience on every system, docker and docker-compose is
 
 ### Directly on your system
 
-1. Make sure the correct Ruby version is installed by running `rbenv version`. If it isn't, install by running `rbenv install`
-2. Run `bundle update` and `bundle install`
-3. Migrate the db using `bundle exec rake db:migrate`
-4. Seed the db using `bundle exec rake db:seed`
-5. Start Tap by running `bundle exec rails s`
+1. Install [asdf](http://asdf-vm.com/guide/getting-started.html#getting-started)
+2. Install dependencies: `asdf install`
+3. Install gems: `bundle install`
+4. Migrate the db using `bundle exec rails db:migrate`
+5. Seed the db using `bundle exec rails db:seed`
+6. Start Tap by running `bundle exec rails s`
 
 ## Production
 
