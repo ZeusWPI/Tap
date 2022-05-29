@@ -59,7 +59,7 @@
             </div>
           <% end %>
         <% else %>
-          <%= link_to "Login", omniauth_authorize_path("user", "zeuswpi"), class: "navbar-item" %>
+          <%= link_to "Login", user_zeuswpi_omniauth_authorize_path, class: "navbar-item" %>
         <% end %>
       </div>
     </div>

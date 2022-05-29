@@ -42,7 +42,8 @@ gem "kt-paperclip", "~> 7.0"
 
 # Use devise for users and admins
 gem "devise", "~> 4.8"
-gem "omniauth-oauth2", "1.3.1"
+gem "omniauth-rails_csrf_protection"
+gem "omniauth-zeuswpi"
 
 # Use cancancan for authorization
 gem "cancancan", "~> 3.3"

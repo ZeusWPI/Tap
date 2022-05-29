@@ -38,8 +38,7 @@ class User < ApplicationRecord
   scope :publik, -> { where private: false }
 
   def self.from_omniauth(auth)
-    where(name: auth.uid).first_or_create do |user|
-      user.name = auth.uid
+    find_or_create_by!(name: auth.uid) do |user|
       user.avatar = Paperclip.io_adapters.for(Identicon.data_url_for(auth.uid))
       user.generate_key!
       user.private = true
