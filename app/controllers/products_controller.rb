@@ -61,11 +61,11 @@ class ProductsController < ApplicationController
   def update
     # If the product was updated successfully
     # Otherwise, render the edit page again, which will show the errors
-    if @product.update!(product_params)
+    if @product.update(product_params)
       flash[:success] = "Product has been updated!"
       redirect_to products_path
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
