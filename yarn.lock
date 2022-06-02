@@ -7106,8 +7106,8 @@ v8-compile-cache@^2.1.1:
   integrity sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==
 
 vanilla-nested@arielj/vanilla-nested:
-  version "1.4.0"
-  resolved "https://codeload.github.com/arielj/vanilla-nested/tar.gz/20fbf3f790521f45d19e6dbadcd596bc11912dd1"
+  version "1.6.1"
+  resolved "https://codeload.github.com/arielj/vanilla-nested/tar.gz/d1577a01631d05c2673d5d4a30762d04ba87da29"
 
 vary@~1.1.2:
   version "1.1.2"

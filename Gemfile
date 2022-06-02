@@ -23,7 +23,7 @@ gem "bulma-rails", "~> 0.9.1"
 gem "font-awesome-sass", "~> 5.15"
 
 # Add nested forms support
-gem "vanilla_nested", "~> 1.4"
+gem "vanilla_nested", "~> 1.6"
 
 # Charts
 gem "chartkick", "~> 4.0"
