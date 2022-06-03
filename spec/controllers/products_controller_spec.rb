@@ -124,11 +124,9 @@ describe ProductsController, type: :controller do
 
     context "failed" do
       it "does not update attributes" do
-        old_price = product.price
         expect do
           put :update, params: { id: product, product: attributes_for(:invalid_product) }
-        end.to raise_error(ActiveRecord::RecordInvalid)
-        expect(product.reload.price).to eq(old_price)
+        end.not_to(change { product.reload.price })
       end
     end
   end
