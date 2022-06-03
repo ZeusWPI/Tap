@@ -426,7 +426,7 @@ DEPENDENCIES
   sqlite3 (~> 1.4)
   tqdm (~> 0.3.0)
   tzinfo-data
-  vanilla_nested (~> 1.4)
+  vanilla_nested (~> 1.6)
   webmock
   webpacker (~> 5.0)
   will_paginate (~> 3.3)
