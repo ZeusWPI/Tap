@@ -107,7 +107,7 @@ Rails.application.configure do
 
   # Help the asset pipeline for staging
   config.x.host = 'tab.zeus.gent'
-  config.api_url = "https://tab.zeus.gent/"
+  config.api_url = "https://tab.zeus.gent/api/v1/"
 
   # Inserts middleware to perform automatic connection switching.
   # The `database_selector` hash is used to pass options to the DatabaseSelector
