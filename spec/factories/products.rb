@@ -13,7 +13,7 @@
 #  avatar_content_type :string
 #  avatar_file_size    :integer
 #  avatar_updated_at   :datetime
-#  category            :integer          default(0)
+#  category            :integer          default("food")
 #  stock               :integer          default(0), not null
 #  calories            :integer
 #  deleted             :boolean          default(FALSE)
