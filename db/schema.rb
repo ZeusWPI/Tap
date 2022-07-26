@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_04_203432) do
+ActiveRecord::Schema.define(version: 2022_07_25_163014) do
 
   create_table "barcodes", force: :cascade do |t|
     t.integer "product_id"
@@ -88,4 +88,9 @@ ActiveRecord::Schema.define(version: 2021_10_04_203432) do
     t.index ["orders_count"], name: "index_users_on_orders_count"
   end
 
+  add_foreign_key "barcodes", "products"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "products"
+  add_foreign_key "orders", "users"
+  add_foreign_key "users", "products", column: "dagschotel_id"
 end
