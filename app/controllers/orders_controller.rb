@@ -18,7 +18,23 @@ class OrdersController < ApplicationController
 
   load_and_authorize_resource :user, find_by: :name
   load_and_authorize_resource :order, through: :user, shallow: true, only: %i[overview destroy]
-  load_and_authorize_resource :order, through: :user, only: %i[new create]
+  load_and_authorize_resource :order, through: :user, only: %i[new create index]
+
+  # List all orders for the currently logged-in user.
+  def index
+    orders = @user.orders.order(created_at: :desc)
+
+    if params.key?(:state)
+      return head :bad_request unless %w[pending final].include?(params[:state])
+
+      # Dynamically call the pending or final scope.
+      orders = orders.send(params[:state])
+    end
+
+    respond_to do |format|
+      format.json { render json: orders.as_json(methods: :deletable_until, include: :products) }
+    end
+  end
 
   # Create a new order page
   # GET /users/{username}/orders/new
@@ -137,8 +153,13 @@ class OrdersController < ApplicationController
   # POST(method: DELETE) /users/{username}/orders/{id}
   def destroy
     @order.destroy
-    flash[:success] = "Order has been removed."
-    redirect_to root_path
+    respond_to do |format|
+      format.json { head :no_content }
+      format.html do
+        flash[:success] = "Order has been removed."
+        redirect_to root_path
+      end
+    end
   end
 
   # Koelkast overview
