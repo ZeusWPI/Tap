@@ -19,7 +19,8 @@
 #  name                :string
 #  private             :boolean          default(FALSE)
 #  frecency            :integer          default(0), not null
-#  quickpay_hidden     :boolean
+#  quickpay_hidden     :boolean          default(FALSE)
+#  userkey             :string
 #
 
 require "webmock/rspec"
