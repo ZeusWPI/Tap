@@ -2,7 +2,7 @@
 # lock '3.1.0'
 
 set :application, 'Tap'
-set :repo_url, 'git@github.com:ZeusWPI/Tap.git'
+set :repo_url, 'https://github.com/ZeusWPI/Tap.git'
 
 set :branch, 'master'
 set :deploy_to, '/home/tap/production'
