@@ -11,7 +11,6 @@
 #  updated_at     :datetime         not null
 #  transaction_id :integer
 #
-
 class Order < ApplicationRecord
   include ApplicationHelper
   include ActionView::Helpers::TextHelper
@@ -32,6 +31,9 @@ class Order < ApplicationRecord
 
   accepts_nested_attributes_for :order_items
 
+  scope :pending, -> { where(created_at: Rails.application.config.call_api_after.ago..) }
+  scope :final, -> { where(created_at: ..Rails.application.config.call_api_after.ago) }
+
   def to_sentence
     order_items.map do |oi|
       pluralize(oi.count, oi.product.name)
@@ -39,11 +41,15 @@ class Order < ApplicationRecord
   end
 
   def deletable
-    created_at > Rails.application.config.call_api_after.ago
+    Time.zone.now <= deletable_until
+  end
+
+  def deletable_until
+    created_at + Rails.application.config.call_api_after
   end
 
   def sec_until_remove
-    created_at.to_i - (Time.zone.now - Rails.application.config.call_api_after).to_i
+    (deletable_until - Time.zone.now).to_i
   end
 
   def calculate_price

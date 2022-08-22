@@ -29,7 +29,7 @@ Rails.application.routes.draw do
 
   # /users/...
   resources :users, only: [:show, :update] do
-    resources :orders, only: [:new, :create, :destroy] do
+    resources :orders, only: [:index, :new, :create, :destroy] do
       get :new_products, on: :collection
       post "/new" => "orders#new_update", on: :collection
     end

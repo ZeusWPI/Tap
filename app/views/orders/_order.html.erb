@@ -22,7 +22,7 @@
   <!-- Actions -->
   <td class="order-item-actions">
     <% if order.deletable %>
-      <%= button_to "Cancel order (until #{(order.created_at + Rails.application.config.call_api_after).strftime("%H:%M")})",
+      <%= button_to "Cancel order (until #{(order.deletable_until).strftime("%H:%M")})",
           user_order_path(@user, order),
           method: :delete,
           class: "button is-danger is-light",
