@@ -78,6 +78,7 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
-  config.api_url = "http://localhost:3001"
+  config.api_url = "http://localhost:3001/api/v1/"
+  config.tab_user_url = "http://localhost:3001/"
   Delayed::Worker.logger = Rails.logger
 end

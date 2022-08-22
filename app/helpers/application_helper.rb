@@ -83,7 +83,7 @@ module ApplicationHelper
 
   # Get the Tab URL
   def tab_url
-    Rails.application.config.api_url
+    Rails.application.config.tab_user_url
   end
 
   # Get the current theme of the user
