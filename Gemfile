@@ -2,6 +2,9 @@
 
 source "https://rubygems.org"
 
+# Dotenv for .env file variables
+gem 'dotenv-rails'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 6.1"
 
@@ -67,6 +70,10 @@ gem "httparty", "~> 0.20.0"
 
 # windows support (linux timezone directory is used in the project)
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw]
+
+# Sentry
+gem "sentry-rails"
+gem "sentry-ruby"
 
 # Production dependencies
 group :production do
