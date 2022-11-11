@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 2022_07_25_163014) do
 
   create_table "barcodes", force: :cascade do |t|
-    t.integer "product_id"
+    t.integer "product_id", null: false
     t.string "code", default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -36,13 +36,13 @@ ActiveRecord::Schema.define(version: 2022_07_25_163014) do
   end
 
   create_table "order_items", force: :cascade do |t|
-    t.integer "order_id"
+    t.integer "order_id", null: false
     t.integer "product_id", null: false
     t.integer "count", default: 0
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer "user_id"
+    t.integer "user_id", null: false
     t.integer "price_cents"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
