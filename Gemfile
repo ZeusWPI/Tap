@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 
 # Dotenv for .env file variables
-gem 'dotenv-rails'
+gem "dotenv-rails"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 6.1"

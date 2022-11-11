@@ -61,8 +61,9 @@ describe OrderItem do
 
   describe "stock change" do
     let(:product) { create :product }
+    let(:order) { create :order }
     let(:count) { rand 10 }
-    let(:order_item) { build :order_item, product: product, count: count }
+    let(:order_item) { build :order_item, product: product, order: order, count: count }
 
     it "decrements on create" do
       expect { order_item.save }.to change(product, :stock).by(-count)

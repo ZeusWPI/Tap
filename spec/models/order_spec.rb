@@ -44,7 +44,7 @@ describe Order do
       it "is calculated from order_items" do
         order = build :order, products_count: 0
         sum = (create_list :product, rand(1..10)).map do |p|
-          create(:order_item, order: order, product: p, count: rand(1..5)) do |oi|
+          build(:order_item, order: order, product: p, count: rand(1..5)) do |oi|
             order.order_items << oi
           end
         end
