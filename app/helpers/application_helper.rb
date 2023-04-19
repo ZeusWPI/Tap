@@ -60,7 +60,7 @@ module ApplicationHelper
 
   # Convert a given float in euro's to a formatted string.
   def euro(float_amount)
-    number_to_currency(float_amount, unit: "€")
+    number_to_currency(float_amount, unit: "Ƶ")
   end
 
   # Replace all instances of double quotes with single quotes
