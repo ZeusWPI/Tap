@@ -3,5 +3,5 @@
  * @param {number} price_cents price in cents.
  */
 export function formatPrice(price_cents) {
-  return `€${(price_cents / 100.0).toFixed(2)}`;
+  return `Ƶ${(price_cents / 100.0).toFixed(2)}`;
 }

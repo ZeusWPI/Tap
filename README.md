@@ -53,7 +53,7 @@ make build
 
 <details>
   <summary>Can I use Tap for development without setting up Tab?</summary>
-  Tap does not sync with Tab when in development mode. The user's balance is mocked by €12.34 instead.
+  Tap does not sync with Tab when in development mode. The user's balance is mocked by Ƶ12.34 instead.
 </details>
 
 <details>
