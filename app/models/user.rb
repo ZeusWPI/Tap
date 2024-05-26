@@ -83,7 +83,8 @@ class User < ApplicationRecord
       result = HTTParty.get(File.join(Rails.application.config.api_url, "users", "#{name}.json"), headers: headers)
 
       JSON.parse(result.body)["balance"] if result.code == 200
-    rescue StandardError # rubocop:disable Lint/SuppressedException
+    rescue StandardError => e
+      raise "Error fetching balance from Tab: #{e}"
     end
   end
 
