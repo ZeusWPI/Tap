@@ -102,6 +102,7 @@ GEM
       rexml
     crass (1.0.6)
     daemons (1.4.1)
+    date (3.3.4)
     delayed_job (4.1.10)
       activesupport (>= 3.0, < 8.0)
     delayed_job_active_record (4.1.7)
@@ -176,6 +177,11 @@ GEM
     multi_xml (0.6.0)
     mutex_m (0.2.0)
     mysql2 (0.5.4)
+    net-imap (0.4.11)
+      date
+      net-protocol
+    net-pop (0.1.2)
+      net-protocol
     net-protocol (0.2.2)
       timeout
     net-scp (4.0.0)
@@ -410,6 +416,8 @@ DEPENDENCIES
   kt-paperclip (~> 7.0)
   listen (~> 3.7)
   mysql2 (~> 0.5.3)
+  net-imap
+  net-pop
   net-smtp
   omniauth-rails_csrf_protection
   omniauth-zeuswpi
