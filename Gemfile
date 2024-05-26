@@ -83,8 +83,6 @@ end
 
 # Test dependencies
 group :test do
-  gem "codeclimate-test-reporter", require: nil
-  gem "coveralls", require: false
   gem "rspec-rails"
   gem "webmock"
 end
