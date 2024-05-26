@@ -102,11 +102,11 @@ group :development do
   gem "spring", "~> 3.0"
 
   # Deployment
-  gem "capistrano", "~> 3.16"
-  gem "capistrano-passenger", "~> 0.2.1"
-  gem "capistrano-rails", "~> 1.6"
-  gem "capistrano-rbenv", "~> 2.2"
-  gem "capistrano-rvm", "~> 0.1.2"
+  gem "capistrano"
+  gem "capistrano-passenger"
+  gem "capistrano-rails"
+  gem "capistrano-rbenv"
+  gem "capistrano-rvm"
 
   # Linting
   gem "rubocop", "~> 1.30"
