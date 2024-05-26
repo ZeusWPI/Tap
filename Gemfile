@@ -72,9 +72,9 @@ gem "httparty", "~> 0.20.0"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw]
 
 # Sentry
-gem "stackprof"
 gem "sentry-rails"
 gem "sentry-ruby"
+gem "stackprof"
 
 # Production dependencies
 group :production do
