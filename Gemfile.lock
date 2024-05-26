@@ -193,10 +193,12 @@ GEM
       net-ssh (>= 2.6.5, < 7.0.0)
     net-ssh (6.1.0)
     netrc (0.11.0)
-    nio4r (2.5.8)
-    nokogiri (1.13.6-x86_64-darwin)
+    nio4r (2.7.3)
+    nokogiri (1.16.5-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.13.6-x86_64-linux)
+    nokogiri (1.16.5-x86_64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.16.5-x86_64-linux)
       racc (~> 1.4)
     oauth2 (1.4.9)
       faraday (>= 0.17.3, < 3.0)
@@ -220,12 +222,12 @@ GEM
     parallel (1.22.1)
     parser (3.1.2.0)
       ast (~> 2.4.1)
-    psych (4.0.3)
+    psych (5.1.2)
       stringio
     public_suffix (4.0.7)
     puma (5.5.2)
       nio4r (~> 2.0)
-    racc (1.6.0)
+    racc (1.8.0)
     rack (2.2.3.1)
     rack-protection (2.2.0)
       rack
@@ -268,7 +270,7 @@ GEM
     rb-fsevent (0.11.1)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    rdoc (6.4.0)
+    rdoc (6.7.0)
       psych (>= 4.0.0)
     regexp_parser (2.4.0)
     responders (3.0.1)
@@ -324,7 +326,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    sdoc (2.4.0)
+    sdoc (2.6.1)
       rdoc (>= 5.0)
     semantic_range (3.0.0)
     sentry-rails (5.5.0)
@@ -345,11 +347,14 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    sqlite3 (1.4.2)
+    sqlite3 (1.7.3-arm64-darwin)
+    sqlite3 (1.7.3-x86_64-darwin)
+    sqlite3 (1.7.3-x86_64-linux)
     sshkit (1.21.2)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
-    stringio (3.0.2)
+    stackprof (0.2.26)
+    stringio (3.1.0)
     sync (0.5.0)
     term-ansicolor (1.7.1)
       tins (~> 1.0)
@@ -387,6 +392,7 @@ GEM
     zeitwerk (2.5.4)
 
 PLATFORMS
+  arm64-darwin-23
   x86_64-darwin-21
   x86_64-linux
 
@@ -436,6 +442,7 @@ DEPENDENCIES
   sentry-ruby
   spring (~> 3.0)
   sqlite3 (~> 1.4)
+  stackprof
   tqdm (~> 0.3.0)
   tzinfo-data
   vanilla_nested (~> 1.6)
