@@ -103,10 +103,9 @@ group :development do
 
   # Deployment
   gem "capistrano"
+  gem "capistrano-asdf"
   gem "capistrano-passenger"
   gem "capistrano-rails"
-  gem "capistrano-rbenv"
-  gem "capistrano-rvm"
 
   # Linting
   gem "rubocop", "~> 1.30"
