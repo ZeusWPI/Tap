@@ -22,6 +22,8 @@ gem "sassc-rails", "~> 2.1"
 gem "webpacker", "~> 5.0"
 
 # Not sure why
+gem "net-imap", require: false
+gem "net-pop", require: false
 gem "net-smtp", require: false
 
 # Bulma
