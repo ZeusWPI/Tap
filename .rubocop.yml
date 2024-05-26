@@ -1,3 +1,5 @@
+inherit_from: .rubocop_todo.yml
+
 require:
   - rubocop-rails
   - rubocop-rspec
@@ -10,6 +12,9 @@ Style/StringLiterals:
 
 # Do not report errors on missing documentation.
 Style/Documentation:
+  Enabled: false
+
+Style/HashSyntax:
   Enabled: false
 
 # Do not complain about blocks that are too long.
