@@ -1,7 +1,7 @@
 # [Tap](https://zeus.ugent.be/tap)
 [![Code Climate](https://codeclimate.com/github/ZeusWPI/Tap/badges/gpa.svg)](https://codeclimate.com/github/ZeusWPI/Tap) [![Ruby](https://github.com/ZeusWPI/Tap/actions/workflows/ruby.yml/badge.svg)](https://github.com/ZeusWPI/Tap/actions/workflows/ruby.yml) [![Coverage Status](https://coveralls.io/repos/ZeusWPI/Tap/badge.svg?branch=master&service=github)](https://coveralls.io/github/ZeusWPI/Tap?branch=master)
 
-:beer: Yes. We have to drink. But we also have to pay. This is the drinking part.
+🍺 Yes. We have to drink. But we also have to pay. This is the drinking part.
 
 ## Development
 
