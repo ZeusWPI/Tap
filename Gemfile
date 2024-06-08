@@ -63,9 +63,6 @@ gem "identicon", "0.0.5"
 gem "bcrypt_pbkdf"
 gem "ed25519"
 
-# Ruby debugger
-gem "byebug"
-
 gem "httparty", "~> 0.20.0"
 
 # windows support (linux timezone directory is used in the project)
