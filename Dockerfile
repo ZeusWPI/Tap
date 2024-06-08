@@ -9,6 +9,8 @@ WORKDIR /app
 COPY ./Gemfile ./Gemfile.lock /app/
 
 RUN gem install bundler
+
+RUN bundle config set without 'development test'
 RUN bundle install
 
 COPY . /app
