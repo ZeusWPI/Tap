@@ -26,7 +26,7 @@ set :deploy_to, '/home/tap/production'
 # set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, %w{config/database.yml config/secrets.yml .env}
+set :linked_files, []
 
 # Default value for linked_dirs is []
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
@@ -37,16 +37,11 @@ set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/sys
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
-namespace :passenger do
-  desc "Restart Application"
-  task :restart do
-    on roles(:app) do
-      with rails_env: fetch(:rails_env) do
-        execute "touch #{current_path}/tmp/restart.txt"
-      end
-    end
-    invoke 'delayed_job:restart'
-  end
-end
+# capistrano-docker specific
+set :docker_command, "podman"
+set :docker_copy_data, %w{.env config/database.yml}
 
-after :deploy, "passenger:restart"
+set :docker_compose, true
+set :docker_compose_path, "docker-compose.prod.yml"
+set :docker_compose_command, "podman-compose"
+set :docker_compose_project_name, "tap"

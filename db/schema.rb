@@ -10,60 +10,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_25_163014) do
+ActiveRecord::Schema.define(version: 2024_06_08_163258) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "barcodes", force: :cascade do |t|
-    t.integer "product_id", null: false
-    t.string "code", default: "", null: false
+    t.bigint "product_id", null: false
+    t.string "code", limit: 255, default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["code"], name: "index_barcodes_on_code"
-  end
-
-  create_table "delayed_jobs", force: :cascade do |t|
-    t.integer "priority", default: 0, null: false
-    t.integer "attempts", default: 0, null: false
-    t.text "handler", null: false
-    t.text "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string "locked_by"
-    t.string "queue"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+    t.index ["code"], name: "idx_16395_index_barcodes_on_code"
+    t.index ["product_id"], name: "idx_16395_fk_rails_f6f6672052"
   end
 
   create_table "order_items", force: :cascade do |t|
-    t.integer "order_id", null: false
-    t.integer "product_id", null: false
-    t.integer "count", default: 0
+    t.bigint "order_id", null: false
+    t.bigint "product_id", null: false
+    t.bigint "count", default: 0
+    t.index ["order_id"], name: "idx_16419_fk_rails_e3cb28f071"
+    t.index ["product_id"], name: "idx_16419_fk_rails_f1a29ddd47"
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "price_cents"
+    t.bigint "user_id", null: false
+    t.bigint "price_cents"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "transaction_id"
-    t.index ["created_at"], name: "index_orders_on_created_at"
-    t.index ["user_id", "created_at"], name: "index_orders_on_user_id_and_created_at"
-    t.index ["user_id"], name: "index_orders_on_user_id"
+    t.bigint "transaction_id"
+    t.index ["created_at"], name: "idx_16414_index_orders_on_created_at"
+    t.index ["user_id", "created_at"], name: "idx_16414_index_orders_on_user_id_and_created_at"
+    t.index ["user_id"], name: "idx_16414_index_orders_on_user_id"
   end
 
   create_table "products", force: :cascade do |t|
-    t.string "name", null: false
-    t.integer "price_cents", default: 0, null: false
+    t.string "name", limit: 255, null: false
+    t.bigint "price_cents", default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string "avatar_file_name"
-    t.string "avatar_content_type"
-    t.integer "avatar_file_size"
+    t.string "avatar_file_name", limit: 255
+    t.string "avatar_content_type", limit: 255
+    t.bigint "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.integer "category", default: 0
-    t.integer "stock", default: 0, null: false
-    t.integer "calories"
+    t.bigint "category", default: 0
+    t.bigint "stock", default: 0, null: false
+    t.bigint "calories"
     t.boolean "deleted", default: false
   end
 
@@ -72,25 +63,26 @@ ActiveRecord::Schema.define(version: 2022_07_25_163014) do
     t.datetime "updated_at"
     t.datetime "remember_created_at"
     t.boolean "admin", default: false
-    t.integer "dagschotel_id"
-    t.string "avatar_file_name"
-    t.string "avatar_content_type"
-    t.integer "avatar_file_size"
+    t.bigint "dagschotel_id"
+    t.string "avatar_file_name", limit: 255
+    t.string "avatar_content_type", limit: 255
+    t.bigint "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.integer "orders_count", default: 0
+    t.bigint "orders_count", default: 0
     t.boolean "koelkast", default: false
-    t.string "name"
+    t.string "name", limit: 255
     t.boolean "private", default: false
-    t.integer "frecency", default: 0, null: false
+    t.bigint "frecency", default: 0, null: false
     t.boolean "quickpay_hidden", default: false
-    t.string "userkey"
-    t.index ["koelkast"], name: "index_users_on_koelkast"
-    t.index ["orders_count"], name: "index_users_on_orders_count"
+    t.string "userkey", limit: 255
+    t.index ["dagschotel_id"], name: "idx_16441_fk_rails_b21d65e995"
+    t.index ["koelkast"], name: "idx_16441_index_users_on_koelkast"
+    t.index ["orders_count"], name: "idx_16441_index_users_on_orders_count"
   end
 
-  add_foreign_key "barcodes", "products"
-  add_foreign_key "order_items", "orders"
-  add_foreign_key "order_items", "products"
-  add_foreign_key "orders", "users"
-  add_foreign_key "users", "products", column: "dagschotel_id"
+  add_foreign_key "barcodes", "products", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "order_items", "orders", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "order_items", "products", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "orders", "users", on_update: :restrict, on_delete: :restrict
+  add_foreign_key "users", "products", column: "dagschotel_id", on_update: :restrict, on_delete: :restrict
 end

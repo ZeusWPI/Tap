@@ -80,5 +80,4 @@ Rails.application.configure do
 
   config.api_url = "http://localhost:3001/api/v1/"
   config.tab_user_url = "http://localhost:3001/"
-  Delayed::Worker.logger = Rails.logger
 end

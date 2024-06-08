@@ -15,8 +15,8 @@ module Tap
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     config.time_zone = 'Brussels'
 
-    # Setup delayed jobs
-    config.active_job.queue_adapter = :delayed_job
+    # Setup Sidekiq
+    config.active_job.queue_adapter = :sidekiq
     config.call_api_after = 5.minutes
     config.frecency_num_orders = 25
 

@@ -25,7 +25,7 @@ module Statistics
   def products_group_by_id
     products
       .select("products.*", "sum(order_items.count) as count")
-      .group(:product_id)
+      .group("products.id")
       .order("count")
       .reverse_order
   end

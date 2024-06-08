@@ -59,11 +59,6 @@ gem "cancancan", "~> 3.3"
 # Default avatar for users
 gem "identicon", "0.0.5"
 
-# Run stuff in the background
-gem "daemons", "~> 1.4"
-gem "delayed_job", "~> 4.1"
-gem "delayed_job_active_record"
-
 # Needed for deployment somehow
 gem "bcrypt_pbkdf"
 gem "ed25519"
@@ -81,10 +76,11 @@ gem "sentry-rails"
 gem "sentry-ruby"
 gem "stackprof"
 
-# Production dependencies
-group :production do
-  gem "mysql2", "~> 0.5.3"
-end
+# Run stuff in background
+gem "sidekiq", "~> 7.0"
+
+# Use PostgreSQL as the database for Active Record
+gem "pg"
 
 # Test dependencies
 group :test do
@@ -94,9 +90,6 @@ end
 
 # Development dependencies
 group :development do
-  # Use sqlite3 as the database for Active Record
-  gem "sqlite3", "~> 1.4"
-
   # Annotates Rails/ActiveRecord Models, routes, fixtures, and others based on the database schema.
   gem "annotate", "~> 3.1"
 
@@ -104,10 +97,8 @@ group :development do
   gem "spring", "~> 3.0"
 
   # Deployment
-  gem "capistrano"
-  gem "capistrano-asdf"
-  gem "capistrano-passenger"
-  gem "capistrano-rails"
+  gem "capistrano", "~> 3.17"
+  gem "capistrano-docker", github: "TomNaessens/capistrano-docker"
 
   # Linting
   gem "rubocop", "~> 1.30"
