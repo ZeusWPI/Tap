@@ -7,47 +7,17 @@
 
 To provide a consistent experience on every system, docker and docker-compose is used during development and production.
 
-### Using Docker and Make *(recommended)*
+1. Install the prerequisites: ruby `$(cat .ruby-version)`, preferably using [asdf](https://asdf-vm.com/), and some system libraries depending on your OS (e.g. imagemagick)
+2. Install the ruby dependencies: `bin/bundle`
+3. Start up the database, sidekiq and rails server by running `bin/dev`
+4. Set up some database data using `rails db:setup`
+5. Browse to http://localhost:3000
 
-#### Linux/Unix
+In case you want to start the webserver in your IDE, just run `docker-compose up -d` and start Sidekiq manually (`bundle exec sidekiq`)
 
-1. Install [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/)
-2. Start the development server
-    ```sh
-    make dev
-    ```
+## Deploying
 
-    > This will start a development server on http://localhost:3000
-3. Seed the database.
-    ```sh
-    make dev-seed
-    ```
-
-    > The development setup uses an SQLite 3 database, which can be found under `/db/development.sqlite3`
-
-#### Windows
-
-1. Install [WSL (Windows Subsystem for Linux)](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
-2. Follow the instructions for Linux/Unix above
-
-### Directly on your system
-
-1. Install [asdf](http://asdf-vm.com/guide/getting-started.html#getting-started)
-2. Install dependencies: `asdf install`
-3. Install gems: `bundle install`
-4. Migrate the db using `bundle exec rails db:migrate`
-5. Seed the db using `bundle exec rails db:seed`
-6. Start Tap by running `bundle exec rails s`
-
-## Production
-
-You can generate a production docker image using:
-
-```sh
-make build
-```
-
-> The image will be tagged under `tap:latest`
+_Locally_, run `bundle exec cap production deploy`
 
 ## FAQ
 
@@ -73,9 +43,12 @@ make build
 
 <details>
   <summary>There are no transactions going from Tap to Tab</summary>
-  The delay job may not be running. You can start it using:
+  Sidekiq might not be running. Check the dashboard on https://tap.zeus.gent/sidekiq.
 
-  ```sh
-  sudo -u tap RAILS_ENV=production /home/tap/production/current/bin/delayed_job start
+  You can start by redeploying the application, or by turning the deployment on the server off & on (inside the `/home/tap/production/current` directory):
+
+  ```bash
+  podman-compose -f docker-compose.prod.yml -p tap down
+  podman-compose -f docker-compose.prod.yml -p tap up -d
   ```
 </details>
