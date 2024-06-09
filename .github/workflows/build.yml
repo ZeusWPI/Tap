@@ -17,6 +17,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
+            ZeusWPI/Tap
             ghcr.io/ZeusWPI/Tap
           tags: |
             type=sha
@@ -36,7 +37,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          registry: ${{ env.REGISTRY }}
           push: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
