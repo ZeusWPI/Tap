@@ -34,7 +34,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         env:
-          SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}
+          SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE_DUMMY }}
         with:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
