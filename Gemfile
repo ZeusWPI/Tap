@@ -79,6 +79,9 @@ gem "sidekiq", "~> 7.0"
 # Use PostgreSQL as the database for Active Record
 gem "pg"
 
+# Rainbow for colored output in irb, even in production
+gem "rainbow"
+
 # Test dependencies
 group :test do
   gem "rspec-rails"
