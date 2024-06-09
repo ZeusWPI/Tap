@@ -12,6 +12,7 @@ services:
 
   web:
     image: "ghcr.io/zeuswpi/tap:latest"
+    pull_policy: always
     ports:
       - "3008:3000"
     volumes:
@@ -27,6 +28,7 @@ services:
 
   sidekiq:
     image: "ghcr.io/zeuswpi/tap:latest"
+    pull_policy: always
     depends_on:
       - db
       - redis
