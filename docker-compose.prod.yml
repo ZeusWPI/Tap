@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   db:
-    image: postgres:16
+    image: postgres:16-alpine
     environment:
       POSTGRES_DB: tap
       POSTGRES_USER: postgres
