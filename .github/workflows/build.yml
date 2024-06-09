@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'master'
+      - 'tom-containerize'
 
 env:
   REGISTRY: ghcr.io
