@@ -13,9 +13,7 @@ services:
       - "5432:5432"
 
   web:
-    build: .
-    depends_on:
-      - db
+    image: "ghcr.io/ZeusWPI/Tap:latest"
     ports:
       - "3008:3000"
     volumes:
@@ -28,7 +26,7 @@ services:
       RAILS_SERVE_STATIC_FILES: 1
 
   sidekiq:
-    build: .
+    image: "ghcr.io/ZeusWPI/Tap:latest"
     depends_on:
       - db
       - redis
