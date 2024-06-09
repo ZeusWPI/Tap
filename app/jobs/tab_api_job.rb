@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-TabApiJob = Struct.new(:order_id) do
-  def perform(*_args)
+class TabApiJob < ApplicationJob
+  def perform(order_id)
     order = Order.find_by(id: order_id)
     return unless order && !order.transaction_id
 
@@ -22,13 +22,11 @@ TabApiJob = Struct.new(:order_id) do
     order.update(transaction_id: JSON.parse(result.body)["id"].to_i)
   end
 
+  private
+
   def headers
     {
       "Authorization" => "Token token=#{Rails.application.secrets.tab_api_key}"
     }
-  end
-
-  def error(_job, exception)
-    Airbrake.notify(exception)
   end
 end

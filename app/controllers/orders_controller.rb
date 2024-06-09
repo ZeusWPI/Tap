@@ -152,7 +152,7 @@ class OrdersController < ApplicationController
   # Create an order
   # POST(method: DELETE) /users/{username}/orders/{id}
   def destroy
-    @order.destroy
+    @order.destroy!
     respond_to do |format|
       format.json { head :no_content }
       format.html do

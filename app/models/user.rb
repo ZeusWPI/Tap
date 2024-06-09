@@ -113,7 +113,7 @@ class User < ApplicationRecord
 
   def generate_key!
     set_key
-    save
+    save!
   end
 
   private

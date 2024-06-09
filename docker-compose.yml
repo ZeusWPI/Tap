@@ -1,25 +1,37 @@
 #
-# This compose file is meant for development and should not be used in production!
-#
-version: "3"
+version: '3.3'
+
 services:
-  # Development service
-  development:
-    build:
-      context: .
-      # Build the image using the host network
-      # This is to allow building the image on eduroam (since it clashes with the default docker range)
-      network: host
-      # Development build
-      target: development
-    ports:
-      # adams.ugent.be only support port 3000 for authentication in localhost
-      - "3000:80"
-    volumes:
-      # Mount the source code for development
-      - "./:/tap/"
+  db:
+    image: postgres:16
     environment:
-      # Enable docker buildkit caching between layers
-      BUILDKIT_INLINE_CACHE: 1
-    tmpfs:
-      - /tap/tmp
+      POSTGRES_DB: tap
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - tap_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  db-test:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: tap-test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - tap_test_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+
+volumes:
+  tap_data:
+  tap_test_data:
+  redis_data:

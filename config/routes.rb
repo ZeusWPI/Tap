@@ -3,6 +3,12 @@ Rails.application.routes.draw do
   # This method is responsible to generate all needed routes for devise, based on what modules you have defined in your model.
   devise_for :users, controllers: { omniauth_callbacks: "callbacks" }
 
+  # Sidekiq UI
+  require 'sidekiq/web'
+  authenticate :user, -> (user) { user.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   # Authentication
   # Using "devise"
   devise_scope :user do

@@ -1,67 +1,28 @@
-##################
-### Base image ###
-##################
-FROM ruby:3.0.2-alpine as base
+FROM ruby:3.3.2-slim
 
-# Install the required packages for building
-# Delete APK cache at the end (for smaller production images)
-RUN apk update && \
-    apk add --virtual build-dependencies build-base && \
-    apk add shared-mime-info mariadb-dev sqlite-dev nodejs tzdata imagemagick && \
-    rm -rf /var/cache/apk/*
+ENV RAILS_ENV=production
 
-# Create a working directory
-WORKDIR /tap
+RUN apt update && apt install -y git libpq-dev build-essential gpg curl
 
-# Copy the gemfile to the working directory
-COPY Gemfile Gemfile
-COPY Gemfile.lock Gemfile.lock
+WORKDIR /app
 
-# Install dependencies
-# Use BuildKit cache for caching dependencies
-RUN --mount=type=cache,target=vendor/cache bundle install
+COPY ./Gemfile ./Gemfile.lock /app/
 
-# Copy all of the .gem files needed to run the application into the vendor/cache directory.
-# In the future, when running [bundle install(1)][bundle-install], use the gems in the cache in preference to the ones on rubygems.org
-RUN bundle cache
+RUN gem install bundler
+RUN bundle config set without 'development test'
+RUN bundle install
 
-########################
-### Production image ###
-########################
-FROM base as production
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+RUN apt install -y nodejs
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN apt update && apt install -y yarn
 
-# Copy the sourcecode
-COPY . .
+COPY ./package.json ./yarn.lock /app/
+RUN yarn install
 
-# Run rails in production mode
-ENV RAILS_ENV production
+COPY . /app
 
-# Expose port 80
-# This is the main port for the application
-EXPOSE 80
+RUN SECRET_KEY_BASE="dummy_secret_key_base" bundle exec rails assets:precompile
 
-# Pre-compile assets
-RUN rake assets:precompile
-
-# Docker Entrypoint
-# Will be started when the container is started
-ENTRYPOINT sh docker-start.sh
-
-#########################
-### Development image ###
-#########################
-FROM base as development
-
-# Copy the sourcecode
-COPY . .
-
-# Run rails in production mode
-ENV RAILS_ENV development
-
-# Expose port 80
-# This is the main port for the application
-EXPOSE 80
-
-# Docker Entrypoint
-# Will be started when the container is started
-CMD sh docker-start.sh
+CMD bundle exec rails s -b 0.0.0.0
