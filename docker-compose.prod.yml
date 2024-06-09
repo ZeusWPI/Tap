@@ -22,6 +22,8 @@ services:
       SECRET_AUTH_USERNAME: admin
       SECRET_AUTH_PASSWORD: admin-password
       RAILS_SERVE_STATIC_FILES: 1
+    env_file:
+      - .env
 
   sidekiq:
     image: "ghcr.io/zeuswpi/tap:latest"
@@ -34,6 +36,8 @@ services:
       DATABASE_URL: postgresql://postgres:password@db/tap
       REDIS_URL: redis://redis:6379
     entrypoint: bundle exec sidekiq
+    env_file:
+      - .env
 
   redis:
     image: redis:7-alpine
