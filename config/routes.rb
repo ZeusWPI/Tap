@@ -58,6 +58,8 @@ Rails.application.routes.draw do
   # Koelkast overview page
   get "overview" => "orders#overview", as: "orders"
 
+  get "recent" => "public#recent", as: "recent"
+
   # Guest endpoints
   namespace :guest do
     resources :orders, only: [:new, :create]

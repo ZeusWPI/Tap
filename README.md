@@ -35,9 +35,10 @@ To provide a consistent experience on every system, docker and docker-compose is
 1. Install [asdf](http://asdf-vm.com/guide/getting-started.html#getting-started)
 2. Install dependencies: `asdf install`
 3. Install gems: `bundle install`
-4. Migrate the db using `bundle exec rails db:migrate`
-5. Seed the db using `bundle exec rails db:seed`
-6. Start Tap by running `bundle exec rails s`
+4. Run: `yarn`
+5. Migrate the db using `bundle exec rails db:migrate`
+6. Seed the db using `bundle exec rails db:seed`
+7. Start Tap by running `bundle exec rails s`
 
 ## Production
 
