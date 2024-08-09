@@ -21,6 +21,6 @@ class PublicController < ApplicationController
       end
     end.flatten
 
-    render json: mapped_orders
+    render json: { orders: mapped_orders }
   end
 end
