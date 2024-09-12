@@ -34,7 +34,7 @@ class Order < ApplicationRecord
   scope :pending, -> { where(created_at: Rails.application.config.call_api_after.ago..) }
   scope :final, -> { where(created_at: ..Rails.application.config.call_api_after.ago) }
 
-  scope :recent, -> { where(created_at: 2.weeks.ago..Time.zone.now) }
+  scope :recent, -> { where(created_at: 1.month.ago..Time.zone.now) }
 
   def to_sentence
     order_items.map do |oi|
