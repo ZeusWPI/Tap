@@ -19,10 +19,10 @@
         
     <!-- Footer -->
     <footer class="modal-card-foot is-flex is-justify-content-space-between">
-        <p>Calculate price per unit with Zeus tax.</p>
+        <p>Calculate price per unit with Zeus tax</p>
         <div>
-            <a class="button is-danger is-light" href="#" data-turbo="false">Close</a>
-            <button onclick="calculate_price()" class="button is-primary" href="#" data-turbo="false">Update price</button>
+        <button onclick="calculate_price()" class="button is-primary" href="#" data-turbo="false">Update price</button>
+        <a class="button is-danger is-light" href="#" data-turbo="false">Close</a>
         </div>
     </footer>
   </div>
@@ -34,5 +34,11 @@
 
         document.getElementById("product_price").value = Math.ceil((price / amount * 1.1) * 100) / 100;
         window.location.replace('#');
+    }
+
+    onkeyup = (event) => {
+        if (event.key == "Escape") {
+            window.location.replace('#');
+        }
     }
 </script>
