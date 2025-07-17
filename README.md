@@ -38,6 +38,7 @@ To provide a consistent experience on every system, docker and docker-compose is
 4. Run: `yarn`
 5. Migrate the db using `bundle exec rails db:migrate`
 6. Seed the db using `bundle exec rails db:seed`
+7. Run `rake webpacker:compile` probably
 7. Start Tap by running `bundle exec rails s`
 
 ## Production

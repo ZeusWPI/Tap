@@ -2,6 +2,8 @@
 
 source "https://rubygems.org"
 
+gem "csv"
+
 # Dotenv for .env file variables
 gem "dotenv-rails"
 
@@ -128,3 +130,4 @@ end
 group :doc do
   gem "sdoc", "~> 2.2"
 end
+
