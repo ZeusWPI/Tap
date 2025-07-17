@@ -75,7 +75,7 @@ class User < ApplicationRecord
     return 1234 if Rails.env.development?
 
     # If in production, fetch the user's balance from Tab.
-    @balance || begin
+    bal = @balance || begin
       headers = {
         "Authorization" => "Token token=#{Rails.application.secrets.tab_api_key}",
         "Content-type" => "application/json"
@@ -86,6 +86,13 @@ class User < ApplicationRecord
     rescue StandardError => e
       raise "Error fetching balance from Tab: #{e}"
     end
+
+    # Subtract pending orders to avoid negative balance
+    pending_orders = orders.pending
+    total_pending = pending_orders.map { |order| order.calculate_price }.sum || 0
+    
+    bal - total_pending
+
   end
 
   # Static Users
