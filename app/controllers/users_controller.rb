@@ -80,9 +80,9 @@ class UsersController < ApplicationController
   # POST /users/{username}/dagschotel/order
   # GET /users/{username}/quickpay (legacy endpoint, required not to break Tappb)
   def order_dagschotel
-    authorize! :create, @user.orders.build
     order = @user.orders.build
     order.order_items.build(count: 1, product: @user.dagschotel)
+    authorize! :create, order
 
     if order.save
       flash[:success] = "Your dagschotel has been ordered!"
