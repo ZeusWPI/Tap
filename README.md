@@ -32,6 +32,8 @@ To provide a consistent experience on every system, docker and docker-compose is
 
 ### Directly on your system
 
+> If you have nix with flakes, run `nix develop` first, then do these commands
+
 1. Install [asdf](http://asdf-vm.com/guide/getting-started.html#getting-started)
 2. Install dependencies: `asdf install`
 3. Install gems: `bundle install`
