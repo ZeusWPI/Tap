@@ -1,0 +1,38 @@
+<div class="modal modal-target" id="modalPriceCalculator">
+  <a class="modal-background" href="#" data-turbo="false"></a>
+
+  <div class="modal-card">
+
+    <!-- Header -->
+    <header class="modal-card-head">
+        <p class="modal-card-title">Calculate the price</p>
+        <a class="delete" aria-label="close" href="#" data-turbo="false"></a>
+    </header>
+
+    <!-- Content -->
+    <section class="modal-card-body">
+        <label class="label">Amount of items</label>
+        <input type="number" class="input" id="calculator_amount_input">
+        <label class="label">Total price</label>
+        <input type="number" class="input" id="calculator_price_input">
+    </section>
+        
+    <!-- Footer -->
+    <footer class="modal-card-foot is-flex is-justify-content-space-between">
+        <p>Calculate price per unit with Zeus tax.</p>
+        <div>
+            <a class="button is-danger is-light" href="#" data-turbo="false">Close</a>
+            <button onclick="calculate_price()" class="button is-primary" href="#" data-turbo="false">Update price</button>
+        </div>
+    </footer>
+  </div>
+</div>
+<script>
+    function calculate_price() {
+        let amount = document.getElementById("calculator_amount_input").valueAsNumber;
+        let price = document.getElementById("calculator_price_input").valueAsNumber;
+
+        document.getElementById("product_price").value = Math.ceil((price / amount * 1.1) * 100) / 100;
+        window.location.replace('#');
+    }
+</script>
