@@ -87,6 +87,8 @@ class User < ApplicationRecord
       raise "Error fetching balance from Tab: #{e}"
     end
 
+    return nil if bal.nil?
+
     # Subtract pending orders to avoid negative balance
     pending_orders = orders.pending
     total_pending = pending_orders.map(&:calculate_price).sum || 0
