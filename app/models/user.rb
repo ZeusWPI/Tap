@@ -89,10 +89,9 @@ class User < ApplicationRecord
 
     # Subtract pending orders to avoid negative balance
     pending_orders = orders.pending
-    total_pending = pending_orders.map { |order| order.calculate_price }.sum || 0
-    
-    bal - total_pending
+    total_pending = pending_orders.map(&:calculate_price).sum || 0
 
+    bal - total_pending
   end
 
   # Static Users
