@@ -3,6 +3,7 @@
 source "https://rubygems.org"
 
 gem "csv"
+gem "observer"
 
 # Dotenv for .env file variables
 gem "dotenv-rails"
