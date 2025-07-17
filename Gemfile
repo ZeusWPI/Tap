@@ -130,4 +130,3 @@ end
 group :doc do
   gem "sdoc", "~> 2.2"
 end
-
