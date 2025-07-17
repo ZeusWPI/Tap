@@ -14,7 +14,8 @@
   <!-- New product -->
   <% if can? :manage, Product %>
   <div class="column is-narrow">
-    <%= link_to "New product", new_product_path, class: "button is-primary" %>
+    <%= link_to "New product via barcode", new_barcode_path, class: "button is-primary" %>
+    <%= link_to "New product", new_product_path, class: "button is-secondary" %>
   </div>
   <% end %>
 </div>
