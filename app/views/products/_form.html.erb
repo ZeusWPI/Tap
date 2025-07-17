@@ -17,6 +17,10 @@
 
     <%= f.text_field :name %>
     <%= f.price_field :price, label: "Price" %>
+    <a href="#modalPriceCalculator" class="button is-primary" data-turbo="false">
+      <%= icon('fas', 'calculator', class: "mr-3") %>
+      Price Calculator
+    </a>
     <%= f.collection_select :category, Product.categories.keys, :to_s, :titlecase %>
     <%= f.number_field :stock %>
     <%= f.number_field :calories %>
@@ -58,4 +62,6 @@
     <%= f.submit %>
   </div>
 <% end %>
+<!-- Products Modal -->
+  <%= render "products/price_calculator_modal" %>
 </div>

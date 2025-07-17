@@ -1,29 +1,6 @@
 <div class="columns is-multiline is-justify-content-space-between">
-  <!-- Link to existing product -->
-  <div class="column is-12 is-5-widescreen">
-    <div class="title">
-      Link barcode to existing product
-    </div>
 
-    <div class="subtitle">
-      Click on a product to link the barcode to an existing product
-    </div>
-
-    <div class="card">
-      <div class="card-content">
-        <%= render 'products/list', categories: false, compact: true, actions: ["barcode:link"] %>
-      </div>
-    </div>
-  </div>
-
-  <!-- OR -->
-  <div class="column is-12 is-2-widescreen is-align-self-center">
-    <div class="is-size-3 has-text-weight-semibold is-text has-text-centered">
-      - OR -
-    </div>
-  </div>
-
-  <!-- Create new product -->
+    <!-- Create new product -->
   <div class="column is-12 is-5-widescreen">
     <div class="title">
       Create new product
@@ -39,4 +16,29 @@
       </div>
     </div>
   </div>
+
+  <!-- OR -->
+  <div class="column is-12 is-2-widescreen is-align-self-center">
+    <div class="is-size-3 has-text-weight-semibold is-text has-text-centered">
+      - OR -
+    </div>
+  </div>
+
+  <!-- Link to existing product -->
+  <div class="column is-12 is-5-widescreen">
+    <div class="title">
+      Link barcode to existing product
+    </div>
+
+    <div class="subtitle">
+      Click on a product to link the barcode to an existing product
+    </div>
+
+    <div class="card">
+      <div class="card-content" style="max-height: 60rem; overflow-y: scroll; scrollbar-color: orange white;">
+        <%= render 'products/list', categories: false, compact: true, actions: ["barcode:link"] %>
+      </div>
+    </div>
+  </div>
+
 </div>
