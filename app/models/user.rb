@@ -39,11 +39,21 @@ class User < ApplicationRecord
   scope :publik, -> { where private: false }
 
   def self.from_omniauth(auth)
-    find_or_create_by!(name: auth.uid) do |user|
+    user = find_or_create_by!(name: auth.uid) do |user|
       user.avatar = Paperclip.io_adapters.for(Identicon.data_url_for(auth.uid))
       user.generate_key!
       user.private = true
     end
+    
+    # get roles info
+    roles = auth.extra.raw_info.roles || []
+
+    admin_roles = ["bestuur", "tap_admin"]
+    user.admin = (roles & admin_roles).any?
+
+    user.save! if user.changed?
+
+    user
   end
 
   def calculate_frecency
