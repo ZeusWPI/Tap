@@ -46,7 +46,7 @@ class User < ApplicationRecord
     end
 
     # get roles info
-    roles = auth.extra.raw_info.roles || []
+    roles = auth.dig(:extra, :raw_info, :roles) || []
 
     admin_roles = %w[bestuur tap_admin]
     db_user.admin = roles.intersect?(admin_roles)
