@@ -75,12 +75,14 @@ describe User do
   describe "omniauth" do
     describe "when the user is new" do
       let(:auth_hash) do
-        OmniAuth::AuthHash.new({
-                                 uid: "yet-another-test-user",
-                                 extra: {
-                                   raw_info: { roles: [] }
-                                 }
-                               })
+        OmniAuth::AuthHash.new(
+          {
+            uid: "yet-another-test-user",
+            extra: {
+              raw_info: { roles: [] }
+            }
+          }
+        )
       end
 
       it "creates a new user with the correct name" do
@@ -92,12 +94,14 @@ describe User do
     describe "when the user already exists" do
       let!(:existing_user) { create(:user) }
       let(:auth_hash) do
-        OmniAuth::AuthHash.new({
-                                 uid: existing_user.name,
-                                 extra: {
-                                   raw_info: { roles: [] }
-                                 }
-                               })
+        OmniAuth::AuthHash.new(
+          {
+            uid: existing_user.name,
+            extra: {
+              raw_info: { roles: [] }
+            }
+          }
+        )
       end
 
       it "finds the existing user" do
