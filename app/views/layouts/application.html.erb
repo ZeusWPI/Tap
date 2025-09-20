@@ -12,13 +12,14 @@
     <%= stylesheet_link_tag "application", media: "all", 'data-turbo-track': "reload", defer: true %>
 
     <!-- JS -->
-    <%= javascript_pack_tag "application", "data-turbo-track": "reload" %>
-
-    <!-- Vendor supplied dependencies -->
-    <%= javascript_pack_tag "dependencies/turbo",      "data-turbo-track": "reload", defer: true %>
-    <%= javascript_pack_tag "dependencies/petite-vue", "data-turbo-track": "reload", defer: true %>
+    <%= javascript_pack_tag "application",                 "data-turbo-track": "reload" %>
+    <%= javascript_pack_tag "dependencies/chartkick",      "data-turbo-track": "reload" %>
+    <%= javascript_pack_tag "dependencies/petite-vue",     "data-turbo-track": "reload", defer: true %>
+    <%= javascript_pack_tag "dependencies/rails",          "data-turbo-track": "reload" %>
+    <%= javascript_pack_tag "dependencies/turbo",          "data-turbo-track": "reload", defer: true %>
+    <%= javascript_pack_tag "dependencies/vanilla-nested", "data-turbo-track": "reload" %>
     <% if current_user && !current_user.koelkast %>
-      <%= javascript_pack_tag "dependencies/quagga",   "data-turbo-track": "reload", defer: true %>
+        <%= javascript_pack_tag "dependencies/quagga", "data-turbo-track": "reload", defer: true %>
     <% end %>
 
     <!-- Icons -->
