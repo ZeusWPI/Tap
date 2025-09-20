@@ -133,6 +133,10 @@ class OrdersController < ApplicationController
           flash[:success] << " Please put #{euro_from_cents(@order.price_cents)} in our pot!" if @user.guest?
           flash[:success] << " Enjoy!"
 
+          flash[:successful_order_items] = @order.order_items.map do |oi|
+            {product: oi.product, count: oi.count}
+          end
+
           # Redirect back to the root
           redirect_to root_path
         else

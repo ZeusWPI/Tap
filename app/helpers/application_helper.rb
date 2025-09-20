@@ -3,6 +3,11 @@
 module ApplicationHelper
   include ActionView::Helpers::NumberHelper
 
+  # Predicate for filtering the flash Hash for notifications
+  def flash_is_notification(flash_type)
+    not flash_class(flash_type).nil?
+  end
+
   # Get the Bulma notification class for a given flash type
   def flash_class(flash_type)
     types = {
@@ -11,8 +16,7 @@ module ApplicationHelper
       alert: "is-warning",
       info: "is-info"
     }
-
-    types[flash_type.to_sym] || "is-info"
+    types[flash_type.to_sym]
   end
 
   # Convert a given user name to a color hash
