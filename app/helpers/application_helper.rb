@@ -5,7 +5,7 @@ module ApplicationHelper
 
   # Predicate for filtering the flash Hash for notifications
   def flash_is_notification(flash_type)
-    not flash_class(flash_type).nil?
+    !flash_class(flash_type).nil?
   end
 
   # Get the Bulma notification class for a given flash type

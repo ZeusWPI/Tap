@@ -134,7 +134,7 @@ class OrdersController < ApplicationController
           flash[:success] << " Enjoy!"
 
           flash[:successful_order_items] = @order.order_items.map do |oi|
-            {product: oi.product, count: oi.count}
+            { product: oi.product, count: oi.count }
           end
 
           # Redirect back to the root
