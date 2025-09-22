@@ -13,30 +13,12 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-import Rails from "@rails/ujs";
-
-// Start Rails
-Rails.start();
-
-/**
- * Dependencies
- */
-
-// Vanilla Nested for nested dynamic forms
-import "vanilla-nested";
-
-// ChartKick for charts
-import "chartkick/chart.js";
-
-/**
- * Local JavaScript dependencies
- */
 // PWA
-import "./pwa";
+import "../application/pwa";
 
 // Utils
-import "./utils/filepicker";
-import "./utils/submit";
-import "./utils/remove";
-import "./utils/modal";
-import "./utils/scanner";
+import "../application/utils/filepicker";
+import "../application/utils/submit";
+import "../application/utils/remove";
+import "../application/utils/modal";
+import "../application/utils/scanner";

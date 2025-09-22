@@ -11,19 +11,19 @@ To provide a consistent experience on every system, docker and docker-compose is
 
 #### Linux/Unix
 
-1. Install [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/)
+1. Install [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/) (if not already included).
 2. Start the development server
     ```sh
-    make dev
+    make up
     ```
-
-    > This will start a development server on http://localhost:3000
+    > This will start a development server on http://localhost:3000.
+    > Cancelling this command will leave tap running in the background.
+    > You can stop it using `make down`.
 3. Seed the database.
     ```sh
-    make dev-seed
+    make seed
     ```
-
-    > The development setup uses an SQLite 3 database, which can be found under `/db/development.sqlite3`
+    > The development setup uses a SQLite 3 database, which can be found under `/db/development.sqlite3`.
 
 #### Windows
 
@@ -32,7 +32,7 @@ To provide a consistent experience on every system, docker and docker-compose is
 
 ### Directly on your system
 
-> If you have nix with flakes, run `nix develop` first, then do these commands
+> If you have nix with flakes, run `nix develop` instead of using asdf.
 
 1. Install [asdf](http://asdf-vm.com/guide/getting-started.html#getting-started)
 2. Install dependencies: `asdf install`
@@ -42,16 +42,6 @@ To provide a consistent experience on every system, docker and docker-compose is
 6. Seed the db using `bundle exec rails db:seed`
 7. Run `rake webpacker:compile` probably
 7. Start Tap by running `bundle exec rails s`
-
-## Production
-
-You can generate a production docker image using:
-
-```sh
-make build
-```
-
-> The image will be tagged under `tap:latest`
 
 ## FAQ
 

@@ -1,37 +1,26 @@
-#####################
-### Configuration ###
-#####################
+dc = docker compose
+dcexec = $(dc) exec development
 
-# Use Docker BuildKit to speedup builds
-export DOCKER_BUILDKIT := 1
+up:
+	$(dc) up -d --build
+	$(dc) logs -f
 
-# Use Docker BuildKit in docker-compose
-export COMPOSE_DOCKER_CLI_BUILD := 1
+seed:
+	$(dc) up -d
+	$(dcexec) bundle exec rake db:seed
 
-################
-### Commands ###
-################
+webpack:
+	$(dc) up -d
+	$(dcexec) bundle exec rake webpacker:compile
 
-# Shortcut for running the `development` container with docker-compose
-RUN_DEV := docker-compose run --rm development
-
-# Start the development server
-dev:
-	docker-compose up --build
-.PHONY: dev
-
-# Seed the development database
-dev-seed:
-	$(RUN_DEV) bundle exec rake db:seed
-.PHONY: dev-seed
-
-# Lint the codebase
 lint:
-	$(RUN_DEV) bundle exec rubocop -A
-.PHONY: lint
+	$(dc) up -d
+	$(dcexec) bundle exec rubocop -A
 
-# Build the production docker image
-build:
-	export TARGET=production
-	docker build . -t tap:latest
-.PHONY: build
+shell:
+	$(dcexec) sh
+
+down:
+	$(dc) down
+
+.PHONY: up seed webpack lint shell down
