@@ -9,7 +9,7 @@
     "alpinejs": "^3.4.2",
     "chart.js": "^3.5.1",
     "chartkick": "^4.0.5",
-    "mqtt": "^5.14.1",
+    "mqtt": "5.13.3",
     "petite-vue": "^0.3.0",
     "vanilla-nested": "arielj/vanilla-nested",
     "webpack": "^4.46.0",
