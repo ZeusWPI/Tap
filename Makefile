@@ -1,5 +1,8 @@
 dc = docker compose
-dcexec = $(dc) exec development
+dcexec = $(dc) exec development /entrypoint
+
+build:
+	$(dc) build
 
 up:
 	$(dc) up -d --build
@@ -7,11 +10,11 @@ up:
 
 seed:
 	$(dc) up -d
-	$(dcexec) bundle exec rake db:seed
+	$(dcexec) bundle exec rake "db:seed"
 
 webpack:
 	$(dc) up -d
-	$(dcexec) bundle exec rake webpacker:compile
+	$(dcexec) bundle exec rake "webpacker:compile"
 
 lint:
 	$(dc) up -d
@@ -23,4 +26,4 @@ shell:
 down:
 	$(dc) down
 
-.PHONY: up seed webpack lint shell down
+.PHONY: build up seed webpack lint shell down

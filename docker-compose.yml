@@ -1,7 +1,9 @@
 # This compose file is meant for development and should not be used in production!
 services:
   development:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.nix-based
     ports:
       - "127.0.0.1:3000:80"
     volumes:

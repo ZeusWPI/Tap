@@ -1,0 +1,29 @@
+FROM docker.io/nixos/nix:2.31.2
+
+RUN nix-channel --update
+RUN echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
+
+WORKDIR /tap
+
+COPY flake.nix flake.lock ./
+# Run once to cache
+RUN nix develop
+
+# Wraps nix develop
+COPY --chmod=755 docker-nix-entrypoint.sh /entrypoint
+
+COPY Gemfile Gemfile.lock ./
+RUN --mount=type=cache,target=vendor/cache /entrypoint bundle install
+RUN --mount=type=cache,target=vendor/cache /entrypoint bundle cache
+
+COPY package.json yarn.lock ./
+RUN /entrypoint yarn install
+
+COPY ./ ./
+
+# Run rails in development mode
+ENV RAILS_ENV development
+
+EXPOSE 80
+
+ENTRYPOINT ["/entrypoint"]
