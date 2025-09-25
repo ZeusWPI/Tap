@@ -1,6 +1,9 @@
 dc = docker compose
 dcexec = $(dc) exec development
 
+build:
+	$(dc) build
+
 up:
 	$(dc) up -d --build
 	$(dc) logs -f
@@ -23,4 +26,4 @@ shell:
 down:
 	$(dc) down
 
-.PHONY: up seed webpack lint shell down
+.PHONY: build up seed webpack lint shell down
