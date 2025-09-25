@@ -1,7 +1,13 @@
 # This is for development only
 FROM ruby:3.3.1-alpine3.18
 
-RUN apk add --no-cache build-base shared-mime-info mariadb-dev sqlite-dev nodejs yarn tzdata imagemagick
+RUN echo "@alpine/v3.16/main https://dl-cdn.alpinelinux.org/alpine/v3.16/main" >> /etc/apk/repositories \
+    && apk update \
+    && apk upgrade \
+    && apk add \
+        build-base shared-mime-info mariadb-dev sqlite-dev tzdata imagemagick \
+        nodejs@alpine/v3.16/main yarn@alpine/v3.16/main \
+    && rm -rfv /var/cache/apk/*
 
 WORKDIR /tap
 
@@ -15,9 +21,6 @@ COPY ./ ./
 
 # Run rails in development mode
 ENV RAILS_ENV development
-
-# Add back md5
-ENV NODE_OPTIONS --openssl-legacy-provider
 
 EXPOSE 80
 
