@@ -52,7 +52,7 @@ To provide a consistent experience on every system, docker and docker-compose is
 
 <details>
   <summary>How do I login as the "Koelkast" user?</summary>
-  In development, you can login as Koelkast using the link: https://localhost:3000/sign_in?token=token
+  In development, you can login as Koelkast using the link: http://localhost:3000/sign_in?token=token
 </details>
 
 <details>
