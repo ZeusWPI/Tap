@@ -6,11 +6,10 @@ RUN apk add --no-cache build-base shared-mime-info mariadb-dev sqlite-dev nodejs
 WORKDIR /tap
 
 COPY Gemfile Gemfile.lock ./
-RUN bundle install
-RUN bundle cache
+RUN --mount=type=cache,target=vendor/cache bundle install && bundle cache
 
 COPY package.json yarn.lock ./
-RUN yarn install
+RUN --mount=type=cache,target=/usr/local/share/.cache/yarn yarn install
 
 COPY ./ ./
 
