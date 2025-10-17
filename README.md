@@ -25,6 +25,8 @@ To provide a consistent experience on every system, docker and docker-compose is
     ```
     > The development setup uses a SQLite 3 database, which can be found under `/db/development.sqlite3`.
 
+See the `Makefile` for all commands.
+
 #### Windows
 
 1. Install [WSL (Windows Subsystem for Linux)](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
@@ -32,16 +34,20 @@ To provide a consistent experience on every system, docker and docker-compose is
 
 ### Directly on your system
 
-> If you have nix with flakes, run `nix develop` instead of using asdf.
+> If you have nix with flakes, run `nix develop`.
+> Note: the tool versions in nix are not entirely correct.
 
-1. Install [asdf](http://asdf-vm.com/guide/getting-started.html#getting-started)
-2. Install dependencies: `asdf install`
-3. Install gems: `bundle install`
-4. Run: `yarn`
-5. Migrate the db using `bundle exec rails db:migrate`
-6. Seed the db using `bundle exec rails db:seed`
-7. Run `rake webpacker:compile` probably
-7. Start Tap by running `bundle exec rails s`
+1. Install gems: `bundle install`
+2. Migrate the db using `bundle exec rails db:migrate`
+3. Seed the db using `bundle exec rails db:seed`
+4. Run `rake webpacker:compile`
+5. Start Tap by running `bundle exec rails s`
+
+## Deploy to production
+
+1. Make sure your user has access to tap@tap.zeus.gent.
+2. Uncomment the `- "${HOME}/.ssh:/root/.ssh:ro"` line in `docker-compose.yml`.
+3. Run `make deploy`.
 
 ## FAQ
 

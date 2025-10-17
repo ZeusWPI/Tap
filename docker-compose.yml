@@ -13,5 +13,6 @@ services:
       - "./log:/tap/log"
       - "./public:/tap/public"
       - "./spec:/tap/spec"
+#      - "${HOME}/.ssh:/root/.ssh:ro"
     tmpfs:
       - /tap/tmp
