@@ -1,5 +1,5 @@
 # This is for development only
-FROM ruby:3.3.1-alpine3.18
+FROM docker.io/ruby:3.3.1-alpine3.18
 
 RUN echo "@alpine/v3.16/main https://dl-cdn.alpinelinux.org/alpine/v3.16/main" >> /etc/apk/repositories \
     && apk update \
