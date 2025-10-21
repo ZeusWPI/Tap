@@ -22,7 +22,6 @@
       <% if current_user.koelkast %>
         <!-- Only needed for koelkast -->
         <%= javascript_pack_tag "mqtt", "data-turbo-track": "reload", defer: true %>
-        <%= render "data/successful_order_items" %>
       <% else %>
         <!-- Only needed when logged in -->
         <%= javascript_pack_tag "dependencies/quagga", "data-turbo-track": "reload", defer: true %>
@@ -72,6 +71,9 @@
       -->
       <% if controller_name != 'landing' %>
         <%= render "layouts/flash", isLight: true %>
+      <% end %>
+      <% if current_user.koelkast %>
+        <%= render "data/successful_order_items" %>
       <% end %>
 
       <!-- Content -->
