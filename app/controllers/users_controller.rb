@@ -87,6 +87,10 @@ class UsersController < ApplicationController
     if order.save
       flash[:success] = "Your dagschotel has been ordered!"
 
+      flash[:successful_order_items] = order.order_items.map do |oi|
+        { product: oi.product, count: oi.count }
+      end
+
       respond_to do |format|
         format.html { redirect_to(root_path) }
         format.json { render json: { message: "Quick pay succeeded for #{@user.name}." }, status: :ok }
