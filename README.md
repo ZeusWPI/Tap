@@ -79,3 +79,10 @@ See the `Makefile` for all commands.
   sudo -u tap RAILS_ENV=production /home/tap/production/current/bin/delayed_job start
   ```
 </details>
+
+## Licensing
+
+This software is distributed under the terms of the GNU Affero General Public License, either version 3 of the License, or (at your option) any later version.
+A copy of this license can be found in the [LICENSE](LICENSE) file.
+
+Copyright © 2014-2025 Zeus WPI <bestuur@zeus.gent>
