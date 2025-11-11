@@ -79,3 +79,10 @@ See the `Makefile` for all commands.
   sudo -u tap RAILS_ENV=production /home/tap/production/current/bin/delayed_job start
   ```
 </details>
+
+## Licensing
+
+This software is distributed under the terms of the MIT.
+A copy of this license can be found in the [LICENSE](LICENSE) file.
+
+Copyright © 2014-2025 Zeus WPI <bestuur@zeus.gent>
