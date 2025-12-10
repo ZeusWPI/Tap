@@ -1,6 +1,0 @@
-<% if flash[:successful_order_items] %>
-  <script id="data-successful_order_items" type="application/json">
-    <%= raw flash[:successful_order_items].to_json %>
-    <% flash.delete(:successful_order_items) %>
-  </script>
-<% end %>

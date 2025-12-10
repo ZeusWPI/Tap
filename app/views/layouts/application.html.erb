@@ -18,15 +18,9 @@
     <%= javascript_pack_tag "dependencies/rails",          "data-turbo-track": "reload" %>
     <%= javascript_pack_tag "dependencies/turbo",          "data-turbo-track": "reload", defer: true %>
     <%= javascript_pack_tag "dependencies/vanilla-nested", "data-turbo-track": "reload" %>
-    <% if current_user %>
-      <% if current_user.koelkast %>
-        <!-- Only needed for koelkast -->
-        <%= javascript_pack_tag "mqtt", "data-turbo-track": "reload", defer: true %>
-        <%= render "data/successful_order_items" %>
-      <% else %>
-        <!-- Only needed when logged in -->
-        <%= javascript_pack_tag "dependencies/quagga", "data-turbo-track": "reload", defer: true %>
-      <% end %>
+    <% if current_user and ! current_user.koelkast %>
+      <!-- Only needed when logged in -->
+      <%= javascript_pack_tag "dependencies/quagga", "data-turbo-track": "reload", defer: true %>
     <% end %>
 
     <!-- Icons -->
@@ -82,5 +76,17 @@
     <% if current_user && !current_user.koelkast %>
       <%= render "layouts/footer" %>
     <% end %>
+
+  <% if current_user and current_user.koelkast %>
+    <!-- Only needed for koelkast -->
+    <%= javascript_pack_tag "mqtt" %>
+    <div id="data-successful_order_items" style="display:none;">
+      <% if ! flash[:successful_order_items].nil? %>
+        <%= raw flash[:successful_order_items].to_json %>
+      <% else %>
+        []
+      <% end %>
+    </script>
+  <% end %>
   </body>
 </html>
