@@ -6,6 +6,8 @@ async function ready() {
     return;
 
   const items = JSON.parse(el.textContent);
+  el.textContent = '[]';
+
   if (!Array.isArray(items))
     return;
   if (!items.length)
