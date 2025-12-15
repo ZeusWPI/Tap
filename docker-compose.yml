@@ -13,6 +13,8 @@ services:
       - "./log:/tap/log"
       - "./public:/tap/public"
       - "./spec:/tap/spec"
+      - "./Gemfile:/tap/Gemfile"
+      - "./Gemfile.lock:/tap/Gemfile.lock"
 #      - "${HOME}/.ssh:/root/.ssh:ro"
     tmpfs:
       - /tap/tmp
