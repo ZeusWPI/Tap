@@ -17,6 +17,7 @@
 #  frecency            :integer          default(0), not null
 #  quickpay_hidden     :boolean          default(FALSE)
 #  userkey             :string
+#  zauth_id            :integer
 #
 
 class User < ApplicationRecord
@@ -39,6 +40,8 @@ class User < ApplicationRecord
       user.generate_key!
       user.private = true
     end
+
+    db_user.zauth_id = auth.extra.raw_info["id"]
 
     # get roles info
     roles = auth.dig(:extra, :raw_info, :roles) || []
@@ -114,7 +117,7 @@ class User < ApplicationRecord
   end
 
   def avatar(kind = nil)
-    "https://zpi.zeus.gent/image/#{id}"
+    "https://zpi.zeus.gent/image/#{zauth_id || 0}"
   end
 
   # Static Users
