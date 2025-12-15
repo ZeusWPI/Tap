@@ -93,13 +93,13 @@ describe User do
               raw_info: { roles: [], id: 7 }
             }
           }
-          )
-        end
-        
+        )
+      end
+
       it "finds the existing user" do
         existing_user.zauth_id = 7
         existing_user.save
-        
+
         user = described_class.from_omniauth(auth_hash)
         expect(user).to eq(existing_user)
         expect(user.admin).to be(false)
@@ -159,20 +159,20 @@ describe User do
               raw_info: { roles: ["bestuur"], id: 7 }
             }
           }
-          )
-        end
-        
-        it "does not start with admin" do
-          expect(user.admin).to be(false)
-        end
-        
-        it "gets admin permissions" do
-          existing_user.zauth_id = 7
-          existing_user.save
+        )
+      end
 
-          user = described_class.from_omniauth(auth_hash)
-          expect(user).to eq(existing_user)
-          expect(user.admin).to be(true)
+      it "does not start with admin" do
+        expect(user.admin).to be(false)
+      end
+
+      it "gets admin permissions" do
+        existing_user.zauth_id = 7
+        existing_user.save
+
+        user = described_class.from_omniauth(auth_hash)
+        expect(user).to eq(existing_user)
+        expect(user.admin).to be(true)
       end
     end
 

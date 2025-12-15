@@ -37,14 +37,14 @@ class User < ApplicationRecord
 
   def self.from_omniauth(auth)
     zauth_id = auth.extra.raw_info["id"]
-    if !zauth_id.is_a? Integer
+    unless zauth_id.is_a? Integer
       puts "help"
       return
     end
 
     db_user = find_by(zauth_id: zauth_id)
 
-    if db_user == nil
+    if db_user.nil?
       db_user = find_or_create_by!(name: auth.uid) do |user|
         user.generate_key!
         user.private = true
