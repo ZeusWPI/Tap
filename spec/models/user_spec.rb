@@ -69,7 +69,7 @@ describe User do
           {
             uid: "yet-another-test-user",
             extra: {
-              raw_info: { roles: [] }
+              raw_info: { roles: [], id: 7 }
             }
           }
         )
@@ -78,6 +78,7 @@ describe User do
       it "creates a new user with the correct name" do
         user = described_class.from_omniauth(auth_hash)
         expect(user.name).to eq("yet-another-test-user")
+        expect(user.zauth_id).to eq(7)
         expect(user.admin).to be(false)
       end
     end
@@ -89,7 +90,30 @@ describe User do
           {
             uid: existing_user.name,
             extra: {
-              raw_info: { roles: [] }
+              raw_info: { roles: [], id: 7 }
+            }
+          }
+          )
+        end
+        
+      it "finds the existing user" do
+        existing_user.zauth_id = 7
+        existing_user.save
+        
+        user = described_class.from_omniauth(auth_hash)
+        expect(user).to eq(existing_user)
+        expect(user.admin).to be(false)
+      end
+    end
+
+    describe "when the user already exists but without zauth id" do
+      let!(:existing_user) { create(:user) }
+      let(:auth_hash) do
+        OmniAuth::AuthHash.new(
+          {
+            uid: existing_user.name,
+            extra: {
+              raw_info: { roles: [], id: 7 }
             }
           }
         )
@@ -102,6 +126,29 @@ describe User do
       end
     end
 
+    describe "when the user exists but has changed their name" do
+      let!(:existing_user) { create(:user) }
+      let(:auth_hash) do
+        OmniAuth::AuthHash.new(
+          {
+            uid: "new-username-from-zauth",
+            extra: {
+              raw_info: { roles: [], id: existing_user.zauth_id }
+            }
+          }
+        )
+      end
+
+      it "updated the username" do
+        existing_user.zauth_id = 7
+        existing_user.save
+
+        user = described_class.from_omniauth(auth_hash)
+        expect(user.id).to eq(existing_user.id)
+        expect(user.name).to eq("new-username-from-zauth")
+      end
+    end
+
     describe "when the user already exists and now has bestuur role" do
       let!(:existing_user) { create(:user) }
       let(:auth_hash) do
@@ -109,20 +156,23 @@ describe User do
           {
             uid: existing_user.name,
             extra: {
-              raw_info: { roles: ["bestuur"] }
+              raw_info: { roles: ["bestuur"], id: 7 }
             }
           }
-        )
-      end
+          )
+        end
+        
+        it "does not start with admin" do
+          expect(user.admin).to be(false)
+        end
+        
+        it "gets admin permissions" do
+          existing_user.zauth_id = 7
+          existing_user.save
 
-      it "does not start with admin" do
-        expect(user.admin).to be(false)
-      end
-
-      it "gets admin permissions" do
-        user = described_class.from_omniauth(auth_hash)
-        expect(user).to eq(existing_user)
-        expect(user.admin).to be(true)
+          user = described_class.from_omniauth(auth_hash)
+          expect(user).to eq(existing_user)
+          expect(user.admin).to be(true)
       end
     end
 
@@ -132,7 +182,7 @@ describe User do
           {
             uid: "a-test-admin-user-bestuur",
             extra: {
-              raw_info: { roles: ["bestuur"] }
+              raw_info: { roles: ["bestuur"], id: 7 }
             }
           }
         )
@@ -151,7 +201,7 @@ describe User do
           {
             uid: "a-test-admin-user-tap_admin",
             extra: {
-              raw_info: { roles: ["tap_admin"] }
+              raw_info: { roles: ["tap_admin"], id: 7 }
             }
           }
         )
