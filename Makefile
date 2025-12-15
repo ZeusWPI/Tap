@@ -21,7 +21,7 @@ lint:
 	$(dcexec) bundle exec rubocop -A
 
 deploy:
-	$(dc up -d)
+	$(dc) up -d --build
 	$(dcexec) bundle exec cap production deploy
 
 shell:
