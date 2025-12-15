@@ -73,16 +73,105 @@ describe User do
   end
 
   describe "omniauth" do
-    it "is a new user" do
-      name = "yet-another-test-user"
-      omniauth = double(uid: name)
-      expect(described_class.from_omniauth(omniauth).name).to eq name
+    describe "when the user is new" do
+      let(:auth_hash) do
+        OmniAuth::AuthHash.new(
+          {
+            uid: "yet-another-test-user",
+            extra: {
+              raw_info: { roles: [] }
+            }
+          }
+        )
+      end
+
+      it "creates a new user with the correct name" do
+        user = described_class.from_omniauth(auth_hash)
+        expect(user.name).to eq("yet-another-test-user")
+        expect(user.admin).to be(false)
+      end
     end
 
-    it "is the logged in user" do
-      second_user = create :user
-      omniauth = double(uid: second_user.name)
-      expect(described_class.from_omniauth(omniauth)).to eq second_user
+    describe "when the user already exists" do
+      let!(:existing_user) { create(:user) }
+      let(:auth_hash) do
+        OmniAuth::AuthHash.new(
+          {
+            uid: existing_user.name,
+            extra: {
+              raw_info: { roles: [] }
+            }
+          }
+        )
+      end
+
+      it "finds the existing user" do
+        user = described_class.from_omniauth(auth_hash)
+        expect(user).to eq(existing_user)
+        expect(user.admin).to be(false)
+      end
+    end
+
+    describe "when the user already exists and now has bestuur role" do
+      let!(:existing_user) { create(:user) }
+      let(:auth_hash) do
+        OmniAuth::AuthHash.new(
+          {
+            uid: existing_user.name,
+            extra: {
+              raw_info: { roles: ["bestuur"] }
+            }
+          }
+        )
+      end
+
+      it "does not start with admin" do
+        expect(user.admin).to be(false)
+      end
+
+      it "gets admin permissions" do
+        user = described_class.from_omniauth(auth_hash)
+        expect(user).to eq(existing_user)
+        expect(user.admin).to be(true)
+      end
+    end
+
+    describe "when the user has bestuur role" do
+      let(:auth_hash) do
+        OmniAuth::AuthHash.new(
+          {
+            uid: "a-test-admin-user-bestuur",
+            extra: {
+              raw_info: { roles: ["bestuur"] }
+            }
+          }
+        )
+      end
+
+      it "creates a new user with admin" do
+        user = described_class.from_omniauth(auth_hash)
+        expect(user.name).to eq("a-test-admin-user-bestuur")
+        expect(user.admin).to be(true)
+      end
+    end
+
+    describe "when the user has tap_admin role" do
+      let(:auth_hash) do
+        OmniAuth::AuthHash.new(
+          {
+            uid: "a-test-admin-user-tap_admin",
+            extra: {
+              raw_info: { roles: ["tap_admin"] }
+            }
+          }
+        )
+      end
+
+      it "creates a new user with admin" do
+        user = described_class.from_omniauth(auth_hash)
+        expect(user.name).to eq("a-test-admin-user-tap_admin")
+        expect(user.admin).to be(true)
+      end
     end
   end
 
