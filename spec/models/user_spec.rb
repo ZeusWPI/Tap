@@ -88,6 +88,7 @@ describe User do
       it "creates a new user with the correct name" do
         user = described_class.from_omniauth(auth_hash)
         expect(user.name).to eq("yet-another-test-user")
+        expect(user.admin).to be(false)
       end
     end
 
@@ -107,6 +108,69 @@ describe User do
       it "finds the existing user" do
         user = described_class.from_omniauth(auth_hash)
         expect(user).to eq(existing_user)
+        expect(user.admin).to be(false)
+      end
+    end
+
+    describe "when the user already exists and now has bestuur role" do
+      let!(:existing_user) { create(:user) }
+      let(:auth_hash) do
+        OmniAuth::AuthHash.new(
+          {
+            uid: existing_user.name,
+            extra: {
+              raw_info: { roles: ["bestuur"] }
+            }
+          }
+        )
+      end
+
+      it "does not start with admin" do
+        expect(user.admin).to be(false)
+      end
+
+      it "gets admin permissions" do
+        user = described_class.from_omniauth(auth_hash)
+        expect(user).to eq(existing_user)
+        expect(user.admin).to be(true)
+      end
+    end
+
+    describe "when the user has bestuur role" do
+      let(:auth_hash) do
+        OmniAuth::AuthHash.new(
+          {
+            uid: "a-test-admin-user-bestuur",
+            extra: {
+              raw_info: { roles: ["bestuur"] }
+            }
+          }
+        )
+      end
+
+      it "creates a new user with admin" do
+        user = described_class.from_omniauth(auth_hash)
+        expect(user.name).to eq("a-test-admin-user-bestuur")
+        expect(user.admin).to be(true)
+      end
+    end
+
+    describe "when the user has tap_admin role" do
+      let(:auth_hash) do
+        OmniAuth::AuthHash.new(
+          {
+            uid: "a-test-admin-user-tap_admin",
+            extra: {
+              raw_info: { roles: ["tap_admin"] }
+            }
+          }
+        )
+      end
+
+      it "creates a new user with admin" do
+        user = described_class.from_omniauth(auth_hash)
+        expect(user.name).to eq("a-test-admin-user-tap_admin")
+        expect(user.admin).to be(true)
       end
     end
   end
