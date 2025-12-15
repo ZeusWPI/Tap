@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_16_022119) do
+ActiveRecord::Schema[8.1].define(version: 2025_12_23_210834) do
   create_table "barcodes", force: :cascade do |t|
     t.string "code", default: "", null: false
     t.datetime "created_at", precision: nil
@@ -68,10 +68,6 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_16_022119) do
 
   create_table "users", force: :cascade do |t|
     t.boolean "admin", default: false
-    t.string "avatar_content_type"
-    t.string "avatar_file_name"
-    t.bigint "avatar_file_size"
-    t.datetime "avatar_updated_at", precision: nil
     t.datetime "created_at", precision: nil
     t.integer "dagschotel_id"
     t.integer "frecency", default: 0, null: false

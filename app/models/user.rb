@@ -10,10 +10,6 @@
 #  remember_created_at :datetime
 #  admin               :boolean          default(FALSE)
 #  dagschotel_id       :integer
-#  avatar_file_name    :string
-#  avatar_content_type :string
-#  avatar_file_size    :integer
-#  avatar_updated_at   :datetime
 #  orders_count        :integer          default(0)
 #  koelkast            :boolean          default(FALSE)
 #  name                :string
@@ -25,7 +21,6 @@
 
 class User < ApplicationRecord
   include FriendlyId
-  include Avatarable
   include Statistics
 
   friendly_id :name, use: :finders
@@ -41,7 +36,6 @@ class User < ApplicationRecord
 
   def self.from_omniauth(auth)
     db_user = find_or_create_by!(name: auth.uid) do |user|
-      user.avatar = Paperclip.io_adapters.for(Identicon.data_url_for(auth.uid))
       user.generate_key!
       user.private = true
     end
@@ -122,9 +116,7 @@ class User < ApplicationRecord
   # Static Users
 
   def self.guest
-    @guest || find_or_create_by(name: "Guest") do |user|
-      user.avatar = File.new(File.join("app", "assets", "images", "guest.png"))
-    end
+    @guest || find_or_create_by(name: "Guest")
   end
 
   def guest?
@@ -133,7 +125,6 @@ class User < ApplicationRecord
 
   def self.koelkast
     @koelkast || find_or_create_by(name: "Koelkast") do |user|
-      user.avatar = File.new(File.join("app", "assets", "images", "logo.png"))
       user.koelkast = true
     end
   end
