@@ -38,8 +38,10 @@ class User < ApplicationRecord
   def self.from_omniauth(auth)
     zauth_id = auth.extra.raw_info["id"]
     unless zauth_id.is_a? Integer
-      puts "help"
-      return
+      raise(
+        "zauth id is not valid, this is not good, what is happening? what did you do? i am confused and will give up"
+      )
+
     end
 
     db_user = find_by(zauth_id: zauth_id)

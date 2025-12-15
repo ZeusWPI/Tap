@@ -213,6 +213,27 @@ describe User do
         expect(user.admin).to be(true)
       end
     end
+
+    describe "when the user has an invalid zauth id" do
+      let(:auth_hash) do
+        OmniAuth::AuthHash.new(
+          {
+            uid: "a-test-user",
+            extra: {
+              raw_info: { roles: ["tap_admin"], id: "7" }
+            }
+          }
+        )
+      end
+
+      it "fails" do
+        expect do
+          described_class.from_omniauth(auth_hash)
+        end.to raise_error(
+          "zauth id is not valid, this is not good, what is happening? what did you do? i am confused and will give up"
+        )
+      end
+    end
   end
 
   describe "static users" do
