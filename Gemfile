@@ -30,8 +30,8 @@ gem "net-pop", require: false
 gem "net-smtp", require: false
 
 # Bulma
-gem "bulma-rails"
-gem "font-awesome-sass"
+gem "bulma-rails", "~> 0.9"
+gem "font-awesome-sass", "~> 5.15"
 
 # Add nested forms support
 gem "vanilla_nested"
@@ -98,7 +98,7 @@ end
 # Development dependencies
 group :development do
   # Use sqlite3 as the database for Active Record
-  gem "sqlite3"
+  gem "sqlite3", "~> 1.4"
 
   # Annotates Rails/ActiveRecord Models, routes, fixtures, and others based on the database schema.
   gem "annotate"
