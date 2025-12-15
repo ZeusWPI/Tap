@@ -389,6 +389,7 @@ PLATFORMS
   arm64-darwin-23
   x86_64-darwin-21
   x86_64-linux
+  x86_64-linux-musl
 
 DEPENDENCIES
   annotate (~> 3.1)
@@ -448,4 +449,4 @@ DEPENDENCIES
   will_paginate-bulma (~> 1.0)
 
 BUNDLED WITH
-   2.5.11
+  4.0.1
