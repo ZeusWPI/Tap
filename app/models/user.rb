@@ -113,6 +113,10 @@ class User < ApplicationRecord
             .first(amount)
   end
 
+  def avatar(kind = nil)
+    "https://zpi.zeus.gent/image/#{id}"
+  end
+
   # Static Users
 
   def self.guest
