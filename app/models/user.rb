@@ -36,12 +36,25 @@ class User < ApplicationRecord
   scope :publik, -> { where private: false }
 
   def self.from_omniauth(auth)
-    db_user = find_or_create_by!(name: auth.uid) do |user|
-      user.generate_key!
-      user.private = true
+    zauth_id = auth.extra.raw_info["id"]
+    if !zauth_id.is_a? Integer
+      puts "help"
+      return
     end
 
-    db_user.zauth_id = auth.extra.raw_info["id"]
+    db_user = find_by(zauth_id: zauth_id)
+
+    if db_user == nil
+      db_user = find_or_create_by!(name: auth.uid) do |user|
+        user.generate_key!
+        user.private = true
+      end
+
+      db_user.zauth_id = zauth_id
+    end
+
+    # overwrite name (for if name changed)
+    db_user.name = auth.uid
 
     # get roles info
     roles = auth.dig(:extra, :raw_info, :roles) || []
@@ -116,7 +129,7 @@ class User < ApplicationRecord
             .first(amount)
   end
 
-  def avatar(kind = nil)
+  def avatar(*)
     "https://zpi.zeus.gent/image/#{zauth_id || 0}"
   end
 

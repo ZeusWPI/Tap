@@ -10,10 +10,6 @@
 #  remember_created_at :datetime
 #  admin               :boolean          default(FALSE)
 #  dagschotel_id       :integer
-#  avatar_file_name    :string
-#  avatar_content_type :string
-#  avatar_file_size    :integer
-#  avatar_updated_at   :datetime
 #  orders_count        :integer          default(0)
 #  koelkast            :boolean          default(FALSE)
 #  name                :string
@@ -21,6 +17,7 @@
 #  frecency            :integer          default(0), not null
 #  quickpay_hidden     :boolean          default(FALSE)
 #  userkey             :string
+#  zauth_id            :integer
 #
 
 require "webmock/rspec"
@@ -37,13 +34,6 @@ describe User do
   ############
 
   describe "fields" do
-    describe "avatar" do
-      it "is present" do
-        user.avatar = nil
-        expect(user).not_to be_valid
-      end
-    end
-
     describe "orders_count" do
       it "automaticallies cache the number of orders" do
         balance = 5
