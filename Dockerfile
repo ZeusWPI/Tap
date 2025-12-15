@@ -7,7 +7,12 @@ RUN echo "@alpine/v3.16/main https://dl-cdn.alpinelinux.org/alpine/v3.16/main" >
     && apk add \
         build-base shared-mime-info mariadb-dev sqlite-dev tzdata imagemagick \
         nodejs@alpine/v3.16/main yarn@alpine/v3.16/main \
+        vimdiff \
     && rm -rfv /var/cache/apk/*
+
+# Diffs in red/green instead of blue/cyan
+RUN echo "colorscheme retrobox" >> /root/.vimrc
+ENV THOR_MERGE=vimdiff
 
 WORKDIR /tap
 
