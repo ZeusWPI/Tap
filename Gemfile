@@ -12,17 +12,17 @@ gem "dotenv-rails"
 gem "rails", "~> 6.1"
 
 # Use Puma as the app server
-gem "puma", "~> 5.5.0"
+gem "puma"
 
 # Boot large ruby/rails apps faster
-gem "bootsnap", "~> 1.9"
-gem "listen", "~> 3.7"
+gem "bootsnap"
+gem "listen"
 
 # Sass
-gem "sassc-rails", "~> 2.1"
+gem "sassc-rails"
 
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem "webpacker", "~> 5.0"
+gem "webpacker"
 
 # Not sure why
 gem "net-imap", require: false
@@ -30,41 +30,41 @@ gem "net-pop", require: false
 gem "net-smtp", require: false
 
 # Bulma
-gem "bulma-rails", "~> 0.9.1"
-gem "font-awesome-sass", "~> 5.15"
+gem "bulma-rails"
+gem "font-awesome-sass"
 
 # Add nested forms support
-gem "vanilla_nested", "~> 1.6"
+gem "vanilla_nested"
 
 # Charts
-gem "chartkick", "~> 4.0"
+gem "chartkick"
 
 # Friendly ids
 # Will replace endpoints like /users/:id with /users/:username
-gem "friendly_id", "~> 5.4"
+gem "friendly_id"
 
 # Paginate stuff
-gem "will_paginate", "~> 3.3"
-gem "will_paginate-bulma", "~> 1.0"
+gem "will_paginate"
+gem "will_paginate-bulma"
 
 # Paperclip for easy file attachment
 # Using the kt fork as, paperclip is deprecated
-gem "kt-paperclip", "~> 7.0"
+gem "kt-paperclip"
 
 # Use devise for users and admins
-gem "devise", "~> 4.8"
+gem "devise"
 gem "omniauth-rails_csrf_protection"
 gem "omniauth-zeuswpi"
 
 # Use cancancan for authorization
-gem "cancancan", "~> 3.3"
+gem "cancancan"
 
 # Default avatar for users
 gem "identicon", "0.0.5"
 
 # Run stuff in the background
-gem "daemons", "~> 1.4"
-gem "delayed_job", "~> 4.1"
+gem "daemons"
+gem "delayed_job"
 gem "delayed_job_active_record"
 
 # Needed for deployment somehow
@@ -74,7 +74,7 @@ gem "ed25519"
 # Ruby debugger
 gem "byebug"
 
-gem "httparty", "~> 0.20.0"
+gem "httparty"
 
 # windows support (linux timezone directory is used in the project)
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw]
@@ -86,7 +86,7 @@ gem "stackprof"
 
 # Production dependencies
 group :production do
-  gem "mysql2", "~> 0.5.3"
+  gem "mysql2"
 end
 
 # Test dependencies
@@ -98,13 +98,13 @@ end
 # Development dependencies
 group :development do
   # Use sqlite3 as the database for Active Record
-  gem "sqlite3", "~> 1.4"
+  gem "sqlite3"
 
   # Annotates Rails/ActiveRecord Models, routes, fixtures, and others based on the database schema.
-  gem "annotate", "~> 3.1"
+  gem "annotate"
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem "spring", "~> 3.0"
+  gem "spring"
 
   # Deployment
   gem "capistrano"
@@ -113,21 +113,21 @@ group :development do
   gem "capistrano-rails"
 
   # Linting
-  gem "rubocop", "~> 1.30"
-  gem "rubocop-rails", "~> 2.14"
-  gem "rubocop-rspec", "~> 2.11"
+  gem "rubocop"
+  gem "rubocop-rails"
+  gem "rubocop-rspec"
 end
 
 # Development/Test shared dependencies
 group :development, :test do
-  gem "factory_bot", "~> 6.2"
-  gem "factory_bot_rails", "~> 6.2"
-  gem "faker", "~> 2.19"
-  gem "rails-controller-testing", "~> 1.0"
-  gem "tqdm", "~> 0.3.0"
+  gem "factory_bot"
+  gem "factory_bot_rails"
+  gem "faker"
+  gem "rails-controller-testing"
+  gem "tqdm"
 end
 
 # Documentation dependencies
 group :doc do
-  gem "sdoc", "~> 2.2"
+  gem "sdoc"
 end
