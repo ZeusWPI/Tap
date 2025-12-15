@@ -101,6 +101,10 @@ class User < ApplicationRecord
     bal - total_pending
   end
 
+  def avatar(kind = nil)
+    "https://zpi.zeus.gent/image/#{id}"
+  end
+
   # Static Users
 
   def self.guest
