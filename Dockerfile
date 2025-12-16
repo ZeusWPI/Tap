@@ -23,24 +23,30 @@ COPY package.json yarn.lock ./
 RUN --mount=type=cache,target=/usr/local/share/.cache/yarn yarn install
 RUN mv node_modules /node_modules
 
-# Run rails in development mode
-ENV RAILS_ENV development
-
 EXPOSE 80
 
-COPY --chmod=755 <<EOF /init.sh
+COPY --chmod=755 <<EOF /run-development.sh
 #!/bin/sh
+set -eu
 
 [ -e node_modules ] && rm -rf node_modules
 ln -s /node_modules node_modules
 
-# Run the database migrations
 bundle exec rake db:migrate
-
-# Start the production server
 bundle exec rails server -b 0.0.0.0 -p 80
 
 echo "Rails exited, sleeping indefinitely so dev shells don't die."
 sleep inf
 EOF
-CMD ["/init.sh"]
+
+COPY --chmod=755 <<EOF /run-test.sh
+#!/bin/sh
+set -eu
+
+[ -e node_modules ] && rm -rf node_modules
+ln -s /node_modules node_modules
+
+bundle exec rake db:create
+bundle exec rake db:schema:load
+bundle exec rake
+EOF

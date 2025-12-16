@@ -1,39 +1,45 @@
 dc = docker compose
-dcexec = $(dc) exec development
 
 build:
 	$(dc) build
 
 up:
-	$(dc) up -d --build
-	$(dc) logs -f
-
-restart:
-	$(dc) restart
-
-logs:
-	$(dc) logs -f
-
-seed:
-	$(dc) up -d
-	$(dcexec) bundle exec rake db:seed
-
-webpack:
-	$(dc) up -d
-	$(dcexec) bundle exec rake webpacker:compile
-
-lint:
-	$(dc) up -d
-	$(dcexec) bundle exec rubocop -A
-
-deploy:
-	$(dc) up -d --build
-	$(dcexec) bundle exec cap production deploy
-
-shell:
-	$(dcexec) sh
+	$(dc) up --build -t1 -d development
+	$(dc) logs -f development
 
 down:
 	$(dc) down -t1
 
-.PHONY: build up restart logs seed webpack lint deploy shell down
+start:
+	$(dc) start development
+
+stop:
+	$(dc) stop development
+
+restart:
+	$(dc) restart development
+
+logs:
+	$(dc) logs -f development
+
+seed:
+	$(dc) exec development bundle exec rake db:seed
+
+webpack:
+	$(dc) exec development bundle exec rake webpacker:compile
+
+lint:
+	$(dc) exec development bundle exec rubocop -A
+
+test:
+	$(dc) up --build -t1 test
+
+deploy:
+	$(dc) up --build -t1 -d development
+	$(dc) exec development bundle exec cap production deploy
+
+shell:
+	$(dc) exec development sh
+
+
+.PHONY: build up down start stop restart logs seed webpack lint test deploy shell

@@ -9,3 +9,16 @@ services:
 #      - "${HOME}/.ssh:/root/.ssh:ro"
     tmpfs:
       - /tap/tmp
+    environment:
+      RAILS_ENV: development
+    command: /run-development.sh
+
+  test:
+    build: .
+    volumes:
+      - "./:/tap"
+    tmpfs:
+      - /tap/tmp
+    environment:
+      RAILS_ENV: test
+    command: /run-test.sh
