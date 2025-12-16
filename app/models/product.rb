@@ -26,7 +26,7 @@ class Product < ApplicationRecord
   has_many :barcodes, dependent: :destroy
   accepts_nested_attributes_for :barcodes, allow_destroy: true
 
-  enum category: { "food" => 0, "beverages" => 1, "other" => 2 }
+  enum :category, { "food" => 0, "beverages" => 1, "other" => 2 }
 
   validates :name,        presence: true, uniqueness: true # rubocop:disable Rails/UniqueValidationWithoutIndex
   validates :price_cents, presence: true, numericality: { only_integer: true, greater_than: 0 }
