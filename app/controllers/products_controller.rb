@@ -26,7 +26,7 @@ class ProductsController < ApplicationController
   # GET /products
   def index
     # If the user is not an admin, only show products that are not deleted
-    @products = (current_user.admin? ? Product.all : Product.for_sale).order("name asc")
+    @products = (current_user.admin? ? Product.all : Product.for_sale).order(:name)
     @categories = Product.categories
 
     respond_to do |format|

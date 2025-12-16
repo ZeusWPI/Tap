@@ -21,7 +21,7 @@
 
   <!-- Actions -->
   <td class="order-item-actions">
-    <% if order.deletable %>
+    <% if order.deletable? %>
       <%= button_to "Cancel order (until #{(order.deletable_until).strftime("%H:%M")})",
           user_order_path(@user, order),
           method: :delete,

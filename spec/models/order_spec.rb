@@ -82,12 +82,12 @@ describe Order do
   describe "deletable" do
     it "is true" do
       order.created_at = Rails.application.config.call_api_after.ago + 2.minutes
-      expect(order.deletable).to be true
+      expect(order.deletable?).to be true
     end
 
     it "is false" do
       order.created_at = Rails.application.config.call_api_after.ago - 2.minutes
-      expect(order.deletable).to be false
+      expect(order.deletable?).to be false
     end
   end
 

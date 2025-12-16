@@ -64,7 +64,7 @@ class Ability
     # * The user is trying to delete an order for himself
     # * The order is still deletable (there is a specific time interval for deleting orders)
     can :destroy, Order do |order|
-      order.try(:user) == user && order.deletable
+      order.try(:user) == user && order.deletable?
     end
   end
 end

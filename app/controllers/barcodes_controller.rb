@@ -18,11 +18,18 @@ class BarcodesController < ApplicationController
   # Get a list of all barcodes
   # GET /barcodes
   def index
-    @barcodes = Barcode.all.order(:code)
+    @barcodes = Barcode.order(:code)
     respond_to do |format|
       format.json { render json: @barcodes }
       format.html {} # rubocop:disable Lint/EmptyBlock
     end
+  end
+
+  # Get a barcode by id
+  # GET /barcodes/{id}
+  def show
+    @barcode = Barcode.find_by(code: params[:id])
+    render json: @barcode.try(:product)
   end
 
   # Create a new barcode page
@@ -35,7 +42,7 @@ class BarcodesController < ApplicationController
     # If the barcode exists, redirect to the product page of that product
     if Barcode.exists?(code: @barcode.code)
       flash[:info] = "Barcode already exists! This product is linked to the given barcode."
-      redirect_to edit_product_path(Barcode.where(code: @barcode.code).take.product)
+      redirect_to edit_product_path(Barcode.find_by(code: @barcode.code).product)
       return
     end
 
@@ -64,13 +71,6 @@ class BarcodesController < ApplicationController
     else
       render :new
     end
-  end
-
-  # Get a barcode by id
-  # GET /barcodes/{id}
-  def show
-    @barcode = Barcode.find_by(code: params[:id])
-    render json: @barcode.try(:product)
   end
 
   # Delete a barcode
