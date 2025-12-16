@@ -17,9 +17,9 @@
 #                       DELETE   /barcodes/:id(.:format)                  barcodes#destroy
 #
 
-describe BarcodesController, type: :controller do
-  let(:product) { create :product }
-  let(:admin) { create :admin }
+describe BarcodesController do
+  let(:product) { create(:product) }
+  let(:admin) { create(:admin) }
 
   before do
     sign_in admin
@@ -53,7 +53,7 @@ describe BarcodesController, type: :controller do
 
   describe "GET index" do
     it "loads all the barcodes" do
-      barcode = create :barcode
+      barcode = create(:barcode)
       get :index
       expect(assigns(:barcodes)).to eq([barcode])
     end
@@ -64,7 +64,7 @@ describe BarcodesController, type: :controller do
   ##########
 
   describe "GET show" do
-    let(:barcode) { create :barcode }
+    let(:barcode) { create(:barcode) }
 
     it "loads the correct barcode" do
       get :show, params: { id: barcode }

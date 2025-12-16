@@ -26,7 +26,7 @@
 require "webmock/rspec"
 
 describe User do
-  let(:user) { create :user }
+  let(:user) { create(:user) }
 
   it "has a valid factory" do
     expect(user).to be_valid
@@ -48,7 +48,7 @@ describe User do
       it "automaticallies cache the number of orders" do
         balance = 5
         stub_request(:get, /.*/).to_return(status: 200, body: JSON.dump({ balance: balance }))
-        expect { create :order, user: user }.to change { user.reload.orders_count }.by(1)
+        expect { create(:order, user: user) }.to change { user.reload.orders_count }.by(1)
       end
     end
 
@@ -211,14 +211,14 @@ describe User do
 
   describe "scopes" do
     it "members should return members" do
-      create :koelkast
-      local_user = create :user
+      create(:koelkast)
+      local_user = create(:user)
       expect(described_class.members).to eq([local_user, user])
     end
 
     it "publik should return publik members" do
-      local_user = create :user
-      create :user, private: true
+      local_user = create(:user)
+      create(:user, private: true)
       expect(described_class.publik).to eq([local_user, user])
     end
   end
@@ -231,7 +231,7 @@ describe User do
 
     it "is recalculated on creating an order" do
       expect(user.frecency).to eq 0
-      create :order, user: user
+      create(:order, user: user)
       expect(user.frecency).not_to eq 0
     end
 

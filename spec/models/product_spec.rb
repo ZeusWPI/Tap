@@ -20,7 +20,7 @@
 #
 
 describe Product do
-  let(:product) { create :product }
+  let(:product) { create(:product) }
 
   it "has a valid factory" do
     expect(product).to be_valid
@@ -133,7 +133,7 @@ describe Product do
 
   describe "for sale" do
     it "returns non-deleted products" do
-      local_product = create :product
+      local_product = create(:product)
       local_product.update(deleted: true)
       expect(described_class.for_sale).to eq([product])
     end

@@ -30,8 +30,8 @@
 #                       PUT      /users/:id(.:format)                     users#update
 #
 
-describe UsersController, type: :controller do
-  let(:user) { create :user }
+describe UsersController do
+  let(:user) { create(:user) }
 
   before do
     sign_in user
@@ -78,7 +78,7 @@ describe UsersController, type: :controller do
       end
 
       it "updates dagschotel" do
-        product = create :product
+        product = create(:product)
         put :update, params: { id: user, user: { dagschotel_id: product.id } }
         expect(user.reload.dagschotel).to eq(product)
       end
@@ -127,7 +127,7 @@ describe UsersController, type: :controller do
 
   describe "GET quickpay" do
     describe "successful" do
-      let(:dagschotel) { create :product, stock: 20 }
+      let(:dagschotel) { create(:product, stock: 20) }
 
       before do
         balance = 12_345

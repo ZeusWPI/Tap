@@ -12,8 +12,8 @@
 #  transaction_id :integer
 #
 
-describe OrdersController, type: :controller do
-  let(:user) { create :user }
+describe OrdersController do
+  let(:user) { create(:user) }
 
   before do
     stub_request(:get, /.*/).to_return(status: 200, body: JSON.dump({ balance: 12_345 }))
@@ -26,14 +26,15 @@ describe OrdersController, type: :controller do
 
   describe "INDEX orders" do
     let!(:final_orders) do
-      create_list :order, 2, user: user, created_at: Time.zone.now - Rails.application.config.call_api_after - 5.minutes
+      create_list(:order, 2, user: user,
+                             created_at: Time.zone.now - Rails.application.config.call_api_after - 5.minutes)
     end
-    let!(:pending_orders) { create_list :order, 2, user: user, created_at: Time.zone.now }
+    let!(:pending_orders) { create_list(:order, 2, user: user, created_at: Time.zone.now) }
 
     it "gets all orders for user without filter" do
       # Create some orders for another user
-      other_user = create :user
-      create_list :order, 2, user: other_user
+      other_user = create(:user)
+      create_list(:order, 2, user: other_user)
 
       get :index, params: { user_id: user }, format: :json
 
