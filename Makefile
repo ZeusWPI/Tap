@@ -29,6 +29,7 @@ webpack:
 	$(dc) exec development bundle exec rake webpacker:compile
 
 lint:
+	$(dc) up --build -t1 -d development
 	$(dc) exec development bundle exec rubocop -A
 
 test:
