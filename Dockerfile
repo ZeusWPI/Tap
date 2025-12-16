@@ -29,4 +29,13 @@ ENV RAILS_ENV development
 
 EXPOSE 80
 
-CMD sh docker-start.sh
+COPY --chmod=755 <<EOF /init.sh
+#!/bin/sh
+
+# Run the database migrations
+bundle exec rake db:migrate
+
+# Start the production server
+bundle exec rails server -b 0.0.0.0 -p 80
+EOF
+CMD ["/init.sh"]
