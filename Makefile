@@ -34,6 +34,6 @@ shell:
 	$(dcexec) sh
 
 down:
-	$(dc) down
+	$(dc) down -t1
 
 .PHONY: build up restart logs seed webpack lint deploy shell down
