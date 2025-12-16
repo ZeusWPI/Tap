@@ -1,0 +1,34 @@
+name: "ruby: test"
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: "Install ImageMagick"
+        run: |
+          sudo apt-get install -y imagemagick
+
+      - name: "Install the Ruby version in .ruby-version"
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: "Initialize a test database"
+        env:
+          RAILS_ENV: test
+        run: |
+          bundle exec rake db:create
+          bundle exec rake db:schema:load
+
+      - name: "Run rake"
+        env:
+          RAILS_ENV: test
+          COVERALLS_REPO_TOKEN : ${{ secrets.COVERALLS_REPO_TOKEN }}
+        run: |
+          bundle exec rake
