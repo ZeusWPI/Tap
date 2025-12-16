@@ -5,16 +5,7 @@ services:
     ports:
       - "127.0.0.1:3000:80"
     volumes:
-      # Mount most of the source code for development
-      - "./app:/tap/app"
-      - "./config:/tap/config"
-      - "./db:/tap/db"
-      - "./lib:/tap/lib"
-      - "./log:/tap/log"
-      - "./public:/tap/public"
-      - "./spec:/tap/spec"
-      - "./Gemfile:/tap/Gemfile"
-      - "./Gemfile.lock:/tap/Gemfile.lock"
+      - "./:/tap"
 #      - "${HOME}/.ssh:/root/.ssh:ro"
     tmpfs:
       - /tap/tmp

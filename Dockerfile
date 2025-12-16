@@ -21,8 +21,7 @@ RUN --mount=type=cache,target=vendor/cache bundle install && bundle cache
 
 COPY package.json yarn.lock ./
 RUN --mount=type=cache,target=/usr/local/share/.cache/yarn yarn install
-
-COPY ./ ./
+RUN mv node_modules /node_modules
 
 # Run rails in development mode
 ENV RAILS_ENV development
@@ -31,6 +30,9 @@ EXPOSE 80
 
 COPY --chmod=755 <<EOF /init.sh
 #!/bin/sh
+
+[ -e node_modules ] && rm -rf node_modules
+ln -s /node_modules node_modules
 
 # Run the database migrations
 bundle exec rake db:migrate
