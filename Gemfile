@@ -114,8 +114,10 @@ group :development do
 
   # Linting
   gem "rubocop"
+  gem "rubocop-factory_bot"
   gem "rubocop-rails"
   gem "rubocop-rspec"
+  gem "rubocop-rspec_rails"
 end
 
 # Development/Test shared dependencies
