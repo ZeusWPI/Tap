@@ -8,6 +8,12 @@ up:
 	$(dc) up -d --build
 	$(dc) logs -f
 
+restart:
+	$(dc) restart
+
+logs:
+	$(dc) logs -f
+
 seed:
 	$(dc) up -d
 	$(dcexec) bundle exec rake db:seed
@@ -30,4 +36,4 @@ shell:
 down:
 	$(dc) down
 
-.PHONY: build up seed webpack lint deploy shell down
+.PHONY: build up restart logs seed webpack lint deploy shell down
