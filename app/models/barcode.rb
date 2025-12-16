@@ -13,6 +13,7 @@
 
 class Barcode < ApplicationRecord
   include FriendlyId
+
   friendly_id :code, use: :finders
 
   belongs_to :product

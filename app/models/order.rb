@@ -20,7 +20,9 @@ class Order < ApplicationRecord
   has_many :products, through: :order_items
 
   before_validation :calculate_price
+  # rubocop:disable Style/CollectionQuerying
   before_save { |o| o.order_items = o.order_items.reject { |oi| oi.count.zero? } }
+  # rubocop:enable Style/CollectionQuerying
   after_create :create_api_job, unless: -> { user.guest? }
 
   after_create :update_user_frecency
@@ -42,7 +44,7 @@ class Order < ApplicationRecord
     end.to_sentence
   end
 
-  def deletable
+  def deletable?
     Time.zone.now <= deletable_until
   end
 

@@ -40,20 +40,20 @@ describe OrdersController, type: :controller do
       expect(response).to have_http_status(:ok)
       expected_result = JSON.parse(final_orders.concat(pending_orders).to_json(include: :products,
                                                                                methods: :deletable_until))
-      actual_result = JSON.parse(response.body)
+      actual_result = response.parsed_body
       expect(actual_result).to match_array(expected_result)
     end
 
     it "returns pending orders when requested" do
       get :index, params: { user_id: user, state: :pending }, format: :json
       pending_orders_json = JSON.parse(pending_orders.to_json(include: :products, methods: :deletable_until))
-      expect(JSON.parse(response.body)).to match_array(pending_orders_json)
+      expect(response.parsed_body).to match_array(pending_orders_json)
     end
 
     it "returns final orders when requested" do
       get :index, params: { user_id: user, state: :final }, format: :json
       final_orders_json = JSON.parse(final_orders.to_json(include: :products, methods: :deletable_until))
-      expect(JSON.parse(response.body)).to match_array(final_orders_json)
+      expect(response.parsed_body).to match_array(final_orders_json)
     end
   end
 end

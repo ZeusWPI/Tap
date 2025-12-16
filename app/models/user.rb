@@ -27,6 +27,7 @@ class User < ApplicationRecord
   include FriendlyId
   include Avatarable
   include Statistics
+
   friendly_id :name, use: :finders
 
   devise :omniauthable, omniauth_providers: [:zeuswpi]

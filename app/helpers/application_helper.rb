@@ -4,7 +4,7 @@ module ApplicationHelper
   include ActionView::Helpers::NumberHelper
 
   # Predicate for filtering the flash Hash for notifications
-  def flash_is_notification(flash_type)
+  def flash_is_notification?(flash_type)
     !flash_class(flash_type).nil?
   end
 
