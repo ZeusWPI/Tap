@@ -16,7 +16,7 @@ describe OrderItem do
   end
 
   it "has a valid factory" do
-    order_item = create :order_item
+    order_item = create(:order_item)
     expect(order_item).to be_valid
   end
 
@@ -25,7 +25,7 @@ describe OrderItem do
   ############
 
   describe "fields" do
-    let(:order_item) { create :order_item }
+    let(:order_item) { create(:order_item) }
 
     describe "product" do
       it "is present" do
@@ -60,10 +60,10 @@ describe OrderItem do
   ###############
 
   describe "stock change" do
-    let(:product) { create :product }
-    let(:order) { create :order }
+    let(:product) { create(:product) }
+    let(:order) { create(:order) }
     let(:count) { rand 10 }
-    let(:order_item) { build :order_item, product: product, order: order, count: count }
+    let(:order_item) { build(:order_item, product: product, order: order, count: count) }
 
     it "decrements on create" do
       expect { order_item.save }.to change(product, :stock).by(-count)

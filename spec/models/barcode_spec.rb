@@ -12,7 +12,7 @@
 #
 
 describe Barcode do
-  let(:barcode) { create :barcode }
+  let(:barcode) { create(:barcode) }
 
   it "has a valid factory" do
     expect(barcode).to be_valid
@@ -30,7 +30,7 @@ describe Barcode do
       end
 
       it "is unique" do
-        local_barcode = build :barcode, code: barcode.code
+        local_barcode = build(:barcode, code: barcode.code)
         expect(local_barcode).not_to be_valid
       end
     end

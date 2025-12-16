@@ -13,8 +13,8 @@
 #
 
 describe Order do
-  let(:user) { create :user }
-  let(:order) { create :order, user: user }
+  let(:user) { create(:user) }
+  let(:order) { create(:order, user: user) }
 
   before do
     stub_request(:get, /.*/).to_return(status: 200, body: JSON.dump({ balance: 20 }))
@@ -42,8 +42,8 @@ describe Order do
 
     describe "price_cents" do
       it "is calculated from order_items" do
-        order = build :order, products_count: 0
-        sum = (create_list :product, rand(1..10)).map do |p|
+        order = build(:order, products_count: 0)
+        sum = create_list(:product, rand(1..10)).map do |p|
           build(:order_item, order: order, product: p, count: rand(1..5)) do |oi|
             order.order_items << oi
           end
@@ -68,7 +68,7 @@ describe Order do
 
   describe "empty order_items" do
     it "is removed" do
-      product = create :product
+      product = create(:product)
       order.order_items << create(:order_item, order: order, product: product, count: 0)
       order.save
       expect(order.order_items.where(product: product)).to be_empty

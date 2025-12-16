@@ -28,8 +28,8 @@
 #                       PUT      /products/:id(.:format)                  products#update
 #
 
-describe ProductsController, type: :controller do
-  let(:admin) { create :admin }
+describe ProductsController do
+  let(:admin) { create(:admin) }
 
   before do
     sign_in admin
@@ -73,7 +73,7 @@ describe ProductsController, type: :controller do
 
   describe "GET index" do
     it "loads all the products" do
-      product = create :product
+      product = create(:product)
       get :index
       expect(assigns(:products)).to eq([product])
     end
@@ -84,7 +84,7 @@ describe ProductsController, type: :controller do
   ##########
 
   describe "GET edit" do
-    let(:product) { create :product }
+    let(:product) { create(:product) }
 
     before do
       get :edit, params: { id: product }
@@ -108,7 +108,7 @@ describe ProductsController, type: :controller do
   ############
 
   describe "PUT update" do
-    let(:product) { create :product }
+    let(:product) { create(:product) }
 
     it "loads right product" do
       put :update, params: { id: product, product: attributes_for(:product) }

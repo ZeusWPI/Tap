@@ -13,7 +13,7 @@
 FactoryBot.define do
   factory :order_item do
     order
-    association :product, factory: :product
+    product factory: %i[product]
     count { rand(1..5) }
   end
 end

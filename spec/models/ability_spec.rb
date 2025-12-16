@@ -10,7 +10,7 @@ describe Ability do
 
     # Admin
     describe "as admin" do
-      let(:user) { create :admin }
+      let(:user) { create(:admin) }
 
       it { is_expected.to be_able_to(:manage, Barcode.new) }
       it { is_expected.to be_able_to(:manage, Product.new) }
@@ -20,7 +20,7 @@ describe Ability do
 
     # Normal User
     describe "as normal user" do
-      let(:user) { create :user }
+      let(:user) { create(:user) }
 
       # it{ should be_able_to(:create, Order.new(user: user)) }
       it {
@@ -46,7 +46,7 @@ describe Ability do
     end
 
     describe "as koelkast" do
-      let(:user) { create :koelkast }
+      let(:user) { create(:koelkast) }
 
       it { is_expected.not_to be_able_to(:manage, Product.new) }
       # it{ should be_able_to(:manage, Order.new, user: create(:user)) }
