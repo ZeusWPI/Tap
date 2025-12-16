@@ -10,14 +10,10 @@ module Tap
   class Application < Rails::Application
     config.load_defaults 7.0
 
-    # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
-    # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    config.time_zone = 'Brussels'
-
-    # Setup delayed jobs
-    config.active_job.queue_adapter = :delayed_job
-    config.call_api_after = 5.minutes
-    config.frecency_num_orders = 25
+    # Please, add to the `ignore` list any other `lib` subdirectories that do
+    # not contain `.rb` files, or that should not be reloaded or eager loaded.
+    # Common ones are `templates`, `generators`, or `middleware`, for example.
+    config.autoload_lib(ignore: %w(assets tasks))
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -26,5 +22,14 @@ module Tap
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
+    # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
+    config.time_zone = 'Brussels'
+
+    # Setup delayed jobs
+    config.active_job.queue_adapter = :delayed_job
+    config.call_api_after = 5.minutes
+    config.frecency_num_orders = 25
   end
 end
