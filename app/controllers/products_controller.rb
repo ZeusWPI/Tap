@@ -52,7 +52,7 @@ class ProductsController < ApplicationController
       flash[:success] = "Product has been created!"
       redirect_to products_path
     else
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -65,7 +65,7 @@ class ProductsController < ApplicationController
       flash[:success] = "Product has been updated!"
       redirect_to products_path
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 
