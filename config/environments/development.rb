@@ -43,12 +43,6 @@ Rails.application.configure do
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
-  # Raise exceptions for disallowed deprecations.
-  config.active_support.disallowed_deprecation = :raise
-
-  # Tell Active Support which deprecation messages to disallow.
-  config.active_support.disallowed_deprecation_warnings = []
-
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
 
@@ -60,6 +54,9 @@ Rails.application.configure do
 
   # Highlight code that enqueued background job in logs.
   config.active_job.verbose_enqueue_logs = true
+
+  # Highlight code that triggered redirect in logs.
+  config.action_dispatch.verbose_redirect_logs = true
 
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
