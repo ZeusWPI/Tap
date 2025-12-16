@@ -44,6 +44,10 @@ Metrics/ClassLength:
 Rails/I18nLocaleTexts:
   Enabled: false
 
+# Breaks all request body parsing.
+Rails/StrongParametersExpect:
+  Enabled: false
+
 # Our tests fail without normal doubles.
 RSpec/VerifiedDoubles:
   Enabled: false
