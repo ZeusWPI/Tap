@@ -447,7 +447,7 @@ DEPENDENCIES
   omniauth-rails_csrf_protection
   omniauth-zeuswpi
   puma
-  rails (~> 6.1)
+  rails (~> 6.1.0)
   rails-controller-testing
   rspec-rails
   rubocop

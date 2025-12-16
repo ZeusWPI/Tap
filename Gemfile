@@ -9,7 +9,7 @@ gem "observer"
 gem "dotenv-rails"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 6.1"
+gem "rails", "~> 6.1.0"
 
 # Use Puma as the app server
 gem "puma"
