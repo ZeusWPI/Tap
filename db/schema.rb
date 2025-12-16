@@ -10,13 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_25_163014) do
-
+ActiveRecord::Schema[7.0].define(version: 2025_12_16_022119) do
   create_table "barcodes", force: :cascade do |t|
     t.integer "product_id", null: false
     t.string "code", default: "", null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["code"], name: "index_barcodes_on_code"
   end
 
@@ -25,13 +24,13 @@ ActiveRecord::Schema.define(version: 2022_07_25_163014) do
     t.integer "attempts", default: 0, null: false
     t.text "handler", null: false
     t.text "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
+    t.datetime "run_at", precision: nil
+    t.datetime "locked_at", precision: nil
+    t.datetime "failed_at", precision: nil
     t.string "locked_by"
     t.string "queue"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
@@ -44,8 +43,8 @@ ActiveRecord::Schema.define(version: 2022_07_25_163014) do
   create_table "orders", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "price_cents"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "transaction_id"
     t.index ["created_at"], name: "index_orders_on_created_at"
     t.index ["user_id", "created_at"], name: "index_orders_on_user_id_and_created_at"
@@ -55,12 +54,12 @@ ActiveRecord::Schema.define(version: 2022_07_25_163014) do
   create_table "products", force: :cascade do |t|
     t.string "name", null: false
     t.integer "price_cents", default: 0, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.string "avatar_file_name"
     t.string "avatar_content_type"
     t.integer "avatar_file_size"
-    t.datetime "avatar_updated_at"
+    t.datetime "avatar_updated_at", precision: nil
     t.integer "category", default: 0
     t.integer "stock", default: 0, null: false
     t.integer "calories"
@@ -68,15 +67,15 @@ ActiveRecord::Schema.define(version: 2022_07_25_163014) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "remember_created_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
     t.boolean "admin", default: false
     t.integer "dagschotel_id"
     t.string "avatar_file_name"
     t.string "avatar_content_type"
     t.integer "avatar_file_size"
-    t.datetime "avatar_updated_at"
+    t.datetime "avatar_updated_at", precision: nil
     t.integer "orders_count", default: 0
     t.boolean "koelkast", default: false
     t.string "name"
