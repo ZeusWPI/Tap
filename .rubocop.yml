@@ -1,8 +1,10 @@
 inherit_from: .rubocop_todo.yml
 
 plugins:
+  - rubocop-factory_bot
   - rubocop-rails
   - rubocop-rspec
+  - rubocop-rspec_rails
 
 # Use double-quotes instead of single-quotes
 # Double quotes allow for string interpolation, so we enforce
