@@ -25,10 +25,10 @@ if Rails.env.development?
     )
   end
 
-  puts "** Creating 500 products..."
+  puts "** Creating 100 products..."
 
   # Generate random products
-  products = 500.times.with_progress.map do |i|
+  products = 100.times.with_progress.map do |i|
     name = Faker::Commerce.unique.product_name
 
     Product.create!(
