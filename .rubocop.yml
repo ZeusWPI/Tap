@@ -44,6 +44,10 @@ Metrics/ClassLength:
 Rails/I18nLocaleTexts:
   Enabled: false
 
+# Breaks ordering on labeled aggregates.
+Rails/OrderArguments:
+  Enabled: false
+
 # Breaks all request body parsing.
 Rails/StrongParametersExpect:
   Enabled: false
