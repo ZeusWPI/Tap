@@ -14,10 +14,10 @@ start:
 	$(dc) start development
 
 stop:
-	$(dc) stop development
+	$(dc) stop -t1 development
 
 restart:
-	$(dc) restart development
+	$(dc) restart -t1 development
 
 logs:
 	$(dc) logs -f development
