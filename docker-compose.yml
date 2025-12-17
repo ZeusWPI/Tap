@@ -1,7 +1,10 @@
 # This compose file is meant for development and should not be used in production!
 services:
   development:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.development
+      target: development
     ports:
       - "127.0.0.1:3000:80"
     volumes:
@@ -9,16 +12,13 @@ services:
 #      - "${HOME}/.ssh:/root/.ssh:ro"
     tmpfs:
       - /tap/tmp
-    environment:
-      RAILS_ENV: development
-    command: /run-development.sh
 
   test:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.development
+      target: test
     volumes:
       - "./:/tap"
     tmpfs:
       - /tap/tmp
-    environment:
-      RAILS_ENV: test
-    command: /run-test.sh
