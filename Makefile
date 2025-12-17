@@ -1,4 +1,4 @@
-dc = docker compose
+dc = docker compose --file=compose.development.yml
 
 build:
 	$(dc) build
