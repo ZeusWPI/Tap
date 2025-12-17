@@ -1,5 +1,5 @@
-# This is for development only
-FROM docker.io/ruby:3.3.1-alpine3.18
+# This is for development or CI only
+FROM docker.io/ruby:3.3.1-alpine3.18 AS common
 
 RUN echo "@alpine/v3.16/main https://dl-cdn.alpinelinux.org/alpine/v3.16/main" >> /etc/apk/repositories \
     && apk update \
@@ -23,6 +23,28 @@ COPY package.json yarn.lock ./
 RUN --mount=type=cache,target=/usr/local/share/.cache/yarn yarn install
 RUN mv node_modules /node_modules
 
+
+FROM common as test
+
+ENV RAILS_ENV=test
+
+COPY --chmod=755 <<EOF /run-test.sh
+#!/bin/sh
+set -eu
+
+[ -e node_modules ] && rm -rf node_modules
+ln -s /node_modules node_modules
+
+bundle exec rake db:create
+bundle exec rake db:schema:load
+bundle exec rake
+EOF
+CMD ["/run-test.sh"]
+
+
+FROM common as development
+
+ENV RAILS_ENV=development
 EXPOSE 80
 
 COPY --chmod=755 <<EOF /run-development.sh
@@ -38,15 +60,4 @@ bundle exec rails server -b 0.0.0.0 -p 80
 echo "Rails exited, sleeping indefinitely so dev shells don't die."
 sleep inf
 EOF
-
-COPY --chmod=755 <<EOF /run-test.sh
-#!/bin/sh
-set -eu
-
-[ -e node_modules ] && rm -rf node_modules
-ln -s /node_modules node_modules
-
-bundle exec rake db:create
-bundle exec rake db:schema:load
-bundle exec rake
-EOF
+CMD ["/run-development.sh"]
