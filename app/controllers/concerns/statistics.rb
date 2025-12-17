@@ -26,9 +26,7 @@ module Statistics
     products
       .select("products.*", "sum(order_items.count) as count")
       .group(:product_id)
-      # rubocop:disable Rails/OrderArguments
       .order("count")
-      # rubocop:enable Rails/OrderArguments
       .reverse_order
   end
 
