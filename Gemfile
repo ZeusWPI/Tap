@@ -24,6 +24,8 @@ gem "sassc-rails"
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem "webpacker"
 
+gem "jsbundling-rails"
+
 # Not sure why
 gem "net-imap", require: false
 gem "net-pop", require: false
