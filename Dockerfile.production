@@ -1,12 +1,10 @@
-FROM docker.io/ruby:3.3.1-alpine3.18 AS base
+FROM docker.io/ruby:3.4.8-alpine3.23 AS base
 
-RUN echo "@alpine/v3.16/main https://dl-cdn.alpinelinux.org/alpine/v3.16/main" >> /etc/apk/repositories \
-    && apk update \
+RUN apk update \
     && apk upgrade \
     && apk add \
-        build-base shared-mime-info mariadb-dev tzdata imagemagick \
-        jemalloc \
-        nodejs@alpine/v3.16/main yarn@alpine/v3.16/main \
+        build-base shared-mime-info mariadb-dev sqlite-dev yaml-dev tzdata imagemagick \
+        nodejs yarn \
     && rm -rfv /var/cache/apk/*
 
 # These are equivalent to always setting --deployment, --path, and --without when relevant.
