@@ -18,9 +18,9 @@ WORKDIR /tap
 COPY Gemfile Gemfile.lock ./
 RUN --mount=type=cache,target=vendor/cache bundle install && bundle cache
 
-#COPY package.json yarn.lock ./
-#RUN --mount=type=cache,target=/usr/local/share/.cache/yarn yarn install
-#RUN mv node_modules /node_modules
+COPY package.json package-lock.json* ./
+RUN --mount=type=cache,target=/root/.npm npm i
+RUN mv node_modules /node_modules
 
 
 FROM common as test
@@ -50,8 +50,8 @@ COPY --chmod=755 <<EOF /run-development.sh
 #!/bin/sh
 set -eu
 
-#[ -e node_modules ] && rm -rf node_modules
-#ln -s /node_modules node_modules
+[ -e node_modules ] && rm -rf node_modules
+ln -s /node_modules node_modules
 
 bundle exec rake db:migrate
 bundle exec rails server -b 0.0.0.0 -p 80 || true
