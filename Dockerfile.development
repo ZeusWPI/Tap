@@ -1,13 +1,12 @@
 # This is for development or CI only
-FROM docker.io/ruby:3.3.1-alpine3.18 AS common
+FROM docker.io/ruby:3.4.8-alpine3.23 AS common
 
-RUN echo "@alpine/v3.16/main https://dl-cdn.alpinelinux.org/alpine/v3.16/main" >> /etc/apk/repositories \
-    && apk update \
+RUN apk update \
     && apk upgrade \
     && apk add \
-        build-base shared-mime-info mariadb-dev sqlite-dev tzdata imagemagick \
-        nodejs@alpine/v3.16/main yarn@alpine/v3.16/main \
-        vimdiff \
+        build-base shared-mime-info mariadb-dev sqlite-dev yaml-dev tzdata imagemagick \
+        nodejs yarn \
+        git vimdiff \
     && rm -rfv /var/cache/apk/*
 
 # Diffs in red/green instead of blue/cyan
