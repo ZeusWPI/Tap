@@ -55,7 +55,7 @@ set -eu
 ln -s /node_modules node_modules
 
 bundle exec rake db:migrate
-bundle exec rails server -b 0.0.0.0 -p 80
+bundle exec rails server -b 0.0.0.0 -p 80 || true
 
 echo "Rails exited, sleeping indefinitely so dev shells don't die."
 sleep inf
