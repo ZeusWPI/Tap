@@ -3,5 +3,9 @@
   "private": true,
   "scripts": {
     "build": "webpack --config webpack.config.js"
+  },
+  "dependencies": {
+    "webpack": "^5.104.1",
+    "webpack-cli": "^6.0.1"
   }
 }

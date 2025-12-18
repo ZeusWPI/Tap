@@ -12,17 +12,7 @@
     <%= stylesheet_link_tag "application", media: "all", 'data-turbo-track': "reload", defer: true %>
 
     <!-- JS -->
-    <!-- jsbundler default: <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %> -->
-    <%= javascript_pack_tag "application",                 "data-turbo-track": "reload" %>
-    <%= javascript_pack_tag "dependencies/chartkick",      "data-turbo-track": "reload" %>
-    <%= javascript_pack_tag "dependencies/petite-vue",     "data-turbo-track": "reload", defer: true %>
-    <%= javascript_pack_tag "dependencies/rails",          "data-turbo-track": "reload" %>
-    <%= javascript_pack_tag "dependencies/turbo",          "data-turbo-track": "reload", defer: true %>
-    <%= javascript_pack_tag "dependencies/vanilla-nested", "data-turbo-track": "reload" %>
-    <% if current_user and ! current_user.koelkast %>
-      <!-- Only needed when logged in -->
-      <%= javascript_pack_tag "dependencies/quagga", "data-turbo-track": "reload", defer: true %>
-    <% end %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
 
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
@@ -80,14 +70,13 @@
 
   <% if current_user and current_user.koelkast %>
     <!-- Only needed for koelkast -->
-    <%= javascript_pack_tag "mqtt" %>
     <div id="data-successful_order_items" style="display:none;">
       <% if ! flash[:successful_order_items].nil? %>
         <%= raw flash[:successful_order_items].to_json %>
       <% else %>
         []
       <% end %>
-    </script>
+    </div>
   <% end %>
   </body>
 </html>
