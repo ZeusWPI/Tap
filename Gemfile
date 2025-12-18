@@ -77,7 +77,7 @@ gem "byebug"
 gem "httparty"
 
 # windows support (linux timezone directory is used in the project)
-gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw]
+gem "tzinfo-data", platforms: %i[windows]
 
 # Sentry
 gem "sentry-rails"
