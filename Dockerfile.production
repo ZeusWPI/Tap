@@ -71,6 +71,8 @@ echo
 # Create or migrate the database
 ./bin/rails db:prepare
 
+./bin/delayed_job start
+
 exec "${@}"
 EOF
 ENTRYPOINT ["/entrypoint.sh"]
