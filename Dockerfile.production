@@ -62,9 +62,8 @@ set -eu
 # Enable jemalloc for reduced memory usage and latency.
 LD_PRELOAD=/usr/lib/libjemalloc.so.2
 
-echo -n "Waiting for database to start..."
 until ./bin/rails db:version 2>/dev/null; do
-    echo -n .
+    echo -n "Waiting for database to start..."
     sleep .1
 done
 echo
