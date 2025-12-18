@@ -1,0 +1,21 @@
+# Example production compose file
+services:
+  tap:
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+    restart: unless-stopped
+    env_file: .env.production
+    ports:
+      - "127.0.0.1:3000:80" # XXX: Remove this
+    tmpfs:
+      - /tap/tmp
+    depends_on:
+      - db
+
+  db:
+    image: docker.io/library/mariadb:11.8
+    restart: unless-stopped
+    env_file: .env.production
+
+  # XXX: Add https proxy here...

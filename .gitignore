@@ -35,3 +35,6 @@ public/assets
 yarn-debug.log*
 .yarn-integrity
 /spec/test_files/
+
+.env*
+!.env*.example
