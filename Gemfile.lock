@@ -299,8 +299,6 @@ GEM
       base64 (>= 0.1.0)
       logger (>= 1.6.0)
       rack (>= 3.0.0, < 4)
-    rack-proxy (0.7.7)
-      rack
     rack-session (2.1.1)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
@@ -417,7 +415,6 @@ GEM
     sdoc (2.6.5)
       rdoc (>= 5.0)
     securerandom (0.4.1)
-    semantic_range (3.1.0)
     sentry-rails (6.2.0)
       railties (>= 5.2.0)
       sentry-ruby (~> 6.2.0)
@@ -474,11 +471,6 @@ GEM
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    webpacker (5.4.4)
-      activesupport (>= 5.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 5.2)
-      semantic_range (>= 2.3.0)
     websocket-driver (0.8.0)
       base64
       websocket-extensions (>= 0.1.0)
@@ -554,7 +546,6 @@ DEPENDENCIES
   tzinfo-data
   vanilla_nested
   webmock
-  webpacker
   will_paginate
   will_paginate-bulma
 

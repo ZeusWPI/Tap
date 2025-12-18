@@ -26,17 +26,11 @@ public/system/users
 # Precompiled assets
 public/assets
 
+.env*
+!.env*.example
+
 .project
 
 /coverage
 
-/public/packs
-/public/packs-test
-/node_modules
-/yarn-error.log
-yarn-debug.log*
-.yarn-integrity
 /spec/test_files/
-
-.env*
-!.env*.example
