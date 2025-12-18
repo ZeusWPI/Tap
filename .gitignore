@@ -23,8 +23,12 @@
 public/system/products
 public/system/users
 
-# Precompiled assets
-public/assets
+# Asset compilation artifacts
+/app/assets/builds/*
+!/app/assets/builds/.keep
+/public/assets/
+
+node_modules
 
 .env*
 !.env*.example
