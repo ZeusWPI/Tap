@@ -21,11 +21,11 @@ Rails.application.configure do
   # config.require_master_key = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
-  config.serve_static_files = false
+  # config.serve_static_files = false
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
-  config.public_file_server.enabled = false
+  # config.public_file_server.enabled = false
 
   # Compress CSS using a preprocessor.
   # config.assets.css_compressor = :sass
