@@ -5,7 +5,7 @@ RUN apk update \
     && apk upgrade \
     && apk add \
         build-base shared-mime-info mariadb-dev sqlite-dev yaml-dev tzdata imagemagick \
-        nodejs yarn \
+        nodejs npm \
         git vimdiff \
     && rm -rfv /var/cache/apk/*
 
@@ -18,9 +18,9 @@ WORKDIR /tap
 COPY Gemfile Gemfile.lock ./
 RUN --mount=type=cache,target=vendor/cache bundle install && bundle cache
 
-COPY package.json yarn.lock ./
-RUN --mount=type=cache,target=/usr/local/share/.cache/yarn yarn install
-RUN mv node_modules /node_modules
+#COPY package.json yarn.lock ./
+#RUN --mount=type=cache,target=/usr/local/share/.cache/yarn yarn install
+#RUN mv node_modules /node_modules
 
 
 FROM common as test
@@ -31,8 +31,8 @@ COPY --chmod=755 <<EOF /run-test.sh
 #!/bin/sh
 set -eu
 
-[ -e node_modules ] && rm -rf node_modules
-ln -s /node_modules node_modules
+#[ -e node_modules ] && rm -rf node_modules
+#ln -s /node_modules node_modules
 
 bundle exec rake db:create
 bundle exec rake db:schema:load
@@ -50,8 +50,8 @@ COPY --chmod=755 <<EOF /run-development.sh
 #!/bin/sh
 set -eu
 
-[ -e node_modules ] && rm -rf node_modules
-ln -s /node_modules node_modules
+#[ -e node_modules ] && rm -rf node_modules
+#ln -s /node_modules node_modules
 
 bundle exec rake db:migrate
 bundle exec rails server -b 0.0.0.0 -p 80 || true
