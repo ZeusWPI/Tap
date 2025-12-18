@@ -21,9 +21,6 @@ gem "listen"
 # Sass
 gem "sassc-rails"
 
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem "webpacker"
-
 gem "jsbundling-rails"
 
 # Not sure why
