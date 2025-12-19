@@ -26,7 +26,7 @@ seed:
 	$(dc) exec development bundle exec rake db:seed
 
 webpack:
-	$(dc) exec development bundle exec rake webpacker:compile
+	$(dc) exec development bundle exec rake javascript:build
 
 lint:
 	$(dc) up --build -t1 -d development
