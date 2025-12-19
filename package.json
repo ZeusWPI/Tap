@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "tap",
   "private": true,
   "dependencies": {
     "@ericblade/quagga2": "^1.12.0",
