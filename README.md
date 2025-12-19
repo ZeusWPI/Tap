@@ -38,10 +38,10 @@ See the `Makefile` for all commands.
 > Note: the tool versions in nix are not entirely correct.
 
 1. Install gems: `bundle install`
-2. Migrate the db using `bundle exec rails db:migrate`
-3. Seed the db using `bundle exec rails db:seed`
-4. Run `rake webpacker:compile`
-5. Start Tap by running `bundle exec rails s`
+1. Install npm packages: `npm i`
+2. Initialize and migrate the db: `bundle exec rails db:migrate`
+3. Seed the db: `bundle exec rails db:seed`
+5. Start Tap: `./bin/dev`
 
 ## Deploy to production
 
