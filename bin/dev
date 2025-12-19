@@ -1,3 +1,2 @@
-#!/usr/bin/env sh
-
+#!/bin/sh
 exec foreman start -f Procfile.dev --env /dev/null "$@"
