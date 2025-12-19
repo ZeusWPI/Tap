@@ -117,6 +117,9 @@ group :development do
   gem "rubocop-rails"
   gem "rubocop-rspec"
   gem "rubocop-rspec_rails"
+
+  # For ./bin/dev
+  gem "foreman"
 end
 
 # Development/Test shared dependencies

@@ -1,11 +1,12 @@
 {
   "name": "app",
   "private": true,
-  "scripts": {
-    "build": "webpack --config webpack.config.js"
-  },
   "dependencies": {
     "webpack": "^5.104.1",
     "webpack-cli": "^6.0.1"
+  },
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "watch": "webpack --config webpack.config.js --watch"
   }
 }
