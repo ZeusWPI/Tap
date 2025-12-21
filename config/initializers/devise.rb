@@ -275,8 +275,8 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   config.omniauth :zeuswpi,
-                  Rails.application.secrets.omniauth_client_id,
-                  Rails.application.secrets.omniauth_client_secret,
+                  Rails.application.secrets.zauth_client_id,
+                  Rails.application.secrets.zauth_client_secret,
                   authorize_params: {scope: 'roles'}
 
   # ==> Warden configuration
