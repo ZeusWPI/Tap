@@ -60,10 +60,9 @@ set -eu
 LD_PRELOAD=/usr/lib/libjemalloc.so.2
 
 until ./bin/rails db:version 2>/dev/null; do
-    echo -n "Waiting for database to start..."
+    echo "Waiting for database to start..."
     sleep .1
 done
-echo
 
 # Create or migrate the database
 ./bin/rails db:prepare
