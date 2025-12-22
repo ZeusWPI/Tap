@@ -40,6 +40,8 @@ COPY --parents \
     ./webpack.config.js \
     ./
 
+RUN npm run build:js
+
 RUN bundle exec bootsnap precompile app/ lib/
 RUN <<"EOF"
 export TAP_SECRET_KEY_BASE=1
