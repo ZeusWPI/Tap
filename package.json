@@ -7,14 +7,13 @@
     "@rails/ujs": "^7.1.3-4",
     "chart.js": "^4.5.1",
     "chartkick": "^5.0.1",
+    "esbuild": "^0.27.2",
     "mqtt": "^5.14.1",
     "petite-vue": "^0.4.1",
-    "vanilla-nested": "^1.7.1",
-    "webpack": "^5.104.1",
-    "webpack-cli": "^6.0.1"
+    "vanilla-nested": "^1.7.1"
   },
   "scripts": {
-    "build": "webpack --config webpack.config.js",
-    "watch": "webpack --config webpack.config.js --watch"
+    "build:js": "esbuild ./app/assets/javascript/application.js --public-path=/assets --outdir=./app/assets/builds/ --bundle --minify",
+    "watch:js": "esbuild ./app/assets/javascript/application.js --public-path=/assets --outdir=./app/assets/builds/ --bundle --watch=forever"
   }
 }

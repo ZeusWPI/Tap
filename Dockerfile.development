@@ -53,7 +53,7 @@ set -eu
 [ -e node_modules ] && rm -rf node_modules
 ln -s /node_modules node_modules
 
-bundle exec rake db:migrate
+bundle exec rake db:migrate || true
 ./bin/dev || true
 
 echo "Rails exited, sleeping indefinitely so dev shells don't die."

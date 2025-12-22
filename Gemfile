@@ -21,8 +21,6 @@ gem "listen"
 # Sass
 gem "sassc-rails"
 
-gem "jsbundling-rails"
-
 # Not sure why
 gem "net-imap", require: false
 gem "net-pop", require: false
