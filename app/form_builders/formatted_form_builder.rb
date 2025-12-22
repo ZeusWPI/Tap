@@ -111,7 +111,7 @@ class FormattedFormBuilder < ActionView::Helpers::FormBuilder
     options[:step] ||= 0.01
 
     # Set the prefix icon
-    options[:prefix_icon] = "fas fa-euro-sign"
+    options[:prefix_icon] = "fa-solid fa-euro-sign"
 
     # Regular number field
     number_field(attribute, options)

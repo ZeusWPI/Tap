@@ -1,39 +1,29 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any styles
- * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
- * file per style scope.
- *
- *= require_tree .
- *= require_self
- */
-
 // Bulma variable overrides
-$primary: #ff7f00;
-$radius-small: 8px;
-$radius: 8px;
-$card-radius: 16px;
-$card-background-color: #fff;
-$link: $primary;
-$modal-card-head-background-color: white;
-$modal-card-head-border-bottom: 2px solid whitesmoke;
-$modal-card-foot-border-top: 2px solid whitesmoke;
 
 // Custom variables
-$logo-height: 155px;
+$tap-primary: #ff7f00;
+$tap-logo-height: 155px;
 
-// Include Bulma SCSS
-@import "bulma";
+@use "bulma/sass" with (
+    $primary: $tap-primary,
+    $radius-small: 8px,
+    $radius: 8px,
+    $card-radius: 16px,
+    $card-background-color: white,
+    $link: $tap-primary,
+    $modal-card-head-background-color: white,
+    //$modal-card-head-border-bottom: 2px solid whitesmoke,
+    //$modal-card-foot-border-top: 2px solid whitesmoke,
+);
+@use "bulma/sass" as *;
+@use "bulma/sass/utilities/mixins" as *;
 
-// Incluse Font Awesome SCSS
-@import "font-awesome-sprockets";
-@import "font-awesome";
+@use "@fortawesome/fontawesome-free/scss/variables" with (
+  $font-path: ".",
+);
+@use "@fortawesome/fontawesome-free/scss/fontawesome";
+@use "@fortawesome/fontawesome-free/scss/fa" as fa;
+@use "@fortawesome/fontawesome-free/scss/solid" as fa-solid;
 
 html {
   max-height: 100vh;
@@ -83,11 +73,9 @@ body {
 .back {
   margin-bottom: 0.5rem;
 
-  &::before {
-    content: "\f104";
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    color: $primary;
+  ::before {
+    @include fa-solid.icon(fa.$var-angle-left);
+    content: fa.fa-content(fa.$var-angle-left);
     margin-right: 0.2rem;
   }
 }
@@ -473,7 +461,7 @@ body {
       &-logo {
         display: flex;
         justify-content: center;
-        height: $logo-height;
+        height: $tap-logo-height;
       }
 
       &-title {
@@ -1049,7 +1037,7 @@ body {
 
     .modal-card-body {
       background-color: black;
-      border-color: lighten(black, 10%);
+      border-color: bulmaLighten(black, 10%);
     }
   }
 
@@ -1141,7 +1129,7 @@ body {
 
     // Better contrast between background and elements
     body {
-      background-color: darken($white, 5%);
+      background-color: bulmaDarken($white, 5%);
     }
 
     // Modal background should not be white
@@ -1173,7 +1161,7 @@ body {
       border-color: $grey;
 
       &:hover {
-        border-color: darken($grey, 20%);
+        border-color: bulmaDarken($grey, 20%);
       }
     }
 
@@ -1197,7 +1185,7 @@ body {
       @extend .theme-no-blend;
       font-size: $size-7;
       color: $grey;
-      color: darken($primary, 20%);
+      color: bulmaDarken($primary, 20%);
     }
   }
 

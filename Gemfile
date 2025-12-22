@@ -18,17 +18,13 @@ gem "puma"
 gem "bootsnap"
 gem "listen"
 
-# Sass
-gem "sassc-rails"
-
 # Not sure why
 gem "net-imap", require: false
 gem "net-pop", require: false
 gem "net-smtp", require: false
 
-# Bulma
-gem "bulma-rails", "~> 0.9"
-gem "font-awesome-sass", "~> 5.15"
+# Rails component: Static assets.
+gem "sprockets-rails"
 
 # Add nested forms support
 gem "vanilla_nested"
