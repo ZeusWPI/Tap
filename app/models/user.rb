@@ -10,10 +10,6 @@
 #  remember_created_at :datetime
 #  admin               :boolean          default(FALSE)
 #  dagschotel_id       :integer
-#  avatar_file_name    :string
-#  avatar_content_type :string
-#  avatar_file_size    :integer
-#  avatar_updated_at   :datetime
 #  orders_count        :integer          default(0)
 #  koelkast            :boolean          default(FALSE)
 #  name                :string
@@ -21,11 +17,11 @@
 #  frecency            :integer          default(0), not null
 #  quickpay_hidden     :boolean          default(FALSE)
 #  userkey             :string
+#  zauth_id            :integer
 #
 
 class User < ApplicationRecord
   include FriendlyId
-  include Avatarable
   include Statistics
 
   friendly_id :name, use: :finders
@@ -40,11 +36,27 @@ class User < ApplicationRecord
   scope :publik, -> { where private: false }
 
   def self.from_omniauth(auth)
-    db_user = find_or_create_by!(name: auth.uid) do |user|
-      user.avatar = Paperclip.io_adapters.for(Identicon.data_url_for(auth.uid))
-      user.generate_key!
-      user.private = true
+    zauth_id = auth.extra.raw_info["id"]
+    unless zauth_id.is_a? Integer
+      raise(
+        "zauth id is not valid, this is not good, what is happening? what did you do? i am confused and will give up"
+      )
+
     end
+
+    db_user = find_by(zauth_id: zauth_id)
+
+    if db_user.nil?
+      db_user = find_or_create_by!(name: auth.uid) do |user|
+        user.generate_key!
+        user.private = true
+      end
+
+      db_user.zauth_id = zauth_id
+    end
+
+    # overwrite name (for if name changed)
+    db_user.name = auth.uid
 
     # get roles info
     roles = auth.dig(:extra, :raw_info, :roles) || []
@@ -107,12 +119,14 @@ class User < ApplicationRecord
     bal - total_pending
   end
 
+  def avatar(*)
+    "https://zpi.zeus.gent/image/#{zauth_id || 0}"
+  end
+
   # Static Users
 
   def self.guest
-    @guest || find_or_create_by(name: "Guest") do |user|
-      user.avatar = File.new(File.join("app", "assets", "images", "guest.png"))
-    end
+    @guest || find_or_create_by(name: "Guest")
   end
 
   def guest?
@@ -121,7 +135,6 @@ class User < ApplicationRecord
 
   def self.koelkast
     @koelkast || find_or_create_by(name: "Koelkast") do |user|
-      user.avatar = File.new(File.join("app", "assets", "images", "logo.png"))
       user.koelkast = true
     end
   end
