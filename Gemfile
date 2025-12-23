@@ -27,8 +27,8 @@ gem "net-pop", require: false
 gem "net-smtp", require: false
 
 # Bulma
-gem "bulma-rails", "~> 0.9"
-gem "font-awesome-sass", "~> 5.15"
+gem "bulma-rails", "~> 1.0"
+gem "font-awesome-sass", "~> 6.7"
 
 # Add nested forms support
 gem "vanilla_nested"
