@@ -15,9 +15,11 @@ updates:
 - package-ecosystem: "npm"
   directory: "/"
   patterns: ["*"]
-  exclude-patterns:
-    - "bulma-rails"
-    - "font-awesome-sass"
+  ignore:
+    - dependency-name: "bulma-rails"
+      update-types: [version-update:semver-major]
+    - dependency-name: "font-awesome-sass"
+      update-types: [version-update:semver-major]
   multi-ecosystem-group: "deps"
 - package-ecosystem: "docker"
   directory: "/"
