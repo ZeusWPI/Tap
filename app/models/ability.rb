@@ -37,6 +37,7 @@ class Ability
     # Since ordering a dagschotel uses the underlying order model,
     # the same rules as creating an order apply here.
     can :order_dagschotel, User
+    can :quick_order, User
   end
 
   # Regular user permissions

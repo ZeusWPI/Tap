@@ -130,7 +130,7 @@ class UsersController < ApplicationController
       end
 
       respond_to do |format|
-        format.html { redirect_back_or_to(root_path) }
+        format.html { redirect_to(root_path) }
         format.json { render json: { message: "Quick order succeeded for #{@user.name}." }, status: :ok }
       end
     else

@@ -63,6 +63,8 @@
             </a>
           </div>
         <% end %>
+
+        <%= render "users/quick_order", products: @user.last_ordered_products %>
       </div>
     </div>
 
