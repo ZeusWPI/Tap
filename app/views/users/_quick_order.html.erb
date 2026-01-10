@@ -4,7 +4,7 @@
             <div class="card-content">
                 <h1 class="title is-size-4">Quick orders</h1>
                 <div style="display: flex; justify-content: space-evenly">
-                    <% @user.last_ordered_products.each do |product| %>
+                    <% products.each do |product| %>
                         <%= button_to quick_user_path(@user), 
                                         method: :post, 
                                         params: { product_id: product.id },
