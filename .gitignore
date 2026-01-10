@@ -23,6 +23,8 @@
 public/system/products
 public/system/users
 
+public/packs
+
 # Asset compilation artifacts
 /app/assets/builds/*
 !/app/assets/builds/.keep
