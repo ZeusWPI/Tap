@@ -8,6 +8,12 @@
   <div class="column is-12-mobile is-7-tablet is-8-desktop is-9-widescreen">
     <!-- Statistics -->
     <%= render "stats_cards" %>
+    
+    <!-- Quick orders -->
+    <% recent_products = @user.last_ordered_products %>
+    <% if recent_products.any? %>
+      <%= render "quick_order", products: recent_products %>
+    <% end %>
 
     <!-- Orders -->
     <%= render "orders" %>

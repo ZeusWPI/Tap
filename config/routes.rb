@@ -42,6 +42,8 @@ Rails.application.routes.draw do
       # Legacy endpoints, required for Tappb
       get "quickpay" => "users#order_dagschotel"
 
+      post "quick" => "users#quick_order"
+
       # Change the user's API key.
       post :reset_key
     end

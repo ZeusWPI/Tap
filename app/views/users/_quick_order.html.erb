@@ -1,0 +1,19 @@
+<div class="columns is-multiline is-justify-content-space-between">
+    <div class="column">
+        <div class="card">
+            <div class="card-content">
+                <h1 class="title is-size-4">Quick orders</h1>
+                <div style="display: flex; justify-content: space-evenly">
+                    <% products.each do |product| %>
+                        <%= button_to quick_user_path(@user), 
+                                        method: :post, 
+                                        params: { product_id: product.id },
+                                        class: "button button-flex is-fullwidth is-primary is-light" do %>
+                            <%= image_tag product.avatar.url, title: product.name %>
+                        <% end %>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

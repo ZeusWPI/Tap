@@ -101,6 +101,51 @@ class UsersController < ApplicationController
     end
   end
 
+  # quickly order a single product
+  # POST /users/{username}/quickorder
+  # takes the product_id as payload
+  def quick_order
+    product = Product.find_by(id: params[:product_id])
+
+    unless product
+      flash.now[:error] = "Product not found!"
+      respond_to do |format|
+        format.html { redirect_back_or_to(root_path) }
+        format.json do
+          render json: { message: "Quick order failed for #{@user.name}. Product not found." }, status: :bad_request
+        end
+      end
+      return
+    end
+
+    order = @user.orders.build
+    order.order_items.build(count: 1, product: product)
+    authorize! :create, order
+
+    if order.save
+      flash[:success] = "#{product.name} has been ordered!"
+
+      flash[:successful_order_items] = order.order_items.map do |oi|
+        { product: oi.product, count: oi.count }
+      end
+
+      respond_to do |format|
+        format.html { redirect_back_or_to(root_path) }
+        format.json { render json: { message: "Quick order succeeded for #{@user.name}." }, status: :ok }
+      end
+    else
+      flash[:error] = order.valid? ? "Something went wrong! Please try again." : order.errors.full_messages.join(". ")
+      respond_to do |format|
+        format.html { redirect_back_or_to(root_path) }
+        format.json do
+          render json: {
+            message: order.errors.full_messages.join(". ")
+          }, status: :unprocessable_content
+        end
+      end
+    end
+  end
+
   def reset_key
     @user.generate_key!
     redirect_to @user

@@ -107,6 +107,15 @@ class User < ApplicationRecord
     bal - total_pending
   end
 
+  def last_ordered_products(amount = 5)
+    orders.includes(:products)
+          .order(created_at: :desc)
+          .limit(amount)
+          .flat_map(&:products)
+          .uniq
+          .first(amount)
+  end
+
   # Static Users
 
   def self.guest
