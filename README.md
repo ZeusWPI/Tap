@@ -41,7 +41,12 @@ See the `Makefile` for all commands.
 1. Install npm packages: `npm i`
 2. Initialize and migrate the db: `bundle exec rails db:migrate`
 3. Seed the db: `bundle exec rails db:seed`
-5. Start Tap: `./bin/dev`
+5. Start Tap: `./bin/dev` (or run `npm run build:js`, then `bundle exec rails s`)
+
+#### Tests
+
+Run `bundle exec rake`\
+or if that doesn't work try `bundle exec rspec`?
 
 ## Deploy to production
 
