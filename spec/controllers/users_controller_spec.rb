@@ -187,4 +187,47 @@ describe UsersController do
     #   end
     # end
   end
+
+  # quick order
+  describe "POST quick_order" do
+    let(:product) { create(:product, stock: 20) }
+
+    before do
+      # Mock the balance check (Tab API)
+      balance = 12_345
+      stub_request(:get, /.*/).to_return(status: 200, body: JSON.dump({ balance: balance }))
+    end
+
+    context "with a valid product_id" do
+      it "creates a new order" do
+        expect do
+          post :quick_order, params: { id: user.id, product_id: product.id }
+        end.to change { user.reload.orders_count }.by(1)
+      end
+
+      describe "the created order" do
+        before do
+          post :quick_order, params: { id: user.id, product_id: product.id }
+        end
+
+        let(:order) { user.orders.last }
+
+        it "contains exactly 1 order item" do
+          expect(order.order_items.size).to eq 1
+        end
+
+        it "contains the correct product" do
+          expect(order.order_items.first.product).to eq product
+        end
+      end
+    end
+
+    context "with an invalid product_id" do
+      it "does not create an order" do
+        expect do
+          post :quick_order, params: { id: user.id, product_id: 99999 }
+        end.not_to change(Order, :count)
+      end
+    end
+  end
 end
