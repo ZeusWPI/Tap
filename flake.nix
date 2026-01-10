@@ -17,9 +17,16 @@
 
           buildInputs = with pkgs; [
             ruby_3_4 
-
             nodejs_24
+            foreman
+
             sqlite
+
+            # for mysql2 gem
+            libmysqlclient
+
+            # for psych gem
+            libyaml
 
             # Other dependencies
             imagemagick
