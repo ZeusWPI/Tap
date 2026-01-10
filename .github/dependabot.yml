@@ -3,6 +3,11 @@ version: 2
 updates:
 - package-ecosystem: "bundler"
   directory: "/"
+  ignore:
+    - dependency-name: "bulma-rails"
+      update-types: ["version-update:semver-major"]
+    - dependency-name: "font-awesome-sass"
+      update-types: ["version-update:semver-major"]
   schedule:
     interval: "weekly"
     day: "saturday"
@@ -12,11 +17,6 @@ updates:
 
 - package-ecosystem: npm
   directory: "/"
-  ignore:
-    - dependency-name: "bulma-rails"
-      update-types: [version-update:semver-major]
-    - dependency-name: "font-awesome-sass"
-      update-types: [version-update:semver-major]
   schedule:
     interval: "weekly"
     day: "saturday"
