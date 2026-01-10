@@ -9,8 +9,10 @@
     <!-- Statistics -->
     <%= render "stats_cards" %>
     
-    <!-- Statistics -->
-    <%= render "quick_order" %>
+    <% if @user.last_ordered_products.any? %>
+      <!-- Quick orders -->
+      <%= render "quick_order" %>
+    <% end %>
 
     <!-- Orders -->
     <%= render "orders" %>

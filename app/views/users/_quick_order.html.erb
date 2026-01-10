@@ -5,7 +5,7 @@
                 <h1 class="title is-size-4">Quick orders</h1>
                 <div style="display: flex; justify-content: space-evenly">
                     <% @user.last_ordered_products.each do |product| %>
-                        <%= button_to dagschotel_order_user_path(@user), 
+                        <%= button_to quick_user_path(@user), 
                                         method: :post, 
                                         params: { product_id: product.id },
                                         class: "button button-flex is-fullwidth is-primary is-light" do %>
