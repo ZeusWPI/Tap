@@ -225,7 +225,7 @@ describe UsersController do
     context "with an invalid product_id" do
       it "does not create an order" do
         expect do
-          post :quick_order, params: { id: user.id, product_id: 99999 }
+          post :quick_order, params: { id: user.id, product_id: 99_999 }
         end.not_to change(Order, :count)
       end
     end

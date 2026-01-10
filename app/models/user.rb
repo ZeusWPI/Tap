@@ -109,11 +109,11 @@ class User < ApplicationRecord
 
   def last_ordered_products(amount = 5)
     orders.includes(:products)
-      .order(created_at: :desc)
-      .limit(amount)
-      .flat_map(&:products)
-      .uniq
-      .first(amount)
+          .order(created_at: :desc)
+          .limit(amount)
+          .flat_map(&:products)
+          .uniq
+          .first(amount)
   end
 
   # Static Users

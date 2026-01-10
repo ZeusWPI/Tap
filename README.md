@@ -48,6 +48,12 @@ See the `Makefile` for all commands.
 Run `bundle exec rake`\
 or if that doesn't work try `bundle exec rspec`?
 
+#### Linter (rubocop)
+- Run `bundle exec rubocop` to lint
+- To autocorrect most offences
+  - safely : `bundle exec rubocop -a`
+  - unsafely : `bundle exec rubocop -A`
+
 ## Deploy to production
 
 1. Make sure your user has access to tap@tap.zeus.gent.

@@ -108,10 +108,12 @@ class UsersController < ApplicationController
     product = Product.find_by(id: params[:product_id])
 
     unless product
-      flash[:error] = "Product not found!"
+      flash.now[:error] = "Product not found!"
       respond_to do |format|
         format.html { redirect_back_or_to(root_path) }
-        format.json { render json: { message: "Quick order failed for #{@user.name}. Product not found." }, status: :bad_request }
+        format.json do
+          render json: { message: "Quick order failed for #{@user.name}. Product not found." }, status: :bad_request
+        end
       end
       return
     end
@@ -135,9 +137,11 @@ class UsersController < ApplicationController
       flash[:error] = order.valid? ? "Something went wrong! Please try again." : order.errors.full_messages.join(". ")
       respond_to do |format|
         format.html { redirect_back_or_to(root_path) }
-        format.json { render json: {
-          message: order.errors.full_messages.join(". ")
-        }, status: :unprocessable_entity }
+        format.json do
+          render json: {
+            message: order.errors.full_messages.join(". ")
+          }, status: :unprocessable_content
+        end
       end
     end
   end
