@@ -34,8 +34,8 @@ See the `Makefile` for all commands.
 
 ### Directly on your system
 
+> [!TIP]
 > If you have nix with flakes, run `nix develop`.
-> Note: the tool versions in nix are not entirely correct.
 
 1. Install gems: `bundle install`
 1. Install npm packages: `npm i`
