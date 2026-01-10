@@ -10,10 +10,6 @@
 #  remember_created_at :datetime
 #  admin               :boolean          default(FALSE)
 #  dagschotel_id       :integer
-#  avatar_file_name    :string
-#  avatar_content_type :string
-#  avatar_file_size    :integer
-#  avatar_updated_at   :datetime
 #  orders_count        :integer          default(0)
 #  koelkast            :boolean          default(FALSE)
 #  name                :string
@@ -21,6 +17,7 @@
 #  frecency            :integer          default(0), not null
 #  quickpay_hidden     :boolean          default(FALSE)
 #  userkey             :string
+#  zauth_id            :integer
 #
 
 require "webmock/rspec"
@@ -37,13 +34,6 @@ describe User do
   ############
 
   describe "fields" do
-    describe "avatar" do
-      it "is present" do
-        user.avatar = nil
-        expect(user).not_to be_valid
-      end
-    end
-
     describe "orders_count" do
       it "automaticallies cache the number of orders" do
         balance = 5
@@ -79,7 +69,7 @@ describe User do
           {
             uid: "yet-another-test-user",
             extra: {
-              raw_info: { roles: [] }
+              raw_info: { roles: [], id: 7 }
             }
           }
         )
@@ -88,6 +78,7 @@ describe User do
       it "creates a new user with the correct name" do
         user = described_class.from_omniauth(auth_hash)
         expect(user.name).to eq("yet-another-test-user")
+        expect(user.zauth_id).to eq(7)
         expect(user.admin).to be(false)
       end
     end
@@ -99,7 +90,30 @@ describe User do
           {
             uid: existing_user.name,
             extra: {
-              raw_info: { roles: [] }
+              raw_info: { roles: [], id: 7 }
+            }
+          }
+        )
+      end
+
+      it "finds the existing user" do
+        existing_user.zauth_id = 7
+        existing_user.save
+
+        user = described_class.from_omniauth(auth_hash)
+        expect(user).to eq(existing_user)
+        expect(user.admin).to be(false)
+      end
+    end
+
+    describe "when the user already exists but without zauth id" do
+      let!(:existing_user) { create(:user) }
+      let(:auth_hash) do
+        OmniAuth::AuthHash.new(
+          {
+            uid: existing_user.name,
+            extra: {
+              raw_info: { roles: [], id: 7 }
             }
           }
         )
@@ -112,6 +126,29 @@ describe User do
       end
     end
 
+    describe "when the user exists but has changed their name" do
+      let!(:existing_user) { create(:user) }
+      let(:auth_hash) do
+        OmniAuth::AuthHash.new(
+          {
+            uid: "new-username-from-zauth",
+            extra: {
+              raw_info: { roles: [], id: existing_user.zauth_id }
+            }
+          }
+        )
+      end
+
+      it "updated the username" do
+        existing_user.zauth_id = 7
+        existing_user.save
+
+        user = described_class.from_omniauth(auth_hash)
+        expect(user.id).to eq(existing_user.id)
+        expect(user.name).to eq("new-username-from-zauth")
+      end
+    end
+
     describe "when the user already exists and now has bestuur role" do
       let!(:existing_user) { create(:user) }
       let(:auth_hash) do
@@ -119,7 +156,7 @@ describe User do
           {
             uid: existing_user.name,
             extra: {
-              raw_info: { roles: ["bestuur"] }
+              raw_info: { roles: ["bestuur"], id: 7 }
             }
           }
         )
@@ -130,6 +167,9 @@ describe User do
       end
 
       it "gets admin permissions" do
+        existing_user.zauth_id = 7
+        existing_user.save
+
         user = described_class.from_omniauth(auth_hash)
         expect(user).to eq(existing_user)
         expect(user.admin).to be(true)
@@ -142,7 +182,7 @@ describe User do
           {
             uid: "a-test-admin-user-bestuur",
             extra: {
-              raw_info: { roles: ["bestuur"] }
+              raw_info: { roles: ["bestuur"], id: 7 }
             }
           }
         )
@@ -161,7 +201,7 @@ describe User do
           {
             uid: "a-test-admin-user-tap_admin",
             extra: {
-              raw_info: { roles: ["tap_admin"] }
+              raw_info: { roles: ["tap_admin"], id: 7 }
             }
           }
         )
@@ -171,6 +211,27 @@ describe User do
         user = described_class.from_omniauth(auth_hash)
         expect(user.name).to eq("a-test-admin-user-tap_admin")
         expect(user.admin).to be(true)
+      end
+    end
+
+    describe "when the user has an invalid zauth id" do
+      let(:auth_hash) do
+        OmniAuth::AuthHash.new(
+          {
+            uid: "a-test-user",
+            extra: {
+              raw_info: { roles: ["tap_admin"], id: "7" }
+            }
+          }
+        )
+      end
+
+      it "fails" do
+        expect do
+          described_class.from_omniauth(auth_hash)
+        end.to raise_error(
+          "zauth id is not valid, this is not good, what is happening? what did you do? i am confused and will give up"
+        )
       end
     end
   end
