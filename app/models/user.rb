@@ -109,9 +109,9 @@ class User < ApplicationRecord
 
   def last_ordered_products(amount = 5)
     products = orders.includes(:products)
-          .order(created_at: :desc)
-          .limit(amount + 15)
-          .flat_map(&:products)
+                     .order(created_at: :desc)
+                     .limit(amount + 15)
+                     .flat_map(&:products)
 
     products.tally
             .sort_by { |_, count| -count }
