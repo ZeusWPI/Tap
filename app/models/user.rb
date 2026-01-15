@@ -108,12 +108,15 @@ class User < ApplicationRecord
   end
 
   def last_ordered_products(amount = 5)
-    orders.includes(:products)
+    products = orders.includes(:products)
           .order(created_at: :desc)
-          .limit(amount)
+          .limit(amount + 15)
           .flat_map(&:products)
-          .uniq
-          .first(amount)
+
+    products.tally
+            .sort_by { |_, count| -count }
+            .map(&:first)
+            .first(amount)
   end
 
   # Static Users
