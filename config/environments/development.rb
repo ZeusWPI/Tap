@@ -91,5 +91,9 @@ Rails.application.configure do
 
   config.api_url = "http://localhost:3001/api/v1/"
   config.tab_user_url = "http://localhost:3001/"
+
+  # profile image url
+  config.zpi_image_url = "https://zpi.zeus.gent/image/"
+
   Delayed::Worker.logger = Rails.logger
 end

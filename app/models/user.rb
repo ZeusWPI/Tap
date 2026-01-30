@@ -131,7 +131,7 @@ class User < ApplicationRecord
   end
 
   def avatar
-    "https://zpi.zeus.gent/image/#{zauth_id || 0}"
+    Rails.application.config.zpi_image_url + (zauth_id || 0).to_s
   end
 
   # Static Users
