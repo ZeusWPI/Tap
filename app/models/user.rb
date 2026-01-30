@@ -39,12 +39,10 @@ class User < ApplicationRecord
     db_user = find_by(zauth_id: auth.uid)
 
     if db_user.nil?
-      db_user = find_or_create_by!(name: auth.extra.raw_info["username"]) do |user|
+      db_user = find_or_create_by!(zauth_id: auth.uid) do |user|
         user.generate_key!
         user.private = true
       end
-
-      db_user.zauth_id = auth.uid
     end
 
     # overwrite name (for if name changed)

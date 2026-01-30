@@ -26,6 +26,7 @@ require "identicon"
 FactoryBot.define do
   factory :user do
     name { Faker::Internet.user_name }
+    zauth_id { Faker::String.random }
     private { false }
 
     factory :admin do

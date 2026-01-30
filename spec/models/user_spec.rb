@@ -88,7 +88,7 @@ describe User do
       let(:auth_hash) do
         OmniAuth::AuthHash.new(
           {
-            uid: 7,
+            uid: "7",
             extra: {
               raw_info: { roles: [], username: existing_user.name }
             }
@@ -100,26 +100,6 @@ describe User do
         existing_user.zauth_id = "7"
         existing_user.save
 
-        user = described_class.from_omniauth(auth_hash)
-        expect(user).to eq(existing_user)
-        expect(user.admin).to be(false)
-      end
-    end
-
-    describe "when the user already exists but without zauth id" do
-      let!(:existing_user) { create(:user) }
-      let(:auth_hash) do
-        OmniAuth::AuthHash.new(
-          {
-            uid: "7",
-            extra: {
-              raw_info: { roles: [], username: existing_user.name }
-            }
-          }
-        )
-      end
-
-      it "finds the existing user" do
         user = described_class.from_omniauth(auth_hash)
         expect(user).to eq(existing_user)
         expect(user.admin).to be(false)
