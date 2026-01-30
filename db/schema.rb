@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_23_211742) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_30_185518) do
   create_table "barcodes", force: :cascade do |t|
     t.string "code", default: "", null: false
     t.datetime "created_at", precision: nil
@@ -79,7 +79,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_23_211742) do
     t.datetime "remember_created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.string "userkey"
-    t.text "zauth_id"
+    t.text "zauth_id", null: false
     t.index ["koelkast"], name: "index_users_on_koelkast"
     t.index ["orders_count"], name: "index_users_on_orders_count"
     t.index ["zauth_id"], name: "index_users_on_zauth_id", unique: true
