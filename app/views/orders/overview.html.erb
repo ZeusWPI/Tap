@@ -8,7 +8,7 @@
 
         <div class="order-overview-recent-avatars">
           <% @last.each do |user| %>
-            <%= image_tag user.avatar(:small), class: "order-overview-recent-avatar" %>
+            <%= image_tag user.avatar, class: "order-overview-recent-avatar" %>
           <% end %>
         </div>
       <% end %>
