@@ -40,23 +40,16 @@
           %>
         <% end %>
       </div>
-
-      <hr />
-
-      <!-- Change avatar -->
-      <div>
-        <%= f_form_for @user do |f| %>
-          <%= f.file_field :avatar, skip_initial_name: true, boxed: true %>
-          <%= f.submit "Change avatar", class: "button is-primary is-light", justify: "start", data: { disable_with: "Please wait..." } %>
-        <% end %>
-      </div>
     </div>
 
     <hr />
     <!-- Display the API key -->
     <div>
       <h2 class="label">API key</h2>
-      <pre class="field"><code><%= @user.userkey %></code></pre>
+      
+      <button class="button is-secondary is-light" popovertarget="my-popover">Show API key</button>
+
+      <div popover id="my-popover"><pre class="field"><code><%= @user.userkey %></code></pre></div>
 
       <%= button_to 'Reset key', reset_key_user_path(@user), { method: 'post', class: 'button is-primary is-light' } %>
     </div>
