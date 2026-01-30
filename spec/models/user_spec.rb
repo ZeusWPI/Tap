@@ -10,10 +10,6 @@
 #  remember_created_at :datetime
 #  admin               :boolean          default(FALSE)
 #  dagschotel_id       :integer
-#  avatar_file_name    :string
-#  avatar_content_type :string
-#  avatar_file_size    :integer
-#  avatar_updated_at   :datetime
 #  orders_count        :integer          default(0)
 #  koelkast            :boolean          default(FALSE)
 #  name                :string
@@ -21,6 +17,7 @@
 #  frecency            :integer          default(0), not null
 #  quickpay_hidden     :boolean          default(FALSE)
 #  userkey             :string
+#  zauth_id            :string
 #
 
 require "webmock/rspec"
@@ -37,13 +34,6 @@ describe User do
   ############
 
   describe "fields" do
-    describe "avatar" do
-      it "is present" do
-        user.avatar = nil
-        expect(user).not_to be_valid
-      end
-    end
-
     describe "orders_count" do
       it "automaticallies cache the number of orders" do
         balance = 5
@@ -77,9 +67,9 @@ describe User do
       let(:auth_hash) do
         OmniAuth::AuthHash.new(
           {
-            uid: "yet-another-test-user",
+            uid: "7",
             extra: {
-              raw_info: { roles: [] }
+              raw_info: { roles: [], username: "yet-another-test-user" }
             }
           }
         )
@@ -88,6 +78,7 @@ describe User do
       it "creates a new user with the correct name" do
         user = described_class.from_omniauth(auth_hash)
         expect(user.name).to eq("yet-another-test-user")
+        expect(user.zauth_id).to eq("7")
         expect(user.admin).to be(false)
       end
     end
@@ -97,9 +88,32 @@ describe User do
       let(:auth_hash) do
         OmniAuth::AuthHash.new(
           {
-            uid: existing_user.name,
+            uid: 7,
             extra: {
-              raw_info: { roles: [] }
+              raw_info: { roles: [], username: existing_user.name }
+            }
+          }
+        )
+      end
+
+      it "finds the existing user" do
+        existing_user.zauth_id = "7"
+        existing_user.save
+
+        user = described_class.from_omniauth(auth_hash)
+        expect(user).to eq(existing_user)
+        expect(user.admin).to be(false)
+      end
+    end
+
+    describe "when the user already exists but without zauth id" do
+      let!(:existing_user) { create(:user) }
+      let(:auth_hash) do
+        OmniAuth::AuthHash.new(
+          {
+            uid: "7",
+            extra: {
+              raw_info: { roles: [], username: existing_user.name }
             }
           }
         )
@@ -112,14 +126,37 @@ describe User do
       end
     end
 
+    describe "when the user exists but has changed their name" do
+      let!(:existing_user) { create(:user) }
+      let(:auth_hash) do
+        OmniAuth::AuthHash.new(
+          {
+            uid: existing_user.zauth_id,
+            extra: {
+              raw_info: { roles: [], username: "new-username-from-zauth" }
+            }
+          }
+        )
+      end
+
+      it "updated the username" do
+        existing_user.zauth_id = "7"
+        existing_user.save
+
+        user = described_class.from_omniauth(auth_hash)
+        expect(user.id).to eq(existing_user.id)
+        expect(user.name).to eq("new-username-from-zauth")
+      end
+    end
+
     describe "when the user already exists and now has bestuur role" do
       let!(:existing_user) { create(:user) }
       let(:auth_hash) do
         OmniAuth::AuthHash.new(
           {
-            uid: existing_user.name,
+            uid: "7",
             extra: {
-              raw_info: { roles: ["bestuur"] }
+              raw_info: { roles: ["bestuur"], username: existing_user.name }
             }
           }
         )
@@ -130,6 +167,9 @@ describe User do
       end
 
       it "gets admin permissions" do
+        existing_user.zauth_id = "7"
+        existing_user.save
+
         user = described_class.from_omniauth(auth_hash)
         expect(user).to eq(existing_user)
         expect(user.admin).to be(true)
@@ -140,9 +180,9 @@ describe User do
       let(:auth_hash) do
         OmniAuth::AuthHash.new(
           {
-            uid: "a-test-admin-user-bestuur",
+            uid: "7",
             extra: {
-              raw_info: { roles: ["bestuur"] }
+              raw_info: { roles: ["bestuur"], username: "a-test-admin-user-bestuur" }
             }
           }
         )
@@ -159,9 +199,9 @@ describe User do
       let(:auth_hash) do
         OmniAuth::AuthHash.new(
           {
-            uid: "a-test-admin-user-tap_admin",
+            uid: "7",
             extra: {
-              raw_info: { roles: ["tap_admin"] }
+              raw_info: { roles: ["tap_admin"], username: "a-test-admin-user-tap_admin" }
             }
           }
         )

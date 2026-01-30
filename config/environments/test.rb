@@ -56,6 +56,9 @@ Rails.application.configure do
   config.api_url = "http://www.example.com"
   config.tab_user_url = "http://www.example.com"
 
+  # profile image url
+  config.zpi_image_url = "https://zpi.zeus.gent/image/"
+
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 

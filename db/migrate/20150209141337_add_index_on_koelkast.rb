@@ -6,3 +6,4 @@ class AddIndexOnKoelkast < ActiveRecord::Migration[4.2]
     change_column :products, :stock, :integer, default: 0, null: false
   end
 end
+  

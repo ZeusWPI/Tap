@@ -20,7 +20,7 @@
 
   <!-- User image -->
   <div class="user-avatar" :class="loadingUser ? 'user-avatar--loading' : ''">
-    <%= link_to image_tag(user.avatar(:koelkast)), new_user_order_path(user), "@click": "loadingUser = true" %>
+    <%= link_to image_tag(user.avatar), new_user_order_path(user), "@click": "loadingUser = true" %>
 
     <!-- Loading -->
     <div class="user-loading" v-show="loadingUser" v-cloak>

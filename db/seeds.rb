@@ -21,7 +21,6 @@ if Rails.env.development?
     User.create!(
       name: name,
       private: false,
-      avatar: Paperclip.io_adapters.for(Identicon.data_url_for(name))
     )
   end
 

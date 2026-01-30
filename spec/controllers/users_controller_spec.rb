@@ -10,16 +10,13 @@
 #  remember_created_at :datetime
 #  admin               :boolean          default(FALSE)
 #  dagschotel_id       :integer
-#  avatar_file_name    :string
-#  avatar_content_type :string
-#  avatar_file_size    :integer
-#  avatar_updated_at   :datetime
 #  orders_count        :integer          default(0)
 #  koelkast            :boolean          default(FALSE)
 #  name                :string
 #  private             :boolean          default(FALSE)
 #  frecency            :integer          default(0), not null
 #  quickpay_hidden     :boolean
+#  zauth_id            :string
 #
 
 #         quickpay_user GET      /users/:id/quickpay(.:format)            users#quickpay
@@ -65,7 +62,7 @@ describe UsersController do
 
   describe "PUT update" do
     it "loads the correct user" do
-      put :update, params: { id: user, user: attributes_for(:user).except(:avatar) }
+      put :update, params: { id: user, user: attributes_for(:user) }
       expect(assigns(:user)).to eq(user)
     end
 
@@ -82,12 +79,6 @@ describe UsersController do
         put :update, params: { id: user, user: { dagschotel_id: product.id } }
         expect(user.reload.dagschotel).to eq(product)
       end
-
-      it "accepts real images" do
-        file = fixture_file_upload("real-image.png", "image/png")
-        put :update, params: { id: user, user: { avatar: file } }
-        expect(flash[:success]).to be_present
-      end
     end
 
     context "danger zone" do
@@ -95,13 +86,6 @@ describe UsersController do
         expect do
           put :update, params: { id: user, user: {} }
         end.to raise_error(ActionController::ParameterMissing)
-      end
-
-      it "does not accept unreal images" do
-        file = fixture_file_upload("unreal-image.svg", "image/svg+xml")
-        expect do
-          put :update, params: { id: user, user: { avatar: file } }
-        end.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
   end
