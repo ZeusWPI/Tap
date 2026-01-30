@@ -17,7 +17,7 @@
 #  frecency            :integer          default(0), not null
 #  quickpay_hidden     :boolean          default(FALSE)
 #  userkey             :string
-#  zauth_id            :integer
+#  zauth_id            :string
 #
 
 require "faker"

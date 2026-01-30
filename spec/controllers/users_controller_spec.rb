@@ -16,7 +16,7 @@
 #  private             :boolean          default(FALSE)
 #  frecency            :integer          default(0), not null
 #  quickpay_hidden     :boolean
-#  zauth_id            :integer
+#  zauth_id            :string
 #
 
 #         quickpay_user GET      /users/:id/quickpay(.:format)            users#quickpay

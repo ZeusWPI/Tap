@@ -79,7 +79,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_23_211742) do
     t.datetime "remember_created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.string "userkey"
-    t.integer "zauth_id"
+    t.string "zauth_id"
     t.index ["koelkast"], name: "index_users_on_koelkast"
     t.index ["orders_count"], name: "index_users_on_orders_count"
   end
