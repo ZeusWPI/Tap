@@ -130,7 +130,9 @@ class User < ApplicationRecord
   # Static Users
 
   def self.guest
-    @guest || find_or_create_by(name: "Guest")
+    @guest || find_or_create_by(name: "Guest") do |user|
+      user.zauth_id = 1_000_000_001
+    end
   end
 
   def guest?
@@ -140,6 +142,7 @@ class User < ApplicationRecord
   def self.koelkast
     @koelkast || find_or_create_by(name: "Koelkast") do |user|
       user.koelkast = true
+      user.zauth_id = 1_000_000_000
     end
   end
 
