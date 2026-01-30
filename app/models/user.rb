@@ -36,14 +36,7 @@ class User < ApplicationRecord
   scope :publik, -> { where private: false }
 
   def self.from_omniauth(auth)
-    zauth_id = auth.uid
-    unless zauth_id.is_a? Integer
-      raise(
-        "zauth id is not valid, this is not good, what is happening? what did you do? i am confused and will give up"
-      )
-    end
-
-    db_user = find_by(zauth_id: zauth_id)
+    db_user = find_by(zauth_id: auth.uid)
 
     if db_user.nil?
       db_user = find_or_create_by!(name: auth.extra.raw_info["username"]) do |user|
