@@ -44,7 +44,7 @@ class User < ApplicationRecord
         user.private = true
       end
 
-      db_user.zauth_id = zauth_id
+      db_user.zauth_id = auth.uid
     end
 
     # overwrite name (for if name changed)
