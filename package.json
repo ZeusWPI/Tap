@@ -9,7 +9,7 @@
     "chartkick": "^5.0.1",
     "date-fns": "^4.1.0",
     "esbuild": "^0.27.2",
-    "mqtt": "^5.14.1",
+    "mqtt": "^5.15.0",
     "petite-vue": "^0.4.1",
     "vanilla-nested": "^1.7.1"
   },
