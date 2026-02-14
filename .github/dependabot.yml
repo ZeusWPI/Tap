@@ -13,7 +13,7 @@ updates:
     day: "saturday"
     time: "11:00"
     timezone: "Europe/Brussels"
-  open-pull-requests-limit: 10
+  open-pull-requests-limit: 20
 
 - package-ecosystem: npm
   directory: "/"
@@ -22,7 +22,7 @@ updates:
     day: "saturday"
     time: "11:00"
     timezone: "Europe/Brussels"
-  open-pull-requests-limit: 10
+  open-pull-requests-limit: 20
 
 - package-ecosystem: "docker"
   directory: "/"
@@ -31,7 +31,7 @@ updates:
     day: "saturday"
     time: "11:00"
     timezone: "Europe/Brussels"
-  open-pull-requests-limit: 10
+  open-pull-requests-limit: 20
 
 - package-ecosystem: "docker-compose"
   directory: "/"
@@ -40,7 +40,7 @@ updates:
     day: "saturday"
     time: "11:00"
     timezone: "Europe/Brussels"
-  open-pull-requests-limit: 10
+  open-pull-requests-limit: 20
 
 - package-ecosystem: "github-actions"
   directory: "/"
@@ -49,4 +49,4 @@ updates:
     day: "saturday"
     time: "11:00"
     timezone: "Europe/Brussels"
-  open-pull-requests-limit: 10
+  open-pull-requests-limit: 20
