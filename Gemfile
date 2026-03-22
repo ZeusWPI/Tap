@@ -64,10 +64,6 @@ gem "daemons"
 gem "delayed_job"
 gem "delayed_job_active_record"
 
-# Needed for deployment somehow
-gem "bcrypt_pbkdf"
-gem "ed25519"
-
 # Ruby debugger
 gem "byebug"
 
@@ -102,12 +98,6 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "spring"
-
-  # Deployment
-  gem "capistrano"
-  gem "capistrano-asdf"
-  gem "capistrano-passenger"
-  gem "capistrano-rails"
 
   # Linting
   gem "rubocop"
