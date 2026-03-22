@@ -17,7 +17,7 @@ To provide a consistent experience on every system, docker and docker-compose is
     make up
     ```
     > This will start a development server on http://localhost:3000.
-    > Cancelling this command will leave tap running in the background.
+    > Canceling this command will leave tap running in the background.
     > You can stop it using `make down`.
 3. Seed the database.
     ```sh
@@ -49,16 +49,11 @@ Run `bundle exec rake`\
 or if that doesn't work try `bundle exec rspec`?
 
 #### Linter (rubocop)
+
 - Run `bundle exec rubocop` to lint
-- To autocorrect most offences
+- To autocorrect most offenses
   - safely : `bundle exec rubocop -a`
   - unsafely : `bundle exec rubocop -A`
-
-## Deploy to production
-
-1. Make sure your user has access to tap@tap.zeus.gent.
-2. Uncomment the `- "${HOME}/.ssh:/root/.ssh:ro"` line in `docker-compose.yml`.
-3. Run `make deploy`.
 
 ## FAQ
 
@@ -84,11 +79,9 @@ or if that doesn't work try `bundle exec rspec`?
 
 <details>
   <summary>There are no transactions going from Tap to Tab</summary>
-  The delay job may not be running. You can start it using:
-
-  ```sh
-  sudo -u tap RAILS_ENV=production /home/tap/production/current/bin/delayed_job start
-  ```
+  The delayed job may have failed.
+  If `podman exec -it systemd-tap ps` doesn't have `{ruby} delayed_job`, view the logs to see how it crashed.
+  Restarting the container also restarts the `delayed_job`.
 </details>
 
 ## Licensing

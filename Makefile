@@ -35,12 +35,8 @@ lint:
 test:
 	$(dc) up --build -t1 test
 
-deploy:
-	$(dc) up --build -t1 -d development
-	$(dc) exec development bundle exec cap production deploy
-
 shell:
 	$(dc) exec development sh
 
 
-.PHONY: build up down start stop restart logs seed webpack lint test deploy shell
+.PHONY: build up down start stop restart logs seed webpack lint test shell

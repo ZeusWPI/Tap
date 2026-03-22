@@ -9,7 +9,6 @@ services:
       - "127.0.0.1:3000:3000"
     volumes:
       - "./:/tap"
-#      - "${HOME}/.ssh:/root/.ssh:ro"
     tmpfs:
       - /tap/tmp
 
