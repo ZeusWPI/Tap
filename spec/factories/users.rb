@@ -25,7 +25,7 @@ require "identicon"
 
 FactoryBot.define do
   factory :user do
-    name { Faker::Internet.user_name }
+    name { Faker::Internet.user_name.gsub(/[^a-zA-Z]/, "") }
     zauth_id { Faker::String.random }
     private { false }
 
