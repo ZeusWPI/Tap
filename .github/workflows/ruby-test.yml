@@ -23,12 +23,26 @@ jobs:
         with:
           bundler-cache: true
 
+      - name: Use node 24
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: package.json
+          cache: npm
+
       - name: "Initialize a test database"
         env:
           RAILS_ENV: test
         run: |
           bundle exec rake db:create
           bundle exec rake db:schema:load
+
+      - name: Install dependencies
+        run: |
+          bundle install
+          npm ci
+
+      - name: Compile assets
+        run: npm run build:js
 
       - name: "Run rake"
         env:
