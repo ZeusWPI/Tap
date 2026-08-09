@@ -73,6 +73,7 @@ RSpec/ContextWording:
 
 AllCops:
   NewCops: enable
+  TargetRubyVersion: 4.0
 
   # Do not lint the following
   Exclude:

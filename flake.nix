@@ -16,7 +16,7 @@
           name = "Tap";
 
           buildInputs = with pkgs; [
-            ruby_3_4 
+            ruby_4_0
             nodejs_24
             foreman
 
