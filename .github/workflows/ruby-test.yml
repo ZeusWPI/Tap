@@ -2,6 +2,8 @@ name: "ruby: test"
 
 on:
   push:
+    branches:
+      - master
   pull_request:
 
 jobs:
@@ -12,12 +14,20 @@ jobs:
 
       - name: "Install ImageMagick"
         run: |
-          sudo apt-get install -y imagemagick
+          sudo apt-get install --no-install-recommends -y imagemagick
+      - name: Setup chromedriver
+        uses: nanasess/setup-chromedriver@v3.0.0
 
       - name: "Install the Ruby version in .ruby-version"
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+
+      - name: Use node 24
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: package.json
+          cache: npm
 
       - name: "Initialize a test database"
         env:
@@ -26,9 +36,24 @@ jobs:
           bundle exec rake db:create
           bundle exec rake db:schema:load
 
+      - name: Install dependencies
+        run: |
+          bundle install
+          npm ci
+
+      - name: Compile assets
+        run: npm run build:js
+
       - name: "Run rake"
         env:
           RAILS_ENV: test
           COVERALLS_REPO_TOKEN : ${{ secrets.COVERALLS_REPO_TOKEN }}
         run: |
           bundle exec rake
+
+      - name: Upload screenshot artifacts
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: screenshots
+          path: tmp/capybara
