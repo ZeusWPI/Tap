@@ -12,7 +12,9 @@ jobs:
 
       - name: "Install ImageMagick"
         run: |
-          sudo apt-get install -y imagemagick
+          sudo apt-get install --no-install-recommends -y imagemagick
+      - name: Setup chromedriver
+        uses: nanasess/setup-chromedriver@v3.0.0
 
       - name: "Install the Ruby version in .ruby-version"
         uses: ruby/setup-ruby@v1

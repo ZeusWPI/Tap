@@ -21,6 +21,8 @@
             foreman
 
             sqlite
+            chromedriver
+            ungoogled-chromium
 
             # for mysql2 gem
             libmysqlclient

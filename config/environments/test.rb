@@ -49,11 +49,9 @@ Rails.application.configure do
   # Tell Active Support which deprecation messages to disallow.
   config.active_support.disallowed_deprecation_warnings = []
 
-  Paperclip.options[:command_path] = "/usr/local/bin/"
-
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
-  config.api_url = "http://www.example.com"
+  config.api_url = "http://tab-test-url.com"
   config.tab_user_url = "http://www.example.com"
 
   # profile image url
@@ -70,4 +68,7 @@ Rails.application.configure do
 
   # Prevent problems with FactoryBot & Paperclip
   Paperclip::Attachment.default_options[:path] = "#{Rails.root}/spec/test_files/:class/:id_partition/:style.:extension"
+
+  Capybara.server = :puma, { Silent: true }
+
 end

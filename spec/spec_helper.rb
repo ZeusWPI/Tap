@@ -46,6 +46,11 @@ RSpec.configure do |config|
   # triggering implicit auto-inclusion in groups with matching metadata.
   config.shared_context_metadata_behavior = :apply_to_host_groups
 
+  config.before(type: :system) do
+    WebMock.disable_net_connect!(allow_localhost: true)
+    driven_by :selenium_chrome_headless
+  end
+
   # Delete files from paperclip
   config.after(:suite) do
     FileUtils.rm_rf(Rails.root.glob("/spec/test_files/"))

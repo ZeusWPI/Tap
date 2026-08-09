@@ -13,6 +13,8 @@ require "factory_bot"
 require "devise"
 require "rspec/rails"
 require "webmock/rspec"
+require "capybara/rails"
+require "capybara/rspec"
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -77,6 +79,9 @@ RSpec.configure do |config|
 
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::ControllerHelpers, type: :view
+
+  config.include Devise::Test::IntegrationHelpers, type: :system
+  config.include Warden::Test::Helpers
 
   config.include FactoryBot::Syntax::Methods
 end
