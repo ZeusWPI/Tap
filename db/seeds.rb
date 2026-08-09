@@ -7,9 +7,6 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 if Rails.env.development?
-  require 'faker'
-  require 'tqdm'
-
   puts "** Seeding database..."
 
   puts "** Creating 50 users..."

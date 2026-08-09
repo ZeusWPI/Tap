@@ -77,9 +77,9 @@ GEM
       uri (>= 0.13.1)
     addressable (2.8.9)
       public_suffix (>= 2.0.2, < 8.0)
-    annotate (2.6.5)
-      activerecord (>= 2.3.0)
-      rake (>= 0.8.7)
+    annotaterb (4.24.0)
+      activerecord (>= 6.0.0)
+      activesupport (>= 6.0.0)
     ast (2.4.3)
     base64 (0.3.0)
     bcrypt (3.1.22)
@@ -469,7 +469,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
-  annotate
+  annotaterb
   bootsnap
   bulma-rails (~> 0.9)
   byebug

@@ -96,7 +96,7 @@ group :development do
   gem "sqlite3"
 
   # Annotates Rails/ActiveRecord Models, routes, fixtures, and others based on the database schema.
-  gem "annotate"
+  gem "annotaterb"
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "spring"
