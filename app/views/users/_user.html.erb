@@ -1,29 +1,27 @@
-<div v-scope="{ loadingUser: false, loadingDagschotel: false }" class="user">
+<div class="user" data-controller="user">
 
   <!-- User dagschotel -->
   <% if user.dagschotel && !user.quickpay_hidden %>
     <%= button_to dagschotel_order_user_path(user),
         method: :post,
-        class: "user-dagschotel",
-        ":class": "loadingDagschotel ? 'user-dagschotel--loading' : ''",
-        "v-show": "!loadingUser",
-        "@click.stop": "loadingDagschotel = true" do
+        data: { "user-target": "dagschotel", "action": "user#orderedDagschotel" },
+        class: "user-dagschotel" do
     %>
       <%= image_tag user.dagschotel.avatar(:dagschotel) %>
 
       <!-- Loading -->
-      <div class="user-loading" v-show="loadingDagschotel" v-cloak>
+      <div class="user-loading is-hidden" data-user-target="dagschotelLoader">
         <div class="user-loading-spinner"></div>
       </div>
     <% end %>
   <% end %>
 
   <!-- User image -->
-  <div class="user-avatar" :class="loadingUser ? 'user-avatar--loading' : ''">
-    <%= link_to image_tag(user.avatar), new_user_order_path(user), "@click": "loadingUser = true" %>
+  <div class="user-avatar" data-user-target="avatar">
+    <%= link_to image_tag(user.avatar), new_user_order_path(user), data: { action: "user#openedUser", "user-target": "userLink" } %>
 
     <!-- Loading -->
-    <div class="user-loading" v-show="loadingUser" v-cloak>
+    <div class="user-loading is-hidden" data-user-target="avatarLoader">
       <div class="user-loading-spinner"></div>
     </div>
   </div>
@@ -33,6 +31,6 @@
       new_user_order_path(user),
       class: "user-name",
       style: "color: #{get_user_text_color(user)}; background-color: #{get_user_color(user)}",
-      "@click": "loadingUser = true"
+      data: { action: "user#openedUser" }
     %>
 </div>
