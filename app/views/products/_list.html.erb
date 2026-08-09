@@ -4,29 +4,29 @@
 <% compact = compact || false %>
 <% compact_mobile = compact_mobile || false %>
 
-<div v-scope="ProductsController()">
+<div data-controller="products">
   <!-- Header -->
-  <div class="columns is-multiline" v-cloak>
+  <div class="columns is-multiline">
     <!-- Tabs -->
     <% if display_categories %>
       <div class="column">
         <div class="tabs">
           <ul>
             <!-- All -->
-            <li :class="tab === 'all' ? 'is-active' : ''" >
-              <a @click="tab = 'all'">
+            <li class="is-active">
+              <a data-action="products#changeTab" data-products-category-param="all" data-products-target="tab">
                 All
               </a>
             </li>
 
             <!-- Categories -->
-              <% @categories.each do |category, index| %>
-                <li :class="tab === '<%= category %>' ? 'is-active' : ''" >
-                  <a @click="tab = '<%= category %>'">
-                    <%= category.titleize %>
-                  </a>
-                </li>
-              <% end %>
+            <% @categories.each do |category, index| %>
+              <li>
+                <a data-action="products#changeTab" data-products-category-param="<%= category %>" data-products-target="tab">
+                  <%= category.titleize %>
+                </a>
+              </li>
+            <% end %>
           </ul>
         </div>
       </div>
@@ -35,7 +35,7 @@
     <!-- Search -->
     <div class="column <%= display_categories ? 'is-narrow' : 'is-fullwidth' %>">
       <div class="search">
-        <input v-model="search" class="input" placeholder="Search for a product..." />
+        <input class="input" placeholder="Search for a product..." data-action="products#search" />
       </div>
     </div>
   </div>
@@ -60,54 +60,8 @@
     <!--
     No search results placeholder
     -->
-    <div class="placeholder" v-show="showPlaceholder" v-cloak>
+    <div class="placeholder is-hidden" data-products-target="placeholder">
       No products found matching that query.
     </div>
   </div>
 </div>
-
-<script>
-function ProductsController(props) {
-  return {
-    /**
-     * Currently active tab category.
-     */
-    tab: "all",
-
-    /**
-     * Value of the search input.
-     */
-    search: "",
-
-    /**
-     * Should a specific product be shown
-     * @param name name of the product
-     * @param category name of the category of the product
-     */
-    showProduct(name, category) {
-      // If the product doesn't match the category, return false
-      if (category && this.tab !== "all" && this.tab !== category) {
-        return false;
-      }
-
-      // If the product doesn't match the search query, return false
-      if (this.search && !name.toLowerCase().includes(this.search.toLowerCase())) {
-        return false;
-      }
-
-      return true;
-    },
-
-    /**
-     * Should the placeholder be shown (when no products match a given query)
-     */
-    get showPlaceholder() {
-      // This is a simple hack to check if no products match a specific query.
-      // As product name the concatenation of all products is used,
-      // so when there is no match the string will not include the searched keyword
-      // and the placeholder can be shown.
-      return !this.showProduct('<%= escape_javascript @products.map(&:name).join %>', null)
-    }
-  }
-}
-</script>
