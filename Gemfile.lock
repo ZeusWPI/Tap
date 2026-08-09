@@ -521,5 +521,8 @@ DEPENDENCIES
   will_paginate
   will_paginate-bulma
 
+RUBY VERSION
+  ruby 4.0.6
+
 BUNDLED WITH
-  4.0.1
+  4.0.16
