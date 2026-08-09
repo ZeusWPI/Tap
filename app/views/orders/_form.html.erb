@@ -11,7 +11,7 @@
   </h1>
 
   <!-- Overview -->
-  <div class="order-new-bill-overview" v-show="!loading">
+  <div class="order-new-bill-overview" data-order-target="billOverview">
     <hr />
 
     <!-- Items -->
@@ -44,7 +44,7 @@
             <%= button_to new_user_orders_path(@user),
               class: "button is-danger is-light",
               type: "button",
-              "@click": "loading = true",
+              data: { action: "order#setLoading" },
               params: {
                 update_action: "remove",
                 product_id: order_item.product.id,
@@ -77,20 +77,20 @@
   </div>
 
   <!-- Loading -->
-  <div class="order-new-bill-loading" v-show="loading" v-cloak>
+  <div class="order-new-bill-loading is-hidden" data-order-target="spinner">
     <hr>
     <div class="order-new-bill-loading-spinner"></div>
     <hr>
   </div>
 
   <!-- Actual form -->
-  <%= f_form_for [@user, @order] do |f| %>
+  <%= f_form_for [@user, @order], data: { "order-target": "actualForm" } do |f| %>
     <%= f.fields_for :order_items do |ff| %>
       <%= ff.hidden_field :product_id %>
       <%= ff.hidden_field :count %>
     <% end %>
 
     <!-- Submit -->
-    <%= f.submit "Place order", class: "button is-primary is-fullwidth", data: { disable_with: "Please wait..." } %>
+    <%= f.submit "Place order", class: "button is-primary is-fullwidth", data: { action: "order#submit" } %>
   <% end %>
 </div>

@@ -43,7 +43,7 @@
 </div>
 
 <!-- Actions -->
-<div class="products-item-actions">
+<div class="products-item-actions" data-controller="current-dagschotel">
   <!-- Set dagschotel -->
   <% if actions.include? "dagschotel:update" %>
     <% if current_user.dagschotel != product %>
@@ -65,11 +65,10 @@
         },
         method: :put,
         class: "button is-light is-success",
-        "v-scope": "{ hover: false }",
-        ":value": "hover ? 'Remove dagschotel' : 'Current dagschotel'",
-        ":class": "hover ? 'is-danger' : ''",
-        "@mouseenter": "hover = true",
-        "@mouseleave": "hover = false"
+        data: {
+            "current-dagschotel-target": "button",
+            "action": "mouseenter->current-dagschotel#startHover mouseleave->current-dagschotel#endHover"
+        }
       %>
     <% end %>
   <% end %>

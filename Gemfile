@@ -23,6 +23,9 @@ gem "listen"
 # Sass
 gem "sassc-rails"
 
+# Stimulus
+gem "stimulus-rails"
+
 # Not sure why
 gem "net-imap", require: false
 gem "net-pop", require: false

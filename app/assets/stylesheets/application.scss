@@ -92,11 +92,6 @@ body {
   }
 }
 
-// Add support for Petite Vue "v-cloak" attribute.
-[v-cloak] {
-  display: none;
-}
-
 .landing {
   &-hero {
     background-image: asset-url("landing/background.svg");
