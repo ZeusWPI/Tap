@@ -5,19 +5,29 @@
 # Table name: users
 #
 #  id                  :integer          not null, primary key
-#  created_at          :datetime
-#  updated_at          :datetime
-#  remember_created_at :datetime
 #  admin               :boolean          default(FALSE)
-#  dagschotel_id       :integer
-#  orders_count        :integer          default(0)
+#  frecency            :integer          default(0), not null
 #  koelkast            :boolean          default(FALSE)
 #  name                :string
+#  orders_count        :integer          default(0)
 #  private             :boolean          default(FALSE)
-#  frecency            :integer          default(0), not null
 #  quickpay_hidden     :boolean          default(FALSE)
+#  remember_created_at :datetime
 #  userkey             :string
-#  zauth_id            :string
+#  created_at          :datetime
+#  updated_at          :datetime
+#  dagschotel_id       :integer
+#  zauth_id            :text             not null
+#
+# Indexes
+#
+#  index_users_on_koelkast      (koelkast)
+#  index_users_on_orders_count  (orders_count)
+#  index_users_on_zauth_id      (zauth_id) UNIQUE
+#
+# Foreign Keys
+#
+#  dagschotel_id  (dagschotel_id => products.id)
 #
 
 class User < ApplicationRecord
