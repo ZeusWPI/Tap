@@ -32,6 +32,8 @@ class User < ApplicationRecord
   has_many :products, through: :orders
   belongs_to :dagschotel, class_name: "Product", optional: true
 
+  validates :zauth_id, presence: true
+
   scope :members, -> { where koelkast: false }
   scope :publik, -> { where private: false }
 

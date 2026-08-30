@@ -21,6 +21,7 @@ if Rails.env.development?
     User.create!(
       name: name,
       private: false,
+      zauth_id: "fake-user-#{i}"
     )
   end
 
