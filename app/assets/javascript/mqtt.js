@@ -13,7 +13,7 @@ async function ready() {
   if (!items.length)
     return;
 
-  let client = await mqtt.connectAsync('ws://localhost:1884/ws');
+  let client = await mqtt.connectAsync('wss://mqtt.kelder.zeus.gent/');
   await client.publishAsync('frigo/ordered', JSON.stringify(items, null, 2), {qos: 2});
   await client.endAsync();
 }
