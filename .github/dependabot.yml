@@ -50,3 +50,12 @@ updates:
     time: "11:00"
     timezone: "Europe/Brussels"
   open-pull-requests-limit: 20
+
+- package-ecosystem: "nix"
+  directory: "/"
+  schedule:
+    interval: "weekly"
+    day: "saturday"
+    time: "11:00"
+    timezone: "Europe/Brussels"
+  open-pull-requests-limit: 20
