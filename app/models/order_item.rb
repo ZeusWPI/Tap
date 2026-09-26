@@ -5,9 +5,14 @@
 # Table name: order_items
 #
 #  id         :integer          not null, primary key
-#  order_id   :integer
-#  product_id :integer          not null
 #  count      :integer          default(0)
+#  order_id   :integer          not null
+#  product_id :integer          not null
+#
+# Foreign Keys
+#
+#  order_id    (order_id => orders.id)
+#  product_id  (product_id => products.id)
 #
 
 class OrderItem < ApplicationRecord
