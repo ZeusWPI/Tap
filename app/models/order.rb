@@ -20,9 +20,8 @@ class Order < ApplicationRecord
   has_many :products, through: :order_items
 
   before_validation :calculate_price
-  # rubocop:disable Style/CollectionQuerying
+  # rubocop:disable-next Style/CollectionQuerying
   before_save { |o| o.order_items = o.order_items.reject { |oi| oi.count.zero? } }
-  # rubocop:enable Style/CollectionQuerying
   after_create :create_api_job, unless: -> { user.guest? }
 
   after_create :update_user_frecency
