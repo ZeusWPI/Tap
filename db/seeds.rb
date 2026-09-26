@@ -21,6 +21,7 @@ if Rails.env.development?
     User.create!(
       name: name,
       private: false,
+      zauth_id: Faker::Alphanumeric.alpha(number: 10)
     )
   end
 
