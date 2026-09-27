@@ -103,8 +103,6 @@ Rails.application.configure do
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
-  Paperclip.options[:command_path] = "/usr/local/bin/"
-
   # Help the asset pipeline for staging
   config.x.host = 'tab.zeus.gent'
   config.api_url = "https://tab.zeus.gent/api/v1/"
