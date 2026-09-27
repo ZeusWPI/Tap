@@ -12,20 +12,20 @@ if Rails.env.development?
   puts "** Creating 50 users..."
 
   # Generate random users
-  users = 50.times.with_progress.map do |i|
-    name = Faker::Internet.unique.username(separators: %w(- _))
+  50.times.with_progress.map do |i|
+    name = Faker::Internet.unique.username(separators: %w[- _])
 
     User.create!(
       name: name,
       private: false,
-      zauth_id: Faker::Alphanumeric.alpha(number: 10)
+      zauth_id: "fake-user-#{i}"
     )
   end
 
   puts "** Creating 100 products..."
 
   # Generate random products
-  products = 100.times.with_progress.map do |i|
+  100.times.with_progress.map do |_i|
     name = Faker::Commerce.unique.product_name
 
     Product.create!(
@@ -33,7 +33,7 @@ if Rails.env.development?
       price_cents: Faker::Number.between(from: 10, to: 1000),
       stock: Faker::Number.between(from: 10, to: 200),
       calories: Faker::Number.between(from: 10, to: 1000),
-      category: ['food', 'beverages', 'other'].sample,
+      category: %w[food beverages other].sample,
       avatar: Paperclip.io_adapters.for(Identicon.data_url_for(name))
     )
   end
