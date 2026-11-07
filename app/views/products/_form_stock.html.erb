@@ -1,4 +1,4 @@
-<div v-scope="StockController({ currentStock: <%= @product.stock %> })" v-cloak>
+<div data-controller="stock" data-current-stock="<%= @product.stock %>">
   <%= f_form_for @product do |f| %>
     <!-- Header -->
     <div class="columns is-multiline is-justify-content-space-between">
@@ -15,7 +15,7 @@
     It will receive the value of the sum.
     -->
     <div class="is-hidden">
-      <%= f.number_field :stock, ":value": "newStock" %>
+      <%= f.number_field :stock, data: { "stock-target": "totalOutput" } %>
     </div>
 
     <!-- Current stock field -->
@@ -30,7 +30,7 @@
     <div class="field">
       <label class="label">Purchased</label>
       <div class="control">
-        <input class="input" v-model="purchasedStock" type="number" min="0" />
+        <input class="input" type="number" min="0" data-action="stock#setPurchasedStock" />
       </div>
     </div>
 
@@ -42,8 +42,8 @@
       <div class="column">
         <strong>New Stock:</strong>
 
-        <span class="has-text-success">
-          {{ newStock }}
+        <span class="has-text-success" data-stock-target="readableTotalOutput">
+          <%= @product.stock %>
         </span>
       </div>
 
@@ -54,26 +54,3 @@
     </div>
   <% end %>
 </div>
-
-<script>
-function StockController(props) {
-  return {
-    /**
-     * Current Stock
-     */
-    currentStock: props.currentStock,
-
-    /**
-     * Purchased stock
-     */
-    purchasedStock: 0,
-
-    /**
-     * New stock (current stock + purchased stock)
-     */
-    get newStock() {
-      return this.currentStock + this.purchasedStock;
-    }
-  }
-}
-</script>

@@ -1,4 +1,4 @@
-<div v-scope="{ loading: false }">
+<div data-controller="order">
   <div class="columns is-multiline">
     <!-- Select Product -->
     <div class="column">
@@ -23,7 +23,7 @@
 
         <!-- Barcode Field (for Koelkast) -->
         <% if current_user.koelkast %>
-          <%= f_form_with url: new_user_orders_path(@user), local: true, html: { "@submit": "loading = true" } do |f| %>
+          <%= f_form_with url: new_user_orders_path(@user), local: true, data: { action: "order#setLoading" } do |f| %>
 
             <!-- Hidden form input -->
             <%= f.hidden_field :update_action, value: "add" %>
@@ -53,12 +53,12 @@
 
         <!-- Barcode Scanner (for users) -->
         <% if !current_user.koelkast %>
-          <div class="order-new-actions-or" v-cloak>
+          <div class="order-new-actions-or">
             - OR -
           </div>
 
           <div>
-            <a class="button is-primary is-large" href="#modalOrderScanner" data-turbo="false" v-cloak>
+            <a class="button is-primary is-large" href="#modalOrderScanner" data-turbo="false">
               <%= icon('fas', 'camera', class: "mr-3") %> Scan barcode
             </a>
           </div>
