@@ -3,16 +3,13 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils, ... }:
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs { inherit system; };
-      in
-      {
-        devShell = pkgs.mkShell {
+  outputs =
+    { self, ... }@inputs:
+    {
+      devShells = builtins.mapAttrs (system: pkgs: {
+        tap = pkgs.mkShell {
           name = "Tap";
 
           buildInputs = with pkgs; [
@@ -32,7 +29,12 @@
 
             # Other dependencies
             imagemagick
+
+            # Formatting nix files
+            nixfmt
           ];
         };
-      });
+        default = self.devShells.${system}.tap;
+      }) inputs.nixpkgs.legacyPackages;
+    };
 }
