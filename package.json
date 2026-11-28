@@ -9,7 +9,7 @@
     "@ericblade/quagga2": "^1.13.0",
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^8.0.23",
-    "chart.js": "^4.6.1",
+    "chart.js": "^4.6.2",
     "chartkick": "^5.0.1",
     "date-fns": "^4.4.0",
     "esbuild": "^0.28.1",
